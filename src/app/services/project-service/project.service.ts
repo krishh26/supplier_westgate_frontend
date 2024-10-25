@@ -52,7 +52,6 @@ export class ProjectService {
     supplierStatus?:string
   }): Observable<any> {
     const url = `${this.baseUrl}${ProjectEndPoint.PROJECT_LIST}`;
-
     let queryParams = new HttpParams();
     queryParams = queryParams.set('keyword', params?.keyword || '');
     queryParams = queryParams.set('page', params?.page);

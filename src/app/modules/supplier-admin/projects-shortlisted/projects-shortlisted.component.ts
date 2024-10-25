@@ -8,13 +8,13 @@ import { ProjectService } from 'src/app/services/project-service/project.service
 import { SuperadminService } from 'src/app/services/super-admin/superadmin.service';
 import { pagination } from 'src/app/utility/shared/constant/pagination.constant';
 import { Payload } from 'src/app/utility/shared/constant/payload.const';
-
 @Component({
   selector: 'app-projects-shortlisted',
   templateUrl: './projects-shortlisted.component.html',
   styleUrls: ['./projects-shortlisted.component.scss']
 })
 export class ProjectsShortlistedComponent implements OnInit {
+  private payload:any={};
   showLoader: boolean = false;
   projectList: any = [];
   page: number = pagination.page;
@@ -78,6 +78,7 @@ export class ProjectsShortlistedComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.payload=this.superService.deepCopy(Payload.projectList);
     this.myControl.valueChanges.subscribe((res: any) => {
       let storeTest = res;
       this.searchText = res.toLowerCase();
@@ -106,13 +107,13 @@ export class ProjectsShortlistedComponent implements OnInit {
 
   getProjectList() {
     this.showLoader = true;
-    Payload.projectList.keyword = this.searchText;
-    Payload.projectList.page = String(this.page);
-    Payload.projectList.limit = String(this.pagesize);
-    Payload.projectList.applied = false;
-    Payload.projectList.sortlist = true;
-    Payload.projectList.match = 'partial';
-    this.projectService.getProjectList(Payload.projectList).subscribe((response) => {
+    this.payload.keyword = this.searchText;
+    this.payload.page = String(this.page);
+    this.payload.limit = String(this.pagesize);
+    this.payload.applied = false;
+    this.payload.sortlist = true;
+    this.payload.match = 'partial';
+    this.projectService.getProjectList(this.payload).subscribe((response) => {
       this.projectList = [];
       this.totalRecords = response?.data?.meta_data?.items;
       if (response?.status == true) {
@@ -149,20 +150,20 @@ export class ProjectsShortlistedComponent implements OnInit {
   searchtext() {
     this.showLoader = true;
     // Update payload with filters
-    Payload.projectList.keyword = this.searchText;
-    Payload.projectList.page = String(this.page);
-    Payload.projectList.limit = String(this.pagesize);
-    Payload.projectList.category = this.selectedCategories.join(',');
-    Payload.projectList.industry = this.selectedIndustries.join(',');
-    Payload.projectList.projectType = this.selectedProjectTypes.join(',');
-    Payload.projectList.clientType = this.selectedClientTypes.join(',');
-    Payload.projectList.status = this.selectedStatuses.join(',');
-    Payload.projectList.supplierStatus = this.selectedStatuses.join(',');
-    Payload.projectList.publishDateRange = (this.publishStartDate.value && this.publishEndDate.value) ? `${this.publishStartDate.value.year}-${this.publishStartDate.value.month}-${this.publishStartDate.value.day} , ${this.publishEndDate.value.year}-${this.publishEndDate.value.month}-${this.publishEndDate.value.day}` : '';
-    Payload.projectList.SubmissionDueDateRange = (this.submissionStartDate.value && this.submissionEndDate.value) ? `${this.submissionStartDate.value.year}-${this.submissionStartDate.value.month}-${this.submissionStartDate.value.day} , ${this.submissionEndDate.value.year}-${this.submissionEndDate.value.month}-${this.submissionEndDate.value.day}` : '';
-    Payload.projectList.valueRange = this.minValue + '-' + this.maxValue;
-    Payload.projectList.expired = this.isExpired;
-    this.projectService.getProjectList(Payload.projectList).subscribe((response) => {
+    this.payload.keyword = this.searchText;
+    this.payload.page = String(this.page);
+    this.payload.limit = String(this.pagesize);
+    this.payload.category = this.selectedCategories.join(',');
+    this.payload.industry = this.selectedIndustries.join(',');
+    this.payload.projectType = this.selectedProjectTypes.join(',');
+    this.payload.clientType = this.selectedClientTypes.join(',');
+    this.payload.status = this.selectedStatuses.join(',');
+    this.payload.supplierStatus = this.selectedStatuses.join(',');
+    this.payload.publishDateRange = (this.publishStartDate.value && this.publishEndDate.value) ? `${this.publishStartDate.value.year}-${this.publishStartDate.value.month}-${this.publishStartDate.value.day} , ${this.publishEndDate.value.year}-${this.publishEndDate.value.month}-${this.publishEndDate.value.day}` : '';
+    this.payload.SubmissionDueDateRange = (this.submissionStartDate.value && this.submissionEndDate.value) ? `${this.submissionStartDate.value.year}-${this.submissionStartDate.value.month}-${this.submissionStartDate.value.day} , ${this.submissionEndDate.value.year}-${this.submissionEndDate.value.month}-${this.submissionEndDate.value.day}` : '';
+    this.payload.valueRange = this.minValue + '-' + this.maxValue;
+    this.payload.expired = this.isExpired;
+    this.projectService.getProjectList(this.payload).subscribe((response) => {
       this.projectList = [];
       this.totalRecords = response?.data?.meta_data?.items;
       if (response?.status == true) {

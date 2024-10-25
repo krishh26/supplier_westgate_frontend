@@ -60,4 +60,7 @@ export class SuperadminService {
       .post<any>(this.baseUrl + SuperAdminEndPoint.SUPPLIER_REGISTER, payload);
   }
 
+   deepCopy<T>(object: T): T {
+    return JSON.parse(JSON.stringify(object));
+  }
 }
