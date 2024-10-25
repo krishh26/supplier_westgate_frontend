@@ -1,0 +1,75 @@
+<main id="main">
+  <section>
+    <div class="container-fluid">
+      <div class="row align-items-center justify-content-between">
+        <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
+          <div class="form-group mb-0">
+            <span class="input-icon"><i class="bi bi-search"></i></span>
+            <input class="form-control control-search" placeholder="Search" type="text" [(ngModel)]="searchText"
+              (input)="searchtext()">
+          </div>
+        </div>
+      </div>
+      <div class="table-responsive mt-5 mb-3">
+        <table class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th width="200px">Project Title</th>
+              <th>BOS ID</th>
+              <th>Publish Date</th>
+              <th>Category</th>
+              <th>Min value (GBP)</th>
+              <th>Max value (GBP)</th>
+              <th>Status</th>
+              <th>Project Start Date</th>
+              <th>Project End Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container
+              *ngFor="let item of projectList  |  paginate: { itemsPerPage: pagesize , currentPage: page, totalItems: totalRecords } ;; let index = index;">
+              <tr>
+                <td><a href="javascript();">{{ item?.projectName }}</a></td>
+                <td v-align="middle">{{ item?.BOSID }}</td>
+                <td>{{ item?.publishDate | date:'YYYY-MM-dd' }}</td>
+                <td>{{ item?.website }}</td>
+                <td>£ {{item?.minValue}}</td>
+                <td>£ {{item?.maxValue}}</td>
+                <td><strong class="text-success"> {{ item?.status }} </strong></td>
+                <td>{{ item?.periodOfContractStart | date:'YYYY-MM-dd' || '-'}}</td>
+                <td>{{ item?.periodOfContractEnd | date:'YYYY-MM-dd' || '-'}}</td>
+                <td>
+                  <a (click)="projectDetails(item?._id)" class="btn btn-sm btn-primarysm" title="View Details">View
+                    Project Details </a>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+      <div class="row mt-3 align-items-center">
+        <div class="row">
+          <div class="pagination">
+            <pagination-controls [idMaxSize]="100" (pageChange)="paginate($event)"></pagination-controls>
+          </div>
+        </div>
+      </div>
+      <!-- <nav>
+        <ul class="pagination justify-content-end">
+          <li class="page-item disabled">
+            <span class="page-link">Previous</span>
+          </li>
+          <li class="page-item"><a class="page-link" href="javascript:;">1</a></li>
+          <li class="page-item active" aria-current="page">
+            <span class="page-link">2</span>
+          </li>
+          <li class="page-item"><a class="page-link" href="javascript:;">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="javascript:;">Next</a>
+          </li>
+        </ul>
+      </nav> -->
+    </div>
+  </section>
+</main>

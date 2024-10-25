@@ -1,0 +1,78 @@
+<main id="main">
+  <section class="adduser-section">
+    <div class="container-fluid">
+      <div class="row align-items-center mb-5">
+        <div class="col-lg-10 col-xl-10 col-md-10 col-sm-10 col-8 mob-mb1">
+          <h4 class="text-theme mb-4"><strong>Add Users</strong></h4>
+        </div>
+        <div class="col-lg-2 col-xl-2 col-md-4 col-sm-4 col-12 text-end">
+          <a routerLink="/supplier-admin/manage-user" class="btn btn btn-link text-dark">Back</a>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-xl-6 col-sm-6 col-md-6 col-12">
+          <form class="pt-5 pb-5 needs-validation" [formGroup]="onboardingForm" (ngSubmit)="addManageUser()">
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">User Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="User name" formControlName="userName" required>
+                <span class="text-danger" *ngIf="
+                onboardingForm.controls.userName.touched &&
+                onboardingForm.controls.userName?.errors?.['required']">
+                  Please enter User Name.
+                </span>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">Email ID</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Email ID" id="email" formControlName="email"
+                  required>
+                <span class="text-danger" *ngIf="
+                onboardingForm.controls.email.touched &&
+                onboardingForm.controls.email?.errors?.['required']">
+                  Please enter email.
+                </span>
+                <span class="text-danger" *ngIf="
+                onboardingForm.controls.email.touched &&
+                onboardingForm.controls.email?.errors?.['pattern']">
+                  Please enter valid email.
+                </span>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">Domain</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Domain" id="Firstname" formControlName="domain"
+                  required>
+                <span class="text-danger" *ngIf="
+                onboardingForm.controls.domain.touched &&
+                onboardingForm.controls.domain?.errors?.['required']">
+                  Please enter domain.
+                </span>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">Department</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Department" id="Firstname"
+                  formControlName="department" required>
+                <span class="text-danger" *ngIf="
+                onboardingForm.controls.department.touched &&
+                onboardingForm.controls.department?.errors?.['required']">
+                  Please enter department.
+                </span>
+              </div>
+            </div>
+            <div class="row justify-content-end mb-3">
+              <div class="col-lg-2 col-xl-2 col-md-2 col-sm-2 col-12">
+                <button type="submit" class="btn btn-primary w-100">Add</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main><!-- End #main -->

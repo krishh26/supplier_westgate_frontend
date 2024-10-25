@@ -1,0 +1,120 @@
+<main id="main" *ngIf="!showSuccess">
+  <section class="p-2">
+    <div class="container-fluid">
+      <div class="row align-items-center justify-content-end">
+        <div class="col-lg-2 col-xl-2 col-12">
+          <a routerLink="/feasibility-user/feasibility-project-list" class="btn btn-primary text-dark">Back</a>
+        </div>
+      </div>
+
+      <div class="table-responsive mt-5 mb-3">
+        <table class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th width="100px">Project Title</th>
+              <!-- <th>Project Description</th> -->
+              <th>BOS ID</th>
+              <th>Publish Date</th>
+              <th>Category</th>
+              <th>Industry</th>
+              <th>Min value (GBP)</th>
+              <th>Max value (GBP)</th>
+              <th>Website</th>
+              <th>Link to notice</th>
+              <th>Created Date</th>
+              <th>Due Date & Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a (click)="projectDetails(projectDetails?._id)"
+                  href="javascript:;">{{projectDetails?.projectName}}</a>
+              </td>
+              <!-- <td><a title="{{ projectDetails?.description }}">{{ projectDetails?.description | slice:0:10 }}</a></td> -->
+              <td v-align="middle">{{projectDetails?.BOSID}}</td>
+              <td>{{projectDetails?.publishDate | date:'dd/MM/yyyy'}}</td>
+              <td>{{projectDetails?.category}}</td>
+              <td>{{projectDetails?.industry}}</td>
+              <td>£ {{projectDetails?.minValue}}</td>
+              <td>£ {{projectDetails?.maxValue}}</td>
+              <td><a>{{projectDetails?.website}}</a></td>
+              <td><a href='{{projectDetails?.link}}' target="_blank">{{projectDetails?.link}}</a></td>
+              <td>{{projectDetails?.createdAt | date:'dd/MM/yyyy'}}</td>
+              <td>{{projectDetails?.dueDate | date:'dd/MM/yyyy, h:mm a'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <section class="pageheader bg-dark">
+        <div class="container">
+          <p><strong>Minimum Eligibility Form</strong></p>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <form [formGroup]="eligibilityForm" (ngSubmit)="submit()">
+        <div class="row">
+          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Case Study Numbers</label>
+              <input type="number" class="form-control" formControlName="caseStudyRequired">
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Certifications</label>
+              <input type="text" class="form-control" formControlName="certifications">
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Policy</label>
+              <input type="text" class="form-control" formControlName="policy">
+            </div>
+          </div>
+          <!-- <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-12">
+                      <div class="form-group">
+                          <label class="display-block">&nbsp;</label>
+                          <button type="submit" class="btn btn-dark"><i class="bi bi-plus-lg"></i></button>
+                      </div>
+                  </div> -->
+        </div>
+      </form>
+      <div class="row">
+        <div class="col-12 text-center">
+          <button type="submit" (click)="submitEligibilityForm()" class="btn btn-dark">Submit</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<ng-container *ngIf="showSuccess">
+  <section class="section-registration">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-10 col-12">
+          <div class="registration-card">
+            <div class="card-body">
+              <div class="row mb-4">
+                <div class="col-12 text-center">
+                  <img src="assets/img/success-icon.gif" width="100" class="mt-5 mb-5" />
+                  <h5 class="mb-5"><strong>
+                      Project Updated Successfully.
+                    </strong></h5>
+                  <button class="btn btn-dark" routerLink="/feasibility-user/feasibility-project-list">
+                    Next
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-container>

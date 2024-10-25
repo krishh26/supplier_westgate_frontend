@@ -1,0 +1,155 @@
+<main id="main">
+    <section>
+        <div class="container-fluid">
+            <form [formGroup]="productForm" (ngSubmit)="submitForm()">
+                <div class="row">
+                    <div class="col-lg-6 col-xl-6 col-12">
+
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Start Date</label>
+                            <div class="col-sm-8">
+                                <input formControlName="date" type="date" class="form-control" placeholder="Start Date">
+                                <div *ngIf="productForm.get('date')?.invalid && productForm.get('date')?.touched" class="text-danger">
+                                    Start Date is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Project/Application name</label>
+                            <div class="col-sm-8">
+                                <input formControlName="name" type="text" class="form-control" placeholder="Enter Project/Application name">
+                                <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched" class="text-danger">
+                                    Project/Application name is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Domain/Category</label>
+                            <div class="col-sm-8">
+                                <select class="form-control dropdown-filter" formControlName="category">
+                                    <option value="" selected hidden>Select a category</option>
+                                    <option *ngFor="let category of categoryList">{{ category?.category }}</option>
+                                </select>
+                                <div *ngIf="productForm.get('category')?.invalid && productForm.get('category')?.touched" class="text-danger">
+                                    Category is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Industry</label>
+                            <div class="col-sm-8">
+                                <select class="form-control dropdown-filter" formControlName="industry">
+                                    <option value="" selected hidden>Select an industry</option>
+                                    <option *ngFor="let industry of industryList" [value]="industry?.industry">{{ industry?.industry }}</option>
+                                </select>
+                                <div *ngIf="productForm.get('industry')?.invalid && productForm.get('industry')?.touched" class="text-danger">
+                                    Industry is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Type</label>
+                            <div class="col-sm-8">
+                                <select formControlName="type" class="form-select">
+                                    <option selected hidden value="">Select Type</option>
+                                    <option value="Mobileapp">Mobile App</option>
+                                    <option value="desktopapplication">Desktop Application</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <div *ngIf="productForm.get('type')?.invalid && productForm.get('type')?.touched" class="text-danger">
+                                    Type is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Description</label>
+                            <div class="col-sm-8">
+                                <textarea formControlName="description" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+                                <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched" class="text-danger">
+                                    Description is required.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6 col-xl-6 col-12">
+
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">End Date</label>
+                            <div class="col-sm-8">
+                                <input formControlName="contractDuration" type="date" class="form-control">
+                                <div *ngIf="productForm.get('contractDuration')?.invalid && productForm.get('contractDuration')?.touched" class="text-danger">
+                                    End Date is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Technologies</label>
+                            <div class="col-sm-8">
+                                <input formControlName="technologies" type="text" class="form-control" placeholder="Enter Technologies">
+                                <div *ngIf="productForm.get('technologies')?.invalid && productForm.get('technologies')?.touched" class="text-danger">
+                                    Technologies are required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Maintenance</label>
+                            <div class="col-sm-8">
+                                <input formControlName="maintenance" type="text" class="form-control" placeholder="Enter Maintenance">
+                                <div *ngIf="productForm.get('maintenance')?.invalid && productForm.get('maintenance')?.touched" class="text-danger">
+                                    Maintenance is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Contract Value</label>
+                            <div class="col-sm-8">
+                                <input formControlName="contractValue" type="text" class="form-control" placeholder="Enter Contract Value" (keypress)="NumberOnly($event)">
+                                <div *ngIf="productForm.get('contractValue')?.invalid && productForm.get('contractValue')?.touched" class="text-danger">
+                                    Contract Value is required and should be a number.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Resources Used</label>
+                            <div class="col-sm-8">
+                                <input formControlName="resourcesUsed" type="text" class="form-control" placeholder="Enter Resources Used">
+                                <div *ngIf="productForm.get('resourcesUsed')?.invalid && productForm.get('resourcesUsed')?.touched" class="text-danger">
+                                    Resources Used are required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Client Name</label>
+                            <div class="col-sm-8">
+                                <input formControlName="clientName" type="text" class="form-control" placeholder="Enter Client Name">
+                                <div *ngIf="productForm.get('clientName')?.invalid && productForm.get('clientName')?.touched" class="text-danger">
+                                    Client Name is required.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-12 text-end">
+                        <button type="button" routerLink="/supplier-admin/case-studies-list" class="btn btn-primary">Back</button>&nbsp;
+                        <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>

@@ -1,0 +1,81 @@
+<body class="bg-blue">
+  <section class="pageheader pt-5">
+    <div class="container">
+      <div class="row justify-content-end">
+        <div class="col-2">
+          <a
+            routerLink="/project-coordinator/project-coordinator-projects-list"
+            class="btn btn-primary text-dark"
+            >Back</a
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+  <main id="main">
+    <section>
+      <div class="container">
+        <div class="row mb-4 justify-content-center">
+          <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12">
+            <div class="card mb-2">
+              <div class="card-body">
+                <p class="mb-0">{{ questionDetails?.questionName }}</p>
+              </div>
+            </div>
+            <div class="card mb-2">
+              <div class="card-body">
+                <p class="mb-0">{{ questionDetails?.question }}</p>
+              </div>
+            </div>
+            <div class="card mb-2">
+              <div class="card-body">
+                <p class="mb-0">{{ questionDetails?.refrenceDocument }}</p>
+              </div>
+            </div>
+            <div class="card mb-2">
+              <div class="card-body">
+                <p class="mb-0">{{ questionDetails?.weightage }}</p>
+              </div>
+            </div>
+            <div class="card mb-2">
+              <div class="card-body">
+                <p class="mb-0">{{ questionDetails?.deadline | date:'dd-MM-YYYY' }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8 col-xl-8 col-md-8 col-sm-8 col-12">
+            <div class="card">
+              <div class="card-body">
+                <p><strong>Instructions from West Gate/ Spectrum</strong></p>
+                <p>{{ questionDetails?.instructions }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <p><strong>Review Comments</strong></p>
+                <p>{{ questionDetails?.comment }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <h6><strong>Supplier Response</strong></h6>
+          </div>
+          <ng-container *ngFor="let reponse of questionDetails?.response">
+            <div class="row align-items-center">
+              <div class="col-12">
+                <div class="form-group d-flex justify-content-between">
+                  <input type="text" class="form-control" [value]="reponse?.message" />
+                  <!-- <p>{{reponse?.type}}</p> -->
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>

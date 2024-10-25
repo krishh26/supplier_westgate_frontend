@@ -1,0 +1,317 @@
+<main id="main">
+    <section>
+        <div class="container-fluid">
+            <form [formGroup]="productForm" (ngSubmit)="submitForm()">
+                <div class="row">
+                    <div class="col-lg-5 col-xl-5 col-12">
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Project Name</label>
+                            <div class="col-sm-8">
+                                <textarea formControlName="projectName" class="form-control" rows="3"
+                                    cols="100"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">BOS ID</label>
+                            <div class="col-sm-8">
+                                <input formControlName="BOSID" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Publish Date</label>
+                            <div class="col-sm-8">
+                                <input formControlName="publishDate" type="text" class="form-control"
+                                    placeholder="Auto Detect System Calendar">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Submission Due Date</label>
+                            <div class="col-sm-8">
+
+                                <input formControlName="dueDate" type="date" class="form-control"
+                                    placeholder="Start Date">
+
+                                <div class="row mt-2">
+                                    <div class="col-6">
+                                        <select class="form-select" formControlName="bidsubmissionhour">
+                                            <option value="00">Hours</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <select class="form-select" formControlName="bidsubmissionminute">
+                                            <option value="00">Minute</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+                                            <option value="31">31</option>
+                                            <option value="32">32</option>
+                                            <option value="33">33</option>
+                                            <option value="34">34</option>
+                                            <option value="35">35</option>
+                                            <option value="36">36</option>
+                                            <option value="37">37</option>
+                                            <option value="38">38</option>
+                                            <option value="39">39</option>
+                                            <option value="40">40</option>
+                                            <option value="41">41</option>
+                                            <option value="42">42</option>
+                                            <option value="43">43</option>
+                                            <option value="44">44</option>
+                                            <option value="45">45</option>
+                                            <option value="46">46</option>
+                                            <option value="47">47</option>
+                                            <option value="48">48</option>
+                                            <option value="49">49</option>
+                                            <option value="50">50</option>
+                                            <option value="51">51</option>
+                                            <option value="52">52</option>
+                                            <option value="53">53</option>
+                                            <option value="54">54</option>
+                                            <option value="55">55</option>
+                                            <option value="56">56</option>
+                                            <option value="57">57</option>
+                                            <option value="58">58</option>
+                                            <option value="59">59</option>
+                                            <option value="60">60</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Website</label>
+                            <div class="col-sm-8">
+                                <select formControlName="website" class="form-select">
+                                    <option disabled selected hidden value="">Website URL</option>
+                                    <option value="Proactis">Proactis</option>
+                                    <option value="FindmyTender">Find my Tender</option>
+                                    <option value="ContractFinder">Contract Finder</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Notice Reference</label>
+                            <div class="col-sm-8">
+                                <input formControlName="noticeReference" type="text" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">CPV Codes</label>
+                            <div class="col-sm-8">
+                                <input formControlName="CPVCodes" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-xl-7 col-12">
+                        <div class="row">
+                            <div class="col-lg-6 col-xl-6 col-12">
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Category</label>
+                                    <div class="col-sm-8">
+
+                                        <!-- <select formControlName="category" class="form-select">
+                                            <option>Select category</option>
+                                        </select> -->
+
+                                        <!-- <select class="form-control" required name="doctorSpecilisationIDs"
+                                            formControlName="doctorSpecilisationIDs">
+                                            <option selected hidden>Select Speciality</option>
+                                            <option *ngFor="let item of specialitylist">
+                                                {{item.specialistName}}</option>
+                                        </select> -->
+                                        <select class="form-control dropdown-filter" formControlName="category"
+                                            name="category">
+                                            <option value="" selected hidden>Select a category</option>
+                                            <option *ngFor="let category of categoryList">{{
+                                                category?.category }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-xl-6 col-12">
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Industry</label>
+                                    <div class="col-sm-8">
+                                        <!-- <select formControlName="industry" class="form-select">
+                                            <option>Industry Type</option>
+                                        </select> -->
+                                        <select class="form-control dropdown-filter" formControlName="industry"
+                                            name="industry">
+                                            <option value="" selected hidden>Select a industry</option>
+                                            <option *ngFor="let industry of industryList" [value]="industry?.industry">
+                                                {{
+                                                industry?.industry }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
+                            <div class="col-sm-10">
+                                <textarea formControlName="description" class="form-control" rows="3"
+                                    cols="100"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-xl-6 col-12">
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Link to notice</label>
+                                    <div class="col-sm-8">
+                                        <input formControlName="link" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-xl-6 col-12">
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Contract Period</label>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <input formControlName="periodOfContractStart" type="date"
+                                                    class="form-control" placeholder="Start Date">
+                                            </div>
+                                            <div class="col-6">
+                                                <input formControlName="periodOfContractEnd" type="date"
+                                                    class="form-control" placeholder="End Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- <div class="col-lg-6 col-xl-6 col-12">
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Value</label>
+                                    <div class="col-sm-8">
+                                        <input formControlName="value" type="number" class="form-control">
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-lg-12 col-xl-12 col-12">
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Project Type</label>
+                                    <div class="col-sm-10">
+                                        <select formControlName="projectType" class="form-select">
+                                            <option disabled selected hidden value="">Select Project Type</option>
+                                            <option value="Development">Development</option>
+                                            <option value="Product">Product</option>
+                                            <option value="Service">Service</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Mail ID</label>
+                            <div class="col-sm-10">
+                                <input formControlName="mailID" type="email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-lg-6 col-xl-6 col-12">
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Client Type</label>
+                                    <div class="col-sm-8">
+                                        <select formControlName="clientType" class="form-select">
+                                            <option disabled selected hidden value="">Select Client Type</option>
+                                            <option value="PublicSector">Public Sector</option>
+                                            <option value="PrivateSector">Private Sector</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-xl-6 col-12">
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Client Name</label>
+                                    <div class="col-sm-8">
+                                        <input formControlName="clientName" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-0">
+                            <div class="col-lg-6 col-xl-6 col-12">
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Min value (GBP)</label>
+                                    <div class="col-sm-8">
+                                        <input formControlName="minValue" type="text" class="form-control"
+                                       aria-label="Min value (GBP)" (keypress)="NumberOnly($event)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-xl-6 col-12">
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-4 col-form-label">Max value (GBP)</label>
+                                    <div class="col-sm-8">
+                                        <input formControlName="maxValue" type="text" class="form-control" aria-label="Max value (GBP)" (keypress)="NumberOnly($event)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12 text-end">
+                        <button type="button" routerLink="/boss-user/project-list" class="btn btn-primary">Back</button>&nbsp;
+                        <button type="submit" class="btn btn-primary">Publish</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</main><!-- End #main -->

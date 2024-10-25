@@ -1,0 +1,323 @@
+<main id="main">
+    <section>
+        <div class="container-fluid">
+            <div class="row align-items-end justify-content-end">
+                <div class="col-lg-2 col-xl-2 col-md-2 col-sm-2 col-2">
+                    <a routerLink="/supplier-admin/project-list" class="btn btn-primary text-dark">Back</a>
+                </div>
+            </div>
+            <div class="table-responsive mt-5 mb-3">
+                <table class="table table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th width="200px">Project Title</th>
+                            <th>BOS ID</th>
+                            <th>Publish Date</th>
+                            <th>Category</th>
+                            <th>Industry</th>
+                            <th>Value</th>
+                            <!-- <th>Project Type</th>
+                          <th>Status</th>
+                          <th>Due Date &amp; Time</th> -->
+                            <!-- <th></th> -->
+                            <!-- <th>Action</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <!-- <td><a href="javascript:;">Provision of MyBedsLife Student Engagement App Support Services</a></td> -->
+                            <td><a>{{projectDetails?.projectName}}</a></td>
+                            <td v-align="middle">{{projectDetails?.BOSID}}</td>
+                            <td>{{projectDetails?.publishDate | date:'dd/MM/yyyy'}}</td>
+                            <td>{{projectDetails?.category}}</td>
+                            <td>{{projectDetails?.industry}}</td>
+                            <td>{{projectDetails?.value}}</td>
+                            <!-- <td>{{projectDetails?.projectType}}</td>
+                          <td>{{projectDetails?.status}}</td>
+                          <td>{{projectDetails?.dueDate | date:'dd/MM/yyyy, h:mm a'}}</td> -->
+                            <!-- <td><i class="bi bi-check-circle-fill text-success"></i> CS(3/3)</td> -->
+                            <!-- <td>
+                              <a *ngIf="projectDetails?.sortListUserId?.length > 0"
+                                  style="background-color: darkgray;" class="btn btn-sm btn-dark m-1"
+                                  title="Shortlist">Shortlisted</a>
+                              <a *ngIf="projectDetails?.sortListUserId?.length == 0"
+                                  (click)="sortListProject(projectDetails?._id)" class="btn btn-sm btn-dark m-1"
+                                  title="Shortlist">Shortlist</a>
+                          </td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <section class="p-0">
+        <div class="container-fluid text-center mb-3">
+            <h4 class="text-theme"><strong>Details Of The Projects</strong></h4>
+        </div>
+        <div class="container-fluid">
+            <div class="row mb-4">
+                <h4 class="text-theme"><strong>Project Description</strong></h4>
+                <p>{{projectDetails?.description}}</p>
+            </div>
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h4 class="text-theme mb-4"><strong>Documents</strong></h4>
+                </div>
+                <div class="col-lg-6 col-xl-6 col-md-6 col-12 mob-mb1">
+                    <h5>Client Documents</h5>
+                    <div class="card">
+                        <ul class="project-document">
+                            <ng-container *ngIf="projectDetails?.clientDocument?.length > 0">
+                                <li *ngFor="let clientdocument of projectDetails?.clientDocument">
+                                    <div class="row">
+                                        <div class="col-5 text-center">
+                                            <p class="mb-0">{{clientdocument?.name}}</p>
+                                        </div>
+                                        <div class="col-7 text-center">
+                                            <a href="href:;" class="btn btn-primarysm me-2" data-bs-toggle="modal"
+                                                data-bs-target="#ViewDocuments"
+                                                (click)="openDocument(clientdocument?.file)"><i
+                                                    class="bi bi-eye-fill"></i>
+                                                View</a>
+                                            <a href="href:;"
+                                                (click)="download(clientdocument?.file?.url, clientdocument?.name)"
+                                                class="btn btn-primarysm"><i
+                                                    class="bi bi-file-earmark-arrow-down-fill"></i>
+                                                Download</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ng-container>
+                            <ng-container *ngIf="projectDetails?.clientDocument?.length == 0">
+                                <li style="text-align: center;">
+                                    <p>No Record Found.</p>
+                                </li>
+                            </ng-container>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xl-6 col-md-6 col-12">
+                    <h5>West Gate Documents</h5>
+                    <div class="card">
+                        <ul class="project-document">
+                            <ng-container *ngIf="projectDetails?.westGetDocument?.length > 0">
+                                <li *ngFor="let westGetDocument of projectDetails?.westGetDocument">
+                                    <div class="row">
+                                        <div class="col-5 text-center">
+                                            <p class="mb-0">Project Notice</p>
+                                        </div>
+                                        <div class="col-7 text-center">
+                                            <a href="javascript:;" class="btn btn-primarysm"><i class="bi bi-eye-fill"
+                                                    data-bs-toggle="modal" data-bs-target="#ViewDocuments"
+                                                    (click)="openDocument(westGetDocument?.file)"></i>
+                                                View</a>
+                                            <a href="javascript:;" class="btn btn-primarysm"><i
+                                                    class="bi bi-file-earmark-arrow-down-fill"></i> Download</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ng-container>
+                            <ng-container *ngIf="projectDetails?.westGetDocument?.length == 0">
+                                <li style="text-align: center;">
+                                    <p>No Record Found.</p>
+                                </li>
+                            </ng-container>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-lg-4 col-xl-4 col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-lg-4 col-xl-4 col-12">
+                                    <h6 class="text-theme"><strong>Client Detils</strong></h6>
+                                </div>
+                                <div class="col-lg-7 col-xl-7 col-12">
+                                    <p class="p-13 mb-0">Mail ID : {{projectDetails?.mailID}}</p>
+                                    <p class="p-13 mb-0">Client Type : {{projectDetails?.clientType}}</p>
+                                    <p class="p-13 mb-0">Client Name : {{projectDetails?.clientName}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-4 col-12 mb-4">
+                    <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
+                        <p class="mb-0">FOI Document</p>
+                    </div>
+                    <div class="row align-items-center" *ngIf="projectDetails?.fois?.length == 0">
+                        <div class="col-lg-12 col-xl-12 col-12 mob-mb1">
+                            <p class="mb-0">No Record Found.</p>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="projectDetails?.fois?.length > 0">
+                        <div class="row align-items-center" *ngFor="let foiDocument of projectDetails?.fois">
+                            <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
+                                <p class="mb-0">{{ foiDocument?.name }}</p>
+                            </div>
+                            <div class="col-lg-4 col-xl-4 col-6">
+                                <a (click)="openDocument(foiDocument)" class="btn btn-small w-100"
+                                    data-bs-toggle="modal" data-bs-target="#ViewDocumentModal"><i
+                                        class="bi bi-eye-fill"></i> View</a>
+                            </div>
+                            <div class="col-lg-4 col-xl-4 col-6">
+                                <a style="
+                            padding-left: 0 !important;
+                            padding-right: 0px !important;
+                          " (click)="
+                            download(foiDocument?.link?.url, foiDocument?.name)
+                          " target="_blank" class="btn btn-small w-100"><i
+                                        class="bi bi-file-earmark-arrow-down-fill"></i>
+                                    Download</a>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="col-lg-4 col-xl-4 col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <p class="p-13"><strong>Period of Contract: {{projectDetails?.periodOfContractStart | date :
+                                    'dd/MM/yyyy'}} - {{projectDetails?.periodOfContractEnd | date :
+                                    'dd/MM/yyyy'}}</strong></p>
+                            <p class="p-13"><strong>Project Type: {{projectDetails?.projectType}}</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- <div class="container text-center mb-3">
+        <h4 class="text-theme"><strong>Summary Note Question Section : For Your Action</strong></h4>
+    </div> -->
+    <section class="bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h5 class="text-white mb-4"><strong>Summary Note Questions</strong></h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <table class="table table-dark table-borderless" style="background-color: #252525;">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Question Name</th>
+                                <th>Question Description</th>
+                                <th>Weightage</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of summaryquestionList">
+                                <td width="250">{{item?.questionName}}</td>
+                                <td width="350">{{item?.question}}</td>
+                                <td>{{item?.weightage}}%</td>
+                                <td>{{item?.verify}}</td>
+                                <td><a (click)="questionDetails(item)" class="btn-sm btn-primary"><i
+                                            class="bi bi-eye-fill"></i> View Question</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <p *ngIf="summaryquestionList?.length == 0" style="text-align: center;"> No Record Found !</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- <section>
+      <div class="container text-center">
+          <button class="btn btn-primary w-25" (click)="applyProject()">Apply</button>
+      </div>
+  </section> -->
+</main>
+
+<!-- View Document Modal -->
+<div class="modal fade" id="ViewDocumentModal" tabindex="-1" aria-labelledby="ViewDocumentModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="display: flex; justify-content: space-between;">
+                <h5 class="modal-title" id="ViewDocumentModalLabel">FOI Document ({{selectedDocument?.name}})</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ng-container *ngIf="isPdf(selectedDocument?.link?.url); else otherFormats">
+                    <ngx-extended-pdf-viewer [src]="selectedDocument?.link?.url" useBrowserLocale="true"
+                        height="600px"></ngx-extended-pdf-viewer>
+                </ng-container>
+                <ng-template #otherFormats>
+                    <iframe *ngIf="isWordOrExcel(selectedDocument?.link?.url)"
+                        [src]="getDocumentViewerUrl(selectedDocument?.link?.url)"
+                        style="width: 100%; height: 600px;"></iframe>
+                    <img *ngIf="isImage(selectedDocument?.link?.url)" [src]="selectedDocument?.link?.url"
+                        class="img-fluid" />
+                </ng-template>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Document -->
+<div class="modal fade" id="ViewDocuments" tabindex="-1" aria-labelledby="viewDocument" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="display: flex; justify-content: space-between;">
+                <h5 class="modal-title" id="viewDocument">Document</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ng-container *ngIf="isPdf(uploadedDocument?.url); else noDocument">
+                    <ngx-extended-pdf-viewer [src]="uploadedDocument?.url" useBrowserLocale="true"
+                        height="600px"></ngx-extended-pdf-viewer>
+                </ng-container>
+                <ng-template #noDocument>
+                    <iframe *ngIf="isWordOrExcel(uploadedDocument?.url)"
+                        [src]="getDocumentViewerUrl(uploadedDocument?.url)"
+                        style="width: 100%; height: 600px;"></iframe>
+                    <img *ngIf="isImage(uploadedDocument?.url)" [src]="uploadedDocument?.url" class="img-fluid" />
+                </ng-template>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Document -->
+<div class="modal fade" id="ViewDocuments" tabindex="-1" aria-labelledby="viewDocument" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="display: flex; justify-content: space-between;">
+                <h5 class="modal-title" id="viewDocument">Document</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ng-container *ngIf="isPdf(uploadedDocument?.url); else noDocument">
+                    <ngx-extended-pdf-viewer [src]="uploadedDocument?.url" useBrowserLocale="true"
+                        height="600px"></ngx-extended-pdf-viewer>
+                </ng-container>
+                <ng-template #noDocument>
+                    <iframe *ngIf="isWordOrExcel(uploadedDocument?.url)"
+                        [src]="getDocumentViewerUrl(uploadedDocument?.url)"
+                        style="width: 100%; height: 600px;"></iframe>
+                    <img *ngIf="isImage(uploadedDocument?.url)" [src]="uploadedDocument?.url" class="img-fluid" />
+                </ng-template>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

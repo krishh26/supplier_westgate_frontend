@@ -1,0 +1,423 @@
+<main id="main">
+    <section>
+        <div class="container-fluid">
+            <div class="row align-items-center justify-content-end">
+                <div class="col-lg-2 col-xl-2 col-md-3 col-sm-3 col-3">
+                    <a routerLink="/bid-submission/bid-projects-all"
+                    class="btn btn-primary text-dark">Back</a>
+                </div>
+            </div>
+
+            <div class="table-responsive mt-5 mb-3">
+                <table class="table table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th width="100px">Project Title</th>
+                            <th width="150px">Project Description</th>
+                            <th>BOS ID</th>
+                            <th>Publish Date</th>
+                            <th>Category</th>
+                            <th>Industry</th>
+                            <th>Min value (GBP)</th>
+                            <th>Max value (GBP)</th>
+                            <th>Website</th>
+                            <th>Link to Notice</th>
+                            <th>Created Date</th>
+                            <th>Status</th>
+                            <th>Due Date &amp; Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a>{{projectDetails?.projectName}}</a></td>
+                            <td><a title="{{ projectDetails?.description }}">{{ projectDetails?.description | slice:0:10
+                                    }}</a></td>
+                            <td v-align="middle">{{projectDetails?.BOSID}}</td>
+                            <td>{{projectDetails?.publishDate | date:'dd/MM/yyyy'}}</td>
+                            <td>{{projectDetails?.category}}</td>
+                            <td>{{projectDetails?.industry}}</td>
+                            <td>£ {{projectDetails?.minValue}}</td>
+                            <td>£ {{projectDetails?.maxValue}}</td>
+                            <td>{{projectDetails?.website}}</td>
+                            <td><a href='{{projectDetails?.link}}'>{{projectDetails?.link}}</a></td>
+                            <td>{{projectDetails?.createdAt | date:'dd/MM/yyyy'}}</td>
+                            <td>{{projectDetails?.dueDate | date:'dd/MM/yyyy'}}</td>
+                            <td>{{projectDetails?.dueDate | date:'dd/MM/yyyy, h:mm a'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+                <div class="row justify-content-end">
+                    <div class="col-lg-2 col-xl-2 col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="flexCheckDefault"
+                                formControlName="waitingForResult">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Waiting for Result
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 text-end">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="table-responsive mt-5 mb-3">
+                <table class="table table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th>Supplier Name</th>
+                            <th>Supplier ID</th>
+                            <th>Admin Name</th>
+                            <th>Handover Call</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let supplier of projectDetails?.select">
+                            <tr>
+                                <td>Company Name</td>
+                                <td>{{supplier?.supplierId}}</td>
+                                <td>Ayush</td>
+                                <!-- <td style="width: 35%;">
+                                <a (click)="goToChat()" class="btn btn-sm btn-primary me-2"><i class="bi bi-chat-dots me-1"></i>
+                                  Chat</a>
+                                <a type="button" class="btn btn-success btn-sm">Initiate Meeting</a>
+                              </td> -->
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <section class="pt-0 pb-0">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-8 col-xl-8 col-12">
+                    <div class="row">
+                        <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12" *ngFor="let doc of documents">
+                            <div class="form-group">
+                                <label class="display-block">{{ doc.label }}</label>
+                                <button type="button"
+                                    class="btn btn-primary btn-view-document btn-boxshadow text-dark w-100 mb-3"
+                                    data-bs-toggle="modal" data-bs-target="#ViewDocuments"
+                                    (click)="openDocument(doc.file)">
+                                    <i class="bi bi-eye-fill"></i> View Document
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-4 col-xl-4 col-12">
+                    <div class="card bg-primary">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-lg-4 col-xl-4 col-12">
+                                    <h6 class="p-12 text-white"><strong>Client Detils</strong></h6>
+                                </div>
+                                <div class="col-lg-7 col-xl-7 col-12">
+                                    <p class="p-13 mb-0">Mail ID : {{projectDetails?.mailID}}</p>
+                                    <p class="p-13 mb-0">Client Type : {{projectDetails?.clientType}}</p>
+                                    <p class="p-13 mb-0">Client Name : {{projectDetails?.clientName}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Project description-->
+            <div class="row mb-4 mt-4">
+                <h4 class="text-theme"><strong>Project Description</strong></h4>
+                <p>{{projectDetails?.description}} </p>
+            </div>
+            <!--client details-->
+            <div class="row mt-5">
+                <div class="col-lg-4 col-xl-4 col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-lg-4 col-xl-4 col-12">
+                                    <h6 class="text-theme"><strong>Client Detils</strong></h6>
+                                </div>
+                                <div class="col-lg-7 col-xl-7 col-12">
+                                    <p class="p-13 mb-0">Mail ID : {{projectDetails?.mailID}}</p>
+                                    <p class="p-13 mb-0">Client Type : {{projectDetails?.clientType}}</p>
+                                    <p class="p-13 mb-0">Client Name : {{projectDetails?.clientName}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-4 col-12 mb-4">
+                    <div class="row align-items-center">
+                        <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
+                            <p class="mb-0">FOI Screenshot</p>
+                        </div>
+                        <div class="row align-items-center" *ngIf="projectDetails?.mailScreenshots?.length == 0">
+                            <div class="col-lg-12 col-xl-12 col-12 mob-mb1">
+                                <p class="mb-0">No Record Found.</p>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="projectDetails?.mailScreenshots?.length > 0">
+                            <div class="row align-items-center"
+                                *ngFor="let foiScreenshot of projectDetails?.mailScreenshots">
+                                <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
+                                    <p class="mb-0">{{ foiScreenshot?.name }}</p>
+                                </div>
+                                <div class="col-lg-4 col-xl-4 col-6">
+                                    <a (click)="openDocument(foiScreenshot)" class="btn btn-small w-100"
+                                        data-bs-toggle="modal" data-bs-target="#ViewScreenshot"><i
+                                            class="bi bi-eye-fill"></i> View</a>
+                                </div>
+                                <div class="col-lg-4 col-xl-4 col-6">
+                                    <a (click)="
+                                download(foiScreenshot?.link?.url, foiScreenshot?.name)
+                              " target="_blank" class="btn btn-small w-100"><i
+                                            class="bi bi-file-earmark-arrow-down-fill"></i>
+                                        Download</a>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="row align-items-center mt-3">
+                        <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
+                            <p class="mb-0">FOI Document</p>
+                        </div>
+                        <div class="row align-items-center" *ngIf="projectDetails?.fois?.length == 0">
+                            <div class="col-lg-12 col-xl-12 col-12 mob-mb1">
+                                <p class="mb-0">No Record Found.</p>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="projectDetails?.fois?.length > 0">
+                            <div class="row align-items-center" *ngFor="let foiDocument of projectDetails?.fois">
+                                <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
+                                    <p class="mb-0">{{ foiDocument?.name }}</p>
+                                </div>
+                                <div class="col-lg-4 col-xl-4 col-6">
+                                    <a (click)="openDocument(foiDocument)" class="btn btn-small w-100"
+                                        data-bs-toggle="modal" data-bs-target="#ViewDocumentModal"><i
+                                            class="bi bi-eye-fill"></i> View</a>
+                                </div>
+                                <div class="col-lg-4 col-xl-4 col-6">
+                                    <a style="
+                                padding-left: 0 !important;
+                                padding-right: 0px !important;
+                              " (click)="
+                                download(foiDocument?.link?.url, foiDocument?.name)
+                              " target="_blank" class="btn btn-small w-100"><i
+                                            class="bi bi-file-earmark-arrow-down-fill"></i>
+                                        Download</a>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-4 col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <p class="p-13"><strong>Period of Contract: {{projectDetails?.periodOfContractStart | date :
+                                    'dd/MM/yyyy'}} - {{projectDetails?.periodOfContractEnd | date :
+                                    'dd/MM/yyyy'}}</strong></p>
+                            <p class="p-13"><strong>Project Type: {{projectDetails?.projectType}}</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-dark">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h5 class="text-white mb-4"><strong>Summary Note Questions</strong></h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-dark table-borderless" style="background-color: #252525;">
+                        <thead>
+                            <tr>
+                                <th>Question</th>
+                                <th>Weightage</th>
+                                <th>Status</th>
+                                <th>Deadline</th>
+                                <th>Assign User</th>
+                                <th>Add Review Note</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let question of  summaryQuestionList">
+                                <tr *ngIf="question?.summaryQuestionFor == 'Supplier'">
+                                    <td width="350">{{ question?.question }}</td>
+                                    <td>{{ question?.weightage }} % </td>
+                                    <td>
+                                        <span *ngIf="question?.verify" class="text-success"> Verified</span>
+                                        <span *ngIf="!question?.verify"> Not Verified</span>
+                                    </td>
+                                    <td> {{ question?.deadline | date:'dd-MM-YYYY' }}</td>
+                                    <td>Ayush</td>
+                                    <td> {{ question?.comment }} </td>
+                                    <td>
+                                        <a (click)="questionDetails(question)" class="btn btn-small me-2"><i
+                                                class="bi bi-eye-fill"></i>
+                                            View Solution</a>
+                                        <!-- <a class="btn btn-small"><i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                            Download</a> -->
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <p *ngIf="summaryQuestionList?.length == 0" style="text-align: center;"> No Record Found !</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h5 class="text-white mb-4"><strong>Summary Note Questions - UK</strong></h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-primary table-borderless" style="background-color: #252525;">
+                        <thead>
+                            <tr>
+                                <th>Question</th>
+                                <th>Weightage</th>
+                                <th>Status</th>
+                                <th>Deadline</th>
+                                <th>Assign User</th>
+                                <th>Add Review Note</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let questionUk of  summaryQuestionList">
+                                <tr *ngIf="questionUk?.summaryQuestionFor == 'UKWriter'">
+                                    <td width="350">{{ questionUk?.question }}</td>
+                                    <td>{{ questionUk?.weightage }} % </td>
+                                    <td>
+                                        <span *ngIf="questionUk?.verify" class="text-success"> Verified</span>
+                                        <span *ngIf="!questionUk?.verify"> Not Verified</span>
+                                    </td>
+                                    <td> {{ questionUk?.deadline | date:'dd-MM-YYYY' }}</td>
+                                    <td>Ayush</td>
+                                    <td> {{ questionUk?.comment }} </td>
+                                    <td>
+                                        <a (click)="questionDetails(questionUk)" class="btn btn-small me-2"><i
+                                                class="bi bi-eye-fill"></i>
+                                            View Solution</a>
+                                        <!-- <a class="btn btn-small"><i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                            Download</a> -->
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <p *ngIf="summaryQuestionList?.length == 0" style="text-align: center;"> No Record Found !</p>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </section>
+    <!-- <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 text-end">
+                    <button type="button" class="btn btn-outline-dark me-2">Save</button>
+                    <button type="button" class="btn btn-success" (click)="onSubmit()">Submit</button>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+</main>
+
+
+<div class="modal fade" id="ViewScreenshot" tabindex="-1" aria-labelledby="ViewScreenshotLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ViewScreenshotLabel">
+                    FOI Screenshot : {{ selectedDocument?.name }}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img [src]="selectedDocument?.link?.url" class="img-fluid" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="ViewDocumentModal" tabindex="-1" aria-labelledby="ViewDocumentModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="display: flex; justify-content: space-between;">
+                <h5 class="modal-title" id="ViewDocumentModalLabel">FOI Document ({{selectedDocument?.name}})</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ng-container *ngIf="isPdf(selectedDocument?.link?.url); else otherFormats">
+                    <ngx-extended-pdf-viewer [src]="selectedDocument?.link?.url" useBrowserLocale="true"
+                        height="600px"></ngx-extended-pdf-viewer>
+                </ng-container>
+                <ng-template #otherFormats>
+                    <iframe *ngIf="isWordOrExcel(selectedDocument?.link?.url)"
+                        [src]="getDocumentViewerUrl(selectedDocument?.link?.url)"
+                        style="width: 100%; height: 600px;"></iframe>
+                    <img *ngIf="isImage(selectedDocument?.link?.url)" [src]="selectedDocument?.link?.url"
+                        class="img-fluid" />
+                </ng-template>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ViewDocuments" tabindex="-1" aria-labelledby="viewDocumets" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="display: flex; justify-content: space-between;">
+                <h5 class="modal-title" id="viewDocumets">View Documents</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <ng-container *ngIf="isPdf(uploadedDocument?.url); else noDocuments">
+                    <ngx-extended-pdf-viewer [src]="uploadedDocument?.url" useBrowserLocale="true"
+                        height="600px"></ngx-extended-pdf-viewer>
+                </ng-container>
+                <ng-template #noDocuments>
+                    <iframe *ngIf="isWordOrExcel(uploadedDocument?.url)"
+                        [src]="getDocumentViewerUrl(uploadedDocument?.url)"
+                        style="width: 100%; height: 600px;"></iframe>
+                    <img *ngIf="isImage(uploadedDocument?.url)" [src]="uploadedDocument?.url" class="img-fluid" />
+                </ng-template>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

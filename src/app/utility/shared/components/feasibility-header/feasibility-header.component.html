@@ -1,0 +1,29 @@
+<header id="header">
+    <div class="container d-flex align-items-center">
+        <a routerLink="/feasibility-user/feasibility-project-list" class="logo"><img src="assets/img/newlogoo.png" alt="" height="69" class="img-fluid" style="background-color: white;"></a>
+        <nav id="navbar" class="navbar w-100">
+            <ul class="mx-auto">
+                <li><a class="nav-link active" routerLink="/feasibility-user/feasibility-project-list"><i
+                    class="bi bi-dot text-danger p-22"></i> My Projects</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+        <nav class="navbar">
+            <div>
+                <ul class="d-block">
+                    <li class="dropdown"><a href="javascript:;">
+                        <div class="login-avtar">
+                            <img src="assets/img/face1.jpg" />
+                        </div>
+                        <span class="mobile-hide">{{loginUser?.userName}}</span> <i class="bi bi-chevron-down"></i>
+                    </a>
+                    <ul>
+                        <li><a href="javascript:;" routerLink="/feasibility-user/profile">Profile Setting</a></li>
+                        <li><a style="cursor: pointer;" (click)="logout()">Logout</a></li>
+                    </ul>
+                </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header><!-- End Header -->

@@ -1,0 +1,79 @@
+<section class="pageheader pt-5">
+    <div class="container">
+      <div class="row justify-content-end">
+        <div class="col-2">
+          <a (click)="back()" class="btn btn-primary text-dark">Back</a>
+        </div>
+      </div>
+    </div>
+  </section>
+    <section class="pageheader">
+        <div class="container">
+          <div class="row mb-4 justify-content-center">
+            <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12">
+              <div class="card mb-2">
+                <div class="card-body">
+                  <p class="mb-0">{{summaryDetail.questionName}} </p>
+                </div>
+              </div>
+              <div class="card mb-2">
+                <div class="card-body">
+                  <p class="mb-0">{{summaryDetail.question}} </p>
+                </div>
+              </div>
+              <div class="card mb-2">
+                <div class="card-body">
+                  <p class="mb-0">  {{summaryDetail.refrenceDocument}} </p>
+                </div>
+              </div>
+              <div class="card mb-2">
+                <div class="card-body">
+                  <p class="mb-0"> {{summaryDetail.weightage}} </p>
+                </div>
+              </div>
+              <div class="card mb-2">
+                <div class="card-body">
+                  <p class="mb-0"> {{summaryDetail.deadline}} </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-8 col-xl-8 col-md-8 col-sm-8 col-12">
+              <div class="card">
+                <div class="card-body">
+                  <p> <strong>Instructions from West Gate/ Spectrum</strong> </p>
+                  <p>{{summaryDetail.instructions}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  <p> <strong>Review Comments</strong> </p>
+                  <p>{{summaryDetail.comment}} </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12"><h6><strong>Supplier Response</strong></h6></div>
+            <div *ngFor="let response of summaryDetail.response" class="row align-items-center">
+              <div class="col-12">
+                <div class="form-group">
+                  <input type="text" class="form-control" [value]="response.message" disabled>
+                </div>
+              </div>
+             </div>
+             <div class="row align-items-center">
+              <div class="col-12">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Write review here"  [(ngModel)]="reviewData" >
+                </div>
+              </div>
+             </div>
+             <div>
+               <button type="button" (click)="saveSummaryResponse()" class="btn btn-outline-dark" style="margin-bottom: 0.5rem; width: 10%;" class="btn btn-success me-3">Save</button>
+             </div>
+
+          </div>
+        </div>
+    </section>

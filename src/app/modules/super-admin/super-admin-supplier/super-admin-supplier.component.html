@@ -1,0 +1,46 @@
+<main id="main">
+  <section>
+    <div class="container-fluid">
+      <div class="row align-items-center justify-content-between">
+        <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
+          <div class="form-group mb-0">
+            <!-- <span class="input-icon"><i class="bi bi-search"></i></span>
+            <input type="search" class="form-control control-search" placeholder="Search"> -->
+            <h4 class="text-theme"><strong>Supplier List</strong></h4>
+          </div>
+        </div>
+      </div>
+      <div class="table-responsive mt-5 mb-3">
+        <table class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th width="200px">Supplier Name</th>
+              <th>Join Date</th>
+              <th>Action</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let item of supplierUserList | paginate: { itemsPerPage: pagesize, currentPage: page, totalItems: totalRecords }; let i = index">
+              <td>{{item?.name}}</td>
+              <td>{{item?.doj | date : 'dd/MM/yyyy'}}</td>
+              <td>
+                <a href="javascript:;" (click)="projectDetails(item?._id ,item)" class="btn btn-sm btn-primarysm"
+                  title="View Details">
+                  View Project
+                </a>
+              </td>
+              <td>
+                <label class="switch">
+                  <input type="checkbox" [(ngModel)]="item.active" (ngModelChange)="onToggleSwitch(item)">
+                  <span class="slider round"></span>
+                </label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>

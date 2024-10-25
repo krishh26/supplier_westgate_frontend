@@ -1,0 +1,58 @@
+<main id="main">
+  <section class="p-0">
+    <div class="container-fluid">
+      <!-- <div class="row align-items-center justify-content-between">
+        <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
+          <div class="form-group mb-0">
+            <span class="input-icon"><i class="bi bi-search"></i></span>
+            <input type="search" [formControl]="searchText" class="form-control control-search" placeholder="Search by BOS ID & Project Title.">
+          </div>
+        </div>
+      </div> -->
+      <div class="table-responsive mt-5 mb-3">
+        <table class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th width="20%">Title</th>
+              <th width="45%">Message</th>
+              <th width="10%">Status</th>
+              <th width="15%">Date</th>
+              <th width="10%">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="projectNotificationList?.length > 0">
+
+            <tr *ngFor="let item of projectNotificationList |  paginate: { itemsPerPage: pagesize , currentPage: page, totalItems: totalRecords } ; let i = index">
+              <td><a>{{item?.title}}</a></td>
+              <td>{{item?.discription}}</td>
+              <td>
+                <!-- {{item?.discription}} -->
+                <span *ngIf="item?.read">Read</span>
+                <span *ngIf="!item?.read">UnRead</span>
+              </td>
+              <td>{{item?.updatedAt | date:'dd/MM/yyyy, h:mm a'}}</td>
+              <td>
+                <a *ngIf="!item?.read" class="btn btn-sm btn-primary m-1"
+                    title="View Details" (click)="readNotification(item?._id)"><i class="bi bi-eye"></i></a>
+                <a (click)="deleteNotification(item?._id)" class="btn btn-sm btn-dark m-1" title="Shortlist"><i class="bi bi-trash"></i></a>
+              </td>
+            </tr>
+          </ng-container>
+          <tr *ngIf="projectNotificationList?.length == 0">
+            <td colspan="5" style="text-align: center;">No Record Found.</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="row mt-3 align-items-center">
+        <div class="row">
+            <div class="pagination">
+                <pagination-controls (pageChange)="paginate($event)"></pagination-controls>
+            </div>
+        </div>
+    </div>
+    </div>
+  </section>
+</main>

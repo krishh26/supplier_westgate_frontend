@@ -1,0 +1,364 @@
+<main id="main">
+    <section>
+        <div class="container-fluid">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
+                    <div class="form-group mb-0">
+                        <span class="input-icon"><i class="bi bi-search"></i></span>
+                        <input type="search" class="form-control control-search" placeholder="Search">
+                    </div>
+                </div>
+                <div class="col-lg-2 col-xl-2 col-12">
+                    <a (click)="backPage()" class="btn btn-primary text-dark">Back</a>
+                </div>
+            </div>
+
+            <div class="table-responsive mt-5 mb-3">
+                <table class="table table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th width="100px">Project Title</th>
+                            <!-- <th>Project Description</th> -->
+                            <th>BOS ID</th>
+                            <th>Publish Date</th>
+                            <th>Category</th>
+                            <th>Industry</th>
+                            <th>Min value (GBP)</th>
+                            <th>Max value (GBP)</th>
+                            <th>Website</th>
+                            <th>Link to notice</th>
+                            <th>Created Date</th>
+                            <th>Due Date & Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a (click)="projectDetails(projectDetails?._id)"
+                                    href="javascript:;">{{projectDetails?.projectName}}</a>
+                            </td>
+                            <!-- <td><a title="{{ projectDetails?.description }}">{{ projectDetails?.description | slice:0:10
+                                    }}</a></td> -->
+                            <td v-align="middle">{{projectDetails?.BOSID}}</td>
+                            <td>{{projectDetails?.publishDate | date:'dd/MM/yyyy'}}</td>
+                            <td>{{projectDetails?.category}}</td>
+                            <td>{{projectDetails?.industry}}</td>
+                            <td>£ {{projectDetails?.minValue}}</td>
+                            <td>£ {{projectDetails?.maxValue}}</td>
+                            <td><a>{{projectDetails?.website}}</a></td>
+                            <td><a href='{{projectDetails?.link}}' target="_blank">{{projectDetails?.link}}</a></td>
+                            <td>{{projectDetails?.createdAt | date:'dd/MM/yyyy'}}</td>
+                            <td>{{projectDetails?.dueDate | date:'dd/MM/yyyy, h:mm a'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <section class="pageheader bg-dark">
+                <div class="container ">
+                    <p><strong>Project Description</strong></p>
+                </div>
+            </section><br>
+
+            <p>{{ projectDetails?.description }}</p>
+
+            <section class="pageheader bg-dark">
+                <div class="container ">
+                    <p><strong>Client & FOI Detils</strong></p>
+                </div>
+            </section><br>
+
+            <!--client details-->
+            <div class="row mt-5">
+                <div class="col-lg-4 col-xl-4 col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-lg-4 col-xl-4 col-12">
+                                    <h6 class="text-theme"><strong>Client Detils</strong></h6>
+                                </div>
+                                <div class="col-lg-7 col-xl-7 col-12">
+                                    <p class="p-13 mb-0">Mail ID : {{projectDetails?.mailID}}</p>
+                                    <p class="p-13 mb-0">Client Type : {{projectDetails?.clientType}}</p>
+                                    <p class="p-13 mb-0">Client Name : {{projectDetails?.clientName}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-4 col-12 mb-4">
+                    <div class="row align-items-center">
+                        <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
+                            <p class="mb-0">FOI Screenshot</p>
+                        </div>
+                        <div class="row align-items-center" *ngIf="projectDetails?.mailScreenshots?.length == 0">
+                            <div class="col-lg-12 col-xl-12 col-12 mob-mb1">
+                                <p class="mb-0">No Record Found.</p>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="projectDetails?.mailScreenshots?.length > 0">
+                            <div class="row align-items-center"
+                                *ngFor="let foiScreenshot of projectDetails?.mailScreenshots">
+                                <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
+                                    <p class="mb-0">{{foiScreenshot?.name}}</p>
+                                </div>
+                                <div class="col-lg-4 col-xl-4 col-6">
+                                    <a (click)="openDocument(foiScreenshot)" class="btn btn-small w-100"
+                                        data-bs-toggle="modal" data-bs-target="#ViewScreenshot"><i
+                                            class="bi bi-eye-fill"></i> View</a>
+                                </div>
+                                <div class="col-lg-4 col-xl-4 col-6">
+                                    <a (click)="download(foiScreenshot?.link?.url, foiScreenshot?.name)" target="_blank"
+                                        class="btn btn-small w-100"><i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                        Download</a>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="row align-items-center mt-3">
+                        <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
+                            <p class="mb-0">FOI Document</p>
+                        </div>
+                        <div class="row align-items-center" *ngIf="projectDetails?.fois?.length == 0">
+                            <div class="col-lg-12 col-xl-12 col-12 mob-mb1">
+                                <p class="mb-0">No Record Found.</p>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="projectDetails?.fois?.length > 0">
+                            <div class="row align-items-center" *ngFor="let foiDocument of projectDetails?.fois">
+                                <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
+                                    <p class="mb-0">{{foiDocument?.name}}</p>
+                                </div>
+                                <div class="col-lg-4 col-xl-4 col-6">
+                                    <a (click)="openDocument(foiDocument)" class="btn btn-small w-100"
+                                        data-bs-toggle="modal" data-bs-target="#ViewScreenshot"><i
+                                            class="bi bi-eye-fill"></i> View</a>
+                                </div>
+                                <div class="col-lg-4 col-xl-4 col-6">
+                                    <a style="padding-left: 0 !important; padding-right: 0px !important;"
+                                        (click)="download(foiDocument?.link?.url, foiDocument?.name)" target="_blank"
+                                        class="btn btn-small w-100"><i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                        Download</a>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-4 col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <p class="p-13"><strong>Period of Contract: {{projectDetails?.periodOfContractStart | date :
+                                    'dd/MM/yyyy'}} - {{projectDetails?.periodOfContractEnd | date :
+                                    'dd/MM/yyyy'}}</strong></p>
+                            <p class="p-13"><strong>Project Type: {{projectDetails?.projectType}}</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="pageheader bg-dark">
+                <div class="container ">
+                    <p><strong>Minimum Eligibility Form</strong></p>
+                </div>
+            </section>
+
+            <section>
+                <div class="container">
+                    <form [formGroup]="eligibilityForm" (ngSubmit)="submiteligibilityForm()">
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Case Study Numbers</label>
+                                    <input type="number" class="form-control" formControlName="caseStudyRequired">
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Certifications</label>
+                                    <input type="text" class="form-control" formControlName="certifications">
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Policy</label>
+                                    <input type="text" class="form-control" formControlName="policy">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div  class="row">
+                      <div class="col-12 text-center">
+                        <button type="button" (click)="addNewFrontendMinimunEligibility()" class="btn btn-dark" style="margin-left: 2px;">Add Eligibility</button>
+                      </div>
+                    </div>
+                    <div class="table-responsive mt-5 mb-3">
+                      <table class="table table-striped align-middle">
+                        <thead>
+                          <tr>
+                            <th>Case Study Numbers</th>
+                            <th>Certifications</th>
+                            <th>Policy</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <ng-container *ngFor="let item of frontendMinimunEligibility">
+                            <tr>
+                              <td>{{item?.caseStudyRequired}}</td>
+                              <td>{{item?.certifications}}</td>
+                              <td>{{item?.policy}}</td>
+                            </tr>
+                          </ng-container>
+                          <!-- <ng-container *ngFor="let item of projectDetails?.eligibilityForm">
+                            <tr>
+                              <td>{{item?.caseStudyRequired}}</td>
+                              <td>{{item?.certifications}}</td>
+                              <td>{{item?.policy}}</td>
+                            </tr>
+                          </ng-container> -->
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <button type="submit" (click)="submiteligibilityForm()" class="btn btn-dark" style="margin-right: 2px;">Submit</button>
+                            <!-- <button type="button" (click)="addNewFrontendMinimunEligibility()" class="btn btn-dark" style="margin-left: 2px;">Add Eligibility</button> -->
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="pageheader bg-dark">
+                <div class="container ">
+                    <p><strong>Summary Documents</strong></p>
+                </div>
+            </section><br>
+        </div>
+    </section>
+
+    <div class="container">
+        <form  (ngSubmit)="submituploaddocform()">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-lg-11 col-xl-11 col-12 mob-mb1">
+                        <h5>Upload Summary Documents</h5>
+                        <div class="card">
+                            <ul class="project-document">
+                                <li *ngFor="let item of projectDetails?.projectComment">
+                                    <div class="row">
+                                        <div class="col-5 text-center">
+                                            <p class="mb-0">
+                                                {{ item?.comment }}
+                                            </p>
+                                        </div>
+                                        <div class="col-7 text-center">
+                                            <a href="href:;" class="btn btn-primarysm me-2" data-bs-toggle="modal"
+                                                data-bs-target="#ViewClientDoc" (click)="openDocument(item)"><i
+                                                    class="bi bi-eye-fill"></i>
+                                                View</a>
+                                            <a href="href:;" (click)="download(item?.file?.url, item?.name)"
+                                                class="btn btn-primarysm"><i
+                                                    class="bi bi-file-earmark-arrow-down-fill"></i>
+                                                Download</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <button (click)="hideShowForm()" type="button" class="btn btn-dark btn-sm add-card-btn">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                        <ng-container *ngIf="viewClientDocumentForm">
+                            <div class="d-flex p-2 justify-content-between">
+                                <div class="row align-items-center">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <input type="text" [(ngModel)]="commentName" [ngModelOptions]="{standalone: true}" placeholder="Enter Comment" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-xl-2 col-6">
+                                    <div class="btn btn-small w-100">
+                                        <label for="uploadClientDocument"><i
+                                                class="bi bi-file-earmark-arrow-up-fill"></i> Upload
+                                        </label>
+                                        <input type="file" id="uploadClientDocument" (change)="
+                                        uploadDocument($event)
+                                      " name="myfile" style="height: 1px; width: 1px" />
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="row justify-content-end">
+            <div class="col-lg-2 col-xl-2 col-md-2 col-sm-2 col-12 text-end">
+                <a (click)="summaryDetail('save')" class="btn btn-dark w-100">Save</a><br><br>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<div class="modal fade" id="ViewClientDoc" tabindex="-1" aria-labelledby="ViewClientDocLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ViewClientDocLabel">
+                    Summary Document
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body">
+                    <ng-container *ngIf="isPdf(selectedDocument?.file?.url); else otherFormats">
+                        <ngx-extended-pdf-viewer [src]="selectedDocument?.file?.url" useBrowserLocale="true"
+                            height="600px"></ngx-extended-pdf-viewer>
+                    </ng-container>
+                    <ng-template #otherFormats>
+                        <iframe *ngIf="isWordOrExcel(selectedDocument?.file?.url)"
+                            [src]="getDocumentViewerUrl(selectedDocument?.file?.url)"
+                            style="width: 100%; height: 600px;"></iframe>
+                        <img *ngIf="isImage(selectedDocument?.file?.url)" [src]="selectedDocument?.file?.url"
+                            class="img-fluid" />
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="ViewScreenshot" tabindex="-1" aria-labelledby="ViewScreenshotLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ViewScreenshotLabel">FOI Document : {{selectedDocument?.name}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img [src]="selectedDocument?.link?.url" class="img-fluid" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- View FOI Document Modal -->
+<div class="modal fade" id="ViewScreenshot" tabindex="-1" aria-labelledby="ViewScreenshotLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ViewScreenshotLabel">FOI Document : {{selectedDocument?.name}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img [src]="selectedDocument?.link?.url" class="img-fluid" />
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

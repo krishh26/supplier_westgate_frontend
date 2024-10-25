@@ -1,0 +1,411 @@
+<section class="p-0">
+  <div class="table-responsive project-close">
+    <table class="table table-striped align-middle">
+      <thead>
+        <tr>
+          <th width="12%"></th>
+          <th width="12%">Project Title</th>
+          <!-- <th width="5%">Project Description</th> -->
+          <th width="5%">BOS ID</th>
+          <th width="5%">Publish Date</th>
+          <th width="5%">Category</th>
+          <th width="5%">Industry</th>
+          <th width="5%">Min value (GBP)</th>
+          <th width="5%">Max value (GBP)</th>
+          <th width="5%">Website</th>
+          <th width="5%">Link to notice</th>
+          <th width="8%">Created Date</th>
+          <th width="5%">Status</th>
+          <th width="10%">Due Date & Time</th>
+          <th width="15%"></th>
+          <th width="12%"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td><a (click)="projectDetails(projectDetails?._id)" href="javascript:;">{{projectDetails?.projectName}}</a>
+          </td>
+          <!-- <td><a title="{{ projectDetails?.description }}">{{ projectDetails?.description | slice:0:10 }}</a></td> -->
+          <td v-align="middle">{{projectDetails?.BOSID}}</td>
+          <td>{{projectDetails?.publishDate | date:'dd/MM/yyyy'}}</td>
+          <td>{{projectDetails?.category}}</td>
+          <td>{{projectDetails?.industry}}</td>
+          <td>{{projectDetails?.minValue}}</td>
+          <td>{{projectDetails?.maxValue}}</td>
+          <td>{{projectDetails?.website}}</td>
+          <td><a href="javascript:;">{{projectDetails?.link}}</a></td>
+          <td>{{projectDetails?.createdAt | date:'dd-MM-YYYY'}}</td>
+          <td>{{projectDetails?.status}}</td>
+          <td>{{projectDetails?.dueDate | date:'dd-MM-yyyy, h:mm a'}}</td>
+          <td>
+            <button routerLink="/project-manager/project/all" class="btn btn-primary text-dark px-4 py-1">Back</button>
+          </td>
+          <td></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <!-- <div class="row">
+      <div class="col-12 d-flex align-items-center justify-content-end mb-4">
+        <div class="d-flex align-items-center me-4 " *ngFor="let casestudy of projectDetails?.casestudy">
+          <ng-container *ngIf="casestudy?.name">
+            <p class="fonts-12 mb-0 me-2">{{casestudy?.name}}</p>
+            <a (click)="openDocument(casestudy)" class="btn btn-primary rounded-pill px-2 py-1 fonts-12 w-auto"
+              data-bs-toggle="modal" data-bs-target="#ViewDocumentModal"><i class="bi bi-eye-fill"></i> View
+              Response</a>
+          </ng-container>
+        </div>
+      </div>
+    </div> -->
+
+    <section class="pageheader bg-dark">
+      <div class="container">
+        <p><strong>Project Description</strong></p>
+      </div>
+    </section><br>
+
+    <p>{{ projectDetails?.description }}</p>
+
+
+    <div class="row mt-5">
+      <div class="col-lg-4 col-xl-4 col-12 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col-lg-4 col-xl-4 col-12">
+                <h6 class="text-theme"><strong>Client Detils</strong></h6>
+              </div>
+              <div class="col-lg-7 col-xl-7 col-12">
+                <p class="p-13 mb-0">Mail ID : {{projectDetails?.mailID}}</p>
+                <p class="p-13 mb-0">Client Type : {{projectDetails?.clientType}}</p>
+                <p class="p-13 mb-0">Client Name : {{projectDetails?.clientName}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-xl-4 col-12 d-flex align-items-center flex-column mb-4" style="white-space:nowrap;">
+        <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
+          <p class="mb-0">FOI Document</p>
+        </div>
+        <div class="row align-items-center" *ngIf="projectDetails?.fois?.length == 0">
+          <div class="col-lg-12 col-xl-12 col-12 mob-mb1">
+            <p class="mb-0">No Record Found.</p>
+          </div>
+        </div>
+        <ng-container *ngIf="projectDetails?.fois?.length > 0">
+          <div class="row align-items-center" *ngFor="let foiDocument of projectDetails?.fois">
+            <div class="col-lg-2 col-xl-2 col-12 mob-mb1">
+              <p class="mb-0">{{foiDocument?.name}}</p>
+            </div>
+            <div class="col-lg-4 col-xl-4 col-6">
+              <a (click)="openDocument(foiDocument)" class="btn btn-small w-100" data-bs-toggle="modal"
+                data-bs-target="#ViewDocumentModal"><i class="bi bi-eye-fill"></i> View</a>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-6">
+              <a (click)="download(foiDocument?.link?.url, foiDocument?.name)" target="_blank"
+                class="btn btn-small w-100"><i class="bi bi-file-earmark-arrow-down-fill"></i>
+                Download</a>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="col-lg-4 col-xl-4 col-12 mb-4">
+        <div class="card">
+          <div class="card-body text-center">
+            <p class="p-13"><strong>Period of Contract: {{projectDetails?.periodOfContractStart | date :
+                'dd/MM/yyyy'}} - {{projectDetails?.periodOfContractEnd | date :
+                'dd/MM/yyyy'}}</strong></p>
+            <p class="p-13"><strong>Project Type: {{projectDetails?.projectType}}</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top: 10px; padding-bottom: 10px;">
+
+  <div class="container-fluid">
+    <div class="table-responsive match-detail">
+      <table class="table table-striped mb-0 align-middle">
+        <thead>
+          <tr>
+            <th width="100px" style="min-width: 100px"></th>
+            <th width="12%">Supplier Name</th>
+            <th width="5%">Supplier ID</th>
+            <th width="5%">Admin Name</th>
+            <th width="10%">Company Selection</th>
+            <th width="10%">Handover Call</th>
+            <th width="5%"></th>
+            <th width="100px" style="min-width: 100px"></th>
+          </tr>
+        </thead>
+        <tbody class="bg-f9 mb-2">
+          <ng-container *ngFor="let supplier of userDetail">
+            <ng-container class="mb-3">
+              <tr>
+                <td></td>
+                <td>{{ supplier.companyName }}</td>
+                <td>{{ supplier._id }}</td>
+                <td>{{supplier.name}}</td>
+                <td>
+                  <div class="form-group">
+                    <ng-select style="padding: 0px !important;" class="form-select custom-ng-select-option"
+                      [items]="companyDetails" bindLabel="name" [multiple]="true" bindValue="name"
+                      [(ngModel)]="supplier['company']">
+                    </ng-select>
+                  </div>
+                </td>
+                <td>
+                  <div class="row mb-3">
+                    <div class="col-12">
+                      <input type="date" [(ngModel)]="supplier.startDate" class="form-control" placeholder="Start Date"
+                        style="height: 30px" />
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <button (click)="selectSupplier(supplier)" class="btn btn-sm btn-primary px-4 py-1"
+                      style="white-space: nowrap; font-size: 11px">
+                      {{ supplier?._id == selectedSupplier?._id ? 'Selected' : 'Select'}}
+                    </button>
+                  </div>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="8" class="inner-table p-0">
+                  <table class="table bg-transparent w-100 mb-0">
+                    <tr>
+                      <td width="156px"></td>
+                      <td colspan="3" *ngFor="let casestudy of casestudylist">
+                        <div class="d-flex align-items-center bg-transparent">
+                          <div class="d-flex align-items-center me-1">
+                            <span class="w-space pe-2">{{casestudy?.name}}</span>
+                            <a href="javascript:;" class="btn btn-primary fonts-12 rounded-pill px-4 py-1 w-space"
+                              (click)="openDocument(casestudy)" data-bs-toggle="modal"
+                              data-bs-target="#ViewCaseModal"><i class="bi bi-eye-fill me-2"></i> View</a>
+                          </div>
+                        </div>
+                      </td>
+                      <td colspan="3">
+                        <div class="d-flex align-items-center bg-transparent">
+                        </div>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr class="mb-3">
+                <td colspan="8" class="p-0">
+                  <table class="table w-100 mb-0">
+                    <tr>
+                      <td width="156px"></td>
+                      <td class="text-danger" style="width: 120px">
+                        <span class="bg-transparent mt-1"> Drop Reason</span>
+                      </td>
+                      <td colspan="5">
+                        <input type="text" class="w-100 p-1 px-2 rounded fonts-12" style="border: 1px solid #e6e6e6"
+                          placeholder="Add reason" aria-label="Username" [(ngModel)]="supplier['reason']"
+                          aria-describedby="basic-addon1" />
+                      </td>
+                      <td>
+                        <div class="bg-transparent w-auto d-flex align-items-center">
+                          <button (click)="dropUser(supplier)"
+                            class="btn btn-outline-white btn-white bg-white text-danger rounded px-5 py-1 me-3"
+                            style="white-space: nowrap; font-size: 11px">
+                            Drop
+                          </button>
+                        </div>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section class="bg-dark">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h5 class="text-white fonts-14 mb-2"><strong>Summary Note Questions</strong></h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-xl-12 col-12 mb-4">
+        <table class="table table-dark table-borderless" style="background-color: #252525;">
+          <thead>
+            <tr>
+              <th>Question</th>
+              <th>Status</th>
+              <th>Deadline</th>
+              <th>Review Note</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody *ngIf="summaryQuestionList?.length > 0">
+            <ng-container *ngFor="let item of summaryQuestionList">
+              <tr *ngIf="item?.summaryQuestionFor == 'Supplier'">
+                <td width="350">{{item?.question}}</td>
+                <td>
+                  <span class="text-success" *ngIf="item?.verify">Verified</span>
+                  <span *ngIf="!item?.verify">Not Verified</span>
+                </td>
+                <td>
+                  <span>
+                    {{item?.deadline | date : 'dd-MM-YYYY'}}
+                  </span>
+                  <a (click)="editSummaryDate(item?.deadline, item?._id)" class="editbtn" style="cursor: pointer;"></a>
+                </td>
+                <td>
+                </td>
+                <td> {{item?.comment}}</td>
+                <td><a (click)="openSummaryDetail(item)" class="btn rounded bg-white text-dark fonts-12 w-100"><i
+                      class="bi bi-eye-fill"></i> View</a></td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+        <div class="row">
+          <p *ngIf="summaryQuestionList?.length == 0" style="text-align: center;"> No Record Found !</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- <section class="" style="background-color: #0047AB;">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h5 class="text-white fonts-14 mb-2"><strong>Summary Note Questions - UK</strong></h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-xl-12 col-12 blue-table mb-4">
+        <table class="table bg-transparent table-borderless">
+          <thead>
+            <tr>
+              <th>Question</th>
+              <th>Status</th>
+              <th>Deadline</th>
+              <th>Review Note</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let item of summaryQuestionList">
+              <tr *ngIf="item?.summaryQuestionFor == 'UKWriter'">
+                <td width="350">{{item?.question}}</td>
+                <td>
+                  <span class="text-success" *ngIf="item?.verify">Verified</span>
+                  <span *ngIf="!item?.verify">Not Verified</span>
+                </td>
+                <td>
+                  <span>
+                    {{item?.deadline | date : 'dd-MM-YYYY'}}
+                  </span>
+                  <a (click)="editSummaryDate(item?.deadline, item?._id)" class="editbtn" style="cursor: pointer;"></a>
+                </td>
+                <td>
+                </td>
+                <td> {{item?.comment}}</td>
+                <td><a (click)="openSummaryDetail(item)" class="btn rounded bg-white text-dark fonts-12 w-100"><i
+                      class="bi bi-eye-fill"></i> View</a></td>
+            </ng-container>
+          </tbody>
+        </table>
+        <div class="row">
+          <p *ngIf="summaryQuestionList?.length == 0" style="text-align: center;"> No Record Found !</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- ViewCaseModal Modal -->
+<div class="modal fade" id="ViewCaseModal" tabindex="-1" aria-labelledby="ViewDocumentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" style="display: flex; justify-content: space-between;">
+        <h5 class="modal-title" id="ViewDocumentModalLabel">Case Study ({{selectedDocument?.name}})</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ng-container *ngIf="isPdf(selectedDocument?.link?.url); else otherFormats">
+          <ngx-extended-pdf-viewer [src]="selectedDocument?.link?.url" useBrowserLocale="true"
+            height="600px"></ngx-extended-pdf-viewer>
+        </ng-container>
+        <ng-template #otherFormats>
+          <iframe *ngIf="isWordOrExcel(selectedDocument?.link?.url)"
+            [src]="getDocumentViewerUrl(selectedDocument?.link?.url)" style="width: 100%; height: 600px;"></iframe>
+          <img *ngIf="isImage(selectedDocument?.link?.url)" [src]="selectedDocument?.link?.url" class="img-fluid" />
+        </ng-template>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- View Date Modal -->
+<div class="modal fade" id="viewDateModal" tabindex="-1" aria-labelledby="viewDateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewDateModalLabel">Deadline </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="date" [value]="selectedDate" class="form-control" placeholder="Date" style="height: 30px;">
+      </div>
+      <button type="button" (click)="saveDeadLineDate()" data-bs-dismiss="modal" class="btn btn-outline-dark me-2"
+        style="margin-bottom: 0.5rem;" class="btn btn-success me-3">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- View Document Modal -->
+<div class="modal fade" id="ViewDocumentModal" tabindex="-1" aria-labelledby="ViewDocumentModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" style="display: flex; justify-content: space-between;">
+        <h5 class="modal-title" id="ViewDocumentModalLabel">FOI Document ({{selectedDocument?.name}})</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ng-container *ngIf="isPdf(selectedDocument?.link?.url); else otherFormats">
+          <ngx-extended-pdf-viewer [src]="selectedDocument?.link?.url" useBrowserLocale="true"
+            height="600px"></ngx-extended-pdf-viewer>
+        </ng-container>
+        <ng-template #otherFormats>
+          <iframe *ngIf="isWordOrExcel(selectedDocument?.link?.url)"
+            [src]="getDocumentViewerUrl(selectedDocument?.link?.url)" style="width: 100%; height: 600px;"></iframe>
+          <img *ngIf="isImage(selectedDocument?.link?.url)" [src]="selectedDocument?.link?.url" class="img-fluid" />
+        </ng-template>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

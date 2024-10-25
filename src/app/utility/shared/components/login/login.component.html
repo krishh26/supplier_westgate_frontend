@@ -1,0 +1,76 @@
+<div class="body-login">
+
+    <div class="container d-flex justify-content-center align-items-center" style="height:100vh; overflow:hidden;">
+        <div class="row d-flex align-items-center justify-content-center"
+            style="overflow:hidden; width:100vw; height:100vh;">
+
+            <div class="col-lg-4 col-xl-4 col-12 text-center">
+                <img src="assets/img/login-logo.svg" width="250" />
+            </div>
+            <div class="col-lg-4 col-xl-4 col-12">
+                <div class="login-modal">
+                    <div class="login-body">
+                        <h4 class="mb-4"><strong>Hello!</strong></h4>
+                        <form class="needs-validation" [formGroup]="loginForm" (ngSubmit)="login()">
+                            <!-- <div class="form-group">
+                                <label>Role</label>
+                                    <select formControlName="role" class="form-select">
+                                        <option disabled selected hidden value="">Select User Role</option>
+                                        <option value="BOS">Bos User</option>
+                                        <option value="FeasibilityUser">Feasibility User</option>
+                                        <option value="ProjectManager">Project Manager</option>
+                                        <option value="SupplierAdmin">Supplier Admin</option>
+                                        <option value="Admin">Super Admin</option>
+                                    </select>
+                                <span class="text-danger" *ngIf="
+                                loginForm.controls.role?.touched &&
+                                loginForm.controls.role?.errors?.['required']">
+                                    Please enter role
+                                </span>
+                            </div> -->
+                            <div class="form-group">
+                                <label>Email id</label>
+                                <input type="email" formControlName="email" required class="form-control"
+                                    placeholder="Enter email id">
+                                <span class="text-danger" *ngIf="
+                                loginForm.controls.email?.touched &&
+                                loginForm.controls.email?.errors?.['required']">
+                                    Please enter email
+                                </span>
+                                <span class="text-danger" *ngIf="
+                                loginForm.controls.email?.touched &&
+                                loginForm.controls.email?.errors?.['pattern']">
+                                    Please enter valid email
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input [type]="password" class="form-control" placeholder="Enter password"
+                                    formControlName="password" required>
+                                <span class="showicon" *ngIf="!showPassword" (click)="showHidePass()"><i
+                                        class="bi bi-eye-fill"></i></span>
+                                <span class="showicon" *ngIf="showPassword" (click)="showHidePass()"><i
+                                        class="bi bi-eye-slash-fill"></i></span>
+                                <span class="text-danger" *ngIf="
+                                loginForm.controls.password?.touched &&
+                                loginForm.controls.password?.errors?.['required']
+                            ">
+                                    Please enter valid password.
+                                </span>
+                                <span class="text-danger" *ngIf="
+                                loginForm.controls.password?.touched &&
+                                loginForm.controls.password?.errors?.['pattern']
+                            ">
+                                    Please enter valid password.
+                                </span>
+                            </div>
+                            <p><a href="javascript:void(0)" routerLink="/forgot-password">Forgot Password?</a></p>
+                            <button type="submit" class="btn btn-login w-100">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- Inner row -->
+    </div> <!-- Outer container -->
+</div>

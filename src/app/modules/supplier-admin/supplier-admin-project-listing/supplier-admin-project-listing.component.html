@@ -1,0 +1,55 @@
+<section class="pb-0">
+  <div class="container-fluid text-center">
+    <p *ngIf="activeComponent == 2" style="text-align: center; font-weight: bold;">Explore all published
+      projects and their details in one convenient location - your gateway to countless opportunities.
+    </p>
+
+    <p *ngIf="activeComponent == 1" style="text-align: center; font-weight: bold;">Discover projects perfectly
+      aligned with your capabilities - explore matched opportunities and take action. 100% match? Dive in! Partial
+      match? Contact us for assistance or upload additional case studies to unlock more opportunities.
+    </p>
+
+    <p *ngIf="activeComponent == 3" style="text-align: center; font-weight: bold;">Explore the projects you've
+      shown interest in and take the next steps.
+    </p>
+
+    <p *ngIf="activeComponent == 4" style="text-align: center; font-weight: bold;">Monitor projects currently in
+      the pipeline - witness the journey from preparation to submission.
+    </p>
+
+    <p *ngIf="activeComponent == 5" style="text-align: center; font-weight: bold;">Track the status of your
+      submitted projects - from awaiting results to outcomes, all in one place.
+    </p>
+  </div>
+  <div class="container-fluids">
+    <div class="row align-items-center">
+      <nav>   
+        <ul class="projects-nav-tab">
+          <li (click)="changeComponent(2)">
+            <a [ngClass]="{'active' : activeComponent == 2}">All Projects</a>
+          </li>
+          <li (click)="changeComponent(1)"><a [ngClass]="{'active' : activeComponent == 1}">Matched</a></li>
+          <li (click)="changeComponent(3)"><a [ngClass]="{'active' : activeComponent == 3}">Shortlisted</a></li>
+          <li (click)="changeComponent(4)"><a [ngClass]="{'active' : activeComponent == 4}">Work In Progress
+            </a></li>
+          <li (click)="changeComponent(5)"><a [ngClass]="{'active' : activeComponent == 5}">Submitted
+            </a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</section>
+
+<app-projects-matched *ngIf="activeComponent == 1"></app-projects-matched>
+
+<app-projects-all *ngIf="activeComponent == 2"></app-projects-all>
+
+<app-projects-shortlisted *ngIf="activeComponent == 3"></app-projects-shortlisted>
+
+<app-supplier-project-work-in-progress *ngIf="activeComponent == 4"></app-supplier-project-work-in-progress>
+
+<app-supplier-project-submitted *ngIf="activeComponent == 5"></app-supplier-project-submitted>
+
+<!-- <article -->
+
+<!-- 1 : Matched Project , 2 : All Project, 3: Shortlisted, 4: Applied Projects -->

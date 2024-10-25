@@ -1,0 +1,21 @@
+<section class="pt-3 pb-0 ps-0 pe-0">
+    <div class="container-fluid text-center">
+        <p style="text-align: center; font-weight: bold;">Welcome to the Dashboard! Here, you can track the progress of your projects at a glance. Stay updated on the status of your submissions, monitor awards, and manage your pipeline smoothly. Your success starts here.</p>
+    </div>
+    <div class="container-fluids">
+        <div class="row align-items-center">           
+            <nav>                
+                <ul class="projects-nav-tab justify-content-between">
+                    <li (click)="changeComponent(1)" style="text-align: center;">
+                        <a [ngClass]="{'active' : activeComponent == 1}">Project Count</a>
+                    </li>
+                    <li (click)="changeComponent(2)"><a [ngClass]="{'active' : activeComponent == 2}">Project Value</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<app-supplier-dashboard *ngIf="activeComponent == 1"></app-supplier-dashboard>
+
+<app-supplier-dashboard-value *ngIf="activeComponent == 2"></app-supplier-dashboard-value>

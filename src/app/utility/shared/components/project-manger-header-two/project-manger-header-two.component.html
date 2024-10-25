@@ -1,0 +1,41 @@
+<header id="header">
+  <div class="container d-flex align-items-center">
+    <a routerLink="/project-manager/project/all" class="logo "><img src="assets/img/newlogoo.png" alt=""
+        class="img-fluid"></a>
+    <nav id="navbar" class="w-100 navbar">
+
+      <ul class="mx-auto">
+        <li><a class="nav-link " routerLink="/project-manager/project/all"><i
+              class="bi bi-dot text-danger p-22"></i>Live Projects</a></li>
+
+        <!-- <li><a class="nav-link " routerLink="/project-manager/project/expired-project-list"><i
+              class="bi bi-dot text-secondary p-22"></i>Expired Projects</a></li> -->
+        <!-- <ul>
+          <li class="nav-link noarrowdrop" *ngFor="let item of navUrlArr">
+            <button [ngClass]="{'btn btn-sm fonts-12 rounded-pill px-4 me-3': true,
+                               'btn-primary': router.url.includes(item.route),
+                               'btn-secondary': !router.url.includes(item.route)}" [routerLink]="item.route">
+              <span>{{ item.title }}</span>
+            </button>
+          </li>
+        </ul> -->
+      </ul>
+
+      <div>
+        <ul>
+          <li class="dropdown"><a class="nav-link d-flex align-items-center" href="javascript:;">
+              <i class="bi bi-person-fill text-primary me-2" style="font-size: 1.5rem;"></i>
+              <span>{{loginUser?.userName}}</span> <i class="bi bi-chevron-down"></i>
+            </a>
+            <ul>
+              <li><a href="javascript:;" routerLink="/project-manager/profile">Profile Setting</a></li>
+              <li><a style="cursor: pointer;" (click)="logout()">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <i class="bi bi-list mobile-nav-toggle"></i>
+    </nav>
+  </div>
+</header>

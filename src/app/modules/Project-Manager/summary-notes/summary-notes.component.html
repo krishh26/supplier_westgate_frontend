@@ -1,0 +1,163 @@
+<section class="bg-dark">
+  <div class="container">
+    <div class="row">
+      <div class="col-12" style="text-align: right;">
+        <button class="btn btn-primary text-dark" style="width: 100px;" (click)="backPage()">Back</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <h5 class="text-white fonts-14 mb-2">
+          <strong>Summary Note Questions</strong>
+        </h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-xl-12 col-12 mb-4">
+        <table class="table table-dark table-borderless" style="background-color: #252525">
+          <thead>
+            <tr>
+              <th>Question</th>
+              <th>Weightage</th>
+              <th>Status</th>
+              <th>Deadline</th>
+              <th>Assign User</th>
+              <th>Review Note</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="summaryQuestionList?.length else noRecordForSupplier">
+              <ng-container *ngFor="let item of summaryQuestionList">
+                <tr *ngIf="item?.summaryQuestionFor == 'Supplier'">
+                  <td class="text-white" width="350">{{ item?.question }}</td>
+                  <td class="text-white">{{ item?.weightage }}%</td>
+                  <td class="text-white">
+                    <ng-container *ngIf="!item?.verify">
+                      Not Verified
+                    </ng-container>
+                    <ng-container class="text-success" *ngIf="item?.verify">
+                      Verified
+                    </ng-container>
+                  </td>
+                  <td class="text-white">
+                    {{ item?.createdAt | date : "dd-MM-YYY" }}
+                  </td>
+                  <td class="text-white">Ayush</td>
+                  <td class="text-white">
+                    <button (click)="openSummaryDetail(item)" class="btn rounded bg-white text-dark fonts-12 w-100"><i
+                        class="bi bi-eye-fill"></i> View Response</button>
+                  </td>
+                  <td class="text-white">
+                    <button (click)="openSummaryDetail(item)" class="btn btn-primary rounded fonts-12 w-100"><i
+                        class="bi bi-eye-fill"></i> View Question</button>
+                  </td>
+                </tr>
+              </ng-container>
+            </ng-container>
+            <ng-template #noRecordForSupplier>
+              <tr>
+                <td colspan="6" style="text-align: center;">
+                  <p *ngIf="summaryQuestionList?.length == 0 || []" style="text-align: center;"> No Record Found !</p>
+                </td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+      </div>
+      <!-- <div class="col-lg-5 col-xl-5 col-12 mb-4">
+          <table class="table table-dark table-borderless">
+            <thead>
+              <tr>
+                <th>Review Note</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td> dolor sit amet, consectetur......</td>
+                <td><a href="question-details.html" class="btn btn-small rounded bg-white text-dark fonts-12 w-100"><i class="bi bi-eye-fill"></i> View Response</a></td>
+                <td><a href="question-details.html" class="btn btn-small rounded fonts-12 w-100"><i class="bi bi-eye-fill"></i> View Question</a></td>
+              </tr>
+              <tr>
+                <td> dolor sit amet, consectetur......</td>
+                <td><a href="question-details.html" class="btn btn-small rounded bg-white text-dark fonts-12 w-100"><i class="bi bi-eye-fill"></i> View Response</a></td>
+                <td><a href="question-details.html" class="btn btn-small  rounded fonts-12 w-100"><i class="bi bi-eye-fill"></i> View Question</a></td>
+              </tr>
+              <tr>
+                <td> dolor sit amet, consectetur......</td>
+                <td><a href="question-details.html" class="btn btn-small rounded bg-white text-dark fonts-12 w-100"><i class="bi bi-eye-fill"></i> View Response</a></td>
+                <td><a href="question-details.html" class="btn btn-small rounded fonts-12 w-100"><i class="bi bi-eye-fill"></i> View Question</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div> -->
+    </div>
+  </div>
+</section>
+
+<section class="bg-primary">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h5 class="text-dark fonts-14 mb-2">
+          <strong>Summary Note Questions - UK</strong>
+        </h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-xl-12 col-12 blue-table mb-4">
+        <table class="table bg-transparent text-dark table-borderless">
+          <thead>
+            <tr class="text-dark">
+              <th class="text-dark">Question</th>
+              <th class="text-dark">Weightage</th>
+              <th class="text-dark">Status</th>
+              <th class="text-dark">Deadline</th>
+              <th class="text-dark">Assign User</th>
+              <th class="text-dark">Review Note</th>
+              <th class="text-dark"></th>
+            </tr>
+          </thead>
+          <tbody class="text-dark">
+            <ng-container *ngIf="summaryQuestionList?.length else noRecordForUk">
+              <ng-container *ngFor="let item of summaryQuestionList">
+                <tr *ngIf="item?.summaryQuestionFor == 'UKWriter'">
+                  <td class="text-dark" width="350">{{ item?.question }}</td>
+                  <td class="text-dark">{{ item?.weightage }}%</td>
+                  <td class="text-dark">
+                    <ng-container *ngIf="!item?.verify">
+                      Not Verified
+                    </ng-container>
+                    <ng-container class="text-success" *ngIf="item?.verify">
+                      Verified
+                    </ng-container>
+                  </td>
+                  <td class="text-dark">
+                    {{ item?.createdAt | date : "dd-MM-YYY" }}
+                  </td>
+                  <td class="text-dark">Ayush</td>
+                  <td class="text-white">
+                    <button (click)="openSummaryDetail(item)" class="btn rounded bg-white text-dark fonts-12 w-100"><i
+                        class="bi bi-eye-fill"></i> View Response</button>
+                  </td>
+                  <td class="text-white">
+                    <button (click)="openSummaryDetail(item)" class="btn btn-primary rounded fonts-12 w-100"><i
+                        class="bi bi-eye-fill"></i> View Question</button>
+                  </td>
+                </tr>
+              </ng-container>
+            </ng-container>
+            <ng-template #noRecordForUk>
+
+              <td colspan="6" style="text-align: center;">
+                <p *ngIf="summaryQuestionList?.length == 0 || []" style="text-align: center;"> No Record Found !</p>
+              </td>
+
+            </ng-template>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

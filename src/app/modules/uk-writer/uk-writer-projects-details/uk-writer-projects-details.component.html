@@ -1,0 +1,349 @@
+<main id="main">
+    <section>
+        <div class="container-fluid">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
+                    <div class="form-group mb-0">
+
+                    </div>
+                </div>
+                <div class="col-lg-2 col-xl-2 col-12">
+                    <a (click)="supplierListPage()" style="float: right;"
+                    class="btn btn-primary text-dark"> Back</a>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-lg-2 col-xl-2 col-12">
+                    <a (click)="supplierListPage()" style="float: right;"
+                        class="btn btn-outline-secondary w-100 box-shadow"> Back</a>
+                </div>
+            </div> -->
+
+            <div class="table-responsive mt-5 mb-3">
+                <table class="table table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th width="100px">Project Title</th>
+                            <th width="150px">Project Description</th>
+                            <th>BOS ID</th>
+                            <th>Publish Date</th>
+                            <th>Category</th>
+                            <th>Industry</th>
+                            <th>Min value (GBP)</th>
+                            <th>Max value (GBP)</th>
+                            <th>Website</th>
+                            <th width="100px">Link to Notice</th>
+                            <th>Created Date</th>
+                            <th>Status</th>
+                            <th>Due Date &amp; Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <!-- <td><a href="javascript:;">Provision of MyBedsLife Student Engagement App Support Services</a></td> -->
+                            <td><a>{{projectDetails?.projectName}}</a></td>
+                            <td><a title="{{ projectDetails?.description }}">{{ projectDetails?.description | slice:0:10
+                                    }}</a></td>
+                            <td v-align="middle">{{projectDetails?.BOSID}}</td>
+                            <td>{{projectDetails?.publishDate | date:'dd/MM/yyyy'}}</td>
+                            <td>{{projectDetails?.category}}</td>
+                            <td>{{projectDetails?.industry}}</td>
+                            <td>{{projectDetails?.minValue}}</td>
+                            <td>{{projectDetails?.maxValue}}</td>
+                            <td>{{projectDetails?.website}}</td>
+                            <td><a href='{{projectDetails?.link}}' target="_blank">{{projectDetails?.link}}</a></td>
+                            <td>{{projectDetails?.createdAt | date:'dd/MM/yyyy'}}</td>
+                            <td>{{projectDetails?.status}}</td>
+                            <td>{{projectDetails?.dueDate | date:'dd/MM/yyyy, h:mm a'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-responsive mt-5 mb-3">
+                <table class="table table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th>Supplier Name</th>
+                            <th>Supplier ID</th>
+                            <th>Admin Name</th>
+                            <th>Handover Call</th>
+                            <th>Bidding Company Name</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{supplierDetails?.supplierId?.name}}</td>
+                            <td>{{supplierDetails?.supplierId?._id}}</td>
+                            <td>{{supplierDetails?.supplierId?.name}}</td>
+                            <td>Held on: {{supplierDetails?.handoverCall | date:'d MMM y' }}
+                            </td>
+                            <td>
+                                <select class="form-select form-select-sm">
+                                    <ng-container *ngFor="let company of supplierDetails?.companySelect">
+                                        <option>{{company}}</option>
+                                    </ng-container>
+                                </select>
+                            </td>
+                            <!-- <td> <button type="button" class="btn btn-light"><i class="bi bi-pencil-fill"></i></button>
+                            </td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <section class="pt-0 pb-0">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-8 col-xl-8 col-12">
+                    <div class="row">
+                      <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12" *ngFor="let doc of documents">
+                        <div class="form-group">
+                            <label class="display-block">{{ doc.label }}</label>
+                            <button type="button" class="btn btn-primary btn-view-document btn-boxshadow text-dark w-100 mb-3" data-bs-toggle="modal" data-bs-target="#ViewDocuments"
+                                (click)="openUploadedDocument(doc.file)">
+                                <i class="bi bi-eye-fill"></i> View Document
+                            </button>
+                        </div>
+                    </div>
+                        <!-- <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <label class="display-block">Sub-contracting</label>
+                                <button type="button" class="btn btn-small w-100 mb-3"><i class="bi bi-eye-fill"></i>
+                                    View Document</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <label class="display-block">Economical partnership</label>
+                                <button type="button" class="btn btn-small w-100 mb-3"><i class="bi bi-eye-fill"></i>
+                                    View Document</button>
+                                <button type="button" class="btn btn-small w-100"><i class="bi bi-eye-fill"></i> View
+                                    Document</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12">
+                            <div class="form-group">
+                                <label class="display-block">other</label>
+                                <button type="button" class="btn btn-small w-100 mb-3"><i class="bi bi-eye-fill"></i>
+                                    View Document</button>
+                                <button type="button" class="btn btn-small w-100"><i class="bi bi-eye-fill"></i> View
+                                    Document</button>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-4 col-12">
+                    <div class="card bg-primary">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-lg-4 col-xl-4 col-12">
+                                    <h6 class="p-12 text-white"><strong>Client Detils</strong></h6>
+                                </div>
+                                <div class="col-lg-7 col-xl-7 col-12">
+                                    <p class="p-10 mb-0 text-white">Mail ID : {{projectDetails?.mailID}}</p>
+                                    <p class="p-10 mb-0 text-white">Client Type : {{projectDetails?.clientType}}</p>
+                                    <p class="p-10 mb-0 text-white">Client Name : {{projectDetails?.clientName}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Project description-->
+            <div class="row mb-4 mt-4">
+                <h4 class="text-theme"><strong>Project Description</strong></h4>
+                <p>{{projectDetails?.description}}</p>
+            </div>
+            <!--client details-->
+            <div class="row mt-5">
+                <div class="col-lg-4 col-xl-4 col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-lg-4 col-xl-4 col-12">
+                                    <h6 class="text-theme"><strong>Client Detils</strong></h6>
+                                </div>
+                                <div class="col-lg-7 col-xl-7 col-12">
+                                    <p class="p-13 mb-0">Mail ID : {{projectDetails?.mailID}}</p>
+                                    <p class="p-13 mb-0">Client Type : {{projectDetails?.clientType}}</p>
+                                    <p class="p-13 mb-0">Client Name : {{projectDetails?.clientName}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-4 col-12 mb-4">
+                    <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
+                        <p class="mb-0">FOI Document</p>
+                    </div>
+                    <div class="row align-items-center" *ngIf="projectDetails?.fois?.length == 0">
+                        <div class="col-lg-12 col-xl-12 col-12 mob-mb1">
+                            <p class="mb-0">No Record Found.</p>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="projectDetails?.fois?.length > 0">
+                        <div class="row align-items-center" *ngFor="let foiDocument of projectDetails?.fois">
+                            <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
+                                <p class="mb-0">{{foiDocument?.name}}</p>
+                            </div>
+                            <div class="col-lg-4 col-xl-4 col-6">
+                                <a (click)="openDocument(foiDocument)" class="btn btn-small w-100"
+                                    data-bs-toggle="modal" data-bs-target="#ViewScreenshot"><i
+                                        class="bi bi-eye-fill"></i> View</a>
+                            </div>
+                            <div class="col-lg-4 col-xl-4 col-6">
+                                <a (click)="download(foiDocument?.link?.url, foiDocument?.name)" target="_blank"
+                                    class="btn btn-small w-100"><i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                    Download</a>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="col-lg-4 col-xl-4 col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <p class="p-13"><strong>Period of Contract: {{projectDetails?.periodOfContractStart | date :
+                                    'dd/MM/yyyy'}} - {{projectDetails?.periodOfContractEnd | date :
+                                    'dd/MM/yyyy'}}</strong></p>
+                            <p class="p-13"><strong>Project Type: {{projectDetails?.projectType}}</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h5 class="text-white mb-4"><strong>Summary Note Questions</strong></h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <table class="table table-dark table-borderless" style="background-color: #252525;">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Weightage</th>
+                                <th>Status</th>
+                                <th>Deadline</th>
+                                <th>Review Note</th>
+                                <th></th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of summaryquestionList">
+                                <td width="350">{{item?.question}}</td>
+                                <td>{{item?.weightage}}%</td>
+                                <td>{{item?.verify}}</td>
+                                <td>{{item?.deadline | date : 'dd/MM/yyyy'}}</td>
+                                <td>{{item?.response?.message}}</td>
+                                <td><a (click)="questionDetails(item)" class="btn-sm btn-primary"><i
+                                            class="bi bi-eye-fill"></i> View Question</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <p *ngIf="summaryquestionList?.length == 0" style="text-align: center;"> No Record Found !</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h5 class="text-white mb-4"><strong>Summary Note Questions</strong></h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-primary table-borderless" style="background-color: #252525;">
+                        <thead>
+                            <tr>
+                                <th>Question</th>
+                                <th>Weightage</th>
+                                <th>Status</th>
+                                <th>Deadline</th>
+                                <th>Assign User</th>
+                                <th>Add Review Note</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of summaryquestionList">
+                                <td width="350">{{item?.question}}</td>
+                                <td>{{item?.weightage}}%</td>
+                                <td><span class="text-success">{{item?.verify}}</span></td>
+                                <td>{{item?.deadline | date : 'dd/MM/yyyy'}}</td>
+                                <td>{{item?.summaryQuestionFor}}</td>
+                                <td> {{item?.instructions}}</td>
+                                <td>
+                                    <a (click)="questionDetails(item)" class="btn-sm btn-primary"><i
+                                            class="bi bi-eye-fill"></i> View Question</a>
+                                    <!-- <a href="javascript:;" class="btn btn-outline-purewhite"><i
+                                            class="bi bi-file-earmark-arrow-up-fill"></i> Upload</a> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <p *ngIf="summaryquestionList?.length == 0" style="text-align: center;"> No Record Found !</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+<!-- View FOI Document Modal -->
+<div class="modal fade" id="ViewScreenshot" tabindex="-1" aria-labelledby="ViewScreenshotLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ViewScreenshotLabel">FOI Document : {{selectedDocument?.name}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img [src]="selectedDocument?.link?.url" class="img-fluid" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ViewDocuments" tabindex="-1" aria-labelledby="viewDocumets"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="display: flex; justify-content: space-between;">
+                <h5 class="modal-title" id="viewDocumets">View Documents</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <ng-container *ngIf="isPdf(uploadedDocument?.url); else noDocuments">
+                    <ngx-extended-pdf-viewer [src]="uploadedDocument?.url" useBrowserLocale="true"
+                        height="600px"></ngx-extended-pdf-viewer>
+                </ng-container>
+                <ng-template #noDocuments>
+                    <iframe *ngIf="isWordOrExcel(uploadedDocument?.url)"
+                        [src]="getDocumentViewerUrl(uploadedDocument?.url)"
+                        style="width: 100%; height: 600px;"></iframe>
+                    <img *ngIf="isImage(uploadedDocument?.url)" [src]="uploadedDocument?.url" class="img-fluid" />
+                </ng-template>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

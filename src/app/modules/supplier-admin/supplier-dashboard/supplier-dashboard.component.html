@@ -1,0 +1,249 @@
+<main id="main">
+    <section class="dashboard-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-xl-6 col-sm-6 col-md-6 col-12">
+                    <h5 style="text-align: center;">History</h5><br />
+
+                    <div class="col-12 mb-5" (click)="navigateToProjectList('')">
+                        <div class="statistic-card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <p><strong>Total Projects</strong></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <h2 class="text-blue">
+                                            <strong>{{projectCount?.totalpassed}}</strong>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="explore-btn bg-blue w-100"></a>
+                    </div>
+
+                    <div class="col-12 mb-5" (click)="navigateToProjectList('Matched')">
+                        <div class="statistic-card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <p><strong>Total Projects in my category</strong></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <h2 class="text-blue">
+                                            <strong>{{projectCount?.totalProjectInCategory}}</strong>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="explore-btn bg-success w-100"></a>
+                    </div>
+
+                    <div class="col-12 mb-5" (click)="navigateToProjectList('Matched')">
+                        <div class="statistic-card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <p><strong>Total matched</strong></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <h2 class="text-teal">
+                                            <strong>{{projectCount?.matchedProjects}}</strong>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="explore-btn bg-teal w-100"></a>
+                    </div>
+
+                    <div class="col-12 mb-5" (click)="navigateToProjectList('Shortlisted')">
+                        <div class="statistic-card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <p><strong>Shortlisted</strong></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <h2 class="text-teal">
+                                            <strong>{{projectCount?.sortListed}}</strong>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="explore-btn bg-info w-100"></a>
+                    </div>
+
+                    <!-- <div class="col-12 mb-5" (click)="navigateToProjectList('Dropped')">
+                        <div class="statistic-card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <p><strong>Dropped Projects</strong></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <h2 class="text-teal">
+                                            <strong>{{projectCount?.drop}}</strong>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="explore-btn bg-warning w-100"></a>
+                    </div> -->
+
+                    <div class="col-12 mb-5" (click)="navigateToProjectList('Awarded')">
+                        <div class="statistic-card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <p><strong>Awarded</strong></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <h2 class="text-green">
+                                            <strong>{{projectCount?.totalAwarded}}</strong>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="explore-btn bg-green w-100"></a>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-6 col-xl-6 col-sm-6 col-md-6 col-12">
+                    <h5 style="text-align: center;">Current</h5><br />
+
+                    <div class="col-12 mb-5" (click)="navigateToProjectList('InSolution')">
+                        <div class="statistic-card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <p><strong>In-solution</strong></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <h2 class="text-blue">
+                                            <strong>{{projectCount?.totalInSolution}}</strong>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="explore-btn bg-blue w-100"></a>
+                    </div>
+
+                    <div class="col-12 mb-5" (click)="navigateToProjectList('In-review')">
+                        <div class="statistic-card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <p><strong>In-Review</strong></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <h2 class="text-blue">
+                                            <strong>{{projectCount?.totalInReview}}</strong>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="explore-btn bg-success w-100"></a>
+                    </div>
+
+                    <div class="col-12 mb-5" (click)="navigateToProjectList('InSubmission')">
+                        <div class="statistic-card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <p><strong>In-submission</strong></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <h2 class="text-teal">
+                                            <strong>{{projectCount?.totalInSubmition}}</strong>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="explore-btn bg-teal w-100"></a>
+                    </div>
+
+                    <!-- <div class="col-12 mb-5" (click)="navigateToProjectList('UK Expert-Writing')">
+                        <div class="statistic-card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <p><strong>UK Expert-Writing</strong></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <h2 class="text-teal">
+                                            <strong>{{projectCount?.UKExpertWritingsCount}}</strong>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="explore-btn bg-info w-100"></a>
+                    </div> -->
+
+                    <!-- <div class="col-12 mb-5" (click)="navigateToProjectList('UK Expert-Review')">
+                        <div class="statistic-card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <p><strong>UK Expert-Review</strong></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <h2 class="text-teal">
+                                            <strong>{{projectCount?.UKExpertReviewCount}}</strong>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="explore-btn bg-warning w-100"></a>
+                    </div> -->
+
+                    <div class="col-12 mb-5" (click)="navigateToProjectList('Submitted')">
+                        <div class="statistic-card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <p><strong>Submitted</strong></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <h2 class="text-green">
+                                            <strong>{{projectCount?.totalSubmitted}}</strong>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="explore-btn bg-green w-100"></a>
+                    </div>
+                    <div class="col-12 mb-5" (click)="navigateToProjectList('NotAwarded')">
+                        <div class="statistic-card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <p><strong>Not Awarded</strong></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <h2 class="text-brown">
+                                            <strong>{{projectCount?.totalNotAwarded}}</strong>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="explore-btn bg-brown w-100"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
