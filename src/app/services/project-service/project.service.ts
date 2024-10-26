@@ -49,7 +49,8 @@ export class ProjectService {
     valueRange?: any,
     selectedSupplier?: boolean // Add this line
     expired?: boolean,
-    supplierStatus?:string
+    supplierStatus?: string,
+    workInProgress?: string
   }): Observable<any> {
     const url = `${this.baseUrl}${ProjectEndPoint.PROJECT_LIST}`;
     let queryParams = new HttpParams();
@@ -85,6 +86,9 @@ export class ProjectService {
     }
     if (params?.clientType) {
       queryParams = queryParams.set('clientType', params?.clientType);
+    }
+    if (params?.workInProgress) {
+      queryParams = queryParams.set('workInProgress', params?.workInProgress);
     }
     if (params?.publishDateRange) {
       queryParams = queryParams.set('publishDateRange', params?.publishDateRange);
