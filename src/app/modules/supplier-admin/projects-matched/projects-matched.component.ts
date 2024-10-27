@@ -129,6 +129,7 @@ export class ProjectsMatchedComponent implements OnInit {
     this.payload.clientType = this.selectedClientTypes.join(',');
     this.payload.status = this.selectedStatuses.join(',');
     this.payload.supplierStatus = this.selectedStatuses.join(',');
+    this.payload.status = 'Passed';
     this.payload.publishDateRange = (this.publishStartDate.value && this.publishEndDate.value) ? `${this.publishStartDate.value.year}-${this.publishStartDate.value.month}-${this.publishStartDate.value.day} , ${this.publishEndDate.value.year}-${this.publishEndDate.value.month}-${this.publishEndDate.value.day}` : '';
     this.payload.SubmissionDueDateRange = (this.submissionStartDate.value && this.submissionEndDate.value) ? `${this.submissionStartDate.value.year}-${this.submissionStartDate.value.month}-${this.submissionStartDate.value.day} , ${this.submissionEndDate.value.year}-${this.submissionEndDate.value.month}-${this.submissionEndDate.value.day}` : '';
     this.payload.valueRange = this.minValue + '-' + this.maxValue;
