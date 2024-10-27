@@ -206,6 +206,7 @@ export class ProjectsMatchedComponent implements OnInit {
     this.payload.applied = false;
     this.payload.sortlist = false;
     this.payload.match = 'partial';
+    this.payload.status = 'Passed';
     this.projectService.getProjectList(this.payload).subscribe((response) => {
       this.projectList = [];
       this.totalRecords = response?.data?.meta_data?.items;
