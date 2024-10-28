@@ -100,24 +100,26 @@
                     <h5>West Gate Documents</h5>
                     <div class="card">
                         <ul class="project-document">
-                            <ng-container *ngIf="projectDetails?.westGetDocument?.length > 0">
-                                <li *ngFor="let westGetDocument of projectDetails?.westGetDocument">
+                            <ng-container *ngIf="projectDetails?.projectComment?.length > 0">
+                                <li *ngFor="let westGetDocument of projectDetails?.projectComment">
                                     <div class="row">
                                         <div class="col-5 text-center">
-                                            <p class="mb-0">Project Notice</p>
+                                            <p class="mb-0">{{westGetDocument?.comment}}</p>
                                         </div>
                                         <div class="col-7 text-center">
-                                            <a href="javascript:;" class="btn btn-primarysm"><i class="bi bi-eye-fill"
-                                                    data-bs-toggle="modal" data-bs-target="#ViewDocuments"
-                                                    (click)="openDocument(westGetDocument?.file)"></i>
+                                            <a href="href:;" class="btn btn-primarysm me-2" data-bs-toggle="modal"
+                                                data-bs-target="#ViewDocuments" (click)="openDocument(westGetDocument?.file)"><i
+                                                    class="bi bi-eye-fill"></i>
                                                 View</a>
-                                            <a href="javascript:;" class="btn btn-primarysm"><i
+                                            &nbsp;
+                                            <a href="href:;" class="btn btn-primarysm"
+                                                (click)="download(westGetDocument?.file?.url, westGetDocument?.name)"><i
                                                     class="bi bi-file-earmark-arrow-down-fill"></i> Download</a>
                                         </div>
                                     </div>
                                 </li>
                             </ng-container>
-                            <ng-container *ngIf="projectDetails?.westGetDocument?.length == 0">
+                            <ng-container *ngIf="projectDetails?.projectComment?.length == 0">
                                 <li style="text-align: center;">
                                     <p>No Record Found.</p>
                                 </li>
