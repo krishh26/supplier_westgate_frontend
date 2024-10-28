@@ -202,7 +202,7 @@ export class SupplierProjectWorkInProgressComponent {
     this.payload.keyword = this.searchText;
     this.payload.page = String(this.page);
     this.payload.limit = String(this.pagesize);
-    this.payload.applied = true;
+    // this.payload.applied = true;
     this.payload.sortlist = false;
     this.payload.workInProgress = true;
     this.payload.match ="partial";
