@@ -38,7 +38,7 @@ export class ProjectsAllComponent implements OnInit {
   selectedProjectTypes: any[] = [];
   selectedClientTypes: any[] = [];
   selectedStatuses: any[] = [];
-  private payload:any={};
+  private payload: any = {};
 
   projectTypeList = [
     { projectType: 'Development', value: 'Development' },
@@ -58,12 +58,13 @@ export class ProjectsAllComponent implements OnInit {
     // { value: 'Passed', status: 'Pass' },
     // { value: 'Fail', status: 'Fail' },
 
-    { value: 'InSolution', supplierStatus: 'InSolution' },
-    { value: 'InReview', supplierStatus: 'InReview' },
+    { value: 'In solution', supplierStatus: 'In solution' },
+    { value: 'In-review', supplierStatus: 'In-review' },
+    { value: 'In-Submission', supplierStatus: 'In-Submission' },
     { value: 'Submitted', supplierStatus: 'Submitted' },
-    { value: 'InSubmission', supplierStatus: 'InSubmission' },
     { value: 'Awarded', supplierStatus: 'Awarded' },
-    { value: 'NotAwarded', supplierStatus: 'NotAwarded' },
+    { value: 'Not awarded', supplierStatus: 'Not awarded' },
+    { value: 'Dropped', supplierStatus: 'Dropped' }
 
   ];
 
@@ -83,7 +84,7 @@ export class ProjectsAllComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.payload=this.superService.deepCopy(Payload.projectList);
+    this.payload = this.superService.deepCopy(Payload.projectList);
     this.myControl.valueChanges.subscribe((res: any) => {
       let storeTest = res;
       this.searchText = res.toLowerCase();
