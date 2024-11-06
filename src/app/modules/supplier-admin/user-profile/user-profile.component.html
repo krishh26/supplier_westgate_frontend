@@ -34,9 +34,9 @@
 
             <div class="form-group">
               <label>Location</label>
-              <input type="text" class="form-control" formControlName="location" />
+              <input type="text" class="form-control" formControlName="companyAddress" />
               <span class="text-danger"
-                *ngIf="userForm.controls.location?.touched && userForm.controls.location?.errors?.['required']">Please
+                *ngIf="userForm.controls.companyAddress?.touched && userForm.controls.companyAddress?.errors?.['required']">Please
                 Enter location</span>
             </div>
 
@@ -50,10 +50,10 @@
 
             <div class="form-group">
               <label>Phone Number</label>
-              <input type="text" class="form-control" formControlName="phoneNumber" (keypress)="NumberOnly($event)"
+              <input type="text" class="form-control" formControlName="customerSupportContact" (keypress)="NumberOnly($event)"
                 minlength="10" maxlength="10" />
               <span class="text-danger"
-                *ngIf="userForm.controls.phoneNumber?.touched && userForm.controls.phoneNumber?.errors?.['required']">Please
+                *ngIf="userForm.controls.customerSupportContact?.touched && userForm.controls.customerSupportContact?.errors?.['required']">Please
                 Enter phone number</span>
             </div>
 

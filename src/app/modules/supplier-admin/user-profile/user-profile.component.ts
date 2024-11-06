@@ -74,14 +74,14 @@ export class UserProfileComponent implements OnInit {
   ]
 
   userDataForm = {
-    name: new FormControl("", [Validators.required,]),
-    location: new FormControl("", [Validators.required]),
-    email: new FormControl("", [Validators.required]),
-    phoneNumber: new FormControl("", [Validators.required]),
-    jobTitle: new FormControl("", [Validators.required]),
-    professionalSkill: new FormControl("", [Validators.required]),
-    reportTo: new FormControl("", [Validators.required]),
-    manages: new FormControl("", [Validators.required]),
+    name: new FormControl(""),
+    companyAddress: new FormControl(""),
+    email: new FormControl(""),
+    customerSupportContact: new FormControl(""),
+    jobTitle: new FormControl(""),
+    professionalSkill: new FormControl(""),
+    reportTo: new FormControl(""),
+    manages: new FormControl(""),
   };
 
   userForm = new FormGroup(this.userDataForm, []);
@@ -102,7 +102,8 @@ export class UserProfileComponent implements OnInit {
         console.log('response.data', response.data);
         this.userForm.controls['email'].setValue(response?.data?.email || "");
         this.userForm.controls['name'].setValue(response?.data?.name || "");
-        this.userForm.controls['location'].setValue(response?.data?.location || "");
+        this.userForm.controls['companyAddress'].setValue(response?.data?.companyAddress || "");
+        this.userForm.controls['customerSupportContact'].setValue(response?.data?.customerSupportContact || "");
       }
     }, (error) => {
       this.notificationService.showError(error?.error?.message || 'Error');
