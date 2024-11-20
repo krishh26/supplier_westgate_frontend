@@ -127,7 +127,7 @@ export class CaseStudiesComponent {
     }
   }
 
-  // Add this method to handle file changes
+
   onFileChange(event: any, caseStudy: any): void {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
@@ -135,17 +135,16 @@ export class CaseStudiesComponent {
     }
   }
 
-  // Method to upload the case study document
   uploadDocument(file: File, caseStudy: any) {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('caseStudyId', caseStudy._id); // Assuming each case study has an ID
+    formData.append('caseStudyId', caseStudy._id);
 
     this.showLoader = true;
     this.supplierService.addCaseStudy(formData).subscribe((response) => {
       if (response.status === true) {
         this.notificationService.showSuccess('Document uploaded successfully.');
-        this.getCaseStudiesList(); // Reload the case studies to show updates
+        this.getCaseStudiesList();
       } else {
         this.notificationService.showError(response.message);
       }
@@ -174,7 +173,7 @@ export class CaseStudiesComponent {
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', fileName); // You can customize the filename here
+        link.setAttribute('download', fileName);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
