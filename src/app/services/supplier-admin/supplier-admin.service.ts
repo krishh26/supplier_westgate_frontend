@@ -13,7 +13,8 @@ export enum SupplierAdminEndPoint {
   ADD_USER = '/user/suplier/register',
   CASE_STUDY_LIST = '/case-study/list',
   ADD_CASE_STUDY = '/case-study/create',
-  DELETE_USER = '/user/delete/'
+  DELETE_USER = '/user/delete/',
+  UPDATE_CASESTUDY = '/case-study/update/'
 }
 
 @Injectable({
@@ -50,6 +51,12 @@ export class SupplierAdminService {
     return this.httpClient
       .post<any>(this.baseUrl + SupplierAdminEndPoint.ADD_CASESTUDY, payload);
   }
+
+  updateCaseStudy(id: any, payload: any) {
+    return this.httpClient
+      .post<any>(this.baseUrl + SupplierAdminEndPoint.UPDATE_CASESTUDY + id, payload);
+  }
+
 
   addUser(payload: any) {
     return this.httpClient
