@@ -35,6 +35,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { ProjectListDashboardComponent } from './project-list-dashboard/project-list-dashboard.component';
 import { ProjectDetailsDahboardComponent } from './project-details-dahboard/project-details-dahboard.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { ProjectDetailsDahboardComponent } from './project-details-dahboard/proj
     ReactiveFormsModule,
     NgbModule,
     NgSelectModule,
-    NgxSliderModule
+    NgxSliderModule,
+    NgxSpinnerModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -15,8 +15,8 @@ export enum SupplierAdminEndPoint {
   ADD_CASE_STUDY = '/case-study/create',
   DELETE_USER = '/user/delete/',
   UPDATE_CASESTUDY = '/case-study/update/',
-  DOCUMENT_UPLOAD='/project/upload'
-
+  DOCUMENT_UPLOAD = '/project/upload',
+  DELETE_CASE_STUDY = '/case-study/delete/'
 }
 
 @Injectable({
@@ -78,7 +78,17 @@ export class SupplierAdminService {
     return this.httpClient.delete<any>(url, { params: queryParams });
   }
 
-  uploadDocument(payload : any): Observable<any> {
+  deleteCaseStudies(id: string): Observable<any> {
+    // const url = `${this.baseUrl}${SupplierAdminEndPoint.DELETE_CASE_STUDY}`;
+
+    // let queryParams = new HttpParams();
+    // queryParams = queryParams.set('id', params.id || '');
+    // return this.httpClient.delete<any>(url, { params: queryParams });
+    return this.httpClient
+      .delete<any>(this.baseUrl + SupplierAdminEndPoint.DELETE_CASE_STUDY + id);
+  }
+
+  uploadDocument(payload: any): Observable<any> {
     return this.httpClient
       .post<any>(this.baseUrl + SupplierAdminEndPoint.DOCUMENT_UPLOAD, payload);
   }

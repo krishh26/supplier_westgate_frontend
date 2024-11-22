@@ -69,16 +69,36 @@
                                     <td>{{item?.contractValue}}</td>
                                     <td>{{item?.resourcesUsed}}</td>
                                     <td>{{item?.clientName}}</td>
-                                    <td>
-                                        <span class="btn btn-primary btn-sm">
-                                            <label for="uploadClientDocument"><i
-                                                    class="bi bi-file-earmark-arrow-up-fill"></i>
+                                    <td class="d-flex align-items-center justify-content-start">
+                                        <!-- Upload Button -->
+                                        <span class="btn btn-primary btn-sm me-2">
+                                            <label [for]="'uploadClientDocument_' + item._id"
+                                                class="d-flex align-items-center m-0">
+                                                <i class="bi bi-file-earmark-arrow-up-fill"></i>
+                                                <input type="file" [id]="'uploadClientDocument_' + item._id"
+                                                    (change)="onFileChange($event, item._id)" name="myfile"
+                                                    style="opacity: 0; position: absolute; pointer-events: none; width: 0; height: 0;" />
                                             </label>
-                                            <input type="file" id="uploadClientDocument" (change)="
-                                                onFileChange($event, item._id)
-                                              " name="myfile" style="height: 1px; width: 1px" />
+                                        </span>
+
+                                        <!-- View Button -->
+                                        <span class="btn btn-primary btn-sm me-2" *ngIf="item?.link">
+                                            <a (click)="openDocument(item)"
+                                                class="text-white d-flex align-items-center justify-content-center"
+                                                data-bs-toggle="modal" data-bs-target="#ViewClientDoc">
+                                                <i class="bi bi-eye-fill"></i>
+                                            </a>
+                                        </span><br>
+
+                                        <!-- View Button -->
+                                        <span class="btn btn-danger btn-sm">
+                                            <a (click)="deleteCaseStudy(item._id)"
+                                                class="text-white d-flex align-items-center justify-content-center">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </a>
                                         </span>
                                     </td>
+
                                 </tr>
                             </tbody>
                         </table>
@@ -124,31 +144,35 @@
     </div>
 </div>
 
-<div class="modal fade" id="ViewTemplate" tabindex="-1" aria-labelledby="ViewDocumentModalLabel" aria-hidden="true">
+<div class="modal fade" id="ViewClientDoc" tabindex="-1" aria-labelledby="ViewClientDocLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <div class="modal-header" style="display: flex; justify-content: space-between;">
-                <h5 class="modal-title" id="ViewDocumentModalLabel">Case Study Template</h5>
+            <div class="modal-header">
+                <h5 class="modal-title" id="ViewClientDocLabel">
+                    Case Study Document : {{ selectedDocument?.name }}
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <ng-container>
-                    <!-- <ngx-extended-pdf-viewer [src]="selectedCasestudy" useBrowserLocale="true"
-                        height="600px"></ngx-extended-pdf-viewer> -->
-                    <iframe *ngIf="isWordOrExcel(selectedCasestudy)" [src]="getDocumentViewerUrl(selectedCasestudy)"
-                        style="width: 100%; height: 600px;"></iframe>
-                </ng-container>
-                <!-- <ng-template #otherFormats>
-                    <iframe *ngIf="isWordOrExcel(selectedCasestudy)"
-                        [src]="getDocumentViewerUrl(selectedCasestudy)"
-                        style="width: 100%; height: 600px;"></iframe>
-                    <img *ngIf="isImage(selectedCasestudy)" [src]="selectedCasestudy"
-                        class="img-fluid" />
-                </ng-template> -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <div class="modal-body">
+                    <ng-container *ngIf="isPdf(selectedDocument?.file?.url); else otherFormats">
+                        <ngx-extended-pdf-viewer [src]="selectedDocument?.file?.url" useBrowserLocale="true"
+                            height="600px"></ngx-extended-pdf-viewer>
+                    </ng-container>
+                    <ng-template #otherFormats>
+                        <iframe *ngIf="isWordOrExcel(selectedDocument?.file?.url)"
+                            [src]="getDocumentViewerUrl(selectedDocument?.file?.url)"
+                            style="width: 100%; height: 600px;"></iframe>
+                        <img *ngIf="isImage(selectedDocument?.file?.url)" [src]="selectedDocument?.file?.url"
+                            class="img-fluid" />
+                    </ng-template>
+                </div>
+                <!-- <img [src]="selectedDocument?.file?.url" class="img-fluid" /> -->
             </div>
         </div>
     </div>
 </div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { SuperadminService } from 'src/app/services/super-admin/superadmin.service';
 import { SupplierAdminService } from 'src/app/services/supplier-admin/supplier-admin.service';
 import { pagination } from 'src/app/utility/shared/constant/pagination.constant';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-case-studies',
@@ -13,7 +15,6 @@ import { pagination } from 'src/app/utility/shared/constant/pagination.constant'
   styleUrls: ['./case-studies.component.scss']
 })
 export class CaseStudiesComponent {
-
 
   showLoader: boolean = false;
   caseStudyList: any = [];
@@ -32,7 +33,7 @@ export class CaseStudiesComponent {
     private notificationService: NotificationService,
     private router: Router,
     private sanitizer: DomSanitizer,
-    private superService: SuperadminService
+    private superService: SuperadminService,private spinner: NgxSpinnerService
   ) { }
 
   casestudyForm = {
@@ -49,7 +50,6 @@ export class CaseStudiesComponent {
     this.getCategoryList();
     this.selectedCasestudy = 'https://f005.backblazeb2.com/file/west-get-it-hub-1/caseStudy/1727203790532_Historical Data.xlsx';
     console.log(this.selectedCasestudy);
-
   }
 
   getCategoryList() {
@@ -127,34 +127,36 @@ export class CaseStudiesComponent {
     }
   }
 
-
   onFileChange(event: any, caseStudyId: number): void {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
-    const formData = new FormData();
-       formData.append('files', file);
-      this.showLoader = true;
+      const formData = new FormData();
+      formData.append('files', file);
+      this.spinner.show();
+      console.log(caseStudyId);
       this.supplierService.uploadDocument(formData).subscribe((response) => {
+        this.spinner.hide();
         if (response.status === true) {
           this.notificationService.showSuccess('Document uploaded successfully.');
-          this.updateCaseStudy(response.data,caseStudyId);
+          this.updateCaseStudy(response.data, caseStudyId);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         } else {
           this.notificationService.showError(response.message);
         }
         this.showLoader = false;
       }, (error) => {
+        this.spinner.hide();
         this.notificationService.showError(error.message);
         this.showLoader = false;
       });
-
     }
   }
 
-  updateCaseStudy(data:any,id:number)
-  {
-
+  updateCaseStudy(data: any, id: number) {
     this.showLoader = true;
-    this.supplierService.updateCaseStudy(id,{'link':data}).subscribe((response) => {
+    this.supplierService.updateCaseStudy(id, { 'link': data }).subscribe((response) => {
       if (response.status === true) {
         this.notificationService.showSuccess('Case studies Update successfully.');
       } else {
@@ -166,6 +168,36 @@ export class CaseStudiesComponent {
       this.showLoader = false;
     });
   }
+
+  deleteCaseStudy(id: any) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `Do you want to delete `,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#00B96F',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Delete!'
+    }).then((result:any) => {
+      if (result?.value) {
+        this.showLoader = true;
+        this.supplierService.deleteCaseStudies(id).subscribe((response: any) => {
+          if (response?.status == true) {
+            this.showLoader = false;
+            this.notificationService.showSuccess('Case Study successfully deleted');
+            this.getCaseStudiesList();
+          } else {
+            this.showLoader = false;
+            this.notificationService.showError(response?.message);
+          }
+        }, (error) => {
+          this.showLoader = false;
+          this.notificationService.showError(error?.message);
+        });
+      }
+    });
+  }
+
 
   paginate(page: number) {
     this.page = page;
