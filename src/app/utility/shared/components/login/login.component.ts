@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
@@ -32,7 +32,8 @@ export class LoginComponent extends BaseLogin implements OnInit {
     private authService: AuthService,
     private localStorageService: LocalStorageService,
     private router: Router,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private renderer: Renderer2
   ) {
     super()
     this.loginUser = this.localStorageService.getLogger();
@@ -40,10 +41,15 @@ export class LoginComponent extends BaseLogin implements OnInit {
 
   ngOnInit(): void {
     console.log(this.loginUser);
-
     if (!this.loginUser) {
       this.router.navigateByUrl('/');
     }
+    this.renderer.removeClass(document.body, 'body-top');
+  }
+
+  ngOnDestroy(): void {
+    // Add the 'body-top' class back when leaving the login component
+    this.renderer.addClass(document.body, 'body-top');
   }
 
   // Function to use for the login the user
