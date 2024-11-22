@@ -4,28 +4,6 @@
     <a routerLink="/supplier-admin/supplier-dashboard-header" class="logo mee-auto"><img src="assets/img/westgate.svg"
         alt="" class="img-fluid"></a>
     <nav id="navbar" class="navbar w-100">
-      <!-- <ul>
-          <li><a class="nav-link active" routerLink="/supplier-admin/supplier-dashboard-header">Dashboard</a></li>
-
-          <li><a class="nav-link" routerLink="/supplier-admin/project-list">Projects</a></li>
-
-          <li><a class="nav-link" routerLink="/supplier-admin/case-studies-list">Case Studies</a></li>
-
-          <li><a class="nav-link" routerLink="/supplier-admin/manage-user">Manage Users</a></li>
-
-          <li class="dropdown"><a href="javascript:;">
-              <div class="login-avtar">
-                <img src="assets/img/face1.jpg" />
-              </div>
-              <span>{{loginUser?.userName}}</span> <i class="bi bi-chevron-down"></i>
-            </a>
-            <ul>
-              <li><a routerLink="/supplier-admin/supplier-user-profile">Profile Seting</a></li>
-              <li><a style="cursor: pointer;" (click)="logout()">Logout</a></li>
-            </ul>
-          </li>
-
-        </ul> -->
       <ul class="mx-auto">
         <li class="nav-link noarrowdrop" *ngFor="let item of navUrlArr">
           <a [class.active]="(item.route.includes(router.url))" class="nav-link " data-toggle="tab"
@@ -33,14 +11,6 @@
             <span>{{item.titel}}</span>
           </a>
         </li>
-        <!-- Notification  -->
-        <!-- <li class="nav-link noarrowdrop">
-            <a style="cursor: pointer;"
-                    id="notificationDropdown" data-toggle="dropdown">
-                    <i class="bi bi-list mobile-nav-toggle"></i>
-                    <span class="count"></span>
-              </a>
-          </li> -->
       </ul>
       <i class="bi bi-list mobile-nav-toggle"></i>
     </nav>
@@ -81,13 +51,9 @@
       </ul>
     </nav>
 
-
     <nav class="navbar">
       <ul class="d-block">
         <li class="dropdown"><a href="javascript:;">
-            <!-- <div class="login-avtar">
-              <img src="assets/img/face1.jpg" />
-            </div> -->
             <span class="mobile-hide">
               {{ loginUser?.name.length > 20 ? (loginUser?.name | slice:0:20) + '...' : loginUser?.name }}
             </span>
@@ -102,4 +68,4 @@
       </ul>
     </nav>
   </div>
-</header><!-- End Header -->
+</header>
