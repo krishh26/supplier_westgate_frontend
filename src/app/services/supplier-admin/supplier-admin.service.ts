@@ -14,7 +14,9 @@ export enum SupplierAdminEndPoint {
   CASE_STUDY_LIST = '/case-study/list',
   ADD_CASE_STUDY = '/case-study/create',
   DELETE_USER = '/user/delete/',
-  UPDATE_CASESTUDY = '/case-study/update/'
+  UPDATE_CASESTUDY = '/case-study/update/',
+  DOCUMENT_UPLOAD='/project/upload'
+
 }
 
 @Injectable({
@@ -54,7 +56,7 @@ export class SupplierAdminService {
 
   updateCaseStudy(id: any, payload: any) {
     return this.httpClient
-      .post<any>(this.baseUrl + SupplierAdminEndPoint.UPDATE_CASESTUDY + id, payload);
+      .patch<any>(this.baseUrl + SupplierAdminEndPoint.UPDATE_CASESTUDY + id, payload);
   }
 
 
@@ -74,5 +76,10 @@ export class SupplierAdminService {
     let queryParams = new HttpParams();
     queryParams = queryParams.set('id', params.id || '');
     return this.httpClient.delete<any>(url, { params: queryParams });
+  }
+
+  uploadDocument(payload : any): Observable<any> {
+    return this.httpClient
+      .post<any>(this.baseUrl + SupplierAdminEndPoint.DOCUMENT_UPLOAD, payload);
   }
 }

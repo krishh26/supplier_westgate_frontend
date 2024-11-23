@@ -128,23 +128,35 @@ export class CaseStudiesComponent {
   }
 
 
-  onFileChange(event: any, caseStudy: any): void {
+  onFileChange(event: any, caseStudyId: number): void {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
-      this.uploadDocument(file, caseStudy);
+    const formData = new FormData();
+       formData.append('files', file);
+      this.showLoader = true;
+      this.supplierService.uploadDocument(formData).subscribe((response) => {
+        if (response.status === true) {
+          this.notificationService.showSuccess('Document uploaded successfully.');
+          this.updateCaseStudy(response.data,caseStudyId);
+        } else {
+          this.notificationService.showError(response.message);
+        }
+        this.showLoader = false;
+      }, (error) => {
+        this.notificationService.showError(error.message);
+        this.showLoader = false;
+      });
+
     }
   }
 
-  uploadDocument(file: File, caseStudy: any) {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('caseStudyId', caseStudy._id);
+  updateCaseStudy(data:any,id:number)
+  {
 
     this.showLoader = true;
-    this.supplierService.addCaseStudy(formData).subscribe((response) => {
+    this.supplierService.updateCaseStudy(id,{'link':data}).subscribe((response) => {
       if (response.status === true) {
-        this.notificationService.showSuccess('Document uploaded successfully.');
-        this.getCaseStudiesList();
+        this.notificationService.showSuccess('Case studies Update successfully.');
       } else {
         this.notificationService.showError(response.message);
       }
