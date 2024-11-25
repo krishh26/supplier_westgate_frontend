@@ -14,7 +14,8 @@ export enum ProjectEndPoint {
   SUMMARYQUESTION_LIST = "/summary-question/list/",
   QUESTION_DETAILS = '/summary-question/list/',
   UPDATE_MANAGER = '/project/update/project-manager/',
-  UPDATE_PROJECTMANAGER_SUPPLIER_STATUS = '/project/add-status'
+  UPDATE_PROJECTMANAGER_SUPPLIER_STATUS = '/project/add-status',
+  CONTACT_MAIL_SEND ='/project/mail-send'
 }
 
 @Injectable({
@@ -120,6 +121,11 @@ export class ProjectService {
   addProject(payload: any): Observable<any> {
     return this.httpClient
       .post<any>(this.baseUrl + ProjectEndPoint.ADD_PROJECT, payload);
+  }
+
+  contactMailSend(payload: any): Observable<any> {
+    return this.httpClient
+      .post<any>(this.baseUrl + ProjectEndPoint.CONTACT_MAIL_SEND, payload);
   }
 
   getProjectDetails(): Observable<any> {

@@ -128,6 +128,7 @@ export class ProjectsMatchedComponent implements OnInit {
     // Pass project details to the modal
     modalRef.componentInstance.projectName = projectName;
     modalRef.componentInstance.bosId = bosId;
+    modalRef.componentInstance.supplierName = this.loginUser?.name;
 
     modalRef.result.then(
       (result) => {
