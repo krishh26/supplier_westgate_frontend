@@ -9,6 +9,8 @@ import { ProjectService } from 'src/app/services/project-service/project.service
 import { SuperadminService } from 'src/app/services/super-admin/superadmin.service';
 import { pagination } from 'src/app/utility/shared/constant/pagination.constant';
 import { Payload } from 'src/app/utility/shared/constant/payload.const';
+import { ContactModalComponent } from '../ContactModal/ContactModal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-projects-matched',
@@ -36,7 +38,7 @@ export class ProjectsMatchedComponent implements OnInit {
   selectedProjectTypes: any[] = [];
   selectedClientTypes: any[] = [];
   selectedStatuses: any[] = [];
-  private payload:any={};
+  private payload: any = {};
 
   projectTypeList = [
     { projectType: 'Development', value: 'Development' },
@@ -78,13 +80,14 @@ export class ProjectsMatchedComponent implements OnInit {
     private notificationService: NotificationService,
     private router: Router,
     private localStorageService: LocalStorageService,
-    private superService: SuperadminService
+    private superService: SuperadminService,
+    private modalService: NgbModal
   ) {
     this.loginUser = this.localStorageService.getLogger();
   }
 
   ngOnInit(): void {
-    this.payload=this.superService.deepCopy(Payload.projectList);
+    this.payload = this.superService.deepCopy(Payload.projectList);
     this.myControl.valueChanges.subscribe((res: any) => {
       let storeTest = res;
       this.searchText = res.toLowerCase();
@@ -110,13 +113,32 @@ export class ProjectsMatchedComponent implements OnInit {
     });
   }
 
-
   changeRange() {
     if (this.maxValue >= this.minValue) {
       this.searchtext();
     }
   }
 
+  openMailModal(projectId: string, projectName: string, bosId: string) {
+    const modalRef = this.modalService.open(ContactModalComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
+
+    // Pass project details to the modal
+    modalRef.componentInstance.projectName = projectName;
+    modalRef.componentInstance.bosId = bosId;
+
+    modalRef.result.then(
+      (result) => {
+        console.log('Email sent with message:', result);
+        // Call your API to send the email or perform another action
+      },
+      (reason) => {
+        console.log('Modal dismissed:', reason);
+      }
+    );
+  }
 
   searchtext() {
     this.showLoader = true;

@@ -36,6 +36,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { ProjectListDashboardComponent } from './project-list-dashboard/project-list-dashboard.component';
 import { ProjectDetailsDahboardComponent } from './project-details-dahboard/project-details-dahboard.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ContactModalComponent } from './ContactModal/ContactModal.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ProjectDetailsForAppliedComponent,
     QuestionAnswerDetailsComponent,
     ProjectListDashboardComponent,
-    ProjectDetailsDahboardComponent
+    ProjectDetailsDahboardComponent,
+    ContactModalComponent
   ],
   imports: [
     CommonModule,

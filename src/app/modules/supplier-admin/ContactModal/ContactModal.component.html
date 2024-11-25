@@ -1,0 +1,21 @@
+<div class="modal-header">
+  <h5 class="modal-title">Contact</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="mb-3">
+      <label for="message" class="form-label">Message</label>
+      <textarea
+        id="message"
+        class="form-control"
+        rows="6"
+        readonly
+      >{{ preFilledMessage }}</textarea>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cancel click')">Cancel</button>
+  <button type="button" class="btn btn-primary" (click)="submit()">Send</button>
+</div>
