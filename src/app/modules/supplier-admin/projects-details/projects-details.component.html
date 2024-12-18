@@ -69,11 +69,6 @@
             <div class="row mb-4">
                 <div class="col-lg-6 col-xl-6 col-md-6 col-12 mob-mb1">
                     <h5>Client Documents</h5>
-
-                    <div class="alert alert-danger" role="alert">
-                        ⚠ Important Notice : If you are unable to view any documents, please note that the files may
-                        have been uploaded as a ZIP file. Kindly download the ZIP file to access the documents.
-                    </div>
                     <div class="card">
                         <ul class="project-document">
                             <ng-container *ngIf="projectDetails?.clientDocument?.length > 0">
@@ -107,10 +102,6 @@
                 </div>
                 <div class="col-lg-6 col-xl-6 col-md-6 col-12">
                     <h5>WestGate Documents</h5>
-                    <div class="alert alert-danger" role="alert">
-                        ⚠ Important Notice : If you are unable to view any documents, please note that the files may
-                        have been uploaded as a ZIP file. Kindly download the ZIP file to access the documents.
-                    </div>
                     <div class="card">
                         <ul class="project-document">
                             <ng-container *ngIf="projectDetails?.projectComment?.length > 0">
@@ -261,6 +252,10 @@
                 <h5 class="modal-title" id="ViewDocumentModalLabel">FOI Document ({{selectedDocument?.name}})</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="alert alert-danger" role="alert">
+                ⚠ Important Notice : If you are unable to view any documents, please note that the files may
+                have been uploaded as a ZIP file. Kindly download the ZIP file to access the documents.
+            </div>
             <div class="modal-body">
                 <ng-container *ngIf="isPdf(selectedDocument?.link?.url); else otherFormats">
                     <ngx-extended-pdf-viewer [src]="selectedDocument?.link?.url" useBrowserLocale="true"
@@ -290,6 +285,10 @@
                 <h5 class="modal-title" id="viewDocument">Document</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="alert alert-danger" role="alert">
+                ⚠ Important Notice : If you are unable to view any documents, please note that the files may
+                have been uploaded as a ZIP file. Kindly download the ZIP file to access the documents.
+            </div>
             <div class="modal-body">
                 <ng-container *ngIf="isPdf(uploadedDocument?.url); else noDocument">
                     <ngx-extended-pdf-viewer [src]="uploadedDocument?.url" useBrowserLocale="true"
@@ -317,6 +316,10 @@
             <div class="modal-header" style="display: flex; justify-content: space-between;">
                 <h5 class="modal-title" id="viewDocument">Document</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="alert alert-danger" role="alert">
+                ⚠ Important Notice : If you are unable to view any documents, please note that the files may
+                have been uploaded as a ZIP file. Kindly download the ZIP file to access the documents.
             </div>
             <div class="modal-body">
                 <ng-container *ngIf="isPdf(uploadedDocument?.url); else noDocument">
