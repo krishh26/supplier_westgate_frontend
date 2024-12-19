@@ -1,4 +1,4 @@
-.form-group .showicon{
+.form-group .showicon {
     position: absolute;
     top: 35px;
     right: 15px;
@@ -6,6 +6,12 @@
     cursor: pointer;
     font-size: 1.5rem;
 }
-.body-top{
-    padding-top:0px !important;
-  }
+
+.body-top {
+    padding-top: 0px !important;
+}
+
+.custom-border {
+    border: 0.5px solid black;
+    border-radius: 5px;
+}
