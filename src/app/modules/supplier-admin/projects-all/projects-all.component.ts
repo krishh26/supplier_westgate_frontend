@@ -39,7 +39,6 @@ export class ProjectsAllComponent implements OnInit {
   selectedClientTypes: any[] = [];
   selectedStatuses: any[] = [];
   private payload: any = {};
-
   projectTypeList = [
     { projectType: 'Development', value: 'Development' },
     { projectType: 'Product', value: 'Product' },
@@ -78,7 +77,7 @@ export class ProjectsAllComponent implements OnInit {
     private notificationService: NotificationService,
     private router: Router,
     private localStorageService: LocalStorageService,
-    private superService: SuperadminService
+    private superService: SuperadminService,
   ) {
     this.loginUser = this.localStorageService.getLogger();
   }
@@ -141,6 +140,10 @@ export class ProjectsAllComponent implements OnInit {
       this.notificationService.showError(error?.message);
       this.showLoader = false;
     });
+  }
+
+  isUserShortlisted(sortListUserId: any[]): boolean {
+    return sortListUserId.some((user: { _id: string }) => user._id === this.loginUser._id);
   }
 
   getProjectList() {
