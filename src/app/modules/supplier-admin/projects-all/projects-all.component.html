@@ -183,8 +183,8 @@
                   <td>{{item?.dueDate | date:'dd/MM/yyyy, h:mm a'}}</td>
                   <!-- <td><i class="bi bi-check-circle-fill text-success"></i> CS({{item?.matchedCaseStudy}}/3)</td> -->
                   <td>
-                    <a class="btn btn-sm btn-primarysm" title="View Details" (click)="projectDetails(item?._id)">View
-                      Details</a>
+                    <!-- <a class="btn btn-sm btn-primarysm" title="View Details" (click)="projectDetails(item?._id)">View
+                      Details</a> -->
 
                     <a *ngIf="item?.sortListUserId?.length > 0" style="background-color: darkgray;"
                       class="btn btn-sm btn-dark m-1" title="Shortlist">Shortlisted</a>
