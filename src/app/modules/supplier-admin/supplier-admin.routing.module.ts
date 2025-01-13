@@ -28,6 +28,7 @@ import { ProjectDetailsForAppliedComponent } from './project-details-for-applied
 import { QuestionAnswerDetailsComponent } from './question-answer-details/question-answer-details.component';
 import { ProjectListDashboardComponent } from './project-list-dashboard/project-list-dashboard.component';
 import { ProjectDetailsDahboardComponent } from './project-details-dahboard/project-details-dahboard.component';
+import { SupplierMyProjectsComponent } from './supplier-my-projects/supplier-my-projects.component';
 
 
 const routes: Routes = [
@@ -146,6 +147,10 @@ const routes: Routes = [
       {
         path: "notification",
         component: ProjectNotificationComponent
+      },
+      {
+        path: "my-projects",
+        component: SupplierMyProjectsComponent
       },
     ]
   },

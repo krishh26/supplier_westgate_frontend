@@ -33,6 +33,7 @@ export class SupplierHeaderComponent implements OnInit {
     { titel: 'Projects', route: ['/supplier-admin/project-list'] },
     { titel: 'Case Studies', route: ['/supplier-admin/case-studies-list'] },
     { titel: 'Manage Users', route: ['/supplier-admin/manage-user'] },
+    { titel: 'My Projects', route: ['/supplier-admin/my-projects'] },
   ];
 
   ngOnInit(): void {
