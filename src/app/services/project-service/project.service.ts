@@ -15,7 +15,7 @@ export enum ProjectEndPoint {
   QUESTION_DETAILS = '/summary-question/list/',
   UPDATE_MANAGER = '/project/update/project-manager/',
   UPDATE_PROJECTMANAGER_SUPPLIER_STATUS = '/project/add-status',
-  CONTACT_MAIL_SEND ='/project/mail-send'
+  CONTACT_MAIL_SEND = '/project/mail-send'
 }
 
 @Injectable({
@@ -51,7 +51,9 @@ export class ProjectService {
     selectedSupplier?: boolean // Add this line
     expired?: boolean,
     supplierStatus?: string,
-    workInProgress?: string
+    workInProgress?: string,
+    bidManagerStatus?: string
+
   }): Observable<any> {
     const url = `${this.baseUrl}${ProjectEndPoint.PROJECT_LIST}`;
     let queryParams = new HttpParams();
@@ -69,6 +71,9 @@ export class ProjectService {
     }
     if (params?.status) {
       queryParams = queryParams.set('status', params?.status);
+    }
+    if (params?.bidManagerStatus) {
+      queryParams = queryParams.set('bidManagerStatus', params?.bidManagerStatus);
     }
     if (params?.supplierStatus) {
       queryParams = queryParams.set('supplierStatus', params?.supplierStatus);

@@ -142,15 +142,15 @@
                   <!-- <th width="150px">Project Description</th> -->
                   <th>BOS ID</th>
                   <th>Publish Date</th>
-                  <th>Category</th>
-                  <th>Industry</th>
+                  <!-- <th>Category</th>
+                  <th>Industry</th> -->
                   <th>Min value (GBP)</th>
                   <th>Max value (GBP)</th>
-                  <th>Project Type</th>
+                  <!-- <th>Project Type</th> -->
                   <!-- <th>Status</th> -->
-                  <th>Supplier Status</th>
+                  <!-- <th>Supplier Status</th> -->
                   <th>Due Date &amp; Time</th>
-                  <th>Compatibility</th>
+                  <!-- <th>Compatibility</th> -->
                   <th>Action</th>
                 </tr>
               </thead>
@@ -168,15 +168,15 @@
                   <!-- <td><a title="{{ item?.description }}">{{ item?.description | slice:0:10 }}</a></td> -->
                   <td v-align="middle">{{item?.BOSID}}</td>
                   <td>{{item?.publishDate | date:'dd/MM/yyyy'}}</td>
-                  <td>{{item?.category}}</td>
-                  <td>{{item?.industry}}</td>
+                  <!-- <td>{{item?.category}}</td>
+                  <td>{{item?.industry}}</td> -->
                   <td>{{item?.minValue}}</td>
                   <td>{{item?.maxValue}}</td>
-                  <td>{{item?.projectType}}</td>
+                  <!-- <td>{{item?.projectType}}</td> -->
                   <!-- <td>{{item?.status}}</td> -->
-                  <td>{{item?.supplierStatus}}</td>
+                  <!-- <td>{{item?.supplierStatus}}</td> -->
                   <td>{{item?.dueDate | date:'dd/MM/yyyy, h:mm a'}}</td>
-                  <td><i class="bi bi-check-circle-fill text-success"></i> CS({{item?.matchedCaseStudy}}/3)</td>
+                  <!-- <td><i class="bi bi-check-circle-fill text-success"></i> CS({{item?.matchedCaseStudy}}/3)</td> -->
                   <td>
                     <a class="btn btn-sm btn-primary m-1" title="View Details" (click)="projectDetails(item?._id)">View
                       Details</a>

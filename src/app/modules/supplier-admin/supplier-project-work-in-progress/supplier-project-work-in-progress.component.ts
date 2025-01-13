@@ -71,7 +71,7 @@ export class SupplierProjectWorkInProgressComponent {
   submissionStartDate: FormControl = new FormControl('');
   submissionEndDate: FormControl = new FormControl('');
   dateDifference: any;
-  private payload:any={};
+  private payload: any = {};
 
   constructor(
     private projectService: ProjectService,
@@ -81,7 +81,7 @@ export class SupplierProjectWorkInProgressComponent {
   ) { }
 
   ngOnInit(): void {
-    this.payload=this.superService.deepCopy(Payload.projectList);
+    this.payload = this.superService.deepCopy(Payload.projectList);
     this.myControl.valueChanges.subscribe((res: any) => {
       let storeTest = res;
       this.searchText = res.toLowerCase();
@@ -128,7 +128,7 @@ export class SupplierProjectWorkInProgressComponent {
     this.payload.status = this.selectedStatuses.join(',');
     this.payload.supplierStatus = this.selectedStatuses.join(',');
     this.payload.workInProgress = true;
-    this.payload.match ="partial";
+    this.payload.match = "partial";
     this.payload.publishDateRange = (this.publishStartDate.value && this.publishEndDate.value) ? `${this.publishStartDate.value.year}-${this.publishStartDate.value.month}-${this.publishStartDate.value.day} , ${this.publishEndDate.value.year}-${this.publishEndDate.value.month}-${this.publishEndDate.value.day}` : '';
     this.payload.SubmissionDueDateRange = (this.submissionStartDate.value && this.submissionEndDate.value) ? `${this.submissionStartDate.value.year}-${this.submissionStartDate.value.month}-${this.submissionStartDate.value.day} , ${this.submissionEndDate.value.year}-${this.submissionEndDate.value.month}-${this.submissionEndDate.value.day}` : '';
     this.payload.valueRange = this.minValue + '-' + this.maxValue;
@@ -205,8 +205,9 @@ export class SupplierProjectWorkInProgressComponent {
     this.payload.limit = String(this.pagesize);
     // this.payload.applied = true;
     this.payload.sortlist = false;
-    this.payload.workInProgress = true;
-    this.payload.match ="partial";
+    // this.payload.workInProgress = true;
+    this.payload.match = "partial";
+    this.payload.bidManagerStatus = "InSolution, WaitingForResult";
     this.projectService.getProjectList(this.payload).subscribe((response) => {
       this.projectList = [];
       this.totalRecords = response?.data?.meta_data?.items;

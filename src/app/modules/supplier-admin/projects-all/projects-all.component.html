@@ -144,18 +144,15 @@
               <thead>
                 <tr>
                   <th width="100px">Project Title</th>
-                  <!-- <th width="150px">Project Description</th> -->
                   <th>BOS ID</th>
                   <th>Publish Date</th>
-                  <th>Category</th>
-                  <th>Industry</th>
+                  <!-- <th>Category</th>
+                  <th>Industry</th> -->
                   <th>Min value (GBP)</th>
                   <th>Max value (GBP)</th>
-                  <th>Project Type</th>
-                  <!-- <th>Status</th> -->
-                  <th>Supplier Status</th>
+                  <!-- <th>Project Type</th> -->
+                  <!-- <th>Supplier Status</th> -->
                   <th>Due Date &amp; Time</th>
-                  <!-- <th>Compatibility</th> -->
                   <th>Action</th>
                 </tr>
               </thead>
@@ -170,28 +167,20 @@
                 <tr
                   *ngFor="let item of projectList |  paginate: { itemsPerPage: pagesize , currentPage: page, totalItems: totalRecords } ; let i = index">
                   <td><a (click)="projectDetails(item?._id)" href="javascript:;">{{item?.projectName}}</a></td>
-                  <!-- <td><a title="{{ item?.description }}">{{ item?.description | slice:0:10 }}</a></td> -->
                   <td v-align="middle">{{item?.BOSID}}</td>
                   <td>{{item?.publishDate | date:'dd/MM/yyyy'}}</td>
-                  <td>{{item?.category}}</td>
-                  <td>{{item?.industry}}</td>
+                  <!-- <td>{{item?.category}}</td>
+                  <td>{{item?.industry}}</td> -->
                   <td>{{item?.minValue}}</td>
                   <td>{{item?.maxValue}}</td>
-                  <td>{{item?.projectType}}</td>
-                  <!-- <td>{{item?.status}}</td> -->
-                  <td>{{item?.supplierStatus}}</td>
+                  <!-- <td>{{item?.projectType}}</td> -->
+                  <!-- <td>{{item?.supplierStatus}}</td> -->
                   <td>{{item?.dueDate | date:'dd/MM/yyyy, h:mm a'}}</td>
-                  <!-- <td><i class="bi bi-check-circle-fill text-success"></i> CS({{item?.matchedCaseStudy}}/3)</td> -->
                   <td>
-                    <!-- <a class="btn btn-sm btn-primarysm" title="View Details" (click)="projectDetails(item?._id)">View
-                      Details</a> -->
-
-                      <a *ngIf="isUserShortlisted(item?.sortListUserId)" style="background-color: darkgray;"
+                    <a *ngIf="isUserShortlisted(item?.sortListUserId)" style="background-color: darkgray;"
                       class="btn btn-sm btn-dark m-1" title="Shortlist">Shortlisted</a>
                     <a *ngIf="!isUserShortlisted(item?.sortListUserId)" (click)="sortListProject(item?._id)"
                       class="btn btn-sm btn-dark m-1" title="Shortlist">Shortlist</a>
-                    <!-- <a class="btn btn-sm btn-primarysm" routerLink="/supplier-admin/case-studies-list"
-                      *ngIf="item?.sortListUserId?.length > 0" title="View Details">Add Case-study</a> -->
                   </td>
                 </tr>
               </tbody>
