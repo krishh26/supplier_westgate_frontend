@@ -58,10 +58,11 @@
               {{ loginUser?.name.length > 20 ? (loginUser?.name | slice:0:20) + '...' : loginUser?.name }}
             </span>
             <i class="bi bi-chevron-down"></i>
-            
+
           </a>
           <ul>
             <li><a routerLink="/supplier-admin/supplier-user-profile">Profile Seting</a></li>
+            <li><a routerLink="/supplier-admin/manage-user">Manage Users</a></li>
             <li><a style="cursor: pointer;" (click)="logout()">Logout</a></li>
           </ul>
         </li>

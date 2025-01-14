@@ -207,7 +207,7 @@ export class SupplierProjectWorkInProgressComponent {
     this.payload.sortlist = false;
     // this.payload.workInProgress = true;
     this.payload.match = "partial";
-    this.payload.bidManagerStatus = "InSolution, WaitingForResult";
+    this.payload.bidManagerStatus = "InSolution,WaitingForResult";
     this.projectService.getProjectList(this.payload).subscribe((response) => {
       this.projectList = [];
       this.totalRecords = response?.data?.meta_data?.items;

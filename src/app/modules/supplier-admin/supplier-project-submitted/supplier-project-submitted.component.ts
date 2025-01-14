@@ -210,7 +210,7 @@ export class SupplierProjectSubmittedComponent {
     this.payload.limit = String(this.pagesize);
     this.payload.applied = false;
     // this.payload.status = String('Submitted');
-    this.payload.bidManagerStatus = "Awarded, NotAwarded";
+    this.payload.bidManagerStatus = "Awarded,NotAwarded";
     this.projectService.getProjectList(this.payload).subscribe((response) => {
       this.projectList = [];
       this.totalRecords = response?.data?.meta_data?.items;
