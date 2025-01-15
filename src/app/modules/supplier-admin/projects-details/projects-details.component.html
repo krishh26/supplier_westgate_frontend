@@ -1,6 +1,118 @@
 <main id="main">
     <section>
+
         <div class="container-fluid">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-lg-12 col-xl-12 col-12 d-flex align-items-center justify-content-between mb-3">
+                    <div class="d-flex align-items-center">
+                        <h4 class="me-3"><strong>Project Title:</strong></h4>
+                        <h4>{{ projectDetails?.projectName }}</h4>
+                    </div>
+                    <div class="ms-auto d-flex">
+                        <a (click)="backPage()" class="btn btn-primary text-dark">Back</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-xl-12 col-12 mb-12 mt-5 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2"><strong>BOS ID:</strong></div>
+                            <div class="col-md-10">{{ projectDetails?.BOSID || "-" }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Publish Date:</strong></div>
+                            <div class="col-md-10">
+                                {{
+                                projectDetails?.publishDate
+                                ? (projectDetails?.publishDate | date : "dd/MM/yyyy")
+                                : "-"
+                                }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Category:</strong></div>
+                            <div class="col-md-10">{{ projectDetails?.category || "-" }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Industry:</strong></div>
+                            <div class="col-md-10">{{ projectDetails?.industry || "-" }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Min value (GBP):</strong></div>
+                            <div class="col-md-10">
+                                GBP {{ projectDetails?.minValue || "-" }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Max value (GBP):</strong></div>
+                            <div class="col-md-10">
+                                GBP {{ projectDetails?.maxValue || "-" }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Website:</strong></div>
+                            <div class="col-md-10">{{ projectDetails?.website || "-" }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Link to notice:</strong></div>
+                            <div class="col-md-10">
+                                <a *ngIf="projectDetails?.link; else noLink" href="{{ projectDetails?.link }}"
+                                    target="_blank">Link to
+                                    Notice</a>
+                                <ng-template #noLink>-</ng-template>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Created Date:</strong></div>
+                            <div class="col-md-10">
+                                {{
+                                projectDetails?.createdAt
+                                ? (projectDetails?.createdAt | date : "dd/MM/yyyy")
+                                : "-"
+                                }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Due Date & Time:</strong></div>
+                            <div class="col-md-10">
+                                {{
+                                projectDetails?.dueDate
+                                ? (projectDetails?.dueDate | date : "dd/MM/yyyy, h:mm a")
+                                : "-"
+                                }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>CPV Codes:</strong></div>
+                            <div class="col-md-10">{{ projectDetails?.CPVCodes || "-" }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Notice Reference:</strong></div>
+                            <div class="col-md-10">
+                                {{ projectDetails?.noticeReference || "-" }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Status:</strong></div>
+                            <div class="col-md-10">{{ projectDetails?.status || "-" }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Project Type:</strong></div>
+                            <div class="col-md-10">
+                                {{ projectDetails?.projectType || "-" }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Mail Id:</strong></div>
+                            <div class="col-md-10">{{ projectDetails?.mailID || "-" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="container-fluid">
             <div class="row align-items-end justify-content-end">
                 <div class="col-lg-2 col-xl-2 col-md-2 col-sm-2 col-2">
                     <a (click)="backPage()" class="btn btn-primary text-dark">Back</a>
@@ -20,12 +132,10 @@
                             <th>Status</th>
                             <th>Due Date &amp; Time</th>
                             <th>Compatibility</th>
-                            <!-- <th>Actions</th> -->
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <!-- <td><a href="javascript:;">Provision of MyBedsLife Student Engagement App Support Services</a></td> -->
                             <td><a>{{projectDetails?.projectName}}</a></td>
                             <td v-align="middle">{{projectDetails?.BOSID}}</td>
                             <td>{{projectDetails?.publishDate | date:'dd/MM/yyyy'}}</td>
@@ -37,19 +147,12 @@
                             <td>{{projectDetails?.dueDate | date:'dd/MM/yyyy, h:mm a'}}</td>
                             <td><i class="bi bi-check-circle-fill text-success"></i>
                                 CS({{projectDetails?.matchedCaseStudy}}/3)</td>
-                            <!-- <td>
-                                <a *ngIf="projectDetails?.sortListUserId?.length > 0"
-                                    style="background-color: darkgray;" class="btn btn-sm btn-dark m-1"
-                                    title="Shortlist">Shortlisted</a>
-                                <a *ngIf="projectDetails?.sortListUserId?.length == 0"
-                                    (click)="sortListProject(projectDetails?._id)" class="btn btn-sm btn-dark m-1"
-                                    title="Shortlist">Shortlist</a>
-                            </td> -->
                         </tr>
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div> -->
+
     </section>
     <section class="p-0">
         <div class="container-fluid">
@@ -150,7 +253,7 @@
                         </div>
                     </div>
                 </div> -->
-                <div class="col-lg-4 col-xl-4 col-12 mb-4">
+                <!-- <div class="col-lg-4 col-xl-4 col-12 mb-4">
                     <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
                         <p class="mb-0">FOI Document</p>
                     </div>
@@ -181,7 +284,7 @@
                             </div>
                         </div>
                     </ng-container>
-                </div>
+                </div> -->
                 <!-- <div class="col-lg-4 col-xl-4 col-12 mb-4">
                     <div class="card">
                         <div class="card-body text-center">

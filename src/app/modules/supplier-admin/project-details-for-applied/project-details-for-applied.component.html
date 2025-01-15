@@ -1,6 +1,118 @@
 <main id="main">
     <section>
+
         <div class="container-fluid">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-lg-12 col-xl-12 col-12 d-flex align-items-center justify-content-between mb-3">
+                    <div class="d-flex align-items-center">
+                        <h4 class="me-3"><strong>Project Title:</strong></h4>
+                        <h4>{{ projectDetails?.projectName }}</h4>
+                    </div>
+                    <div class="ms-auto d-flex">
+                        <a (click)="backPage()" class="btn btn-primary text-dark">Back</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-xl-12 col-12 mb-12 mt-5 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2"><strong>BOS ID:</strong></div>
+                            <div class="col-md-10">{{ projectDetails?.BOSID || "-" }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Publish Date:</strong></div>
+                            <div class="col-md-10">
+                                {{
+                                projectDetails?.publishDate
+                                ? (projectDetails?.publishDate | date : "dd/MM/yyyy")
+                                : "-"
+                                }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Category:</strong></div>
+                            <div class="col-md-10">{{ projectDetails?.category || "-" }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Industry:</strong></div>
+                            <div class="col-md-10">{{ projectDetails?.industry || "-" }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Min value (GBP):</strong></div>
+                            <div class="col-md-10">
+                                GBP {{ projectDetails?.minValue || "-" }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Max value (GBP):</strong></div>
+                            <div class="col-md-10">
+                                GBP {{ projectDetails?.maxValue || "-" }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Website:</strong></div>
+                            <div class="col-md-10">{{ projectDetails?.website || "-" }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Link to notice:</strong></div>
+                            <div class="col-md-10">
+                                <a *ngIf="projectDetails?.link; else noLink" href="{{ projectDetails?.link }}"
+                                    target="_blank">Link to
+                                    Notice</a>
+                                <ng-template #noLink>-</ng-template>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Created Date:</strong></div>
+                            <div class="col-md-10">
+                                {{
+                                projectDetails?.createdAt
+                                ? (projectDetails?.createdAt | date : "dd/MM/yyyy")
+                                : "-"
+                                }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Due Date & Time:</strong></div>
+                            <div class="col-md-10">
+                                {{
+                                projectDetails?.dueDate
+                                ? (projectDetails?.dueDate | date : "dd/MM/yyyy, h:mm a")
+                                : "-"
+                                }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>CPV Codes:</strong></div>
+                            <div class="col-md-10">{{ projectDetails?.CPVCodes || "-" }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Notice Reference:</strong></div>
+                            <div class="col-md-10">
+                                {{ projectDetails?.noticeReference || "-" }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Status:</strong></div>
+                            <div class="col-md-10">{{ projectDetails?.status || "-" }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Project Type:</strong></div>
+                            <div class="col-md-10">
+                                {{ projectDetails?.projectType || "-" }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><strong>Mail Id:</strong></div>
+                            <div class="col-md-10">{{ projectDetails?.mailID || "-" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="container-fluid">
             <div class="row align-items-end justify-content-end">
                 <div class="col-lg-2 col-xl-2 col-md-2 col-sm-2 col-2">
                     <a (click)="backPage()" class="btn btn-primary text-dark">Back</a>
@@ -10,80 +122,72 @@
                 <table class="table table-striped align-middle">
                     <thead>
                         <tr>
-                            <th width="100px">Project Title</th>
-                            <th width="150px">Project Description</th>
+                            <th width="200px">Project Title</th>
                             <th>BOS ID</th>
                             <th>Publish Date</th>
                             <th>Category</th>
                             <th>Industry</th>
-                            <th>Min value (GBP)</th>
-                            <th>Max value (GBP)</th>
+                            <th>Value</th>
                             <th>Project Type</th>
                             <th>Status</th>
                             <th>Due Date &amp; Time</th>
-                            <!-- <th></th> -->
-                            <th>Action</th>
+                            <th>Compatibility</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <!-- <td><a href="javascript:;">Provision of MyBedsLife Student Engagement App Support Services</a></td> -->
                             <td><a>{{projectDetails?.projectName}}</a></td>
                             <td v-align="middle">{{projectDetails?.BOSID}}</td>
                             <td>{{projectDetails?.publishDate | date:'dd/MM/yyyy'}}</td>
                             <td>{{projectDetails?.category}}</td>
                             <td>{{projectDetails?.industry}}</td>
-                            <td>{{projectDetails?.minValue}}</td>
-                            <td>{{projectDetails?.maxValue}}</td>
+                            <td>{{projectDetails?.value}}</td>
                             <td>{{projectDetails?.projectType}}</td>
                             <td>{{projectDetails?.status}}</td>
                             <td>{{projectDetails?.dueDate | date:'dd/MM/yyyy, h:mm a'}}</td>
-                            <!-- <td><i class="bi bi-check-circle-fill text-success"></i> CS({{projectDetails?.matchedCaseStudy}}/3)</td> -->
-                            <td>
-                                <a *ngIf="projectDetails?.sortListUserId?.length > 0"
-                                    style="background-color: darkgray;" class="btn btn-sm btn-dark m-1"
-                                    title="Shortlist">Shortlisted</a>
-                                <a *ngIf="projectDetails?.sortListUserId?.length == 0"
-                                    (click)="sortListProject(projectDetails?._id)" class="btn btn-sm btn-dark m-1"
-                                    title="Shortlist">Shortlist</a>
-                            </td>
+                            <td><i class="bi bi-check-circle-fill text-success"></i>
+                                CS({{projectDetails?.matchedCaseStudy}}/3)</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div> -->
+
     </section>
     <section class="p-0">
-        <div class="container-fluid text-center mb-3">
-            <h4 class="text-theme"><strong>Details Of The Projects</strong></h4>
-        </div>
         <div class="container-fluid">
-            <div class="row mb-4">
-                <h4 class="text-theme"><strong>Project Description</strong></h4>
-                <p>{{projectDetails?.description}}</p>
-            </div>
-            <div class="row mb-4">
-                <div class="col-12">
-                    <h4 class="text-theme mb-4"><strong>Documents</strong></h4>
+
+            <section class="pageheader bg-dark">
+                <div class="container">
+                    <p><strong>Project Description</strong></p>
                 </div>
+            </section><br>
+
+            <p>{{ projectDetails?.description }}</p>
+            <section class="pageheader bg-dark">
+                <div class="container">
+                    <p><strong>Client & FOI Detils</strong></p>
+                </div>
+            </section><br>
+            <div class="row mb-4">
                 <div class="col-lg-6 col-xl-6 col-md-6 col-12 mob-mb1">
                     <h5>Client Documents</h5>
                     <div class="card">
                         <ul class="project-document">
                             <ng-container *ngIf="projectDetails?.clientDocument?.length > 0">
-                                <li *ngFor="let clientDocument of projectDetails?.clientDocument">
+                                <li *ngFor="let clientdocument of projectDetails?.clientDocument">
                                     <div class="row">
                                         <div class="col-5 text-center">
-                                            <p class="mb-0">{{clientDocument?.name}}</p>
+                                            <p class="mb-0">{{clientdocument?.name}}</p>
                                         </div>
                                         <div class="col-7 text-center">
                                             <a href="href:;" class="btn btn-primarysm me-2" data-bs-toggle="modal"
                                                 data-bs-target="#ViewDocuments"
-                                                (click)="openDocument(clientDocument?.file)"><i
+                                                (click)="openDocument(clientdocument?.file)"><i
                                                     class="bi bi-eye-fill"></i>
                                                 View</a>
                                             <a href="href:;"
-                                                (click)="download(clientDocument?.file?.url, clientDocument?.name)"
+                                                (click)="download(clientdocument?.file?.url, clientdocument?.name)"
                                                 class="btn btn-primarysm"><i
                                                     class="bi bi-file-earmark-arrow-down-fill"></i>
                                                 Download</a>
@@ -111,7 +215,8 @@
                                         </div>
                                         <div class="col-7 text-center">
                                             <a href="href:;" class="btn btn-primarysm me-2" data-bs-toggle="modal"
-                                                data-bs-target="#ViewDocuments" (click)="openDocument(westGetDocument?.file)"><i
+                                                data-bs-target="#ViewDocuments"
+                                                (click)="openDocument(westGetDocument?.file)"><i
                                                     class="bi bi-eye-fill"></i>
                                                 View</a>
                                             &nbsp;
@@ -148,7 +253,7 @@
                         </div>
                     </div>
                 </div> -->
-                <div class="col-lg-4 col-xl-4 col-12 mb-4">
+                <!-- <div class="col-lg-4 col-xl-4 col-12 mb-4">
                     <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
                         <p class="mb-0">FOI Document</p>
                     </div>
@@ -160,21 +265,26 @@
                     <ng-container *ngIf="projectDetails?.fois?.length > 0">
                         <div class="row align-items-center" *ngFor="let foiDocument of projectDetails?.fois">
                             <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
-                                <p class="mb-0">{{foiDocument?.name}}</p>
+                                <p class="mb-0">{{ foiDocument?.name }}</p>
                             </div>
                             <div class="col-lg-4 col-xl-4 col-6">
                                 <a (click)="openDocument(foiDocument)" class="btn btn-small w-100"
-                                    data-bs-toggle="modal" data-bs-target="#ViewScreenshot"><i
+                                    data-bs-toggle="modal" data-bs-target="#ViewDocumentModal"><i
                                         class="bi bi-eye-fill"></i> View</a>
                             </div>
                             <div class="col-lg-4 col-xl-4 col-6">
-                                <a (click)="download(foiDocument?.link?.url, foiDocument?.name)" target="_blank"
-                                    class="btn btn-small w-100"><i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                <a style="
+                              padding-left: 0 !important;
+                              padding-right: 0px !important;
+                            " (click)="
+                              download(foiDocument?.link?.url, foiDocument?.name)
+                            " target="_blank" class="btn btn-small w-100"><i
+                                        class="bi bi-file-earmark-arrow-down-fill"></i>
                                     Download</a>
                             </div>
                         </div>
                     </ng-container>
-                </div>
+                </div> -->
                 <!-- <div class="col-lg-4 col-xl-4 col-12 mb-4">
                     <div class="card">
                         <div class="card-body text-center">
@@ -188,6 +298,9 @@
             </div>
         </div>
     </section>
+    <!-- <div class="container text-center mb-3">
+        <h4 class="text-theme"><strong>Summary Note Question Section : For Your Action</strong></h4>
+    </div> -->
     <!-- <section class="bg-dark">
         <div class="container">
             <div class="row">
@@ -200,53 +313,138 @@
                     <table class="table table-dark table-borderless" style="background-color: #252525;">
                         <thead>
                             <tr>
-                                <th></th>
+                                <th>Question Name</th>
+                                <th>Question Description</th>
                                 <th>Weightage</th>
                                 <th>Status</th>
-                                <th>Deadline</th>
-                                <th>Review Note</th>
                                 <th></th>
                             </tr>
 
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of summaryquestionList">
+                                <td width="250">{{item?.questionName}}</td>
                                 <td width="350">{{item?.question}}</td>
                                 <td>{{item?.weightage}}%</td>
                                 <td>{{item?.verify}}</td>
-                                <td>{{item?.deadline | date : 'dd/MM/yyyy'}}</td>
-                                <td>{{item?.response?.message}}</td>
                                 <td><a (click)="questionDetails(item)" class="btn-sm btn-primary"><i
-                                            class="bi bi-eye-fill"></i> Answer Question</a></td>
+                                            class="bi bi-eye-fill"></i> View Question</a></td>
                             </tr>
                         </tbody>
                     </table>
+                    <div class="row">
+                        <p *ngIf="summaryquestionList?.length == 0" style="text-align: center;"> No Record Found !</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section> -->
+    <!-- <section>
+        <div class="container text-center">
+            <button class="btn btn-primary w-25" (click)="applyProject()">Apply</button>
+        </div>
+    </section> -->
+
     <section>
         <div class="container text-center">
             <button class="btn btn-primary w-25" (click)="applyProject()">Apply</button>
         </div>
     </section>
-</main><!-- End #main -->
+</main>
 
-<!-- View Screenshot Modal -->
-<div class="modal fade" id="ViewScreenshot" tabindex="-1" aria-labelledby="ViewScreenshotLabel" aria-hidden="true">
+<!-- View Document Modal -->
+<div class="modal fade" id="ViewDocumentModal" tabindex="-1" aria-labelledby="ViewDocumentModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ViewScreenshotLabel">FOI Document : {{selectedDocument?.name}}</h5>
+            <div class="modal-header" style="display: flex; justify-content: space-between;">
+                <h5 class="modal-title" id="ViewDocumentModalLabel">FOI Document ({{selectedDocument?.name}})</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <img [src]="selectedDocument?.link?.url" class="img-fluid" />
+            <div class="alert alert-danger" role="alert">
+                ⚠ Important Notice : If you are unable to view any documents, please note that the files may
+                have been uploaded as a ZIP file. Kindly download the ZIP file to access the documents.
             </div>
-            <!-- <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-        </div> -->
+            <div class="modal-body">
+                <ng-container *ngIf="isPdf(selectedDocument?.link?.url); else otherFormats">
+                    <ngx-extended-pdf-viewer [src]="selectedDocument?.link?.url" useBrowserLocale="true"
+                        height="600px"></ngx-extended-pdf-viewer>
+                </ng-container>
+                <ng-template #otherFormats>
+                    <iframe *ngIf="isWordOrExcel(selectedDocument?.link?.url)"
+                        [src]="getDocumentViewerUrl(selectedDocument?.link?.url)"
+                        style="width: 100%; height: 600px;"></iframe>
+                    <img *ngIf="isImage(selectedDocument?.link?.url)" [src]="selectedDocument?.link?.url"
+                        class="img-fluid" />
+                </ng-template>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Document -->
+<div class="modal fade" id="ViewDocuments" tabindex="-1" aria-labelledby="viewDocument" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="display: flex; justify-content: space-between;">
+                <h5 class="modal-title" id="viewDocument">Document</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="alert alert-danger" role="alert">
+                ⚠ Important Notice : If you are unable to view any documents, please note that the files may
+                have been uploaded as a ZIP file. Kindly download the ZIP file to access the documents.
+            </div>
+            <div class="modal-body">
+                <ng-container *ngIf="isPdf(selectedDocument?.url); else noDocument">
+                    <ngx-extended-pdf-viewer [src]="selectedDocument?.url" useBrowserLocale="true"
+                        height="600px"></ngx-extended-pdf-viewer>
+                </ng-container>
+                <ng-template #noDocument>
+                    <iframe *ngIf="isWordOrExcel(selectedDocument?.url)"
+                        [src]="getDocumentViewerUrl(selectedDocument?.url)"
+                        style="width: 100%; height: 600px;"></iframe>
+                    <img *ngIf="isImage(selectedDocument?.url)" [src]="selectedDocument?.url" class="img-fluid" />
+                </ng-template>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Document -->
+<div class="modal fade" id="ViewDocuments" tabindex="-1" aria-labelledby="viewDocument" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="display: flex; justify-content: space-between;">
+                <h5 class="modal-title" id="viewDocument">Document</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="alert alert-danger" role="alert">
+                ⚠ Important Notice : If you are unable to view any documents, please note that the files may
+                have been uploaded as a ZIP file. Kindly download the ZIP file to access the documents.
+            </div>
+            <div class="modal-body">
+                <ng-container *ngIf="isPdf(selectedDocument?.url); else noDocument">
+                    <ngx-extended-pdf-viewer [src]="selectedDocument?.url" useBrowserLocale="true"
+                        height="600px"></ngx-extended-pdf-viewer>
+                </ng-container>
+                <ng-template #noDocument>
+                    <iframe *ngIf="isWordOrExcel(selectedDocument?.url)"
+                        [src]="getDocumentViewerUrl(selectedDocument?.url)"
+                        style="width: 100%; height: 600px;"></iframe>
+                    <img *ngIf="isImage(selectedDocument?.url)" [src]="selectedDocument?.url" class="img-fluid" />
+                </ng-template>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
