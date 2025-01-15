@@ -16,7 +16,7 @@ import { SuperadminService } from 'src/app/services/super-admin/superadmin.servi
   styleUrls: ['./supplier-my-projects.component.scss']
 })
 export class SupplierMyProjectsComponent {
- showLoader: boolean = false;
+  showLoader: boolean = false;
   projectList: any = [];
   page: number = pagination.page;
   pagesize = pagination.itemsPerPage;
@@ -154,7 +154,8 @@ export class SupplierMyProjectsComponent {
     this.payload.limit = String(this.pagesize);
     this.payload.applied = false;
     this.payload.sortlist = false;
-    this.payload.status = 'Passed';
+     this.payload.status = 'Passed';
+    this.payload.bidManagerStatus = "WaitingForResult,Awarded,NotAwarded,Shortlisted,InSolution";
     this.projectService.getProjectList(this.payload).subscribe((response) => {
       this.projectList = [];
       this.totalRecords = response?.data?.meta_data?.items;
