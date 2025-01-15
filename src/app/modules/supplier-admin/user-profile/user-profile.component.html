@@ -50,55 +50,47 @@
 
             <div class="form-group">
               <label>Phone Number</label>
-              <input type="text" class="form-control" formControlName="customerSupportContact" (keypress)="NumberOnly($event)"
-                minlength="10" maxlength="10" />
+              <input type="text" class="form-control" formControlName="customerSupportContact"
+                (keypress)="NumberOnly($event)" minlength="10" maxlength="10" />
               <span class="text-danger"
                 *ngIf="userForm.controls.customerSupportContact?.touched && userForm.controls.customerSupportContact?.errors?.['required']">Please
                 Enter phone number</span>
             </div>
 
-            <!-- <div class="form-group">
-              <label>Job Title</label>
-              <input type="text" class="form-control" formControlName="jobTitle"/>
-              <span class="text-danger"
-              *ngIf="userForm.controls.jobTitle?.touched && userForm.controls.jobTitle?.errors?.['required']">Please
-              Enter jobTitle</span>
-            </div> -->
-
-            <!-- <div class="form-group">
-              <label>Profession Skills</label>
-              <ng-select style="padding: 0px !important;" class="form-select custom-ng-select-option" [items]="skills"
-              bindLabel="name" [multiple]="true" bindValue="id" formControlName="professionalSkill">
-              </ng-select>
-              <span class="text-danger"
-                *ngIf="userForm.controls.professionalSkill?.touched && userForm.controls.professionalSkill?.errors?.['required']">Please
-              select professionalSkill</span>
-            </div> -->
-            <!-- <div class="form-group">
-              <label>Report to </label>
-              <select name="" id="" class="form-control" formControlName="reportTo">
-                  <ng-container *ngFor="let item of reportToData">
-                    <option [value]="item?.id"> {{item.name}} </option>
-                  </ng-container>
-              </select>
-              <span class="text-danger"
-                *ngIf="userForm.controls.reportTo?.touched && userForm.controls.reportTo?.errors?.['required']">Please
-              select Report To</span>
-            </div> -->
-            <!-- <div class="form-group">
-              <label>Manages</label>
-              <ng-select style="padding: 0px !important;" class="form-select custom-ng-select-option" [items]="managesData"
-              bindLabel="name" [multiple]="true" bindValue="id" formControlName="manages">
-              </ng-select>
-              <span class="text-danger"
-              *ngIf="userForm.controls.manages?.touched && userForm.controls.manages?.errors?.['required']">Please
-            select manages</span>
-            </div> -->
             <div class="form-group">
-              <div class="upload-btn-wrapper">
-              </div>
+              <label>VAT or GST Number</label>
+              <input type="text" class="form-control" formControlName="VATOrGSTNumber" />
+            </div>
+
+            <div class="form-group">
+              <label>compliance Certifications</label>
+              <input type="text" class="form-control" formControlName="complianceCertifications" />
+            </div>
+
+            <div class="form-group">
+              <label>Employee Count</label>
+              <input type="text" class="form-control" formControlName="employeeCount" />
+            </div>
+
+            <div class="form-group">
+              <label>Type Of Company</label>
+              <input type="text" class="form-control" formControlName="typeOfCompany" />
+            </div>
+
+            <div class="form-group">
+              <label>Type Of Company</label>
+              <input type="text" class="form-control" formControlName="website" />
+            </div>
+
+            <div class="form-group">
+              <label>Type Of Company</label>
+              <input type="text" class="form-control" formControlName="technologyStack" />
             </div>
           </form>
+
+          <div class="col-lg-2 col-xl-2 col-md-4 col-sm-4 col-12 text-end">
+            <a href="javascript:;" class="btn btn-primary text-dark">Submit</a>
+          </div>
         </div>
       </div>
     </div>

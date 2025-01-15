@@ -82,6 +82,12 @@ export class UserProfileComponent implements OnInit {
     professionalSkill: new FormControl(""),
     reportTo: new FormControl(""),
     manages: new FormControl(""),
+    VATOrGSTNumber: new FormControl(""),
+    complianceCertifications: new FormControl(""),
+    employeeCount: new FormControl(""),
+    typeOfCompany: new FormControl(""),
+    website: new FormControl(""),
+    technologyStack: new FormControl(""),
   };
 
   userForm = new FormGroup(this.userDataForm, []);
@@ -104,6 +110,12 @@ export class UserProfileComponent implements OnInit {
         this.userForm.controls['name'].setValue(response?.data?.name || "");
         this.userForm.controls['companyAddress'].setValue(response?.data?.companyAddress || "");
         this.userForm.controls['customerSupportContact'].setValue(response?.data?.customerSupportContact || "");
+        this.userForm.controls['VATOrGSTNumber'].setValue(response?.data?.VATOrGSTNumber || "");
+        this.userForm.controls['complianceCertifications'].setValue(response?.data?.complianceCertifications || "");
+        this.userForm.controls['employeeCount'].setValue(response?.data?.employeeCount || "");
+        this.userForm.controls['typeOfCompany'].setValue(response?.data?.typeOfCompany || "");
+        this.userForm.controls['website'].setValue(response?.data?.website || "");
+        this.userForm.controls['website'].setValue(response?.data?.technologyStack || "");
       }
     }, (error) => {
       this.notificationService.showError(error?.error?.message || 'Error');
