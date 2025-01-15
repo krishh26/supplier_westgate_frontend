@@ -148,7 +148,7 @@
                         <table class="table table-striped align-middle">
                             <thead>
                                 <tr>
-                                    <th width="100px">Project Title</th>
+                                    <th >Project Title</th>
                                     <th>BOS ID</th>
                                     <th>Publish Date</th>
                                     <!-- <th>Category</th>
@@ -159,7 +159,7 @@
                                     <th>Bid Manager Status</th>
                                     <!-- <th>Due Date &amp; Time</th> -->
                                     <!-- <th>Action</th> -->
-                                     <th>Comment</th>
+                                    <th>Comment</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -184,13 +184,17 @@
                                     <td>{{item?.bidManagerStatus}}</td>
                                     <!-- <td>{{item?.dueDate | date:'dd/MM/yyyy, h:mm a'}}</td> -->
                                     <td>
-                                        <!-- <a *ngIf="isUserShortlisted(item?.sortListUserId)"
+                                        {{ item?.bidManagerStatusComment?.[0]?.comment ? item.bidManagerStatusComment[0].comment : '-' }}
+                                    </td>
+
+                                    <!-- <td>
+                                         <a *ngIf="isUserShortlisted(item?.sortListUserId)"
                                             style="background-color: darkgray;" class="btn btn-sm btn-dark m-1"
                                             title="Shortlist">Shortlisted</a>
                                         <a *ngIf="!isUserShortlisted(item?.sortListUserId)"
                                             (click)="sortListProject(item?._id)" class="btn btn-sm btn-dark m-1"
-                                            title="Shortlist">Shortlist</a> -->
-                                    </td>
+                                            title="Shortlist">Shortlist</a>
+                                    </td> -->
                                 </tr>
                             </tbody>
                         </table>
