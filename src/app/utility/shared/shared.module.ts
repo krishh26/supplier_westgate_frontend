@@ -8,10 +8,12 @@ import { ProjectNotificationComponent } from './common/project-notification/proj
 import { SuperadminHeaderComponent } from './components/superadmin-header/superadmin-header.component';
 import { NoRecordFoundComponent } from './common/no-record-found/no-record-found.component';
 import { CustomValidation } from './constant/custome-validation';
+import { MaintenceNoticePageComponent } from './components/maintence-notice-page/maintence-notice-page.component';
 
 @NgModule({
   declarations: [
-    NoRecordFoundComponent
+    NoRecordFoundComponent,
+    MaintenceNoticePageComponent
   ],
   imports: [
     CommonModule,

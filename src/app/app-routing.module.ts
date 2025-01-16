@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './utility/shared/components/login/login.component';
 import { ForgotPasswordComponent } from './utility/shared/components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './utility/shared/components/reset-password/reset-password.component';
+import { MaintenceNoticePageComponent } from './utility/shared/components/maintence-notice-page/maintence-notice-page.component';
 
 const routes: Routes = [
   {
@@ -56,9 +57,13 @@ const routes: Routes = [
     component : ResetPasswordComponent
   },
   {
+    path: 'scheduled-maintenance-notice',
+    component : MaintenceNoticePageComponent
+  },
+  {
     path: '**',
     pathMatch : 'full',
-    redirectTo : 'login'
+    redirectTo : 'scheduled-maintenance-notice'
   },
 ];
 
