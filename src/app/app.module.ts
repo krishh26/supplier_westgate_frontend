@@ -27,12 +27,14 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { NgxSpinnerModule } from 'ngx-spinner';
 // import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { MaintenceNoticePageComponent } from './utility/shared/components/maintence-notice-page/maintence-notice-page.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    MaintenceNoticePageComponent
   ],
   imports: [
     BrowserModule,
