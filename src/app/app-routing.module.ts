@@ -41,12 +41,12 @@ const routes: Routes = [
   {
     path: 'user-profile',
     loadChildren: () => import('./modules/user-profile/user-profile.module').then(m => m.UserProfileModule
-      
+
     )
   },
   {
     path: 'login',
-    component : LoginComponent
+    component: LoginComponent
   },
   {
     path: 'forgot-password',
@@ -54,16 +54,16 @@ const routes: Routes = [
   },
   {
     path: 'reset-password',
-    component : ResetPasswordComponent
+    component: ResetPasswordComponent
   },
   {
     path: 'scheduled-maintenance-notice',
-    component : MaintenceNoticePageComponent
+    component: MaintenceNoticePageComponent
   },
   {
     path: '**',
-    pathMatch : 'full',
-    redirectTo : 'scheduled-maintenance-notice'
+    pathMatch: 'full',
+    redirectTo: 'login'
   },
 ];
 

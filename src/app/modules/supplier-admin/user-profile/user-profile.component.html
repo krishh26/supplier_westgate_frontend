@@ -5,94 +5,76 @@
         <div class="col-lg-10 col-xl-10 col-md-10 col-sm-10 col-8 mob-mb1">
           <h4 class="text-theme mb-4"><strong>User Profile</strong></h4>
         </div>
-        <div class="col-lg-2 col-xl-2 col-md-4 col-sm-4 col-12 text-end"
-          routerLink="/supplier-admin/supplier-dashboard-header">
-          <a href="javascript:;" class="btn btn-primary text-dark">Back</a>
+        <div class="col-lg-2 col-xl-2 col-md-4 col-sm-4 col-12 text-end">
+          <a routerLink="/supplier-admin/supplier-dashboard-header" class="btn btn-primary text-dark">Back</a>
         </div>
       </div>
       <div class="row">
-        <!-- <div class="col-lg-2 col-xl-2 col-12">
-          <div class="profile-avtar mt-4 mb-4">
-            <img *ngIf="userData?.profileImageUrl" [src]="userData?.profileImageUrl" id="profile-image" />
-            <img *ngIf="!userData?.profileImageUrl" src="assets/img/face1.jpg" id="profile-image" />
-            <div class="input--file">
-              <i class="bi bi-camera-fill"></i>
-              <input name="Select File" type="file" />
-            </div>
-          </div>
-        </div> -->
         <div class="col-lg-5 col-xl-5 col-12 row">
           <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
 
             <div class="form-group">
               <label>Company Name</label>
-              <input type="text" class="form-control" formControlName="name" />
-              <span class="text-danger"
-                *ngIf="userForm.controls.name?.touched && userForm.controls.name?.errors?.['required']">Please
-                Enter name</span>
+              <input type="text" class="form-control" formControlName="name" readonly />
             </div>
 
             <div class="form-group">
-              <label>Location</label>
-              <input type="text" class="form-control" formControlName="companyAddress" />
-              <span class="text-danger"
-                *ngIf="userForm.controls.companyAddress?.touched && userForm.controls.companyAddress?.errors?.['required']">Please
-                Enter location</span>
+              <label>Company Website</label>
+              <input type="text" class="form-control" formControlName="website" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>Year of Establishment</label>
+              <input type="text" class="form-control" formControlName="yearOfEstablishment" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>Type Of Company</label>
+              <input type="text" class="form-control" formControlName="typeOfCompany" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>VAT or GST Number</label>
+              <input type="text" class="form-control" formControlName="VATOrGSTNumber" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>Company Address</label>
+              <input type="text" class="form-control" formControlName="companyAddress" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>Developer/Engineer Teams Count</label>
+              <input type="text" class="form-control" formControlName="employeeCount" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>Other Team Members count</label>
+              <input type="text" class="form-control" formControlName="employeeCount" readonly />
             </div>
 
             <div class="form-group">
               <label>Email</label>
               <input type="email" class="form-control" formControlName="email" readonly />
-              <span class="text-danger"
-                *ngIf="userForm.controls.email?.touched && userForm.controls.email?.errors?.['required']">Please
-                Enter email</span>
+            </div>
+
+            <div class="form-group">
+              <label>Company Directors/Owners</label>
+              <input type="text" class="form-control" formControlName="companyDirectors_Owners" readonly />
             </div>
 
             <div class="form-group">
               <label>Phone Number</label>
-              <input type="text" class="form-control" formControlName="customerSupportContact"
-                (keypress)="NumberOnly($event)" minlength="10" maxlength="10" />
-              <span class="text-danger"
-                *ngIf="userForm.controls.customerSupportContact?.touched && userForm.controls.customerSupportContact?.errors?.['required']">Please
-                Enter phone number</span>
+              <input type="text" class="form-control" formControlName="customerSupportContact" readonly />
             </div>
-
-            <div class="form-group">
-              <label>VAT or GST Number</label>
-              <input type="text" class="form-control" formControlName="VATOrGSTNumber" />
-            </div>
-
-            <div class="form-group">
-              <label>Compliance Certifications</label>
-              <input type="text" class="form-control" formControlName="complianceCertifications" />
-            </div>
-
-            <div class="form-group">
-              <label>Employee Count</label>
-              <input type="text" class="form-control" formControlName="employeeCount" />
-            </div>
-
-            <div class="form-group">
-              <label>Type Of Company</label>
-              <input type="text" class="form-control" formControlName="typeOfCompany" />
-            </div>
-
-            <div class="form-group">
-              <label>Website URL</label>
-              <input type="text" class="form-control" formControlName="website" />
-            </div>
-
-            <!-- <div class="form-group">
-              <label>Technology Stack</label>
-              <input type="text" class="form-control" formControlName="technologyStack" />
-            </div> -->
           </form>
 
-          <div class="col-lg-2 col-xl-2 col-md-4 col-sm-4 col-12 text-end">
+          <!-- <div class="col-lg-2 col-xl-2 col-md-4 col-sm-4 col-12 text-end">
             <a href="javascript:;" class="btn btn-primary text-dark">Submit</a>
-          </div>
+          </div> -->
         </div>
       </div>
+
     </div>
   </section>
 </main>

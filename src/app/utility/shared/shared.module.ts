@@ -13,6 +13,7 @@ import { MaintenceNoticePageComponent } from './components/maintence-notice-page
 @NgModule({
   declarations: [
     NoRecordFoundComponent,
+    MaintenceNoticePageComponent
   ],
   imports: [
     CommonModule,

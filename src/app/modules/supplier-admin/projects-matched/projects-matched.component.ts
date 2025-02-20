@@ -230,7 +230,7 @@ export class ProjectsMatchedComponent implements OnInit {
     this.payload.limit = String(this.pagesize);
     this.payload.applied = false;
     this.payload.sortlist = false;
-    this.payload.match = 'partial';
+     // this.payload.match = 'partial';
     this.payload.status = 'Passed';
     this.projectService.getProjectList(this.payload).subscribe((response) => {
       this.projectList = [];

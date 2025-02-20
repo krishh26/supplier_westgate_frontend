@@ -29,6 +29,7 @@ import { QuestionAnswerDetailsComponent } from './question-answer-details/questi
 import { ProjectListDashboardComponent } from './project-list-dashboard/project-list-dashboard.component';
 import { ProjectDetailsDahboardComponent } from './project-details-dahboard/project-details-dahboard.component';
 import { SupplierMyProjectsComponent } from './supplier-my-projects/supplier-my-projects.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 const routes: Routes = [
@@ -151,6 +152,10 @@ const routes: Routes = [
       {
         path: "my-projects",
         component: SupplierMyProjectsComponent
+      },
+      {
+        path: "change-password",
+        component: ChangePasswordComponent
       },
     ]
   },

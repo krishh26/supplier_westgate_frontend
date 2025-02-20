@@ -6,8 +6,7 @@
         <div class="col-lg-2 col-xl-2 col-md-12 col-sm-12 col-12 bg-grays">
           <div id="profile-menu-nav"><br><br>
 
-            <!-- Category Dropdown -->
-            <div class="sort-widget mb-3">
+            <!-- <div class="sort-widget mb-3">
               <h6 class="p-600">Category</h6>
               <ng-select style="padding: 0px !important;" placeholder="Select Category"
                 class="form-select custom-ng-select-option" [items]="categoryList" bindLabel="category"
@@ -15,7 +14,6 @@
               </ng-select>
             </div>
 
-            <!-- Industry Dropdown -->
             <div class="sort-widget mb-3">
               <h6 class="p-600">Industry</h6>
               <ng-select style="padding: 0px !important;" placeholder="Select Industry"
@@ -24,7 +22,6 @@
               </ng-select>
             </div>
 
-            <!-- Project Type Dropdown -->
             <div class="sort-widget mb-3">
               <h6 class="p-600">Project Type</h6>
               <ng-select style="padding: 0px !important;" placeholder="Select Project Type"
@@ -33,7 +30,6 @@
               </ng-select>
             </div>
 
-            <!-- Client Type Dropdown -->
             <div class="sort-widget mb-3">
               <h6 class="p-600">Client Type</h6>
               <ng-select style="padding: 0px !important;" placeholder="Select Client Type"
@@ -42,16 +38,22 @@
               </ng-select>
             </div>
 
-            <!-- Status Dropdown -->
             <div class="sort-widget mb-3">
               <h6 class="p-600">Status</h6>
               <ng-select style="padding: 0px !important;" placeholder="Select Status"
                 class="form-select custom-ng-select-option" [items]="statusList" bindLabel="supplierStatus"
                 [multiple]="true" bindValue="value" [(ngModel)]="selectedStatuses" (change)="searchtext()">
               </ng-select>
+            </div> -->
+
+            <div class="sort-widget mb-3">
+              <h6 class="p-600">Bid Status</h6>
+              <ng-select style="padding: 0px !important;" placeholder="Select Bid Status"
+                class="form-select custom-ng-select-option" [items]="bidstatusList" bindLabel="bidstatus"
+                [multiple]="true" bindValue="bidvalue" [(ngModel)]="selectedBidStatuses" (change)="searchtext()">
+              </ng-select>
             </div>
 
-            <!-- Expired Project Checkbox -->
             <div class="sort-widget mb-3">
               <h6 class="p-600">Expired Project</h6>
               <div class="form-check">
@@ -176,12 +178,12 @@
                   <!-- <td>{{item?.projectType}}</td> -->
                   <!-- <td>{{item?.supplierStatus}}</td> -->
                   <td>{{item?.dueDate | date:'dd/MM/yyyy, h:mm a'}}</td>
-                  <td>
+                  <!-- <td>
                     <a *ngIf="isUserShortlisted(item?.sortListUserId)" style="background-color: darkgray;"
                       class="btn btn-sm btn-dark m-1" title="Shortlist">Shortlisted</a>
                     <a *ngIf="!isUserShortlisted(item?.sortListUserId)" (click)="sortListProject(item?._id)"
                       class="btn btn-sm btn-dark m-1" title="Shortlist">Shortlist</a>
-                  </td>
+                  </td> -->
                 </tr>
               </tbody>
             </table>

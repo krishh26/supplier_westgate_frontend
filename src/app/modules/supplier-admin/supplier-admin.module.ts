@@ -38,6 +38,7 @@ import { ProjectDetailsDahboardComponent } from './project-details-dahboard/proj
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ContactModalComponent } from './ContactModal/ContactModal.component';
 import { SupplierMyProjectsComponent } from './supplier-my-projects/supplier-my-projects.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { SupplierMyProjectsComponent } from './supplier-my-projects/supplier-my-
     ProjectListDashboardComponent,
     ProjectDetailsDahboardComponent,
     ContactModalComponent,
-    SupplierMyProjectsComponent
+    SupplierMyProjectsComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,

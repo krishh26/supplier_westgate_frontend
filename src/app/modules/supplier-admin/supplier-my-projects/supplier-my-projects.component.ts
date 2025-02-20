@@ -155,6 +155,7 @@ export class SupplierMyProjectsComponent {
     this.payload.applied = false;
     this.payload.sortlist = false;
      this.payload.status = 'Passed';
+     this.payload.supplierId = this.loginUser?._id
     this.payload.bidManagerStatus = "WaitingForResult,Awarded,NotAwarded,Shortlisted,InSolution";
     this.projectService.getProjectList(this.payload).subscribe((response) => {
       this.projectList = [];
