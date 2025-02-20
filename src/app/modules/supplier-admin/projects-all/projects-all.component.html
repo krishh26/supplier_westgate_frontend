@@ -155,7 +155,7 @@
                   <!-- <th>Project Type</th> -->
                   <!-- <th>Supplier Status</th> -->
                   <th>Due Date &amp; Time</th>
-                  <th>Action</th>
+                  <!-- <th>Action</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -177,7 +177,7 @@
                   <td>{{item?.maxValue}}</td>
                   <!-- <td>{{item?.projectType}}</td> -->
                   <!-- <td>{{item?.supplierStatus}}</td> -->
-                  <td>{{item?.dueDate | date:'dd/MM/yyyy, h:mm a'}}</td>
+                  <td>{{item?.dueDate | date:'dd/MM/yyyy'}}</td>
                   <!-- <td>
                     <a *ngIf="isUserShortlisted(item?.sortListUserId)" style="background-color: darkgray;"
                       class="btn btn-sm btn-dark m-1" title="Shortlist">Shortlisted</a>
