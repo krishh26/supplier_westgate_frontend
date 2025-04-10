@@ -32,7 +32,7 @@ export class SupplierHeaderComponent implements OnInit {
     { titel: 'Dashboard', route: ['/supplier-admin/supplier-dashboard-header'] },
     { titel: 'Projects', route: ['/supplier-admin/project-list'] },
     { titel: 'Case Studies', route: ['/supplier-admin/case-studies-list'] },
-    { titel: 'My Projects', route: ['/supplier-admin/my-projects'] },
+    // { titel: 'My Projects', route: ['/supplier-admin/my-projects'] },
   ];
 
   ngOnInit(): void {
@@ -70,7 +70,7 @@ export class SupplierHeaderComponent implements OnInit {
       this.routerSubscription.unsubscribe();
     }
   }
-  
+
   // get list notification
   getNotificationList() {
     this.projectNotificationService.getNotificationList().subscribe((response) => {
