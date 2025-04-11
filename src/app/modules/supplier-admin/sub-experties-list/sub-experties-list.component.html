@@ -1,1 +1,129 @@
-<p>sub-experties-list works!</p>
+<main id="main">
+  <section class="casestudy-section">
+    <div class="container-fluid">
+      <div class="d-flex align-items-center justify-content-between">
+        <h4 class="text-theme mb-0"><strong>Sub Expertise List</strong></h4>
+        <div>
+          <button *ngIf="showAddButton" class="btn btn-success btn-sm me-2" data-bs-toggle="modal" data-bs-target="#addSubExpertiseModal">
+            Add Sub
+          </button>
+          <a routerLink="/supplier-admin/expertise-list" class="btn btn-primary btn-sm">
+            Back
+          </a>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th>Sub Expertise</th>
+              <th>Upload Files</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="!subExpertiseList?.length">
+              <td colspan="3">
+                <app-no-record-found></app-no-record-found>
+              </td>
+            </tr>
+            <tr
+              *ngFor="let item of subExpertiseList | paginate: { itemsPerPage: pagesize, currentPage: page, totalItems: subExpertiseList.length }; let i = index">
+              <td>{{ item }}</td>
+              <td>
+                <input type="file" multiple (change)="onFilesSelected($event, item)" accept=".pdf, .doc, .docx" />
+              </td>
+              <td>
+                <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                data-bs-target="#viewAllDocuments" (click)="viewUploadedDocuments(item)">View</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="modal fade" id="viewAllDocuments" tabindex="-1" aria-labelledby="viewAllProjectsLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6>Uploaded Files</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+          <table class="table table-striped align-middle">
+            <thead>
+              <tr>
+                <th>File Name</th>
+                <th>Uploaded At</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="!viewDocs?.length">
+                <td colspan="3">No Files Available</td>
+              </tr>
+              <tr *ngFor="let file of viewDocs">
+                <td>{{ file.fileName }}</td>
+                <td>{{ file.createdAt | date : 'dd/MM/yyyy, h:mm a' }}</td>
+                <td>
+                  <a class="btn btn-primary btn-sm" [href]="file.fileUrl" target="_blank" title="Download">
+                    <i class="bi bi-download"></i>
+                  </a>
+                  <button (click)="deleteDoc(file?._id)" class="btn btn-danger btn-sm" title="Delete">
+                    <i class="bi bi-trash3-fill"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addSubExpertiseModal" tabindex="-1" aria-labelledby="addSubExpertiseLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6>Add Sub Expertise</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group mb-3">
+          <label for="subExpertiseName">Sub Expertise Tags</label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="subExpertiseName" [(ngModel)]="newSubExpertise"
+              placeholder="Enter sub expertise name" (keyup.enter)="addTag()">
+            <button class="btn btn-outline-primary" type="button" (click)="addTag()">Add</button>
+          </div>
+          <small class="text-muted">Press Enter or click Add to add each tag</small>
+        </div>
+
+        <div *ngIf="subExpertiseTags.length > 0" class="mt-3">
+          <h6>Added Tags:</h6>
+          <div class="d-flex flex-wrap gap-2">
+            <div *ngFor="let tag of subExpertiseTags; let i = index" class="badge bg-primary p-2 d-flex align-items-center">
+              {{tag}}
+              <button type="button" class="btn-close btn-close-white ms-2" style="font-size: 0.5rem;" (click)="removeTag(i)"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="saveSubExpertise()" [disabled]="subExpertiseTags.length === 0">
+          Save All
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
