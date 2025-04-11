@@ -41,7 +41,6 @@ import { SupplierMyProjectsComponent } from './supplier-my-projects/supplier-my-
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ExpertiesListComponent } from './experties-list/experties-list.component';
 import { SubExpertiesListComponent } from './sub-experties-list/sub-experties-list.component';
-import { AddExpertiesComponent } from './add-experties/add-experties.component';
 
 @NgModule({
   declarations: [
@@ -77,8 +76,7 @@ import { AddExpertiesComponent } from './add-experties/add-experties.component';
     SupplierMyProjectsComponent,
     ChangePasswordComponent,
     ExpertiesListComponent,
-    SubExpertiesListComponent,
-    AddExpertiesComponent
+    SubExpertiesListComponent
   ],
   imports: [
     CommonModule,
