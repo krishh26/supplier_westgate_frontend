@@ -72,7 +72,7 @@ export class ExpertiesListComponent {
   }
 
   navigateToSubExpertise(expertise: any) {
-    this.router.navigate(['/super-admin/sub-expertise-list'], {
+    this.router.navigate(['/supplier-admin/sub-experties-list'], {
       queryParams: {
         expertiseName: expertise,
         supplierId: this.supplierID
