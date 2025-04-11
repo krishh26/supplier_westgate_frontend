@@ -94,7 +94,7 @@ export class RolesListComponent {
     console.log('Complete role data:', roleData); // Log complete data
 
     // Store the complete role data in state
-    this.router.navigate(['/supplier-admin/edit-roles', roleId], {
+    this.router.navigate(['/supplier-admin/edit-roles'], {
       state: { roleData: roleData } // Pass the complete roleData object without modification
     });
   }
