@@ -8,7 +8,7 @@ import { SuperadminService } from 'src/app/services/super-admin/superadmin.servi
 import { SupplierAdminService } from 'src/app/services/supplier-admin/supplier-admin.service';
 import { pagination } from 'src/app/utility/shared/constant/pagination.constant';
 import Swal from 'sweetalert2';
-
+declare var bootstrap: any;
 @Component({
   selector: 'app-case-studies',
   templateUrl: './case-studies.component.html',
@@ -27,6 +27,7 @@ export class CaseStudiesComponent {
   selectedDocument: any;
   selectedCasestudy: any;
   categoryList: any = [];
+  selectedCaseStudy: any = null;
 
   constructor(
     private supplierService: SupplierAdminService,
@@ -69,6 +70,16 @@ export class CaseStudiesComponent {
         this.showLoader = false;
       }
     );
+  }
+
+  viewCaseStudyDetails(caseStudy: any) {
+    this.selectedCaseStudy = caseStudy;
+    // Open the modal using Bootstrap's modal
+    const modalElement = document.getElementById('caseStudyDetailsModal');
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
+    }
   }
 
   getCaseStudiesList() {
