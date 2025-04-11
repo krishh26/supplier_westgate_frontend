@@ -39,10 +39,13 @@ export class ExpertiesListComponent {
   ) { }
 
   ngOnInit() {
-    const storedData = localStorage.getItem("supplierData");
+    const storedData = localStorage.getItem("loginUser");
+    console.log('Stored supplier data:', storedData);
     if (storedData) {
       this.supplierData = JSON.parse(storedData);
+      console.log('Parsed supplier data:', this.supplierData);
       this.supplierID = this.supplierData?._id;
+      console.log('Supplier ID:', this.supplierID);
     } else {
       console.log("No supplier data found in localStorage");
     }
