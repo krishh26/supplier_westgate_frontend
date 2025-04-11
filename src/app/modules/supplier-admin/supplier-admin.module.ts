@@ -39,6 +39,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ContactModalComponent } from './ContactModal/ContactModal.component';
 import { SupplierMyProjectsComponent } from './supplier-my-projects/supplier-my-projects.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ExpertiesListComponent } from './experties-list/experties-list.component';
+import { SubExpertiesListComponent } from './sub-experties-list/sub-experties-list.component';
+import { AddExpertiesComponent } from './add-experties/add-experties.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +75,10 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     ProjectDetailsDahboardComponent,
     ContactModalComponent,
     SupplierMyProjectsComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ExpertiesListComponent,
+    SubExpertiesListComponent,
+    AddExpertiesComponent
   ],
   imports: [
     CommonModule,

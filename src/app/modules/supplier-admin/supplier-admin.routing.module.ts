@@ -30,6 +30,8 @@ import { ProjectListDashboardComponent } from './project-list-dashboard/project-
 import { ProjectDetailsDahboardComponent } from './project-details-dahboard/project-details-dahboard.component';
 import { SupplierMyProjectsComponent } from './supplier-my-projects/supplier-my-projects.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ExpertiesListComponent } from './experties-list/experties-list.component';
+import { SubExpertiesListComponent } from './sub-experties-list/sub-experties-list.component';
 
 
 const routes: Routes = [
@@ -156,6 +158,14 @@ const routes: Routes = [
       {
         path: "change-password",
         component: ChangePasswordComponent
+      },
+      {
+        path: "experties-list",
+        component: ExpertiesListComponent
+      },
+      {
+        path: "sub-experties-list",
+        component: SubExpertiesListComponent
       },
     ]
   },

@@ -16,7 +16,10 @@ export enum SupplierAdminEndPoint {
   DELETE_USER = '/user/delete/',
   UPDATE_CASESTUDY = '/case-study/update/',
   DOCUMENT_UPLOAD = '/project/upload',
-  DELETE_CASE_STUDY = '/case-study/delete/'
+  DELETE_CASE_STUDY = '/case-study/delete/',
+  SUPPLIER_DETAILS = '/user/suplier/get',
+  DELETE_EXPERTISE_DOCUMENT = '/web-user/deleteFile',
+  ADD_EXPERTISE_AND_SUBEXPERTISE = '/web-user/add-expertise',
 }
 
 @Injectable({
@@ -38,6 +41,26 @@ export class SupplierAdminService {
     return this.httpClient
       .get<any>(this.baseUrl + SupplierAdminEndPoint.DASHBOARD_LIST);
   }
+
+  getSupplierDetails(supplierId: any): Observable<any> {
+    return this.httpClient
+      .get<any>(this.baseUrl + SupplierAdminEndPoint.SUPPLIER_DETAILS + '/' + supplierId);
+  }
+
+  addExpertiseandSubExpertise(candidateData: any): Observable<any> {
+    return this.httpClient.post<any>(
+      `${this.baseUrl}${SupplierAdminEndPoint.ADD_EXPERTISE_AND_SUBEXPERTISE}`,
+      candidateData
+    );
+  }
+
+  deleteDocumentExpertise(fileId: string): Observable<any> {
+    const url = `${this.baseUrl}${SupplierAdminEndPoint.DELETE_EXPERTISE_DOCUMENT}`;
+    const body = { fileId };
+
+    return this.httpClient.request<any>('DELETE', url, { body });
+  }
+
 
   getCaseStudyList(): Observable<any> {
     return this.httpClient

@@ -1,0 +1,142 @@
+<main id="main">
+  <section class="casestudy-section">
+    <div class="container-fluids mb-3">
+      <div class="row align-items-center">
+        <nav>
+          <ul class="projects-nav-tab">
+            <li routerLink="/super-admin/supplier-user-profile">
+              <a>Profile</a>
+            </li>
+            <li routerLink="/super-admin/admin-case-study-list">
+              <a>Historical Data</a>
+            </li>
+            <li routerLink="/super-admin/expertise-list">
+              <a class="active">Case Studies</a>
+            </li>
+            <li routerLink="/super-admin/resources-list">
+              <a>Resources</a>
+            </li>
+            <li routerLink="/super-admin/supplier-user-activity">
+              <a>Activity</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-10 col-xl-10 col-md-10 col-sm-10 col-8">
+          <h4 class="text-theme mb-4"><strong>Case Studies</strong></h4>
+        </div>
+        <div class="col-lg-2 col-xl-2 col-md-2 col-sm-2 col-4 text-end">
+          <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addExpertiseModal">
+            Add Expertise
+          </button>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th>Expertise</th>
+              <!-- <th>Upload Files</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="!expertiseList?.length">
+              <td colspan="3">
+                <app-no-record-found></app-no-record-found>
+              </td>
+            </tr>
+            <tr
+              *ngFor="let item of expertiseList">
+              <td>{{ item }}</td>
+              <!-- <td>
+                <input type="file" multiple (change)="onFilesSelected($event, item)" accept=".pdf, .doc, .docx" />
+              </td> -->
+              <td>
+              <td>
+                <a class="btn btn-primary btn-sm" style="cursor: pointer" (click)="navigateToSubExpertise(item)">View
+                  Sub Expertise</a>
+              </td>
+
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="modal fade" id="viewAllDocuments" tabindex="-1" aria-labelledby="viewAllProjectsLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" style="display: flex; justify-content: space-between">
+        <h6>Uploaded Files</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="table-responsive">
+          <table class="table table-striped align-middle">
+            <thead>
+              <tr>
+                <th>File Name</th>
+                <th>Expertise</th>
+                <th>Uploaded At</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="!viewDocs?.length">
+                <td colspan="4">No Files Available for this Expertise</td>
+              </tr>
+              <tr *ngFor="let file of viewDocs">
+                <td>{{ file.fileName }}</td>
+                <td>{{ file.expertise }}</td>
+                <td>{{ file.createdAt | date : 'dd/MM/yyyy, h:mm a' }}</td>
+                <td>
+                  <div class="d-flex gap-2">
+                    <a class="btn btn-primary btn-sm" [href]="file.fileUrl" target="_blank" title="Download">
+                      <i class="bi bi-download"></i>
+                    </a>
+                    <a (click)="deleteDoc(file?._id)" class="btn btn-danger btn-sm" title="Delete">
+                      <i class="bi bi-trash3-fill"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addExpertiseModal" tabindex="-1" aria-labelledby="addExpertiseLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6>Add Expertise</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Expertise Field -->
+        <div class="form-group mb-3">
+          <label for="expertiseName">Expertise</label>
+          <input type="text" class="form-control" id="expertiseName" [(ngModel)]="newExpertise"
+            placeholder="Enter expertise name">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="saveExpertise()"
+          [disabled]="!newExpertise">
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
