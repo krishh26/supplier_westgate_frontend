@@ -1,0 +1,109 @@
+<main id="main">
+  <section class="casestudy-section">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-12 col-lg-10 mb-3 mb-lg-0">
+            <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-3">
+              <h4 class="text-theme mb-0">Role Wise Resources</h4>
+              <div class="d-flex flex-wrap gap-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="activeFilter" [(ngModel)]="activeFilter"
+                    (change)="onFilterChange()">
+                  <label class="form-check-label" for="activeFilter">Active Candidates ({{metaData?.activeCandidates ||
+                    0}})</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="inactiveFilter" [(ngModel)]="inactiveFilter"
+                    (change)="onFilterChange()">
+                  <label class="form-check-label" for="inactiveFilter">Inactive Candidates ({{(metaData?.inActiveCandidates
+                    || 0) }})</label>
+                </div>
+                <!-- <div class="form-check">
+                  <label class="form-check-label">Total: {{metaData?.totalCandidates || 0}}</label>
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-lg-2">
+            <button class="btn btn-primary btn-sm w-100" routerLink="/supplier-admin/role-wise-resources-list">
+              <i class="bi bi-arrow-left"></i> Back to Roles
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Box -->
+      <div class="d-flex align-items-center flex-grow-1 mb-3">
+        <div class="form-group mb-0 flex-grow-1">
+          <span class="input-icon"><i class="bi bi-search"></i></span>
+          <input class="form-control control-search" placeholder="Search resources within this role" type="text"
+            [(ngModel)]="searchText" (input)="searchtext()" />
+        </div>
+      </div>
+
+      <!-- Loading spinner -->
+      <div *ngIf="loading" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <!-- Candidates table -->
+      <div *ngIf="!loading && candidatesList && candidatesList.length > 0" class="table-responsive">
+        <table class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>Roles</th>
+              <th>Experience</th>
+              <th>Technical Skills</th>
+              <th>Supplier Name</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let candidate of candidatesList | paginate: { itemsPerPage: pagesize, currentPage: page, totalItems: totalRecords }">
+              <td>{{candidate?.fullName}}</td>
+              <td>
+                <div class="d-flex flex-wrap gap-1">
+                  <span *ngFor="let role of candidate?.roleId">
+                    <span class="badge bg-primary me-1 mb-1" style="font-size: 14px;">{{role.name}}</span>
+                  </span>
+                  <span *ngIf="!candidate?.roleId || candidate.roleId.length === 0">-</span>
+                </div>
+              </td>
+              <td>{{candidate?.totalExperience}} years</td>
+              <td>
+                <div class="d-flex flex-wrap gap-1">
+                  <span *ngFor="let skill of candidate?.technicalSkills" class="badge bg-secondary">{{skill}}</span>
+                </div>
+              </td>
+              <td>{{candidate?.supplierId?.name}}</td>
+              <td>
+                <button class="btn btn-sm btn-outline-primary" (click)="viewCandidateDetails(candidate)">View</button>
+              </td>
+              <!-- <td>
+                <label class="switch">
+                  <input type="checkbox" [(ngModel)]="candidate.active" (ngModelChange)="onToggleSwitch(candidate)">
+                  <span class="slider round"></span>
+                </label>
+              </td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- No data message -->
+      <div *ngIf="!loading && (!candidatesList || candidatesList.length === 0)" class="text-center py-4">
+        <p>No resources found for this role.</p>
+      </div>
+
+      <!-- Pagination -->
+      <div *ngIf="candidatesList && candidatesList.length > 0" class="d-flex justify-content-center mt-3">
+        <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+      </div>
+    </div>
+  </section>
+</main>

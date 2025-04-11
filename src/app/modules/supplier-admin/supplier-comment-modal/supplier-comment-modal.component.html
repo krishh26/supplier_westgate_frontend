@@ -1,0 +1,25 @@
+<main>
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="modal-header">
+      <h5 class="modal-title">
+        <span *ngIf="itemType === 'candidate'">Deactivate Candidate</span>
+        <span *ngIf="itemType !== 'candidate'">Deactivate Supplier</span>
+      </h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+    </div>
+    <div class="modal-body">
+      <p class="mb-2">
+        <span *ngIf="itemType === 'candidate'">Please provide a reason for deactivating this candidate:</span>
+        <span *ngIf="itemType !== 'candidate'">Please provide a reason for deactivating this supplier:</span>
+      </p>
+      <textarea formControlName="activeStatus" class="form-control" placeholder="Enter your comment here"></textarea>
+      <div *ngIf="userForm.get('activeStatus')?.invalid && userForm.get('activeStatus')?.touched" class="text-danger">
+        Comment is required.
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+      <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Deactivate</button>
+    </div>
+  </form>
+</main>

@@ -1,0 +1,87 @@
+<main id="main">
+  <section class="casestudy-section">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <div class="d-flex align-items-center">
+              <h4 class="text-theme mb-0"><strong>Roles List</strong></h4>
+            </div>
+            <div class="d-flex align-items-center">
+              <button class="btn btn-outline-primary btn-sm me-3" routerLink="/supplier-admin/role-wise-resources-list">
+                <i class="bi bi-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary btn-sm" routerLink="/supplier-admin/add-roles">
+                <i class="bi bi-plus"></i> Add New Role
+              </button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <!-- Loading spinner -->
+              <div *ngIf="isLoading" class="text-center py-5">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+
+              <!-- Roles table -->
+              <div *ngIf="!isLoading && rolesList && rolesList.length > 0" class="table-responsive">
+                <table class="table table-striped align-middle">
+                  <thead>
+                    <tr>
+                      <th>Role</th>
+                      <th>Releted Role</th>
+                      <th>Created Date</th>
+                      <th class="text-end">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <tr>
+                      <td *ngIf="!rolesList?.length" colspan="13">
+                        <app-no-record-found></app-no-record-found>
+                      </td>
+                    </tr>
+
+                    <tr
+                      *ngFor="let role of rolesList | paginate: { itemsPerPage: pagesize, currentPage: page, totalItems: totalRecords }">
+                      <td>{{role?.name}}</td>
+                      <td>
+                        <div class="d-flex flex-wrap gap-1">
+                          <span *ngIf="role?.otherRole && role.otherRole.length > 0">
+                            <span *ngFor="let subRole of role.otherRole">
+                              <span class="badge bg-primary me-1 mb-1" style="font-size: 14px;">{{subRole}}</span>
+                            </span>
+                          </span>
+                          <span *ngIf="!role?.otherRole || role.otherRole.length === 0">-</span>
+                        </div>
+                      </td>
+                      <td>{{role?.createdAt | date:'dd/MM/yyyy'}}</td>
+                      <td class="text-end">
+                        <div class="d-flex justify-content-end gap-2">
+                          <button class="btn btn-sm btn-primary" (click)="editRole(role?._id)">
+                            <i class="bi bi-pencil"></i>
+                          </button>
+                          <button class="btn btn-sm btn-danger" (click)="deleteRole(role?._id)">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="d-flex justify-content-center mt-3">
+                  <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

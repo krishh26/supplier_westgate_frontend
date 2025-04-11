@@ -1,0 +1,36 @@
+.card {
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.card-title {
+  margin: 0;
+  color: #333;
+  font-weight: 500;
+}
+
+.card-body {
+  padding: 20px;
+}
+@media (min-width: 320px) and (max-width: 767px) {
+  ul.projects-nav-tab {
+    display: block;
+    background-color: transparent;
+  }
+
+  ul.projects-nav-tab li {
+    display: block;
+  }
+
+  ul.projects-nav-tab li a {
+    border-radius: 100px;
+    padding: 0.75rem;
+    border: 1px solid #d9d9d9 !important;
+    margin-bottom: 15px;
+  }
+}

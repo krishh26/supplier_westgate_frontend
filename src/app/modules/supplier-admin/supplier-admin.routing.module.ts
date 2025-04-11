@@ -32,7 +32,12 @@ import { SupplierMyProjectsComponent } from './supplier-my-projects/supplier-my-
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ExpertiesListComponent } from './experties-list/experties-list.component';
 import { SubExpertiesListComponent } from './sub-experties-list/sub-experties-list.component';
-
+import { RoleWiseResourcesListComponent } from './role-wise-resources-list/role-wise-resources-list.component';
+import { RolesListComponent } from './roles-list/roles-list.component';
+import { ResourcesViewComponent } from './resources-view/resources-view.component';
+import { AddRolesComponent } from './add-roles/add-roles.component';
+import { EditRolesComponent } from './edit-roles/edit-roles.component';
+import { ResourcesViewDetailsComponent } from './resources-view-details/resources-view-details.component';
 
 const routes: Routes = [
   {
@@ -167,6 +172,31 @@ const routes: Routes = [
         path: "sub-experties-list",
         component: SubExpertiesListComponent
       },
+      {
+        path: "role-wise-resources-list",
+        component: RoleWiseResourcesListComponent
+      },
+      {
+        path: "roles-list",
+        component: RolesListComponent
+      },
+      {
+        path: "resources-view",
+        component: ResourcesViewComponent
+      },
+      {
+        path: "add-roles",
+        component: AddRolesComponent
+      },
+      {
+        path: "edit-roles",
+        component: EditRolesComponent
+      },
+      {
+        path: "resources-view-details",
+        component: ResourcesViewDetailsComponent
+
+      }
     ]
   },
   {

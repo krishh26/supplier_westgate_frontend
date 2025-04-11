@@ -41,6 +41,14 @@ import { SupplierMyProjectsComponent } from './supplier-my-projects/supplier-my-
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ExpertiesListComponent } from './experties-list/experties-list.component';
 import { SubExpertiesListComponent } from './sub-experties-list/sub-experties-list.component';
+import { RoleWiseResourcesListComponent } from './role-wise-resources-list/role-wise-resources-list.component';
+import { RolesListComponent } from './roles-list/roles-list.component';
+import { ResourcesViewComponent } from './resources-view/resources-view.component';
+import { AddRolesComponent } from './add-roles/add-roles.component';
+import { EditRolesComponent } from './edit-roles/edit-roles.component';
+import { SupplierCommentModalComponent } from './supplier-comment-modal/supplier-comment-modal.component';
+import { ResourcesCommentModalComponent } from './resources-comment-modal/resources-comment-modal.component';
+import { ResourcesViewDetailsComponent } from './resources-view-details/resources-view-details.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +84,15 @@ import { SubExpertiesListComponent } from './sub-experties-list/sub-experties-li
     SupplierMyProjectsComponent,
     ChangePasswordComponent,
     ExpertiesListComponent,
-    SubExpertiesListComponent
+    SubExpertiesListComponent,
+    RoleWiseResourcesListComponent,
+    RolesListComponent,
+    ResourcesViewComponent,
+    AddRolesComponent,
+    EditRolesComponent,
+    SupplierCommentModalComponent,
+    ResourcesCommentModalComponent,
+    ResourcesViewDetailsComponent
   ],
   imports: [
     CommonModule,

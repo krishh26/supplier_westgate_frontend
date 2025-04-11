@@ -1,0 +1,181 @@
+<main id="main">
+  <section class="casestudy-section">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <h4 class="text-theme mb-0"><strong>Resource Details</strong></h4>
+            <button class="btn btn-primary btn-sm" (click)="goBack()">
+              <i class="bi bi-arrow-left"></i> Back to List
+            </button>
+          </div>
+
+          <!-- Loading spinner -->
+          <div *ngIf="showLoader" class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+
+          <!-- Resource Details -->
+          <div *ngIf="!showLoader && resourceList?.length" class="card">
+            <div class="card-body">
+              <!-- Personal Information -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <h5 class="text-primary mb-3">Personal Information</h5>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Full Name</label>
+                  <input type="text" class="form-control" [value]="resourceList[0]?.name" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Gender</label>
+                  <input type="text" class="form-control" [value]="resourceList[0]?.details?.gender" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Nationality</label>
+                  <input type="text" class="form-control" [value]="resourceList[0]?.details?.nationality" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Qualification</label>
+                  <input type="text" class="form-control" [value]="resourceList[0]?.details?.qualification + ' (' + resourceList[0]?.details?.yearOfGraduation + ')'" readonly>
+                </div>
+              </div>
+
+              <!-- Professional Information -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <h5 class="text-primary mb-3">Professional Information</h5>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Job Title</label>
+                  <input type="text" class="form-control" [value]="resourceList[0]?.details?.jobTitle" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Experience</label>
+                  <input type="text" class="form-control" [value]="resourceList[0]?.details?.experience + ' years'" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Hourly Rate</label>
+                  <input type="text" class="form-control" [value]="'$' + resourceList[0]?.details?.hourlyRate" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Available From</label>
+                  <input type="text" class="form-control" [value]="resourceList[0]?.details?.availableFrom | date: 'dd/MM/yyyy'" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Status</label>
+                  <div class="d-flex align-items-center">
+                    <span class="badge" [ngClass]="resourceList[0]?.details?.active ? 'bg-success' : 'bg-danger'">
+                      {{ resourceList[0]?.details?.active ? 'Active' : 'Inactive' }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Inactive Information (shown only if resource is inactive) -->
+              <div class="row mb-4" *ngIf="resourceList[0]?.details?.active === false">
+                <div class="col-12">
+                  <h5 class="text-danger mb-3">Inactive Information</h5>
+                </div>
+                <div class="col-12 mb-3">
+                  <label class="form-label">Reason for Inactivation</label>
+                  <div class="p-3 border rounded inactive-info-container">
+                    <p class="mb-1">{{ resourceList[0]?.details?.inactiveComment || 'No comment provided' }}</p>
+                    <small class="text-muted" *ngIf="resourceList[0]?.details?.inactiveDate">
+                      <i class="bi bi-clock me-1"></i>
+                      {{ resourceList[0]?.details?.inactiveDate | date: 'dd/MM/yyyy, h:mm a' }}
+                    </small>
+                    <small class="text-muted" *ngIf="!resourceList[0]?.details?.inactiveDate">
+                      <i class="bi bi-clock me-1"></i>
+                      N/A
+                    </small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Skills and Languages -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <h5 class="text-primary mb-3">Skills & Languages</h5>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Technical Skills</label>
+                  <input type="text" class="form-control" [value]="resourceList[0]?.details?.technicalSkills?.join(', ')" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Languages Known</label>
+                  <input type="text" class="form-control" [value]="resourceList[0]?.details?.languages?.join(', ')" readonly>
+                </div>
+              </div>
+
+              <!-- Documents -->
+              <div class="row">
+                <div class="col-12">
+                  <h5 class="text-primary mb-3">Documents</h5>
+                </div>
+                <div class="col-12">
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>File Name</th>
+                          <th>Uploaded At</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngIf="!viewDocs?.length">
+                          <td colspan="3" class="text-center py-5">
+                            <div class="text-muted">
+                              <i class="bi bi-folder-x fs-4 d-block mb-2"></i>
+                              No Files Available
+                            </div>
+                          </td>
+                        </tr>
+                        <tr *ngFor="let file of viewDocs">
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <i class="bi bi-file-earmark-text text-primary me-2"></i>
+                              {{ file.fileName }}
+                            </div>
+                          </td>
+                          <td>
+                            <span class="text-muted">
+                              <i class="bi bi-clock me-1"></i>
+                              {{ file.createdAt | date : 'dd/MM/yyyy, h:mm a' }}
+                            </span>
+                          </td>
+                          <td>
+                            <div class="d-flex gap-2">
+                              <a class="btn btn-light btn-sm" [href]="file.fileUrl" target="_blank" title="Download">
+                                <i class="bi bi-download text-success"></i>
+                              </a>
+                              <button (click)="deleteDoc(file?._id)" class="btn btn-light btn-sm" title="Delete">
+                                <i class="bi bi-trash3 text-danger"></i>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- No Data Message -->
+          <div *ngIf="!showLoader && !resourceList?.length" class="text-center py-5">
+            <p class="text-muted">No resource details found</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

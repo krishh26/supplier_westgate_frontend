@@ -1,0 +1,56 @@
+.modal-body textarea {
+  min-height: 120px;
+  resize: vertical;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+.modal-body p {
+  font-weight: 500;
+  color: #495057;
+}
+
+.modal-header .modal-title {
+  color: #dc3545; /* Red color for deactivation warning */
+  font-weight: 600;
+}
+
+.modal-footer {
+  justify-content: space-between;
+  padding: 15px;
+  border-top: 1px solid #dee2e6;
+}
+
+.btn-primary {
+  background-color: #dc3545; /* Red color for deactivation action */
+  border-color: #dc3545;
+  padding: 6px 16px;
+}
+
+.btn-primary:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+.btn-primary:disabled {
+  background-color: #e4606d;
+  border-color: #e4606d;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  padding: 6px 16px;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+
+.text-danger {
+  font-size: 0.875rem;
+  margin-top: 5px;
+}

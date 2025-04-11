@@ -1,0 +1,62 @@
+<main id="main">
+  <section class="casestudy-section">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <h4 class="text-theme mb-0"><strong>Edit Role</strong></h4>
+            <button class="btn btn-primary btn-sm" routerLink="/supplier-admin/role-wise-resources-list">
+              <i class="bi bi-arrow-left"></i> Back to List
+            </button>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Role Name</label>
+                    <input type="text" class="form-control" formControlName="name" placeholder="Enter role name">
+                    <div *ngIf="roleForm.get('name')?.invalid && roleForm.get('name')?.touched" class="text-danger">
+                      Role name is required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Other Roles</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" [(ngModel)]="newOtherRole"
+                        [ngModelOptions]="{standalone: true}" placeholder="Add other role"
+                        (keydown.enter)="addOtherRole(); $event.stopPropagation()">
+                      <button class="btn btn-outline-primary" type="button" (click)="addOtherRole()">Add</button>
+                    </div>
+                    <div *ngIf="otherRoles.length > 0" class="mt-2">
+                      <div class="d-flex flex-wrap gap-2">
+                        <div *ngFor="let role of otherRoles; let i = index" class="badge bg-primary p-2 d-flex align-items-center">
+                          {{role}}
+                          <button type="button" class="btn-close btn-close-white ms-2" style="font-size: 0.5rem;"
+                            (click)="removeOtherRole(i)"></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+                      <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-1"></span>
+                      Update Role
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
