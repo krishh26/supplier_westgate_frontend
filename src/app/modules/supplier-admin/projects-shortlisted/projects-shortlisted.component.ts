@@ -21,7 +21,7 @@ export class ProjectsShortlistedComponent implements OnInit {
   pagesize = pagination.itemsPerPage;
   totalRecords: number = pagination.totalRecords;
   searchText: any;
-
+  viewComments: any;
   minValue: number = 0;
   maxValue: number = 50000000;
   options: Options = {
@@ -155,18 +155,16 @@ export class ProjectsShortlistedComponent implements OnInit {
     }
   }
 
+  showComments(data: any) {
+    console.log('this is my view comment', data);
+    this.viewComments = data;
+  }
 
   searchtext() {
     this.showLoader = true;
     this.payload.keyword = this.searchText;
     this.payload.page = String(this.page);
     this.payload.limit = String(this.pagesize);
-    // this.payload.category = this.selectedCategories.join(',');
-    // this.payload.industry = this.selectedIndustries.join(',');
-    // this.payload.projectType = this.selectedProjectTypes.join(',');
-    // this.payload.clientType = this.selectedClientTypes.join(',');
-    // this.payload.supplierStatus = this.selectedStatuses.join(',');
-    //this.payload.status = 'Passed';
     this.payload.bidManagerStatus = this.selectedBidStatuses.join(',')
     this.payload.publishDateRange = (this.publishStartDate.value && this.publishEndDate.value) ? `${this.publishStartDate.value.year}-${this.publishStartDate.value.month}-${this.publishStartDate.value.day} , ${this.publishEndDate.value.year}-${this.publishEndDate.value.month}-${this.publishEndDate.value.day}` : '';
     this.payload.SubmissionDueDateRange = (this.submissionStartDate.value && this.submissionEndDate.value) ? `${this.submissionStartDate.value.year}-${this.submissionStartDate.value.month}-${this.submissionStartDate.value.day} , ${this.submissionEndDate.value.year}-${this.submissionEndDate.value.month}-${this.submissionEndDate.value.day}` : '';

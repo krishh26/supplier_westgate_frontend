@@ -69,7 +69,7 @@ export class SupplierProjectWorkInProgressComponent {
     // { bidvalue: 'Nosuppliermatched', bidstatus: 'No Supplier Matched' }
   ]
 
-
+  viewComments: any;
   categoryList: any = [];
   industryList: any = [];
   myControl = new FormControl();
@@ -117,6 +117,10 @@ export class SupplierProjectWorkInProgressComponent {
     });
   }
 
+  showComments(data: any) {
+    console.log('this is my view comment', data);
+    this.viewComments = data;
+  }
 
   changeRange() {
     if (this.maxValue >= this.minValue) {

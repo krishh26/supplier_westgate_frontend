@@ -21,7 +21,7 @@ export class SupplierProjectSubmittedComponent {
   pagesize = pagination.itemsPerPage;
   totalRecords: number = pagination.totalRecords;
   searchText: any;
-
+  viewComments: any;
   minValue: number = 0;
   maxValue: number = 50000000;
   options: Options = {
@@ -122,6 +122,11 @@ export class SupplierProjectSubmittedComponent {
     if (this.maxValue >= this.minValue) {
       this.searchtext();
     }
+  }
+
+  showComments(data: any) {
+    console.log('this is my view comment', data);
+    this.viewComments = data;
   }
 
 
