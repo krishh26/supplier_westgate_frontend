@@ -66,7 +66,7 @@ export class ProjectsShortlistedComponent implements OnInit {
     { value: 'Not awarded', supplierStatus: 'Not awarded' },
     { value: 'Dropped', supplierStatus: 'Dropped' }
   ];
-  
+
   categoryList: any = [];
   industryList: any = [];
   myControl = new FormControl();
@@ -119,6 +119,7 @@ export class ProjectsShortlistedComponent implements OnInit {
     this.payload.applied = false;
     this.payload.sortlist = true;
     this.payload.status = 'Passed';
+    this.payload.expired = true;
     //  // this.payload.match = 'partial';
     this.payload.bidManagerStatus = 'Awaiting'
     this.projectService.getProjectList(this.payload).subscribe((response) => {

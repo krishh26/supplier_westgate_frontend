@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs';
+import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
 import { SuperadminService } from 'src/app/services/super-admin/superadmin.service';
@@ -34,7 +35,7 @@ export class SupplierProjectSubmittedComponent {
   selectedProjectTypes: any[] = [];
   selectedClientTypes: any[] = [];
   selectedStatuses: any[] = [];
-  private payload:any={};
+  private payload: any = {};
   selectedBidStatuses: any[] = [];
 
 
@@ -70,7 +71,7 @@ export class SupplierProjectSubmittedComponent {
     // { bidvalue: 'Nosuppliermatched', bidstatus: 'No Supplier Matched' }
   ]
 
-
+  loginUser: any;
   categoryList: any = [];
   industryList: any = [];
   myControl = new FormControl();
@@ -84,12 +85,15 @@ export class SupplierProjectSubmittedComponent {
     private projectService: ProjectService,
     private notificationService: NotificationService,
     private router: Router,
-    private superService: SuperadminService
-  ) { }
+    private superService: SuperadminService,
+    private localStorageService: LocalStorageService,
+  ) {
+    this.loginUser = this.localStorageService.getLogger();
+  }
 
 
   ngOnInit(): void {
-    this.payload=this.superService.deepCopy(Payload.projectList);
+    this.payload = this.superService.deepCopy(Payload.projectList);
     this.myControl.valueChanges.subscribe((res: any) => {
       let storeTest = res;
       this.searchText = res.toLowerCase();
@@ -208,6 +212,8 @@ export class SupplierProjectSubmittedComponent {
     this.payload.page = String(this.page);
     this.payload.limit = String(this.pagesize);
     this.payload.applied = false;
+    this.payload.expired = true;
+    this.payload.supplierId = this.loginUser?._id
     // this.payload.status = String('Submitted');
     this.payload.bidManagerStatus = "Awarded,NotAwarded";
     this.projectService.getProjectList(this.payload).subscribe((response) => {

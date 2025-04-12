@@ -160,6 +160,7 @@ export class ProjectsAllComponent implements OnInit {
     this.payload.applied = false;
     this.payload.sortlist = false;
     this.payload.status = 'Passed';
+    this.payload.expired = true;
     this.projectService.getProjectList(this.payload).subscribe((response) => {
       this.projectList = [];
       this.totalRecords = response?.data?.meta_data?.items;

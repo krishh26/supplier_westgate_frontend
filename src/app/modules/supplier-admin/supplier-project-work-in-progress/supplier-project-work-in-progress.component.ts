@@ -86,7 +86,7 @@ export class SupplierProjectWorkInProgressComponent {
     private router: Router,
     private superService: SuperadminService,
     private localStorageService: LocalStorageService,
-  ) { 
+  ) {
     this.loginUser = this.localStorageService.getLogger();
    }
 
@@ -213,6 +213,7 @@ export class SupplierProjectWorkInProgressComponent {
     this.payload.limit = String(this.pagesize);
     // this.payload.applied = true;
     this.payload.sortlist = false;
+    this.payload.expired = true;
     // this.payload.workInProgress = true;
     // this.payload.match = "partial";
     this.payload.supplierId = this.loginUser?._id
