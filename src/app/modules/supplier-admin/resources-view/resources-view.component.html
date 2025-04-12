@@ -16,7 +16,8 @@
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" id="inactiveFilter" [(ngModel)]="inactiveFilter"
                     (change)="onFilterChange()">
-                  <label class="form-check-label" for="inactiveFilter">Inactive Candidates ({{(metaData?.inActiveCandidates
+                  <label class="form-check-label" for="inactiveFilter">Inactive Candidates
+                    ({{(metaData?.inActiveCandidates
                     || 0) }})</label>
                 </div>
                 <!-- <div class="form-check">
@@ -58,7 +59,10 @@
               <th>Roles</th>
               <th>Experience</th>
               <th>Technical Skills</th>
-              <th>Supplier Name</th>
+              <!-- <th>Supplier Name</th> -->
+              <th>Hourly Rate</th>
+              <th>created Date</th>
+              <th>Joining Date</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -80,7 +84,10 @@
                   <span *ngFor="let skill of candidate?.technicalSkills" class="badge bg-secondary">{{skill}}</span>
                 </div>
               </td>
-              <td>{{candidate?.supplierId?.name}}</td>
+              <!-- <td>{{candidate?.supplierId?.name}}</td> -->
+               <td>${{candidate?.hourlyRate}}</td>
+               <td>{{candidate?.createdAt | date : "dd/MM/yyyy" }}</td>
+               <td>{{candidate?.startDate | date : "dd/MM/yyyy" }}</td>
               <td>
                 <button class="btn btn-sm btn-outline-primary" (click)="viewCandidateDetails(candidate)">View</button>
               </td>
