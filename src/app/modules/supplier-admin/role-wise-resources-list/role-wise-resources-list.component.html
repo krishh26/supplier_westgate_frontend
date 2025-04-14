@@ -4,7 +4,7 @@
       <div class="row">
         <div class="row align-items-center justify-content-between">
           <div class="col-lg-8 col-xl-8 col-md-8 col-sm-8 col-8">
-            <h4 class="text-theme mb-4">Roles List</h4>
+            <h4 class="text-theme mb-4">Resources List</h4>
           </div>
           <!-- <div class="col-lg-2 col-xl-2 col-md-2 col-sm-2 col-4">
             <button class="btn btn-primary btn-sm" routerLink="/supplier-admin/roles-list">
@@ -13,33 +13,13 @@
           </div> -->
         </div>
       </div>
-      <div class="d-flex align-items-center flex-grow-1">
+      <!-- <div class="d-flex align-items-center flex-grow-1">
         <div class="form-group mb-0 flex-grow-1">
           <span class="input-icon"><i class="bi bi-search"></i></span>
           <input class="form-control control-search" placeholder="Search roles" type="text" [(ngModel)]="searchText"
             (input)="searchtext()" />
         </div>
-      </div>
-      <!-- Date Filters -->
-      <div class="row mt-3 mb-3">
-        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mb-2">
-          <label class="form-label">Start Date</label>
-          <div class="input-group">
-            <input type="date" class="form-control" [(ngModel)]="startDate" name="startDate">
-          </div>
-        </div>
-        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mb-2">
-          <label class="form-label">End Date</label>
-          <div class="input-group">
-            <input type="date" class="form-control" [(ngModel)]="endDate" name="endDate">
-          </div>
-        </div>
-        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-2 d-flex align-items-end">
-          <button class="btn btn-primary w-100" (click)="applyDateFilter()" style="height: 38px;">
-            Search
-          </button>
-        </div>
-      </div>
+      </div> -->
       <!-- Loading spinner -->
       <div *ngIf="loading" class="text-center py-5">
         <div class="spinner-border text-primary" role="status">
@@ -48,34 +28,51 @@
       </div>
 
       <!-- Roles table -->
-      <div *ngIf="!isLoading" class="table-responsive">
+      <div class="table-responsive">
         <table class="table table-striped align-middle">
           <thead>
             <tr>
-              <th>Role Name</th>
-              <th>Total Supplier</th>
-              <th>Active Supplier</th>
-              <th>Total Candidate</th>
-              <th>Active Candidate</th>
+              <th>Full Name</th>
+              <th>Roles</th>
+              <th>Experience</th>
+              <th>Technical Skills</th>
+              <th>Languages</th>
+              <th>Hourly Rate</th>
+              <th>Available From</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
 
             <tr>
-              <td *ngIf="!rolesList?.length" colspan="13">
+              <td *ngIf="!candidatesList?.length" colspan="13">
                 <app-no-record-found></app-no-record-found>
               </td>
             </tr>
 
-            <tr *ngFor="let role of rolesList">
-              <td>{{role?.name}}</td>
-              <td>{{role?.totalSuppliersCount}}</td>
-              <td>{{role?.activeSuppliersCount}}</td>
-              <td>{{role?.activeSuppliersCount}}</td>
-              <td>{{role?.activeCandidatesCount}}</td>
+            <tr
+              *ngFor="let candidate of candidatesList | paginate: { itemsPerPage: pagesize, currentPage: page, totalItems: totalRecords }; let i = index">
+              <td>{{candidate?.fullName}}</td>
               <td>
-                <button class="btn btn-sm btn-outline-primary" (click)="viewRoleDetails(role)">View Resources</button>
+                <span *ngFor="let role of candidate?.roleId" class="badge bg-primary me-1">
+                  {{role.name}}
+                </span>
+              </td>
+              <td>{{candidate?.totalExperience}} years</td>
+              <td>
+                <span *ngFor="let skill of candidate?.technicalSkills; let last = last">
+                  {{skill}}{{!last ? ', ' : ''}}
+                </span>
+              </td>
+              <td>
+                <span *ngFor="let language of candidate?.languagesKnown; let last = last">
+                  {{language}}{{!last ? ', ' : ''}}
+                </span>
+              </td>
+              <td>${{candidate?.hourlyRate}}</td>
+              <td>{{candidate?.availableFrom | date: 'dd/MM/yyyy'}}</td>
+              <td>
+                <button class="btn btn-sm btn-primary" (click)="viewCandidateDetails(candidate)"> <i class="bi bi-eye"></i> View</button>
               </td>
             </tr>
           </tbody>
@@ -84,8 +81,8 @@
 
 
 
-      <div *ngIf="!loading && (!rolesList || rolesList.length === 0)" class="text-center">
-        <p>No roles found.</p>
+      <div *ngIf="!loading && (!candidatesList || candidatesList.length === 0)" class="text-center">
+        <p>No candidates found.</p>
       </div>
     </div>
   </section>

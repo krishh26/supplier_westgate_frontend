@@ -135,6 +135,6 @@ export class ResourcesViewDetailsComponent {
   }
 
   goBack() {
-    this.router.navigate(['/supplier-admin/resources-view']);
+    this.router.navigate(['/supplier-admin/role-wise-resources-list']);
   }
 }
