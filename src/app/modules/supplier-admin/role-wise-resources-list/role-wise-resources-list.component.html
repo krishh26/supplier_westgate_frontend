@@ -3,8 +3,16 @@
     <div class="container-fluid">
       <div class="row">
         <div class="row align-items-center justify-content-between">
-          <div class="col-lg-8 col-xl-8 col-md-8 col-sm-8 col-8">
+          <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-6">
             <h4 class="text-theme mb-4">Resources List</h4>
+          </div>
+          <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-6">
+            <div class="form-group">
+              <select class="form-select" [(ngModel)]="selectedRole" (change)="onRoleChange()">
+                <option value="">Roles FIlter</option>
+                <option *ngFor="let role of rolesList" [value]="role.name">{{ role.name }}</option>
+              </select>
+            </div>
           </div>
           <!-- <div class="col-lg-2 col-xl-2 col-md-2 col-sm-2 col-4">
             <button class="btn btn-primary btn-sm" routerLink="/supplier-admin/roles-list">
@@ -78,8 +86,6 @@
           </tbody>
         </table>
       </div>
-
-
 
       <div *ngIf="!loading && (!candidatesList || candidatesList.length === 0)" class="text-center">
         <p>No candidates found.</p>

@@ -24,6 +24,8 @@ export class RoleWiseResourcesListComponent {
   supplierID: string = '';
   supplierData: any = [];
   loginUser: any;
+  rolesList: any[] = [];
+  selectedRole: string = '';
 
   constructor(
     private notificationService: NotificationService,
@@ -46,6 +48,7 @@ export class RoleWiseResourcesListComponent {
     }
     // Using a fixed list ID now: '67b60d775c16e4e640eee7dc'
     this.getCandidatesList();
+    this.getRolesList();
   }
 
   ngAfterViewInit() {
@@ -61,7 +64,19 @@ export class RoleWiseResourcesListComponent {
 
   getCandidatesList() {
     this.loading = true;
-    this.superService.getCandidatesByListId(this.loginUser?._id, this.page, this.pagesize).subscribe(
+
+    // Create an object for query parameters
+    const queryParams: any = {
+      page: this.page,
+      pagesize: this.pagesize
+    };
+
+    // Add role filter if selected
+    if (this.selectedRole) {
+      queryParams.role = this.selectedRole;
+    }
+
+    this.superService.getCandidatesByListId(this.loginUser?._id, queryParams).subscribe(
       (response: any) => {
         this.loading = false;
         if (response && response.status) {
@@ -80,18 +95,29 @@ export class RoleWiseResourcesListComponent {
     );
   }
 
+  getRolesList() {
+    this.superService.getRolesList().subscribe({
+      next: (response: any) => {
+
+        if (response && response.status) {
+          console.log('API Response:', response.data); // Log the API response
+          this.rolesList = response?.data?.roles || [];
+          console.log('Roles List:', this.rolesList); // Log the processed roles list
+        } else {
+          this.notificationService.showError(response?.message || 'Failed to fetch roles');
+        }
+      },
+      error: (error: any) => {
+
+        this.notificationService.showError(error?.message || 'An error occurred while fetching roles');
+      }
+    });
+  }
+
   pageChanged(event: any) {
     this.page = event;
     this.getCandidatesList();
   }
-
-  // viewCandidateDetails(candidate: any) {
-  //   this.router.navigate(['/supplier-admin/resources-view-details'], {
-  //     queryParams: {
-  //       candidateId: candidate?._id
-  //     }
-  //   });
-  // }
 
   viewCandidateDetails(candidate: any) {
     console.log('Viewing candidate details:', candidate);
@@ -146,6 +172,11 @@ export class RoleWiseResourcesListComponent {
         });
       }
     });
+  }
+
+  onRoleChange() {
+    this.page = 1; // Reset to first page when filter changes
+    this.getCandidatesList();
   }
 
 }

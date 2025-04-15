@@ -421,10 +421,15 @@ export class SuperadminService {
     );
   }
 
-  getCandidatesByListId(listId: string, page: number, limit: number): Observable<any> {
+  getCandidatesByListId(listId: string, queryParams: any): Observable<any> {
     let params = new HttpParams()
-      .set('page', page.toString())
-      .set('limit', limit.toString());
+      .set('page', queryParams.page.toString())
+      .set('limit', queryParams.pagesize.toString());
+
+    // Add role filter if provided
+    if (queryParams.role) {
+      params = params.set('role', queryParams.role);
+    }
 
     return this.httpClient.get<any>(
       `${this.baseUrl}${SuperAdminEndPoint.CANDIDATE_LIST}/${listId}`,
