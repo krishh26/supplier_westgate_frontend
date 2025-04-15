@@ -121,7 +121,7 @@ export class ProjectsShortlistedComponent implements OnInit {
     this.payload.status = 'Passed';
     this.payload.expired = true;
     //  // this.payload.match = 'partial';
-    this.payload.bidManagerStatus = 'Awaiting'
+    // this.payload.bidManagerStatus = 'Awaiting'
     this.projectService.getProjectList(this.payload).subscribe((response) => {
       this.projectList = [];
       this.totalRecords = response?.data?.meta_data?.items;
