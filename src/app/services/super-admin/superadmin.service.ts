@@ -48,7 +48,11 @@ export enum SuperAdminEndPoint {
   CANDIDATE_UPDATE = '/candidate/update',
   GET_SUBTASKS = '/task/subtasks',
   SELECT_FROM_SORTLIST = '/project/select-from-sortlist',
-  REMOVE_FROM_SHORTLIST = '/project/remove-from-sortlist'
+  REMOVE_FROM_SHORTLIST = '/project/remove-from-sortlist',
+  SUB_EXPERTISE_DROPDOWN = '/web-user/sub-expertise/list',
+  SUPPLIER_DETAILS = '/user/suplier/get',
+  DELETE_EXPERTISE = '/web-user/expertise',
+  DELETE_SUB_EXPERTISE = '/web-user/expertise/:id/subexpertise'
 }
 
 @Injectable({
@@ -553,4 +557,42 @@ export class SuperadminService {
   getTaskDetails(taskId: string) {
     return this.httpClient.get(`${this.baseUrl}/task/detail/${taskId}`);
   }
+
+
+  getSubExpertiseDropdownList(searchText?: string): Observable<any> {
+    let params = new HttpParams();
+
+    if (searchText) {
+      params = params.set('searchText', searchText);
+    }
+    return this.httpClient.get<any>(
+      this.baseUrl + SuperAdminEndPoint.SUB_EXPERTISE_DROPDOWN,
+      { params }
+    );
+  }
+
+  getSupplierDetails(supplierId: any): Observable<any> {
+    return this.httpClient
+      .get<any>(this.baseUrl + SuperAdminEndPoint.SUPPLIER_DETAILS + '/' + supplierId);
+  }
+
+  deleteExpertise(expertiseId: string, supplierId: string): Observable<any> {
+    const url = `${this.baseUrl}${SuperAdminEndPoint.DELETE_EXPERTISE}/${expertiseId}`;
+    return this.httpClient.request<any>('DELETE', url, {
+      body: { supplierId }
+    });
+  }
+
+  deleteSubExpertise(expertiseId: string, subExpertise: string, supplierId: string): Observable<any> {
+    // Replace :id placeholder with actual expertiseId
+    const url = `${this.baseUrl}${SuperAdminEndPoint.DELETE_SUB_EXPERTISE.replace(':id', expertiseId)}`;
+    return this.httpClient.request<any>('DELETE', url, {
+      body: {
+        supplierId,
+        subExpertise
+      }
+    });
+  }
+
+
 }
