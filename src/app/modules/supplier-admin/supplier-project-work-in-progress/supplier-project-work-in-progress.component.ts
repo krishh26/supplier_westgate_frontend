@@ -23,6 +23,7 @@ export class SupplierProjectWorkInProgressComponent {
   totalRecords: number = pagination.totalRecords;
   searchText: any;
   loginUser: any;
+  currentUserId: string = '';
   minValue: number = 0;
   maxValue: number = 50000000;
   options: Options = {
@@ -88,7 +89,10 @@ export class SupplierProjectWorkInProgressComponent {
     private localStorageService: LocalStorageService,
   ) {
     this.loginUser = this.localStorageService.getLogger();
-   }
+    if (this.loginUser && this.loginUser._id) {
+      this.currentUserId = this.loginUser._id;
+    }
+  }
 
   ngOnInit(): void {
     this.payload = this.superService.deepCopy(Payload.projectList);
@@ -247,5 +251,18 @@ export class SupplierProjectWorkInProgressComponent {
     this.page = page;
     this.getProjectList();
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  getDropReasonForCurrentUser(dropUsers: any[]): string {
+    if (!dropUsers || !dropUsers.length || !this.currentUserId) {
+      return '';
+    }
+
+    const currentUserDropInfo = dropUsers.find(drop => drop.userId === this.currentUserId);
+    if (currentUserDropInfo && currentUserDropInfo.reason && currentUserDropInfo.reason.length > 0) {
+      return currentUserDropInfo.reason[0].comment;
+    }
+
+    return '';
   }
 }

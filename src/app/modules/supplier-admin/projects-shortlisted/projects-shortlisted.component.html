@@ -94,6 +94,8 @@
                   <th>BOS ID</th>
                   <th>Publish Date</th>
                   <th>Due Date &amp; Time</th>
+                  <th>Drop Reason</th>
+                  <!-- <th>Actions</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -110,11 +112,12 @@
                   <td v-align="middle">{{item?.BOSID}}</td>
                   <td>{{item?.publishDate | date:'dd/MM/yyyy'}}</td>
                   <td>{{item?.dueDate | date:'dd/MM/yyyy, h:mm a'}}</td>
-                  <td>
+                  <td>{{ getDropReasonForCurrentUser(item?.dropUser) || '-' }}</td>
+                  <!-- <td>
                     <a class="btn btn-primary btn-sm" style="cursor: pointer" data-bs-toggle="modal"
                       data-bs-target="#viewAllProjects" (click)="showComments(item?.bidManagerStatusComment)">View
                     </a>
-                  </td>
+                  </td> -->
                   <!-- <td>
                     <a class="btn btn-sm btn-primary m-1" title="View Details" (click)="projectDetails(item?._id)">View
                       Details</a>

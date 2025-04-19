@@ -37,7 +37,8 @@ export class SupplierProjectSubmittedComponent {
   selectedStatuses: any[] = [];
   private payload: any = {};
   selectedBidStatuses: any[] = [];
-
+  loginUser: any;
+  currentUserId: string = '';
 
   projectTypeList = [
     { projectType: 'Development', value: 'Development' },
@@ -71,7 +72,6 @@ export class SupplierProjectSubmittedComponent {
     // { bidvalue: 'Nosuppliermatched', bidstatus: 'No Supplier Matched' }
   ]
 
-  loginUser: any;
   categoryList: any = [];
   industryList: any = [];
   myControl = new FormControl();
@@ -89,6 +89,9 @@ export class SupplierProjectSubmittedComponent {
     private localStorageService: LocalStorageService,
   ) {
     this.loginUser = this.localStorageService.getLogger();
+    if (this.loginUser && this.loginUser._id) {
+      this.currentUserId = this.loginUser._id;
+    }
   }
 
 
@@ -246,5 +249,18 @@ export class SupplierProjectSubmittedComponent {
     this.page = page;
     this.getProjectList();
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  getDropReasonForCurrentUser(dropUsers: any[]): string {
+    if (!dropUsers || !dropUsers.length || !this.currentUserId) {
+      return '';
+    }
+
+    const currentUserDropInfo = dropUsers.find(drop => drop.userId === this.currentUserId);
+    if (currentUserDropInfo && currentUserDropInfo.reason && currentUserDropInfo.reason.length > 0) {
+      return currentUserDropInfo.reason[0].comment;
+    }
+
+    return '';
   }
 }

@@ -8,6 +8,8 @@ import { ProjectService } from 'src/app/services/project-service/project.service
 import { SuperadminService } from 'src/app/services/super-admin/superadmin.service';
 import { pagination } from 'src/app/utility/shared/constant/pagination.constant';
 import { Payload } from 'src/app/utility/shared/constant/payload.const';
+import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
+
 @Component({
   selector: 'app-projects-shortlisted',
   templateUrl: './projects-shortlisted.component.html',
@@ -17,6 +19,7 @@ export class ProjectsShortlistedComponent implements OnInit {
   private payload: any = {};
   showLoader: boolean = false;
   projectList: any = [];
+  currentUserId: string = '';
   page: number = pagination.page;
   pagesize = pagination.itemsPerPage;
   totalRecords: number = pagination.totalRecords;
@@ -80,10 +83,16 @@ export class ProjectsShortlistedComponent implements OnInit {
     private projectService: ProjectService,
     private notificationService: NotificationService,
     private router: Router,
-    private superService: SuperadminService
+    private superService: SuperadminService,
+    private localStorageService: LocalStorageService
   ) { }
 
   ngOnInit(): void {
+    const currentUser = this.localStorageService.getLogger();
+    if (currentUser && currentUser._id) {
+      this.currentUserId = currentUser._id;
+    }
+
     this.payload = this.superService.deepCopy(Payload.projectList);
     this.myControl.valueChanges.subscribe((res: any) => {
       let storeTest = res;
@@ -233,5 +242,17 @@ export class ProjectsShortlistedComponent implements OnInit {
     return `${days} days`;
   }
 
+  getDropReasonForCurrentUser(dropUsers: any[]): string {
+    if (!dropUsers || !dropUsers.length || !this.currentUserId) {
+      return '';
+    }
+
+    const currentUserDropInfo = dropUsers.find(drop => drop.userId === this.currentUserId);
+    if (currentUserDropInfo && currentUserDropInfo.reason && currentUserDropInfo.reason.length > 0) {
+      return currentUserDropInfo.reason[0].comment;
+    }
+
+    return '';
+  }
 
 }
