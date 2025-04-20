@@ -49,6 +49,7 @@ import { EditRolesComponent } from './edit-roles/edit-roles.component';
 import { SupplierCommentModalComponent } from './supplier-comment-modal/supplier-comment-modal.component';
 import { ResourcesCommentModalComponent } from './resources-comment-modal/resources-comment-modal.component';
 import { ResourcesViewDetailsComponent } from './resources-view-details/resources-view-details.component';
+import { ResourcesAddComponent } from './resources-add/resources-add.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { ResourcesViewDetailsComponent } from './resources-view-details/resource
     EditRolesComponent,
     SupplierCommentModalComponent,
     ResourcesCommentModalComponent,
-    ResourcesViewDetailsComponent
+    ResourcesViewDetailsComponent,
+    ResourcesAddComponent
   ],
   imports: [
     CommonModule,

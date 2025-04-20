@@ -38,7 +38,7 @@ import { ResourcesViewComponent } from './resources-view/resources-view.componen
 import { AddRolesComponent } from './add-roles/add-roles.component';
 import { EditRolesComponent } from './edit-roles/edit-roles.component';
 import { ResourcesViewDetailsComponent } from './resources-view-details/resources-view-details.component';
-
+import { ResourcesAddComponent } from './resources-add/resources-add.component';
 const routes: Routes = [
   {
     path: '',
@@ -195,7 +195,10 @@ const routes: Routes = [
       {
         path: "resources-view-details",
         component: ResourcesViewDetailsComponent
-
+      },
+      {
+        path: "add-resource",
+        component: ResourcesAddComponent
       }
     ]
   },
