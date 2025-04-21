@@ -49,7 +49,8 @@ export class CaseStudiesComponent {
   ngOnInit(): void {
     this.getCaseStudiesList();
     this.getCategoryList();
-    this.selectedCasestudy = 'https://f005.backblazeb2.com/file/west-get-it-hub-1/files/1732522549232_Case Study Template.docx';
+    // this.selectedCasestudy = 'https://f005.backblazeb2.com/file/west-get-it-hub-1/files/1732522549232_Case Study Template.docx';
+    this.selectedCasestudy = '';
     console.log(this.selectedCasestudy);
   }
 

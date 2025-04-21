@@ -54,7 +54,7 @@ export class ProjectsAllComponent implements OnInit {
 
   bidstatusList = [
     // { bidvalue: 'Awaiting', bidstatus: 'Awaiting' },
-    { bidvalue: 'InSolution', bidstatus: 'In Soulution' },
+    { bidvalue: 'InSolution', bidstatus: 'In Solution' },
     { bidvalue: 'NotAwarded', bidstatus: 'Not Awarded' },
     { bidvalue: 'Awarded', bidstatus: 'Awarded' },
     // { bidvalue: 'DroppedAfterFeasibility', bidstatus: 'Dropped after feasibility' },
