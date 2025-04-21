@@ -30,14 +30,14 @@
                                 }}
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-md-2"><strong>Category:</strong></div>
                             <div class="col-md-10">{{ projectDetails?.category || "-" }}</div>
                         </div>
                         <div class="row">
                             <div class="col-md-2"><strong>Industry:</strong></div>
                             <div class="col-md-10">{{ projectDetails?.industry || "-" }}</div>
-                        </div>
+                        </div> -->
                         <div class="row">
                             <div class="col-md-2"><strong>Min value (GBP):</strong></div>
                             <div class="col-md-10">
@@ -111,47 +111,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- <div class="container-fluid">
-            <div class="row align-items-end justify-content-end">
-                <div class="col-lg-2 col-xl-2 col-md-2 col-sm-2 col-2">
-                    <a (click)="backPage()" class="btn btn-primary text-dark">Back</a>
-                </div>
-            </div>
-            <div class="table-responsive mt-5 mb-3">
-                <table class="table table-striped align-middle">
-                    <thead>
-                        <tr>
-                            <th width="200px">Project Title</th>
-                            <th>BOS ID</th>
-                            <th>Publish Date</th>
-                            <th>Category</th>
-                            <th>Industry</th>
-                            <th>Value</th>
-                            <th>Project Type</th>
-                            <th>Status</th>
-                            <th>Due Date &amp; Time</th>
-                            <th>Compatibility</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><a>{{projectDetails?.projectName}}</a></td>
-                            <td v-align="middle">{{projectDetails?.BOSID}}</td>
-                            <td>{{projectDetails?.publishDate | date:'dd/MM/yyyy'}}</td>
-                            <td>{{projectDetails?.category}}</td>
-                            <td>{{projectDetails?.industry}}</td>
-                            <td>{{projectDetails?.value}}</td>
-                            <td>{{projectDetails?.projectType}}</td>
-                            <td>{{projectDetails?.status}}</td>
-                            <td>{{projectDetails?.dueDate | date:'dd/MM/yyyy, h:mm a'}}</td>
-                            <td><i class="bi bi-check-circle-fill text-success"></i>
-                                CS({{projectDetails?.matchedCaseStudy}}/3)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div> -->
 
     </section>
     <section class="p-0">
