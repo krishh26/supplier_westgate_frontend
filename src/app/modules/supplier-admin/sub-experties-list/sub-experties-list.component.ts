@@ -80,11 +80,7 @@ export class SubExpertiesListComponent {
         this.isFromExpertiseView = true;
       }
 
-      console.log('Loading sub-expertise list for:', {
-        expertiseName: this.expertiseName,
-        supplierId: this.supplierId,
-        isFromExpertiseView: this.isFromExpertiseView
-      });
+
 
       // Fetch sub-expertise data
       this.getSubExpertise();
