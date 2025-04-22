@@ -134,14 +134,15 @@ export class SubExpertiesListComponent {
         if (response?.status) {
           this.spinner.hide();
           this.notificationService.showSuccess('Files uploaded successfully!');
-          // Refresh the file list after upload
-          this.getSubExpertise();
+          // Reload the page after successful upload
+          window.location.reload();
         } else {
           this.spinner.hide();
           this.notificationService.showError(response?.message);
         }
       },
       (error) => {
+        this.spinner.hide();
         this.notificationService.showError(error?.message);
       }
     );
