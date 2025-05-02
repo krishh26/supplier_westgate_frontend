@@ -58,12 +58,9 @@
             <div class="row mb-3">
               <label for="inputEmail3" class="col-sm-4 col-form-label">Industry</label>
               <div class="col-sm-8">
-                <select class="form-control dropdown-filter" formControlName="industry">
-                  <option value="" selected hidden>Select an industry</option>
-                  <option *ngFor="let industry of industryList" [value]="industry?.industry">
-                    {{ industry?.industry }}
-                  </option>
-                </select>
+                <ng-select [items]="industryDomainList" bindLabel="name" bindValue="name"
+                placeholder="Select Industry Domain" formControlName="industry">
+              </ng-select>
                 <div *ngIf="
                     productForm.get('industry')?.invalid &&
                     productForm.get('industry')?.touched
@@ -120,14 +117,10 @@
             <div class="row mb-3">
               <label for="inputEmail3" class="col-sm-4 col-form-label">Technologies</label>
               <div class="col-sm-8">
-                <input formControlName="technologies" type="text" class="form-control"
-                  placeholder="Enter Technologies" />
-                <div *ngIf="
-                    productForm.get('technologies')?.invalid &&
-                    productForm.get('technologies')?.touched
-                  " class="text-danger">
-                  Technologies are required.
-                </div>
+                <ng-select [items]="technologiesList" bindLabel="name" bindValue="name"
+                placeholder="Select Technical Skills" formControlName="technologies"
+                [ngModelOptions]="{standalone: true}" >
+              </ng-select>
               </div>
             </div>
 
@@ -205,7 +198,7 @@
             </div>
           </div>
 
-          <div class="col-lg-6 col-xl-6 col-12">
+          <!-- <div class="col-lg-6 col-xl-6 col-12">
             <div class="row mb-3">
               <label for="inputEmail3" class="col-sm-4 col-form-label">Lessons Learned</label>
               <div class="col-sm-8">
@@ -216,6 +209,21 @@
                     productForm.get('lessonsLearned')?.touched
                   " class="text-danger">
                   Lessons Learned is required.
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+          <div class="col-lg-6 col-xl-6 col-12">
+            <div class="row mb-3">
+              <label for="inputEmail3" class="col-sm-4 col-form-label">Cost</label>
+              <div class="col-sm-8">
+                <input formControlName="cost" type="text" class="form-control" placeholder="Enter Cost" />
+                <div *ngIf="
+                    productForm.get('cost')?.invalid &&
+                    productForm.get('cost')?.touched
+                  " class="text-danger">
+                  Cost is required.
                 </div>
               </div>
             </div>

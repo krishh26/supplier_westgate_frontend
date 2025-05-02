@@ -71,14 +71,13 @@
                     <td><a title="{{ item?.description }}">{{ item?.description | slice:0:10 }}</a></td>
                     <td>
                       <div class="d-flex gap-2">
-                        <button class="btn btn-sm btn-primary" (click)="viewCaseStudyDetails(item)"
-                          title="View Details">
+                        <button class="btn btn-sm btn-primary" (click)="viewCaseStudyDetails(item)" title="View Details">
                           <i class="bi bi-eye"></i> View
                         </button>
-                        <!-- <a class="btn btn-primary btn-sm" style="cursor: pointer;"
-                          routerLink="/super-admin/add-new-case-study" [state]="item">
+                        <a class="btn btn-primary btn-sm" style="cursor: pointer;"
+                            routerLink="/super-admin/add-new-case-study" [state]="item">
                           <i class="bi bi-pencil-fill"></i>
-                        </a> -->
+                        </a>
                       </div>
                     </td>
                   </tr>
@@ -263,9 +262,9 @@
             </div>
 
             <div class="row mb-3">
-              <label class="col-sm-4 col-form-label fw-bold">Contract Value</label>
+              <label class="col-sm-4 col-form-label fw-bold">Cost</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" [value]="selectedCaseStudy?.contractValue" readonly>
+                <input type="text" class="form-control" [value]="selectedCaseStudy?.cost" readonly>
               </div>
             </div>
 
@@ -296,14 +295,14 @@
             </div>
           </div>
 
-          <div class="col-lg-6 col-xl-6 col-12">
+          <!-- <div class="col-lg-6 col-xl-6 col-12">
             <div class="row mb-3">
               <label class="col-sm-4 col-form-label fw-bold">Lessons Learned</label>
               <div class="col-sm-8">
                 <textarea class="form-control" rows="3" readonly>{{selectedCaseStudy?.lessonsLearned}}</textarea>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
 
         <!-- Document Section -->

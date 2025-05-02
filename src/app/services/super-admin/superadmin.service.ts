@@ -52,7 +52,8 @@ export enum SuperAdminEndPoint {
   SUB_EXPERTISE_DROPDOWN = '/web-user/sub-expertise/list',
   SUPPLIER_DETAILS = '/user/suplier/get',
   DELETE_EXPERTISE = '/web-user/expertise',
-  DELETE_SUB_EXPERTISE = '/web-user/expertise/:id/subexpertise'
+  DELETE_SUB_EXPERTISE = '/web-user/expertise/:id/subexpertise',
+  GET_TECHNOLOGIES = '/roles/get-technologies'
 }
 
 @Injectable({
@@ -68,6 +69,13 @@ export class SuperadminService {
   ) {
     this.baseUrl = environment.baseUrl;
   }
+
+  getTechnologies(): Observable<any> {
+    return this.httpClient.get<any>(
+      this.baseUrl + SuperAdminEndPoint.GET_TECHNOLOGIES
+    );
+  }
+
 
   exportProjects() {
     window.open(this.baseUrl + SuperAdminEndPoint.EXPORT_EXCEL, "_blank");

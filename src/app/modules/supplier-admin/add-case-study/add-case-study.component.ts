@@ -28,17 +28,20 @@ export class AddCaseStudyComponent {
     date: new FormControl("", Validators.required),
     contractDuration: new FormControl("", Validators.required),
     resultAchieved: new FormControl("", Validators.required),
-    lessonsLearned: new FormControl("", Validators.required),
+    cost: new FormControl("", Validators.required),
+   // lessonsLearned: new FormControl("", Validators.required),
   }
-
   productForm: FormGroup = new FormGroup(this.addEditProjectForm);
   showLoader: boolean = false;
   projectId: string = '';
   categoryList: any = [];
   industryList: any = [];
   supplierData: any = [];
+  technologiesList: any[] = [];
   supplierID: string = '';
+  industryDomainList: any[] = [];
   data:any;
+
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjectService,
@@ -65,12 +68,49 @@ export class AddCaseStudyComponent {
     }
     this.getcategoryList();
     this.getIndustryList();
+    this.getTechnologies();
+    this.getIndustryDomains();
     this.route.queryParams.subscribe((params) => {
       this.projectId = params['id']
     });
     if (this.projectId && this.projectId.length) {
       this.patchProjectValue()
     }
+  }
+
+
+    // Add new method to fetch industry domains
+    getIndustryDomains(): void {
+      this.superService.getSubExpertiseDropdownList().subscribe({
+        next: (response: any) => {
+          if (response.status) {
+            // Handle array of strings format
+            if (Array.isArray(response.data)) {
+              this.industryDomainList = response.data.map((item: string) => ({ name: item }));
+            } else {
+              this.industryDomainList = response.data || [];
+            }
+          } else {
+            console.error('Error fetching industry domains:', response.message);
+          }
+        },
+        error: (error: any) => {
+          console.error('API error fetching industry domains:', error);
+        }
+      });
+    }
+
+
+  getTechnologies() {
+    this.superService.getTechnologies().subscribe({
+      next: (data) => {
+        this.technologiesList = data.data || [];
+      },
+      error: (error) => {
+        console.error('Error fetching technologies:', error);
+        this.notificationService.showError('Failed to fetch technologies');
+      }
+    });
   }
 
   NumberOnly(event: any): boolean {
@@ -180,6 +220,5 @@ export class AddCaseStudyComponent {
       }
     );
   }
-
 
 }
