@@ -603,4 +603,27 @@ export class SuperadminService {
   }
 
 
+  getAllRoles(params: any = {}): Observable<any> {
+    let queryParams = new HttpParams();
+
+    // Add a very large limit to get all records
+    queryParams = queryParams.set('limit', '1000');
+
+    if (params.startDate) {
+      queryParams = queryParams.set('startDate', params.startDate);
+    }
+    if (params.endDate) {
+      queryParams = queryParams.set('endDate', params.endDate);
+    }
+    if (params.search) {
+      queryParams = queryParams.set('search', params.search);
+    }
+
+    return this.httpClient.get<any>(
+      this.baseUrl + '/roles/get-all',
+      { params: queryParams }
+    );
+  }
+
+
 }

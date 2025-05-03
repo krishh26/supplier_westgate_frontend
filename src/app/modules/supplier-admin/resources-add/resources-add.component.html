@@ -4,7 +4,7 @@
       <div class="row">
         <div class="row align-items-center justify-content-between">
           <div class="col-lg-10 col-12">
-            <h4 class="text-theme"><strong>Add User Profile</strong></h4>
+            <h4 class="text-theme"><strong>{{ candidateId ? 'Edit User Profile' : 'Add User Profile' }}</strong></h4>
           </div>
         </div>
       </div>
@@ -90,6 +90,14 @@
               </div>
             </div>
 
+            <div class="row mb-3">
+              <label class="col-sm-4 col-form-label">Projects Executed</label>
+              <div class="col-sm-8">
+                <input formControlName="projectsExecuted" type="number" class="form-control"
+                  placeholder="Number of projects executed" (keypress)="NumberOnly($event)">
+              </div>
+            </div>
+
             <!-- <div class="row mb-3">
               <label class="col-sm-4 col-form-label">Job Title</label>
               <div class="col-sm-8">
@@ -108,15 +116,39 @@
             </div> -->
 
             <div class="row mb-3">
-              <label class="col-sm-4 col-form-label">Role</label>
+              <label class="col-sm-4 col-form-label"> Role</label>
               <div class="col-sm-8">
-                <ng-select
-                  [items]="rolesList"
-                  bindLabel="name"
-                  bindValue="_id"
-                  [multiple]="true"
-                  placeholder="Select Roles"
-                  formControlName="roleId">
+                <ng-select [items]="rolesList" bindLabel="name" bindValue="_id" [multiple]="false"
+                  placeholder="Select Current Role" formControlName="currentRole">
+                  <ng-template ng-label-tmp let-item="item">
+                    {{item.name}}
+                  </ng-template>
+                  <ng-template ng-option-tmp let-item="item">
+                    <div
+                      [title]="item.otherRoles && item.otherRoles.length > 0 ? 'Also known as: ' + item.otherRoles.join(', ') : ''">
+                      {{item.name}} <span
+                        *ngIf="item.otherRoles && item.otherRoles.length > 0">({{item.otherRoles.join(', ')}})</span>
+                    </div>
+                  </ng-template>
+                </ng-select>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-sm-4 col-form-label">I Can Be</label>
+              <div class="col-sm-8">
+                <ng-select [items]="rolesList" bindLabel="name" bindValue="_id" [multiple]="true"
+                  placeholder="Select Roles" formControlName="roleId">
+                  <ng-template ng-label-tmp let-item="item">
+                    {{item.name}}
+                  </ng-template>
+                  <ng-template ng-option-tmp let-item="item">
+                    <div
+                      [title]="item.otherRoles && item.otherRoles.length > 0 ? 'Also known as: ' + item.otherRoles.join(', ') : ''">
+                      {{item.name}} <span
+                        *ngIf="item.otherRoles && item.otherRoles.length > 0">({{item.otherRoles.join(', ')}})</span>
+                    </div>
+                  </ng-template>
                 </ng-select>
                 <div *ngIf="userProfileForm.get('roleId')?.invalid && userProfileForm.get('roleId')?.touched"
                   class="text-danger">
@@ -183,23 +215,12 @@
             <div class="row mb-3">
               <label class="col-sm-4 col-form-label">Technical Skills</label>
               <div class="col-sm-8">
-                <div class="input-group">
-                  <input type="text" class="form-control" [(ngModel)]="newTechnicalSkill"
-                    [ngModelOptions]="{standalone: true}" placeholder="Add technical skill">
-                  <button class="btn btn-outline-primary" type="button" (click)="addTechnicalSkill()">Add</button>
-                </div>
+                <ng-select [items]="technologiesList" bindLabel="name" bindValue="name" [multiple]="true"
+                  placeholder="Select Technical Skills" [(ngModel)]="technicalSkills"
+                  [ngModelOptions]="{standalone: true}" (change)="onTechnicalSkillsChange($event)">
+                </ng-select>
                 <div *ngIf="technicalSkills.length === 0" class="text-danger">
                   Technical skills are required.
-                </div>
-                <div *ngIf="technicalSkills.length > 0" class="mt-2">
-                  <div class="d-flex flex-wrap gap-2">
-                    <div *ngFor="let skill of technicalSkills; let i = index"
-                      class="badge bg-primary p-2 d-flex align-items-center">
-                      {{skill}}
-                      <button type="button" class="btn-close btn-close-white ms-2" style="font-size: 0.5rem;"
-                        (click)="removeTechnicalSkill(i)"></button>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -231,10 +252,8 @@
               <label class="col-sm-4 col-form-label">Languages Known</label>
               <div class="col-sm-8">
                 <div class="input-group">
-                  <select class="form-select" [(ngModel)]="newLanguage" [ngModelOptions]="{standalone: true}">
-                    <option value="" selected hidden>Select Language</option>
-                    <option *ngFor="let language of languageOptions" [value]="language">{{language}}</option>
-                  </select>
+                  <input type="text" class="form-control" [(ngModel)]="newLanguage"
+                    [ngModelOptions]="{standalone: true}" placeholder="Add language">
                   <button class="btn btn-outline-primary" type="button" (click)="addLanguage()">Add</button>
                 </div>
                 <div *ngIf="languagesKnown.length > 0" class="mt-2">
@@ -249,6 +268,27 @@
                 </div>
               </div>
             </div>
+
+            <div class="row mb-3">
+              <label class="col-sm-4 col-form-label">Certifications</label>
+              <div class="col-sm-8">
+                <div class="input-group">
+                  <input type="text" class="form-control" [(ngModel)]="newCertification"
+                    [ngModelOptions]="{standalone: true}" placeholder="Add certification">
+                  <button class="btn btn-outline-primary" type="button" (click)="addCertification()">Add</button>
+                </div>
+                <div *ngIf="certifications.length > 0" class="mt-2">
+                  <div class="d-flex flex-wrap gap-2">
+                    <div *ngFor="let certification of certifications; let i = index"
+                      class="badge bg-primary p-2 d-flex align-items-center">
+                      {{certification}}
+                      <button type="button" class="btn-close btn-close-white ms-2" style="font-size: 0.5rem;"
+                        (click)="removeCertification(i)"></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Availability and Rates Section -->
@@ -258,7 +298,7 @@
           </div>
 
           <div class="col-lg-6 col-xl-6 col-12">
-            <div class="row mb-3">
+            <!-- <div class="row mb-3">
               <label class="col-sm-4 col-form-label">Available From</label>
               <div class="col-sm-8">
                 <input formControlName="availableFrom" type="date" class="form-control">
@@ -268,9 +308,9 @@
                   Available from date is required.
                 </div>
               </div>
-            </div>
+            </div> -->
 
-            <div class="row mb-3">
+            <!-- <div class="row mb-3">
               <label class="col-sm-4 col-form-label">Hourly Rate ($)</label>
               <div class="col-sm-8">
                 <input formControlName="hourlyRate" type="number" class="form-control" placeholder="Enter hourly rate"
@@ -280,27 +320,60 @@
                   Valid hourly rate is required.
                 </div>
               </div>
-            </div>
-          </div>
+            </div> -->
 
-          <!-- <div class="col-lg-6 col-xl-6 col-12">
             <div class="row mb-3">
-              <label class="col-sm-4 col-form-label">Working Hours/Week</label>
-              <div class="col-sm-8">
-                <input formControlName="workingHoursPerWeek" type="number" class="form-control" placeholder="Enter working hours per week" (keypress)="NumberOnly($event)">
-                <div *ngIf="userProfileForm.get('workingHoursPerWeek')?.invalid && userProfileForm.get('workingHoursPerWeek')?.touched" class="text-danger">
-                  Valid working hours are required.
+              <div class="col-12">
+                <div class="row">
+                  <label class="col-sm-4 col-form-label">CTC (₹)</label>
+                  <div class="col-sm-8">
+                    <input formControlName="ctc" type="text" class="form-control" placeholder="Enter CTC"
+                      (keypress)="NumberOnly($event)">
+
+                  </div>
                 </div>
               </div>
             </div>
 
             <div class="row mb-3">
-              <label class="col-sm-4 col-form-label">Overtime Charges ($)</label>
-              <div class="col-sm-8">
-                <input formControlName="overtimeCharges" type="number" class="form-control" placeholder="Enter overtime charges" (keypress)="NumberOnly($event)">
+              <div class="col-12">
+                <div class="row">
+                  <label class="col-sm-4 col-form-label">UK Hourly Rate (£)</label>
+                  <div class="col-sm-8">
+                    <input formControlName="ukHourlyRate" type="text" class="form-control"
+                      placeholder="Enter UK hourly rate" (keypress)="NumberOnly($event)">
+
+                  </div>
+                </div>
               </div>
             </div>
-          </div> -->
+
+            <div class="row mb-3">
+              <div class="col-12">
+                <div class="row">
+                  <label class="col-sm-4 col-form-label">UK Day Rate (£)</label>
+                  <div class="col-sm-8">
+                    <input formControlName="ukDayRate" type="text" class="form-control" placeholder="Enter UK day rate"
+                      (keypress)="NumberOnly($event)">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-12">
+                <div class="row">
+                  <label class="col-sm-4 col-form-label">Indian Day Rate (₹)</label>
+                  <div class="col-sm-8">
+                    <input formControlName="indianDayRate" type="text" class="form-control"
+                      placeholder="Enter Indian day rate" (keypress)="NumberOnly($event)">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- Projects Section -->
           <div class="col-12 mb-4 mt-4">
@@ -348,8 +421,9 @@
                   <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Industry Domain</label>
                     <div class="col-sm-8">
-                      <input formControlName="industryDomain" type="text" class="form-control"
-                        placeholder="Enter industry domain">
+                      <ng-select [items]="industryDomainList" bindLabel="name" bindValue="name"
+                        placeholder="Select Industry Domain" formControlName="industryDomain">
+                      </ng-select>
                     </div>
                   </div>
                 </div>
@@ -384,22 +458,10 @@
                   <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Tech Stack</label>
                     <div class="col-sm-8">
-                      <div class="input-group">
-                        <input type="text" class="form-control" [(ngModel)]="newTechStack"
-                          [ngModelOptions]="{standalone: true}" placeholder="Add tech stack">
-                        <button class="btn btn-outline-primary" type="button" (click)="addTechStack(i)">Add</button>
-                      </div>
-                      <div *ngIf="projectTechStacks && projectTechStacks[i] && projectTechStacks[i].length > 0"
-                        class="mt-2">
-                        <div class="d-flex flex-wrap gap-2">
-                          <div *ngFor="let tech of projectTechStacks[i]; let j = index"
-                            class="badge bg-primary p-2 d-flex align-items-center">
-                            {{tech}}
-                            <button type="button" class="btn-close btn-close-white ms-2" style="font-size: 0.5rem;"
-                              (click)="removeTechStack(i, j)"></button>
-                          </div>
-                        </div>
-                      </div>
+                      <ng-select [items]="technologiesList" bindLabel="name" bindValue="name" [multiple]="true"
+                        placeholder="Select Tech Stack" [(ngModel)]="projectTechStacks[i]"
+                        [ngModelOptions]="{standalone: true}" (change)="onTechStackChange($event, i)">
+                      </ng-select>
                     </div>
                   </div>
                 </div>
@@ -453,8 +515,8 @@
             <button type="button" routerLink="/supplier-admin/role-wise-resources-list" class="btn btn-secondary">
               Back
             </button>&nbsp;
-            <button type="submit" class="btn btn-primary">
-              Save Profile
+            <button type="submit" class="btn btn-primary" (click)="handleSubmitClick($event)">
+              {{ candidateId ? 'Update Profile' : 'Save Profile' }}
             </button>
           </div>
         </div>
