@@ -66,7 +66,11 @@ export class LoginComponent extends BaseLogin implements OnInit {
           const decoded = jwtDecode(this.tokenDecode);
           this.loginDetails = decoded;
           this.localStorageService.setLogger(this.loginDetails);
-          this.router.navigateByUrl('/supplier-admin/supplier-dashboard-header');
+          if(this.loginDetails?.subcontractingSupplier) {
+            this.router.navigateByUrl('/supplier-admin/supplier-dashboard-header');
+          } else {
+            this.router.navigateByUrl('/supplier-admin/project-list');
+          }
           this.notificationService.showSuccess(response?.message || 'User login successfully');
         } else {
           this.showLoader = false;

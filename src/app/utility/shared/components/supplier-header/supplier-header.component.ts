@@ -17,7 +17,7 @@ export class SupplierHeaderComponent implements OnInit {
   projectNotificationList: any = [];
   projectNotificationCount: any = [];
   routerSubscription: Subscription | null = null;
-
+  navUrlArr: any[] = [];
   constructor(
     private authService: AuthService,
     private localStorageService: LocalStorageService,
@@ -26,15 +26,26 @@ export class SupplierHeaderComponent implements OnInit {
     private notificationService: NotificationService
   ) {
     this.loginUser = this.localStorageService.getLogger();
+    if (this?.loginUser?.subcontractingSupplier) {
+      this.navUrlArr = [
+        { titel: 'Dashboard', route: ['/supplier-admin/supplier-dashboard-header'] },
+        { titel: 'Projects', route: ['/supplier-admin/project-list'] },
+        { titel: 'Case Studies', route: ['/supplier-admin/case-studies-list'] },
+        // { titel: 'My Projects', route: ['/supplier-admin/my-projects'] },
+        { titel: 'Resources', route: ['/supplier-admin/role-wise-resources-list'] },
+      ];
+    } else {
+      this.navUrlArr = [
+        // { titel: 'Dashboard', route: ['/supplier-admin/supplier-dashboard-header'] },
+        { titel: 'Projects', route: ['/supplier-admin/project-list'] },
+        // { titel: 'Case Studies', route: ['/supplier-admin/case-studies-list'] },
+        // { titel: 'My Projects', route: ['/supplier-admin/my-projects'] },
+        { titel: 'Resources', route: ['/supplier-admin/role-wise-resources-list'] },
+      ];
+    }
   }
 
-  navUrlArr = [
-    { titel: 'Dashboard', route: ['/supplier-admin/supplier-dashboard-header'] },
-    { titel: 'Projects', route: ['/supplier-admin/project-list'] },
-    { titel: 'Case Studies', route: ['/supplier-admin/case-studies-list'] },
-    // { titel: 'My Projects', route: ['/supplier-admin/my-projects'] },
-    { titel: 'Resources', route: ['/supplier-admin/role-wise-resources-list'] },
-  ];
+
 
   ngOnInit(): void {
     this.getNotificationList();
@@ -86,18 +97,18 @@ export class SupplierHeaderComponent implements OnInit {
     })
   }
 
-    // get list notification
-    getNotificationcount() {
-      this.projectNotificationService.getNotificationNotification().subscribe((response) => {
-        this.projectNotificationCount = [];
-        if (response?.status) {
-          this.projectNotificationCount = response?.data;
-        } else {
-          return this.notificationService.showError(response?.message || 'Something Went Wrong!');
-        }
-      }, (error) => {
-        return this.notificationService.showError(error?.message || 'Something Went Wrong!');
-      })
-    }
+  // get list notification
+  getNotificationcount() {
+    this.projectNotificationService.getNotificationNotification().subscribe((response) => {
+      this.projectNotificationCount = [];
+      if (response?.status) {
+        this.projectNotificationCount = response?.data;
+      } else {
+        return this.notificationService.showError(response?.message || 'Something Went Wrong!');
+      }
+    }, (error) => {
+      return this.notificationService.showError(error?.message || 'Something Went Wrong!');
+    })
+  }
 
 }

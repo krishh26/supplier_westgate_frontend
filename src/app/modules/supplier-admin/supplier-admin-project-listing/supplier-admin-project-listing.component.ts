@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 
 @Component({
   selector: 'app-supplier-admin-project-listing',
@@ -8,16 +9,20 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SupplierAdminProjectListingComponent implements OnInit {
   activeComponent: number = 2;  // 1 : Matched Project , 2 : All Project, 3: Shortlisted, 4: Applied Projects
+  loginUser: any;
 
   constructor(
-    private route : ActivatedRoute
-  ){}
+    private route: ActivatedRoute,
+    private localStorageService: LocalStorageService
+  ) {
+    this.loginUser = this.localStorageService.getLogger();
+  }
 
   ngOnInit(): void {
     // this.route.queryParams.subscribe((params) => {
     //   this.activeComponent = Number(params['type'] || 2)
     // });
-    this.activeComponent=this.activeComponent = this.getOrSetActiveComponent('activeComponent', 2);
+    this.activeComponent = this.activeComponent = this.getOrSetActiveComponent('activeComponent', 2);
   }
 
   changeComponent(componentNumber: number) {
