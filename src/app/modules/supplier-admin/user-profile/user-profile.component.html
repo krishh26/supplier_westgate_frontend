@@ -1,4 +1,290 @@
 <main id="main">
+  <section>
+    <div class="container-fluid">
+      <div class="row align-items-center justify-content-between">
+        <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-6">
+          <div class="form-group mb-0">
+            <h4 class="text-theme"><strong>User Profile</strong></h4>
+          </div><br>
+        </div>
+        <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-6 text-end">
+          <button class="btn btn-primary" routerLink="/supplier-admin/project-list">
+            Back
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="card mb-4">
+            <div class="card-body">
+
+              <!-- Company Details -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <h5 class="text-primary mb-3">Company Details</h5>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">Company Name </label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{loginUser?.companyName || '-'}} </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">Company Website</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{loginUser?.website || '-'}} </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">Company Address</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{loginUser?.companyAddress || '-'}} </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">Country</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{loginUser?.country || '-'}} </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">Contact Email</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{loginUser?.email || '-'}} </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">Contact Number</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{loginUser?.companyContactNumber || '-' }} </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">Year Established</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{loginUser?.yearOfEstablishment || '-' }} </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">Executive Summary</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{loginUser?.executiveSummary || '-' }} </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- POC Details -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <h5 class="text-primary mb-3">POC Details</h5>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">POC Name</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{loginUser?.poc_name || '-' }} </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">POC Phone</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{loginUser?.poc_phone || '-' }} </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">POC Email</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{loginUser?.poc_email || '-' }} </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">POC Role</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{loginUser?.poc_role || '-' }} </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Business Details -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <h5 class="text-primary mb-3">Business Details</h5>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">Business Type</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{loginUser?.typeOfCompany || '-' }} </span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Remaining -->
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">Industry Sector</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{ '-' }} </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">Company Size</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{ loginUser?.employeeCount || '-' }} </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">Turnover</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{ loginUser?.turnover || '-' }} </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">Total Projects Executed</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{ loginUser?.totalProjectsExecuted || '-' }} </span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Remaining -->
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">Certifications</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{ '-' }} </span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Remaining -->
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">Expertise</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{ '-' }} </span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Remaining -->
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">Category</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{ '-' }} </span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Remaining -->
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">Technology Stack</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{ '-' }} </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Client Information -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <h5 class="text-primary mb-3">Client Information</h5>
+                </div>
+
+                <!-- Remaining -->
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">Key Clients</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{ '-' }} </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Supplier Type -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <h5 class="text-primary mb-3">Supplier Type</h5>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">Resource Sharing Supplier</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{ loginUser?.resourceSharingSupplier ? 'True' :
+                        'False' }} </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <div class="row">
+                    <label class="col-sm-4 col-form-label">Sub Contracting Supplier</label>
+                    <div class="col-sm-8">
+                      <span class="form-control readonly-input"> {{ loginUser?.subcontractingSupplier ? 'True' :
+                        'False' }} </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- <main id="main">
   <section class="user-profile-section">
     <div class="container">
       <div class="row align-items-center mb-5">
@@ -69,12 +355,11 @@
             </div>
           </form>
 
-          <!-- <div class="col-lg-2 col-xl-2 col-md-4 col-sm-4 col-12 text-end">
+          <div class="col-lg-2 col-xl-2 col-md-4 col-sm-4 col-12 text-end">
             <a href="javascript:;" class="btn btn-primary text-dark">Submit</a>
-          </div> -->
+          </div>
         </div>
       </div>
-
     </div>
   </section>
-</main>
+</main> -->
