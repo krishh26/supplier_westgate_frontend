@@ -24,7 +24,7 @@ export class AddCaseStudyComponent {
     solutionProvided: new FormControl("", Validators.required),
     technologies: new FormControl("", Validators.required),
     resourcesUsed: new FormControl("", Validators.required),
-    contractValue: new FormControl("", Validators.required),
+    //contractValue: new FormControl("", Validators.required),
     date: new FormControl("", Validators.required),
     contractDuration: new FormControl("", Validators.required),
     resultAchieved: new FormControl("", Validators.required),
