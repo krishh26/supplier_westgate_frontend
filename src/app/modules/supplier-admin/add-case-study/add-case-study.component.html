@@ -235,7 +235,7 @@
             <button type="button" routerLink="/supplier-admin/case-studies-list" class="btn btn-primary">
               Back</button>&nbsp;
             <button type="submit" class="btn btn-primary" [disabled]="data ? false : productForm.invalid">
-              Add
+              {{ data ? 'Update' : 'Add' }}
             </button>
           </div>
         </div>

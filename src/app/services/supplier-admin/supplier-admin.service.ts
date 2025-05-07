@@ -77,7 +77,7 @@ export class SupplierAdminService {
       .post<any>(this.baseUrl + SupplierAdminEndPoint.ADD_CASESTUDY, payload);
   }
 
-  updateCaseStudy(id: any, payload: any) {
+  updateCaseStudy(payload: any, id: any) {
     return this.httpClient
       .patch<any>(this.baseUrl + SupplierAdminEndPoint.UPDATE_CASESTUDY + id, payload);
   }

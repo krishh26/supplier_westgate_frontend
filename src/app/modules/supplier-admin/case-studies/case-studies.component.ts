@@ -168,7 +168,7 @@ export class CaseStudiesComponent {
 
   updateCaseStudy(data: any, id: number) {
     this.showLoader = true;
-    this.supplierService.updateCaseStudy(id, { 'link': data }).subscribe((response) => {
+    this.supplierService.updateCaseStudy({ 'link': data }, id).subscribe((response) => {
       if (response.status === true) {
         this.notificationService.showSuccess('Case studies Update successfully.');
       } else {

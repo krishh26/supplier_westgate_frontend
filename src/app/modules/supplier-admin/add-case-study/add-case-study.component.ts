@@ -14,6 +14,7 @@ import { SupplierAdminService } from 'src/app/services/supplier-admin/supplier-a
   styleUrls: ['./add-case-study.component.scss']
 })
 export class AddCaseStudyComponent {
+
   addEditProjectForm = {
     name: new FormControl("", Validators.required),
     clientName: new FormControl("", Validators.required),
@@ -24,13 +25,14 @@ export class AddCaseStudyComponent {
     solutionProvided: new FormControl("", Validators.required),
     technologies: new FormControl("", Validators.required),
     resourcesUsed: new FormControl("", Validators.required),
-    //contractValue: new FormControl("", Validators.required),
+   // contractValue: new FormControl("", Validators.required),
     date: new FormControl("", Validators.required),
     contractDuration: new FormControl("", Validators.required),
     resultAchieved: new FormControl("", Validators.required),
     cost: new FormControl("", Validators.required),
    // lessonsLearned: new FormControl("", Validators.required),
   }
+
   productForm: FormGroup = new FormGroup(this.addEditProjectForm);
   showLoader: boolean = false;
   projectId: string = '';
@@ -40,8 +42,8 @@ export class AddCaseStudyComponent {
   technologiesList: any[] = [];
   supplierID: string = '';
   industryDomainList: any[] = [];
-  data:any;
 
+  data:any;
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjectService,
@@ -51,17 +53,18 @@ export class AddCaseStudyComponent {
     private supplierService: SupplierAdminService
   ) {
     const navigation = this.router.getCurrentNavigation();
-    this.data = navigation?.extras.state;
+    const state = navigation?.extras.state as { caseStudy: any, isEdit: boolean };
+
+    if (state?.caseStudy) {
+      this.data = state.caseStudy;
+      this.productForm.patchValue(this.data);
+    }
   }
 
   ngOnInit(): void {
-    if(this.data) {
-      this.productForm.patchValue(this.data);
-    }
     const storedData = localStorage.getItem("supplierData");
     if (storedData) {
       this.supplierData = JSON.parse(storedData);
-
       this.supplierID = this.supplierData?._id;
     } else {
       console.log("No supplier data found in localStorage");
@@ -77,7 +80,6 @@ export class AddCaseStudyComponent {
       this.patchProjectValue()
     }
   }
-
 
     // Add new method to fetch industry domains
     getIndustryDomains(): void {
@@ -172,11 +174,19 @@ export class AddCaseStudyComponent {
         ...this.productForm.value,
       };
       this.showLoader = true;
-      this.supplierService.updateCaseStudy(payload,this.data._id).subscribe(
+      // Make sure we're passing the correct ID
+      const caseStudyId = this.data._id || this.data.id;
+      if (!caseStudyId) {
+        this.notificationService.showError('Case Study ID is missing');
+        this.showLoader = false;
+        return;
+      }
+
+      this.supplierService.updateCaseStudy(payload, caseStudyId).subscribe(
         (response) => {
           if (response?.status === true) {
             this.showLoader = false;
-            this.notificationService.showSuccess('', 'Case Study Edit successfully.');
+            this.notificationService.showSuccess('', 'Case Study updated successfully.');
             this.router.navigate(['/supplier-admin/case-studies-list']);
           } else {
             this.notificationService.showError(response?.message);
@@ -188,16 +198,15 @@ export class AddCaseStudyComponent {
           this.showLoader = false;
         }
       );
-      return
+      return;
     }
+
     if (this.productForm.invalid) {
       this.productForm.markAllAsTouched();
       return;
     }
 
     this.showLoader = true;
-
-    // Create JSON payload instead of FormData
     const payload = {
       ...this.productForm.value,
       userId: this.supplierID
@@ -220,5 +229,6 @@ export class AddCaseStudyComponent {
       }
     );
   }
+
 
 }
