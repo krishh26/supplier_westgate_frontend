@@ -13,6 +13,7 @@ export enum AuthEndPoint {
   USER_DATA = '/user/get',
   SUPPLIER_USER_DATA = "/web-user/get",
   UPDATE_USER = '/user/update',
+  RESET_PASSWORD = '/user/reset-password',
 }
 
 @Injectable({
@@ -50,6 +51,11 @@ export class AuthService {
   forgotPassword(payload: any): Observable<any> {
     return this.httpClient
       .post<any>(this.baseUrl + AuthEndPoint.FORGOT_PASSWORD, payload);
+  }
+
+  resetPassword(payload: any): Observable<any> {
+    return this.httpClient
+      .post<any>(this.baseUrl + AuthEndPoint.RESET_PASSWORD, payload);
   }
 
   changePassword(payload: any , id:any): Observable<any> {

@@ -43,7 +43,7 @@ export class ForgotPasswordComponent extends BaseLogin implements OnInit {
     this.forgotForm.markAllAsTouched();
     if (this.forgotForm.valid) {
       this.showLoader = true;
-      this.authService.forgotPassword(this.forgotForm.value).subscribe((response) => {
+      this.authService.forgotPassword({ ...this.forgotForm.value, role: 'SupplierAdmin' }).subscribe((response) => {
         if (response?.status == true) {
           this.showLoader = false;
           this.router.navigateByUrl('/');
