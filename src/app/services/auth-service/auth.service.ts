@@ -6,14 +6,14 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
 import { Observable } from 'rxjs';
 
 export enum AuthEndPoint {
-  LOGIN_USER = '/user/login',
+  LOGIN_USER = '/web-user/login',
   CHANGE_PASSWORD = '/user/change-password',
-  FORGOT_PASSWORD = '/user/forgot',
+  FORGOT_PASSWORD = '/web-user/forgot',
   USER_LIST = '/user/list',
   USER_DATA = '/user/get',
   SUPPLIER_USER_DATA = "/web-user/get",
   UPDATE_USER = '/user/update',
-  RESET_PASSWORD = '/user/reset-password',
+  RESET_PASSWORD = '/web-user/reset-password',
 }
 
 @Injectable({
