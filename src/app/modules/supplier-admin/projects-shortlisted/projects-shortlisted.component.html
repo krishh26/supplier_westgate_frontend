@@ -94,7 +94,7 @@
                   <th>BOS ID</th>
                   <th>Publish Date</th>
                   <th>Due Date &amp; Time</th>
-                  <th>Drop Reason</th>
+                  <th style="width: 400px;">Drop Reason</th>
                   <!-- <th>Actions</th> -->
                 </tr>
               </thead>
@@ -115,7 +115,17 @@
                     {{ item?.dueDate | date : "dd/MM/yyyy" }} ,
                     {{ item.bidsubmissiontime }}
                   </td>
-                  <td>{{ getDropReasonForCurrentUser(item?.dropUser) || '-' }}</td>
+                  <td>
+                    <div class="drop-reason-container">
+                      <div [ngClass]="{'collapsed-text': !item.showFullReason && isDropReasonLong(item?.dropUser), 'expanded-text': item.showFullReason}">
+                        {{ getDropReasonForCurrentUser(item?.dropUser) || '-' }}
+                      </div>
+                      <div *ngIf="isDropReasonLong(item?.dropUser)">
+                        <button *ngIf="!item.showFullReason" class="btn btn-link text-primary" (click)="item.showFullReason = true">View More</button>
+                        <button *ngIf="item.showFullReason" class="btn btn-link text-primary" (click)="item.showFullReason = false">View Less</button>
+                      </div>
+                    </div>
+                  </td>
                   <!-- <td>
                     <a class="btn btn-primary btn-sm" style="cursor: pointer" data-bs-toggle="modal"
                       data-bs-target="#viewAllProjects" (click)="showComments(item?.bidManagerStatusComment)">View
@@ -144,6 +154,30 @@
     </div>
   </section>
 </main>
+
+<style>
+  .drop-reason-container {
+    max-width: 400px;
+  }
+  .collapsed-text {
+    max-height: 3em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.5em;
+  }
+  .expanded-text {
+    white-space: normal;
+    line-height: 1.5em;
+  }
+  .btn-link {
+    font-size: 0.85em;
+    padding: 0;
+    margin-top: 4px;
+  }
+</style>
 
 <div class="modal fade" id="viewAllProjects" tabindex="-1" aria-labelledby="viewAllProjectsLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">

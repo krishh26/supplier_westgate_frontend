@@ -158,6 +158,7 @@ export class SupplierProjectSubmittedComponent {
         console.log(this.projectList);
 
         this.projectList.forEach((project: any) => {
+          project.showFullReason = false;
           const dueDate = new Date(project.dueDate);
           const currentDate = new Date();
           const dateDifference = Math.abs(dueDate.getTime() - currentDate.getTime());
@@ -230,6 +231,10 @@ export class SupplierProjectSubmittedComponent {
       if (response?.status == true) {
         this.showLoader = false;
         this.projectList = response?.data?.data;
+        // Initialize showFullReason property for each project
+        this.projectList.forEach((project: any) => {
+          project.showFullReason = false;
+        });
 
       } else {
         this.notificationService.showError(response?.message);
@@ -262,5 +267,11 @@ export class SupplierProjectSubmittedComponent {
     }
 
     return '';
+  }
+
+  // Helper method to check if drop reason exceeds a certain length
+  isDropReasonLong(dropUsers: any[], length: number = 50): boolean {
+    const reason = this.getDropReasonForCurrentUser(dropUsers);
+    return reason ? reason.length > length : false;
   }
 }
