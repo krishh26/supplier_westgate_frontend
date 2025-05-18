@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { SuperadminService } from 'src/app/services/super-admin/superadmin.service';
 import { HttpClient } from '@angular/common/http';
+import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 
 @Component({
   selector: 'app-resources-add',
@@ -50,7 +51,7 @@ export class ResourcesAddComponent implements OnInit {
   supplierID: string = '';
   supplierData: any = [];
   rolesList: any[] = [];
-
+  loginUser: any;
   // Add a class property to store the candidate ID if in edit mode
   candidateId: string | null = null;
 
@@ -60,8 +61,11 @@ export class ResourcesAddComponent implements OnInit {
     private superService: SuperadminService,
     private notificationService: NotificationService,
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private localStorageService: LocalStorageService
   ) {
+    this.loginUser = this.localStorageService.getLogger();
+    console.log('Constructor - loginUser:', this.loginUser);
     this.initializeForm();
     this.getRolesList();
     this.getTechnologies();
@@ -70,15 +74,18 @@ export class ResourcesAddComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const storedData = localStorage.getItem("supplierData");
-    if (storedData) {
-      this.supplierData = JSON.parse(storedData);
-      this.supplierID = this.supplierData?._id;
+    // Log the current form value and loginUser for debugging
+    console.log('ngOnInit - Current form value:', this.userProfileForm.value);
+    console.log('ngOnInit - loginUser:', this.loginUser);
+
+    // Make sure the supplierId in the form is set from loginUser
+    if (this.loginUser && this.loginUser._id) {
       this.userProfileForm.patchValue({
-        supplierId: this.supplierID
+        supplierId: this.loginUser._id
       });
+      console.log('ngOnInit - Updated form with loginUser._id:', this.loginUser._id);
     } else {
-      console.log("No supplier data found in localStorage");
+      console.error('ngOnInit - No valid loginUser found:', this.loginUser);
     }
 
     // Check if we're in edit mode by looking for candidateId in query params
@@ -124,7 +131,7 @@ export class ResourcesAddComponent implements OnInit {
 
   initializeForm() {
     this.userProfileForm = this.fb.group({
-      supplierId: [''],
+      supplierId: [this.loginUser?._id || ''],
       fullName: ['', Validators.required],
       gender: [''],
       nationality: ['', Validators.required],
@@ -148,6 +155,8 @@ export class ResourcesAddComponent implements OnInit {
       //  otherJobTitle: [''],
       projectsWorkedOn: this.fb.array([this.createProjectForm()])
     });
+
+    console.log('initializeForm - Setting supplierId to:', this.loginUser?._id);
   }
 
   createProjectForm(): FormGroup {
@@ -239,11 +248,20 @@ export class ResourcesAddComponent implements OnInit {
 
   // Form submission
   submitForm(): void {
+    console.log('=== SUBMIT FORM STARTING ===');
+    console.log('Form value:', this.userProfileForm.value);
+    console.log('Form valid:', this.userProfileForm.valid);
+    console.log('Technical skills:', this.technicalSkills);
+    console.log('loginUser:', this.loginUser);
+
     if (this.userProfileForm.invalid || this.technicalSkills.length === 0) {
       // Mark all fields as touched to trigger validation messages
       this.markFormGroupTouched(this.userProfileForm);
       if (this.technicalSkills.length === 0) {
         this.notificationService.showError('Technical Skills are required');
+      } else {
+        console.log('Form validation errors:', this.getFormValidationErrors());
+        this.notificationService.showError('Please fill in all required fields correctly');
       }
       return;
     }
@@ -255,105 +273,122 @@ export class ResourcesAddComponent implements OnInit {
       return;
     }
 
-    // Prepare the data in the required format
-    const formData = this.userProfileForm.value;
+    try {
+      // Prepare the data in the required format
+      const formData = {...this.userProfileForm.value};
 
-    // Parse numeric values for submission
-    if (formData.ctc) formData.ctc = this.parseNumericValue(formData.ctc);
-    if (formData.ukHourlyRate) formData.ukHourlyRate = this.parseNumericValue(formData.ukHourlyRate);
-    if (formData.ukDayRate) formData.ukDayRate = this.parseNumericValue(formData.ukDayRate);
-    if (formData.indianDayRate) formData.indianDayRate = this.parseNumericValue(formData.indianDayRate);
+      // Parse numeric values for submission
+      if (formData.ctc) formData.ctc = this.parseNumericValue(formData.ctc);
+      if (formData.ukHourlyRate) formData.ukHourlyRate = this.parseNumericValue(formData.ukHourlyRate);
+      if (formData.ukDayRate) formData.ukDayRate = this.parseNumericValue(formData.ukDayRate);
+      if (formData.indianDayRate) formData.indianDayRate = this.parseNumericValue(formData.indianDayRate);
 
-    // Make sure we're using the current supplierId
-    formData.supplierId = this.supplierID;
+      // Make sure we're using the current supplierId
+      if (!this.loginUser || !this.loginUser._id) {
+        console.error('No login user ID found:', this.loginUser);
+        this.notificationService.showError('Error: Unable to determine the supplier ID');
+        return;
+      }
 
-    // Add the array fields that are managed separately
-    const userData = {
-      ...formData,
-      previousEmployers: this.previousEmployers,
-      technicalSkills: this.technicalSkills,
-      softSkills: this.softSkills,
-      languagesKnown: this.languagesKnown,
-      certifications: this.certifications
-    };
+      // Set the supplier ID from the login user
+      formData.supplierId = this.loginUser._id;
+      console.log('Setting supplierId from loginUser._id:', formData.supplierId);
 
-    // Add tech stack to each project and handle null projectComplexity
-    userData.projectsWorkedOn = userData.projectsWorkedOn.map((project: any, index: number) => {
-      const { projectComplexity, ...projectWithoutComplexity } = project;  // Destructure to remove projectComplexity
-      return {
-        ...projectWithoutComplexity,
-        techStackUsed: this.projectTechStacks[index]
-      };
-    });
-
-    // Format the data as requested
-    const finalData = {
-      data: [userData]
-    };
-
-    // Log the data to console
-    console.log('User Profile Data:', finalData);
-
-    // Show loader
-    this.showLoader = true;
-
-    // Determine if we're updating or creating
-    if (this.candidateId) {
-      // Add the ID to the data for update
-      userData._id = this.candidateId;
-      console.log('Updating candidate with ID:', this.candidateId);
-
-      // Create a simplified update structure that matches what the backend expects
-      const updateData = {
-        data: userData  // Since backend might expect a single object instead of an array
+      // Add the array fields that are managed separately
+      const userData = {
+        ...formData,
+        previousEmployers: this.previousEmployers,
+        technicalSkills: this.technicalSkills,
+        softSkills: this.softSkills,
+        languagesKnown: this.languagesKnown,
+        certifications: this.certifications
       };
 
-      console.log('Update data:', updateData);
+      // Add tech stack to each project and handle null projectComplexity
+      userData.projectsWorkedOn = userData.projectsWorkedOn.map((project: any, index: number) => {
+        const { projectComplexity, ...projectWithoutComplexity } = project;  // Destructure to remove projectComplexity
+        return {
+          ...projectWithoutComplexity,
+          techStackUsed: this.projectTechStacks[index] || []
+        };
+      });
 
-      // Update existing candidate
-      this.superService.updateCandidate(this.candidateId, updateData).subscribe(
-        (response: any) => {
-          console.log('Update response:', response);
-          this.showLoader = false;
-          if (response.status) {
-            // Clear the stored candidate data
-            localStorage.removeItem('editCandidateData');
+      // Format the data as requested
+      const finalData = {
+        data: [userData]
+      };
 
-            // Trigger a refresh of the candidate list when returning to the list view
-            localStorage.setItem('refreshCandidatesList', 'true');
+      // Log the data to console
+      console.log('Final Payload:', JSON.stringify(finalData));
 
-            this.notificationService.showSuccess('Candidate profile updated successfully');
-            // Navigate with skipLocationChange to force component reload
-            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      // Show loader
+      this.showLoader = true;
+
+      // Determine if we're updating or creating
+      if (this.candidateId) {
+        // Add the ID to the data for update
+        userData._id = this.candidateId;
+        console.log('Updating candidate with ID:', this.candidateId);
+
+        // Create a simplified update structure that matches what the backend expects
+        const updateData = {
+          data: userData  // Since backend might expect a single object instead of an array
+        };
+
+        console.log('Update API call starting with data:', JSON.stringify(updateData));
+
+        // Update existing candidate
+        this.superService.updateCandidate(this.candidateId, updateData).subscribe({
+          next: (response: any) => {
+            console.log('Update response:', response);
+            this.showLoader = false;
+            if (response.status) {
+              // Clear the stored candidate data
+              localStorage.removeItem('editCandidateData');
+
+              // Trigger a refresh of the candidate list when returning to the list view
+              localStorage.setItem('refreshCandidatesList', 'true');
+
+              this.notificationService.showSuccess('Candidate profile updated successfully');
+              // Navigate with skipLocationChange to force component reload
+              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+                this.router.navigate(['/supplier-admin/role-wise-resources-list']);
+              });
+            } else {
+              this.notificationService.showError(response.message || 'Failed to update candidate profile');
+            }
+          },
+          error: (error: any) => {
+            console.error('Update API error:', error);
+            this.showLoader = false;
+            this.notificationService.showError(error.error?.message || error.message || 'An error occurred while updating candidate profile');
+          }
+        });
+      } else {
+        // Create new candidate
+        console.log('Create API call starting with data:', JSON.stringify(finalData));
+        this.superService.addCandidate(finalData).subscribe({
+          next: (response: any) => {
+            console.log('Create response:', response);
+            this.showLoader = false;
+            if (response.status) {
+              this.notificationService.showSuccess('Candidate profile added successfully');
               this.router.navigate(['/supplier-admin/role-wise-resources-list']);
-            });
-          } else {
-            this.notificationService.showError(response.message || 'Failed to update candidate profile');
+            } else {
+              this.notificationService.showError(response.message || 'Failed to add candidate profile');
+            }
+          },
+          error: (error: any) => {
+            console.error('Create API error:', error);
+            this.showLoader = false;
+            this.notificationService.showError(error.error?.message || error.message || 'An error occurred while adding candidate profile');
           }
-        },
-        (error: any) => {
-          console.error('Update error:', error);
-          this.showLoader = false;
-          this.notificationService.showError(error.message || 'An error occurred while updating candidate profile');
-        }
-      );
-    } else {
-      // Create new candidate
-      this.superService.addCandidate(finalData).subscribe(
-        (response: any) => {
-          this.showLoader = false;
-          if (response.status) {
-            this.notificationService.showSuccess('Candidate profile added successfully');
-            this.router.navigate(['/supplier-admin/role-wise-resources-list']);
-          } else {
-            this.notificationService.showError(response.message || 'Failed to add candidate profile');
-          }
-        },
-        (error: any) => {
-          this.showLoader = false;
-          this.notificationService.showError(error.message || 'An error occurred while adding candidate profile');
-        }
-      );
+        });
+      }
+    } catch (err) {
+      console.error('Error in form submission:', err);
+      this.showLoader = false;
+      this.notificationService.showError('An unexpected error occurred while processing the form');
     }
   }
 
@@ -457,6 +492,7 @@ export class ResourcesAddComponent implements OnInit {
     const storedCandidateData = localStorage.getItem('editCandidateData');
     if (storedCandidateData) {
       const candidateData = JSON.parse(storedCandidateData);
+      console.log('loadCandidateDataFromStorage - Loaded candidate data:', candidateData);
 
       // Map the roleId array to extract just the IDs for the select input
       let roleIds: string[] = [];
@@ -475,9 +511,13 @@ export class ResourcesAddComponent implements OnInit {
         roleIds = [candidateData.roleId];
       }
 
+      // Make sure we're using the loginUser._id for supplierId
+      const supplierIdToUse = this.loginUser?._id || candidateData.supplierId || '';
+      console.log('loadCandidateDataFromStorage - Using supplierId:', supplierIdToUse);
+
       // Patch the form with candidate data
       this.userProfileForm.patchValue({
-        supplierId: candidateData.supplierId,
+        supplierId: supplierIdToUse,
         fullName: candidateData.fullName,
         gender: candidateData.gender,
         nationality: candidateData.nationality,
@@ -496,6 +536,8 @@ export class ResourcesAddComponent implements OnInit {
         currentRole: candidateData.currentRole,
         roleId: roleIds
       });
+
+      console.log('loadCandidateDataFromStorage - Form after patch:', this.userProfileForm.value);
 
       // Set the arrays for tag-like inputs
       if (candidateData.previousEmployers) {

@@ -1,0 +1,37 @@
+.tag-input-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+.tag {
+  background-color: #007bff;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+.remove-tag {
+  margin-left: 8px;
+  cursor: pointer;
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.form-control.ng-invalid.ng-touched {
+  border-color: #dc3545;
+}
+
+.form-select.ng-invalid.ng-touched {
+  border-color: #dc3545;
+}
+
+.form-control.ng-invalid.ng-touched,
+.form-select.ng-invalid.ng-touched {
+  animation: shake 0.3s ease-in-out;
+}
