@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-forgot-password',
@@ -27,7 +28,8 @@ export class ForgotPasswordComponent extends BaseLogin implements OnInit {
     private authService: AuthService,
     private localStorageService: LocalStorageService,
     private router: Router,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private spinner: NgxSpinnerService
   ) {
     super()
     this.loginUser = this.localStorageService.getLogger();
@@ -43,19 +45,21 @@ export class ForgotPasswordComponent extends BaseLogin implements OnInit {
     this.forgotForm.markAllAsTouched();
     if (this.forgotForm.valid) {
       this.showLoader = true;
-      this.authService.forgotPassword(this.forgotForm.value).subscribe((response) => {
+      this.spinner.show();
+      this.authService.forgotPassword({ ...this.forgotForm.value, role: 'SupplierAdmin' }).subscribe((response) => {
         if (response?.status == true) {
           this.showLoader = false;
+          this.spinner.hide();
           this.router.navigateByUrl('/');
           this.notificationService.showSuccess(response?.message || 'Email sent successfully');
-          console.log(response?.data);
-
         } else if (response?.data == null) {
           this.showLoader = false;
           this.notificationService.showError(response?.message);
+          this.spinner.hide();
         }
       }, (error) => {
         this.showLoader = false;
+        this.spinner.hide();
         this.notificationService.showError(error?.message || 'Something went wrong!');
       })
     }

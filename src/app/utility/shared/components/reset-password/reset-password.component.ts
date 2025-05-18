@@ -3,7 +3,7 @@ import { BaseLogin } from '../../common/base-login';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Patterns } from '../../constant/validation-patterns.const';
 import { CustomValidation } from '../../constant/custome-validation';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 
@@ -30,10 +30,19 @@ export class ResetPasswordComponent extends BaseLogin implements OnInit {
     private router: Router,
     private notificationService: NotificationService,
     private authService: AuthService,
+    private activatedRoute: ActivatedRoute
   ) {
     super()
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.forgotUserEmail = params['email'];
+      if (!this.forgotUserEmail) {
+        this.router.navigateByUrl('/auth/forgot-password');
+      } // Outputs: darshandumaraliya@gmail.com
+    });
+
     // this.forgotUserEmail = this.router.getCurrentNavigation()?.extras?.state?.['email'];
-    // this.resetForm.controls.email.setValue(this.forgotUserEmail);
+    // console.log("forgotUserEmail", this.forgotUserEmail)
+    // // this.resetForm.controls.email.setValue(this.forgotUserEmail);
     // if (!this.forgotUserEmail) {
     //   this.router.navigateByUrl('/auth/forgot-password');
     // }
@@ -47,7 +56,14 @@ export class ResetPasswordComponent extends BaseLogin implements OnInit {
     this.resetForm.markAllAsTouched();
     if (this.resetForm.valid) {
       this.showLoader = true;
-      this.authService.forgotPassword(this.resetForm.value).subscribe((response) => {
+
+      const payload = {
+        email: this.forgotUserEmail,
+        password: this.resetForm.value?.password,
+        role: 'SupplierAdmin'
+      }
+
+      this.authService.resetPassword(payload).subscribe((response) => {
         if (response?.status === true) {
           this.notificationService.showSuccess(response?.message);
           this.router.navigateByUrl('/');
