@@ -177,7 +177,10 @@
                   <td>{{item?.maxValue}}</td>
                   <!-- <td>{{item?.projectType}}</td> -->
                   <!-- <td>{{item?.supplierStatus}}</td> -->
-                  <td>{{item?.dueDate | date:'dd/MM/yyyy'}}</td>
+                  <td>
+                    {{ item?.dueDate | date : "dd/MM/yyyy" }} ,
+                    {{ item.bidsubmissiontime }}
+                  </td>
                   <!-- <td>
                     <a *ngIf="isUserShortlisted(item?.sortListUserId)" style="background-color: darkgray;"
                       class="btn btn-sm btn-dark m-1" title="Shortlist">Shortlisted</a>
