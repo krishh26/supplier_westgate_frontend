@@ -1,0 +1,50 @@
+.expired-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+//   height: 100vh;
+  background-color: #ffffff; // White background
+}
+
+.expired-card {
+  background: #f1f1f1; // Light gray card
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 460px;
+//   width: 100%;
+  text-align: center;
+}
+
+.expired-title {
+  font-size: 24px;
+  color: #c53030; // Red tone
+  margin-bottom: 1rem;
+}
+
+.expired-message {
+  font-size: 16px;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.expired-suggestion {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.support-button {
+  background-color: #0078d4;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #005ea2;
+  }
+}

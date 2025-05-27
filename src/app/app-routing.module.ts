@@ -4,6 +4,8 @@ import { LoginComponent } from './utility/shared/components/login/login.componen
 import { ForgotPasswordComponent } from './utility/shared/components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './utility/shared/components/reset-password/reset-password.component';
 import { MaintenceNoticePageComponent } from './utility/shared/components/maintence-notice-page/maintence-notice-page.component';
+import { RegisterNewSupplierComponent } from './utility/shared/components/register-new-supplier/register-new-supplier.component';
+import { LinkExpiredComponent } from './utility/shared/components/link-expired/link-expired.component';
 
 const routes: Routes = [
   {
@@ -48,6 +50,11 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
+  {
+    path: 'update-profile',
+    component: RegisterNewSupplierComponent
+  },
+  { path: 'link-expired', component: LinkExpiredComponent },
   {
     path: 'forgot-password',
     component: ForgotPasswordComponent
