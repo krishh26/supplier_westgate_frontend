@@ -220,7 +220,7 @@ export class SuperAdminProjectDetailsComponent {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
@@ -246,7 +246,7 @@ export class SuperAdminProjectDetailsComponent {
         return this.notificationService.showError('Try after some time.');
       }
     }, (error) => {
-      this.notificationService.showError(error?.message || 'Error.')
+      this.notificationService.showError(error?.error?.message || 'Error.')
     })
   }
 
@@ -260,7 +260,7 @@ export class SuperAdminProjectDetailsComponent {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
@@ -283,7 +283,7 @@ export class SuperAdminProjectDetailsComponent {
     this.projectManagerService.dropUser(data, this.projectId).subscribe((response) => {
       this.notificationService.showSuccess('Successfully select user')
     }, (error) => {
-      this.notificationService.showError(error?.message || 'Something went wrong');
+      this.notificationService.showError(error?.error?.message || 'Something went wrong');
     });
   }
 
@@ -309,7 +309,7 @@ export class SuperAdminProjectDetailsComponent {
           }
         },
         error: (error) => {
-          this.notificationService.showError(error?.message);
+          this.notificationService.showError(error?.error?.message);
           this.showLoader = false;
         }
       });
@@ -327,7 +327,7 @@ export class SuperAdminProjectDetailsComponent {
           }
         },
         error: (error) => {
-          this.notificationService.showError(error?.message);
+          this.notificationService.showError(error?.error?.message);
           this.showLoader = false;
         }
       });
@@ -352,7 +352,7 @@ export class SuperAdminProjectDetailsComponent {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
@@ -386,7 +386,7 @@ export class SuperAdminProjectDetailsComponent {
         this.notificationService.showError(response?.message || 'Error');
       }
     }, (error) => {
-      this.notificationService.showError(error?.message || 'Something went wrong !');
+      this.notificationService.showError(error?.error?.message || 'Something went wrong !');
     })
   }
   detailPage() {
@@ -424,7 +424,7 @@ export class SuperAdminProjectDetailsComponent {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
@@ -547,7 +547,7 @@ export class SuperAdminProjectDetailsComponent {
           return this.notificationService.showError(response?.message);
         }
       }, (error) => {
-        return this.notificationService.showError(error?.message || "Error while uploading");
+        return this.notificationService.showError(error?.error?.message || "Error while uploading");
       });
     }
   }
@@ -664,7 +664,7 @@ export class SuperAdminProjectDetailsComponent {
         return this.notificationService.showError(response?.message);
       }
     }, (error) => {
-      return this.notificationService.showError(error?.message || 'Something went wrong !');
+      return this.notificationService.showError(error?.error?.message || 'Something went wrong !');
     })
   }
 
@@ -746,7 +746,7 @@ export class SuperAdminProjectDetailsComponent {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }

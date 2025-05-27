@@ -64,7 +64,7 @@ export class ChangePasswordComponent {
         }
       }, (error) => {
         this.showLoader = false;
-        this.notificationService.showError(error?.message || 'Something went wrong!');
+        this.notificationService.showError(error?.error?.message || 'Something went wrong!');
       })
     }
   }

@@ -94,7 +94,7 @@ export class EditRolesComponent {
         },
         error: (error: any) => {
           this.isLoading = false;
-          this.notificationService.showError(error?.message || 'An error occurred while updating the role');
+          this.notificationService.showError(error?.error?.message || 'An error occurred while updating the role');
         }
       });
     } else {

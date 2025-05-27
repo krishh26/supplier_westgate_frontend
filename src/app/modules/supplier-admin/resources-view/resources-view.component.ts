@@ -160,7 +160,7 @@ export class ResourcesViewComponent {
       },
       error: (error) => {
         console.error('Error fetching candidates:', error);
-        this.notificationService.showError(error?.message || 'Error fetching candidates');
+        this.notificationService.showError(error?.error?.message || 'Error fetching candidates');
         this.loading = false;
         this.spinner.hide();
       }

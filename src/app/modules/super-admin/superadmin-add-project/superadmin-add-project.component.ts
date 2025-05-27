@@ -83,7 +83,7 @@ export class SuperadminAddProjectComponent implements OnInit {
       this.productForm.patchValue(response?.data)
     },
       error => {
-        this.notificationService.showError(error?.message);
+        this.notificationService.showError(error?.error?.message);
         this.showLoader = false;
       })
   }
@@ -99,7 +99,7 @@ export class SuperadminAddProjectComponent implements OnInit {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
@@ -121,7 +121,7 @@ export class SuperadminAddProjectComponent implements OnInit {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
@@ -160,7 +160,7 @@ export class SuperadminAddProjectComponent implements OnInit {
         }
       },
         error => {
-          this.notificationService.showError(error?.message);
+          this.notificationService.showError(error?.error?.message);
           this.showLoader = false;
         })
     } else {
@@ -174,7 +174,7 @@ export class SuperadminAddProjectComponent implements OnInit {
           this.showLoader = false;
         }
       }, (error) => {
-        this.notificationService.showError(error?.message);
+        this.notificationService.showError(error?.error?.message);
         this.showLoader = false;
       });
     }

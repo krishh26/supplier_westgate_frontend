@@ -42,7 +42,7 @@ export class ProjectNotificationComponent implements OnInit {
         return this.notificationService.showError(response?.message || 'Something Went Wrong!');
       }
     }, (error) => {
-      return this.notificationService.showError(error?.message || 'Something Went Wrong!');
+      return this.notificationService.showError(error?.error?.message || 'Something Went Wrong!');
     })
   }
 
@@ -58,7 +58,7 @@ export class ProjectNotificationComponent implements OnInit {
         return this.notificationService.showError(response?.message || 'Something Went Wrong!');
       }
     }, (error) => {
-      return this.notificationService.showError(error?.message || 'Something Went Wrong!');
+      return this.notificationService.showError(error?.error?.message || 'Something Went Wrong!');
     })
   }
 
@@ -74,7 +74,7 @@ export class ProjectNotificationComponent implements OnInit {
         return this.notificationService.showError(response?.message || 'Something Went Wrong!');
       }
     }, (error) => {
-      return this.notificationService.showError(error?.message || 'Something Went Wrong!');
+      return this.notificationService.showError(error?.error?.message || 'Something Went Wrong!');
     })
   }
 

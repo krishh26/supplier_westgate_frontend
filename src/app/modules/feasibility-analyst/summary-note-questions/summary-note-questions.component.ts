@@ -103,7 +103,7 @@ export class SummaryNoteQuestionsComponent {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
@@ -141,7 +141,7 @@ export class SummaryNoteQuestionsComponent {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
@@ -215,7 +215,7 @@ export class SummaryNoteQuestionsComponent {
         this.notificationService.showError(response?.message || 'Error');
       }
     }, (error) => {
-      this.notificationService.showError(error?.message || 'Something went wrong !');
+      this.notificationService.showError(error?.error?.message || 'Something went wrong !');
     })
   }
 
@@ -269,7 +269,7 @@ export class SummaryNoteQuestionsComponent {
         }
       }, (error) => {
         this.spinner.hide();
-        this.notificationService.showError(error?.message || 'Error while uploading');
+        this.notificationService.showError(error?.error?.message || 'Error while uploading');
       });
     }
   }

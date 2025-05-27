@@ -55,7 +55,7 @@ export class UkWriterProjectsDetailsComponent {
       }
     },
       error => {
-        this.notificationService.showError(error?.message);
+        this.notificationService.showError(error?.error?.message);
         this.showLoader = false;
       })
   }
@@ -85,7 +85,7 @@ export class UkWriterProjectsDetailsComponent {
       }
     },
       error => {
-        this.notificationService.showError(error?.message);
+        this.notificationService.showError(error?.error?.message);
         this.showLoader = false;
       })
   }

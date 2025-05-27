@@ -90,7 +90,7 @@ export class RoleWiseResourcesListComponent {
       },
       (error: any) => {
         this.loading = false;
-        this.notificationService.showError(error?.message || 'An error occurred while fetching candidate data');
+        this.notificationService.showError(error?.error?.message || 'An error occurred while fetching candidate data');
       }
     );
   }
@@ -109,7 +109,7 @@ export class RoleWiseResourcesListComponent {
       },
       error: (error: any) => {
 
-        this.notificationService.showError(error?.message || 'An error occurred while fetching roles');
+        this.notificationService.showError(error?.error?.message || 'An error occurred while fetching roles');
       }
     });
   }
@@ -168,7 +168,7 @@ export class RoleWiseResourcesListComponent {
             this.notificationService.showError(response?.message);
           }
         }, (error) => {
-          this.notificationService.showError(error?.message);
+          this.notificationService.showError(error?.error?.message);
         });
       }
     });

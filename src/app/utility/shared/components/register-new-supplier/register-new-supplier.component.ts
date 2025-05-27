@@ -833,7 +833,7 @@ export class RegisterNewSupplierComponent implements OnInit {
             this.showLoader = false;
           },
           error: (error: any) => {
-            this.notificationService.showError(error?.message || 'Failed to add technology');
+            this.notificationService.showError(error?.error?.message || 'Failed to add technology');
             this.showLoader = false;
           }
         });
@@ -995,7 +995,7 @@ export class RegisterNewSupplierComponent implements OnInit {
         this.showLoader = false;
       },
       (error: any) => {
-        this.notificationService.showError(error?.message || 'Failed to add expertise');
+        this.notificationService.showError(error?.error?.message || 'Failed to add expertise');
         this.showLoader = false;
       }
     );
@@ -1024,7 +1024,7 @@ export class RegisterNewSupplierComponent implements OnInit {
           this.showLoader = false;
         },
         error: (error: any) => {
-          this.notificationService.showError(error?.message || 'Failed to add technology');
+          this.notificationService.showError(error?.error?.message || 'Failed to add technology');
           this.showLoader = false;
           resolve(null);
         }
@@ -1090,7 +1090,7 @@ export class RegisterNewSupplierComponent implements OnInit {
         this.showLoader = false;
       },
       (error: any) => {
-        this.notificationService.showError(error?.message || 'Failed to add I Can Do expertise');
+        this.notificationService.showError(error?.error?.message || 'Failed to add I Can Do expertise');
         this.showLoader = false;
       }
     );
@@ -1130,7 +1130,7 @@ export class RegisterNewSupplierComponent implements OnInit {
         this.showLoader = false;
       },
       (error: any) => {
-        this.notificationService.showError(error?.message || 'Failed to load expertise list');
+        this.notificationService.showError(error?.error?.message || 'Failed to load expertise list');
         this.showLoader = false;
       }
     );
@@ -1300,7 +1300,7 @@ export class RegisterNewSupplierComponent implements OnInit {
         this.addingNewSubExpertise = false;
       },
       error: (error: any) => {
-        this.notificationService.showError(error?.message || 'Failed to add sub-expertise');
+        this.notificationService.showError(error?.error?.message || 'Failed to add sub-expertise');
         this.showLoader = false;
         this.addingNewSubExpertise = false;
       }

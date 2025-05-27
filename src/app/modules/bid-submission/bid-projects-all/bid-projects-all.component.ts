@@ -59,7 +59,7 @@ export class BidProjectsAllComponent {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
@@ -92,7 +92,7 @@ export class BidProjectsAllComponent {
         return this.notificationService.showError(response?.message);
       }
     }, (error) => {
-      return this.notificationService.showError(error?.message || 'Something went wrong !');
+      return this.notificationService.showError(error?.error?.message || 'Something went wrong !');
     })
   }
 
