@@ -69,7 +69,7 @@ export class SuperAdminSupplierDetailsComponent implements OnInit {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
@@ -88,7 +88,7 @@ export class SuperAdminSupplierDetailsComponent implements OnInit {
         return this.notificationService.showError(response?.message);
       }
     }, (error) => {
-      return this.notificationService.showError(error?.message || 'Something went wrong !');
+      return this.notificationService.showError(error?.error?.message || 'Something went wrong !');
     })
   }
 
@@ -103,7 +103,7 @@ export class SuperAdminSupplierDetailsComponent implements OnInit {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
@@ -146,7 +146,7 @@ export class SuperAdminSupplierDetailsComponent implements OnInit {
         return this.notificationService.showError(response?.message);
       }
     }, (error) => {
-      return this.notificationService.showError(error?.message || 'Something went wrong !');
+      return this.notificationService.showError(error?.error?.message || 'Something went wrong !');
     })
   }
 

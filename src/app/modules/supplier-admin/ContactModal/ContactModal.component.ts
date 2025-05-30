@@ -59,7 +59,7 @@ export class ContactModalComponent {
         }
       },
       (error) => {
-        this.notificationService.showError(error?.message || 'An error occurred.');
+        this.notificationService.showError(error?.error?.message || 'An error occurred.');
         this.showLoader = false;
       }
     );

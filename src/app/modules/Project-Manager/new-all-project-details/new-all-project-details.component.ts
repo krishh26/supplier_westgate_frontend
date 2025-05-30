@@ -120,7 +120,7 @@ export class NewAllProjectDetailsComponent {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
@@ -274,7 +274,7 @@ export class NewAllProjectDetailsComponent {
       }, (error) => {
         // Hide the spinner in case of an error as well
         this.spinner.hide();
-        return this.notificationService.showError(error?.message || "Error while uploading");
+        return this.notificationService.showError(error?.error?.message || "Error while uploading");
       });
     }
   }

@@ -64,7 +64,7 @@ export class SuperAdminDashboardComponent {
         }
       },
       (error) => {
-        this.notificationService.showError(error?.message);
+        this.notificationService.showError(error?.error?.message);
         this.showLoader = false;
       }
     );
@@ -112,7 +112,7 @@ export class SuperAdminDashboardComponent {
         }
       },
       (error) => {
-        this.notificationService.showError(error?.message);
+        this.notificationService.showError(error?.error?.message);
         this.showLoader = false;
       }
     );
@@ -135,7 +135,7 @@ export class SuperAdminDashboardComponent {
         }
       },
       (error) => {
-        this.notificationService.showError(error?.message);
+        this.notificationService.showError(error?.error?.message);
         this.showLoader = false;
       }
     );

@@ -49,11 +49,14 @@ export enum SuperAdminEndPoint {
   GET_SUBTASKS = '/task/subtasks',
   SELECT_FROM_SORTLIST = '/project/select-from-sortlist',
   REMOVE_FROM_SHORTLIST = '/project/remove-from-sortlist',
-  SUB_EXPERTISE_DROPDOWN = '/web-user/sub-expertise/list',
+  SUB_EXPERTISE_DROPDOWN = '/web-user/public/sub-expertise/list',
   SUPPLIER_DETAILS = '/user/suplier/get',
   DELETE_EXPERTISE = '/web-user/expertise',
   DELETE_SUB_EXPERTISE = '/web-user/expertise/:id/subexpertise',
-  GET_TECHNOLOGIES = '/roles/get-technologies'
+  GET_TECHNOLOGIES = '/roles/public/get-technologies',
+  CREATE_CUSTOM_EXPERTISE = '/web-user/masterlist/custom',
+  GET_PUBLIC_DETAILS = '/web-user/public/get/',
+  UPDATE_PUBLIC_USER = '/user/public/update/',
 }
 
 @Injectable({
@@ -75,7 +78,6 @@ export class SuperadminService {
       this.baseUrl + SuperAdminEndPoint.GET_TECHNOLOGIES
     );
   }
-
 
   exportProjects() {
     window.open(this.baseUrl + SuperAdminEndPoint.EXPORT_EXCEL, "_blank");
@@ -626,4 +628,31 @@ export class SuperadminService {
   }
 
 
+  createCustomExpertise(expertiseData: { name: string; type: string; value?: string }): Observable<any> {
+    // If value is not provided, use name as the value
+    const payload = {
+      ...expertiseData,
+      value: expertiseData.value || expertiseData.name
+    };
+    return this.httpClient.post<any>(
+      this.baseUrl + SuperAdminEndPoint.CREATE_CUSTOM_EXPERTISE,
+      payload
+    );
+  }
+
+  addSubExpertiseByName(name: string): Observable<any> {
+    return this.httpClient.post<any>(
+      this.baseUrl + '/sub-expertise/add',
+      { name }
+    );
+  }
+
+  getWebUserPublicDetails(id: string): Observable<any> {
+    return this.httpClient.get<any>(this.baseUrl + SuperAdminEndPoint.GET_PUBLIC_DETAILS + id);
+  }
+
+  updateUserPublic(id: string, payload: any): Observable<any> {
+    return this.httpClient.patch<any>(
+      this.baseUrl + SuperAdminEndPoint.UPDATE_PUBLIC_USER + id, payload);
+  }
 }

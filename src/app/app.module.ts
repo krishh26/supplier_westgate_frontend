@@ -23,18 +23,23 @@ import { ProjectNotificationComponent } from './utility/shared/common/project-no
 import { SuperAdminModule } from './modules/super-admin/super-admin.module';
 import { BidSubmissionModule } from './modules/bid-submission/bid-submission.module';
 import { ProjectCoOrdinatorModule } from './modules/project-co-ordinator/project-co-ordinator.module';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { NgxSpinnerModule } from 'ngx-spinner';
-// import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { RegisterNewSupplierComponent } from './utility/shared/components/register-new-supplier/register-new-supplier.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { LinkExpiredComponent } from './utility/shared/components/link-expired/link-expired.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    LinkExpiredComponent,
+    RegisterNewSupplierComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     BOSUserModule,
@@ -53,7 +58,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     NgbModule,
     ProjectManagerModule,
     UkWriterModule,
-    // NgSelectModule,
+    NgSelectModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-top-right',

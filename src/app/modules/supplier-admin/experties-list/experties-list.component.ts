@@ -125,7 +125,7 @@ export class ExpertiesListComponent {
           },
           (error) => {
             this.showLoader = false;
-            this.notificationService.showError(error?.message);
+            this.notificationService.showError(error?.error?.message);
           }
         );
       }
@@ -166,7 +166,7 @@ export class ExpertiesListComponent {
         }
       },
       (error: any) => {
-        this.notificationService.showError(error?.message || 'Failed to add expertise');
+        this.notificationService.showError(error?.error?.message || 'Failed to add expertise');
       }
     );
   }

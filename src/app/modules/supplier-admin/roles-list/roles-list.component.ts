@@ -48,7 +48,7 @@ export class RolesListComponent {
       },
       error: (error: any) => {
         this.isLoading = false;
-        this.notificationService.showError(error?.message || 'An error occurred while fetching roles');
+        this.notificationService.showError(error?.error?.message || 'An error occurred while fetching roles');
       }
     });
   }
@@ -82,7 +82,7 @@ export class RolesListComponent {
             }
           },
           error: (error: any) => {
-            this.notificationService.showError(error?.message || 'An error occurred while deleting the role');
+            this.notificationService.showError(error?.error?.message || 'An error occurred while deleting the role');
           }
         });
       }

@@ -124,7 +124,7 @@ export class ProjectManagerAllProjectListComponent implements OnInit {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
@@ -140,7 +140,7 @@ export class ProjectManagerAllProjectListComponent implements OnInit {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
@@ -157,7 +157,7 @@ export class ProjectManagerAllProjectListComponent implements OnInit {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
@@ -251,7 +251,7 @@ export class ProjectManagerAllProjectListComponent implements OnInit {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
@@ -293,7 +293,7 @@ export class ProjectManagerAllProjectListComponent implements OnInit {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }

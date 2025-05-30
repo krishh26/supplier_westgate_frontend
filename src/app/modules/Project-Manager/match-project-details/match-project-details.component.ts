@@ -93,7 +93,7 @@ export class MatchProjectDetailsComponent {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
@@ -112,7 +112,7 @@ export class MatchProjectDetailsComponent {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
@@ -135,7 +135,7 @@ export class MatchProjectDetailsComponent {
     this.projectManagerService.dropUser(data, this.projectId).subscribe((response) => {
       this.notificationService.showSuccess('Successfully select user')
     }, (error) => {
-      this.notificationService.showError(error?.message || 'Something went wrong');
+      this.notificationService.showError(error?.error?.message || 'Something went wrong');
     });
   }
 
@@ -160,7 +160,7 @@ export class MatchProjectDetailsComponent {
         return this.notificationService.showError('Try after some time.');
       }
     }, (error) => {
-      this.notificationService.showError(error?.message || 'Error.')
+      this.notificationService.showError(error?.error?.message || 'Error.')
     })
   }
 
@@ -176,7 +176,7 @@ export class MatchProjectDetailsComponent {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
@@ -220,7 +220,7 @@ export class MatchProjectDetailsComponent {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
@@ -246,7 +246,7 @@ export class MatchProjectDetailsComponent {
         this.showLoader = false;
       }
     }, (error) => {
-      this.notificationService.showError(error?.message);
+      this.notificationService.showError(error?.error?.message);
       this.showLoader = false;
     });
   }
