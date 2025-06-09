@@ -173,7 +173,18 @@
                 <div class="col-lg-6 col-xl-6 col-md-6 col-12 mob-mb1">
                     <h5>Client Documents</h5>
                     <div class="card">
-                        <ul class="project-document">
+                        <!-- Warning message when coming from projects-all page -->
+                        <div *ngIf="pageType === 2" class="alert alert-danger" role="alert">
+                            ⚠ Important Notice : Access to Project Documents
+                            Project documents will be visible only if your company is shortlisted.
+
+                            If you're interested in bidding and believe you meet the minimum eligibility — specifically, the ability to
+                            provide two relevant case studies from similar past projects — please register your interest.
+
+                            Our team will review your submission and respond within 24 hours (Monday to Friday).
+                        </div>
+                        <!-- Document list only shown when not coming from projects-all page -->
+                        <ul *ngIf="pageType !== 2" class="project-document">
                             <ng-container *ngIf="projectDetails?.clientDocument?.length > 0">
                                 <li *ngFor="let clientdocument of projectDetails?.clientDocument">
                                     <div class="row">
@@ -206,12 +217,23 @@
                 <div class="col-lg-6 col-xl-6 col-md-6 col-12">
                     <h5>WestGate Documents</h5>
                     <div class="card">
-                        <ul class="project-document">
-                            <ng-container *ngIf="projectDetails?.projectComment?.length > 0">
-                                <li *ngFor="let westGetDocument of projectDetails?.projectComment">
+                        <!-- Warning message when coming from projects-all page -->
+                        <div *ngIf="pageType === 2" class="alert alert-danger" role="alert">
+                            ⚠ Important Notice : Access to Project Documents
+                            Project documents will be visible only if your company is shortlisted.
+
+                            If you're interested in bidding and believe you meet the minimum eligibility — specifically, the ability to
+                            provide two relevant case studies from similar past projects — please register your interest.
+
+                            Our team will review your submission and respond within 24 hours (Monday to Friday).
+                        </div>
+                        <!-- Document list only shown when not coming from projects-all page -->
+                        <ul *ngIf="pageType !== 2" class="project-document">
+                            <ng-container *ngIf="projectDetails?.westGetDocument?.length > 0">
+                                <li *ngFor="let westGetDocument of projectDetails?.westGetDocument">
                                     <div class="row">
                                         <div class="col-5 text-center">
-                                            <p class="mb-0">{{westGetDocument?.comment}}</p>
+                                            <p class="mb-0">{{westGetDocument?.name}}</p>
                                         </div>
                                         <div class="col-7 text-center">
                                             <a href="href:;" class="btn btn-primarysm me-2" data-bs-toggle="modal"
@@ -227,7 +249,7 @@
                                     </div>
                                 </li>
                             </ng-container>
-                            <ng-container *ngIf="projectDetails?.projectComment?.length == 0">
+                            <ng-container *ngIf="projectDetails?.westGetDocument?.length == 0">
                                 <li style="text-align: center;">
                                     <p>No Record Found.</p>
                                 </li>
