@@ -17,6 +17,69 @@
 .card-body {
   padding: 20px;
 }
+
+// Toggle Switch Styles - Blue Modern Design (Compact)
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e0e0e0;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+input:checked + .slider {
+  background-color: #007bff;
+  box-shadow: inset 0 1px 2px rgba(0, 123, 255, 0.3);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 0 1px rgba(0, 123, 255, 0.25);
+}
+
+input:checked + .slider:before {
+  transform: translateX(16px);
+}
+
+// Hover effects
+.slider:hover {
+  background-color: #d0d0d0;
+}
+
+input:checked + .slider:hover {
+  background-color: #0056b3;
+}
+
 @media (min-width: 320px) and (max-width: 767px) {
   ul.projects-nav-tab {
     display: block;

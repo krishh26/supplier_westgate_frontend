@@ -94,7 +94,7 @@ import { ResourcesAddComponent } from './resources-add/resources-add.component';
     SupplierCommentModalComponent,
     ResourcesCommentModalComponent,
     ResourcesViewDetailsComponent,
-    ResourcesAddComponent
+    ResourcesAddComponent,
   ],
   imports: [
     CommonModule,
