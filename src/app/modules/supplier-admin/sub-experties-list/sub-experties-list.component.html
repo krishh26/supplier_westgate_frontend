@@ -2,7 +2,7 @@
   <section class="casestudy-section">
     <div class="container-fluid">
       <div class="d-flex align-items-center justify-content-between mb-4">
-        <h4 class="text-theme mb-0"><strong>Sub Expertise List</strong></h4>
+        <h4 class="text-theme mb-0"><strong>Industry / Sub Expertise List</strong></h4>
         <div>
           <!-- <button *ngIf="showAddButton" class="btn btn-success me-2" data-bs-toggle="modal"
             data-bs-target="#addSubExpertiseModal" (click)="getSubExpertiseList()">
@@ -22,16 +22,18 @@
         <div class="accordion-item mb-3" *ngFor="let item of subExpertiseList | paginate: { itemsPerPage: pagesize, currentPage: page, totalItems: subExpertiseList.length }; let i = index">
           <div class="accordion-header position-relative border rounded" [id]="'heading' + i">
             <button class="accordion-button collapsed w-100 px-4 py-3 text-start border-0 bg-light" type="button"
-              data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + i"
-              aria-expanded="false" [attr.aria-controls]="'collapse' + i"
+              [attr.aria-expanded]="isCollapsed(i)"
+              [attr.aria-controls]="'collapse' + i"
               (click)="viewUploadedDocuments(item); toggleCollapse(i)">
               <span class="fw-bold">{{ item }}</span>
               <i class="bi" [ngClass]="{'bi-chevron-down': !isCollapsed(i), 'bi-chevron-up': isCollapsed(i)}"
                  style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%);"></i>
             </button>
           </div>
-          <div [id]="'collapse' + i" class="accordion-collapse collapse border rounded" [attr.aria-labelledby]="'heading' + i"
-            data-bs-parent="#subExpertiseAccordion">
+          <div [id]="'collapse' + i"
+               class="border rounded"
+               [ngClass]="{'accordion-collapse collapse show': isCollapsed(i), 'accordion-collapse collapse': !isCollapsed(i)}"
+               [attr.aria-labelledby]="'heading' + i">
             <div class="p-0">
               <!-- File Upload Section -->
               <div class="p-3 border-bottom d-flex justify-content-end">
@@ -109,7 +111,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h6 class="modal-title">Add Sub Expertise</h6>
+        <h6 class="modal-title">Add Industry / Sub Expertise </h6>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

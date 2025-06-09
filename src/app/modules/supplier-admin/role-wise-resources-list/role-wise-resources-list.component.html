@@ -51,7 +51,7 @@
               <th>Technical Skills</th>
               <th>Languages</th>
               <th>Hourly Rate</th>
-              <th>Available From</th>
+              <!-- <th>Available From</th> -->
               <th>Actions</th>
             </tr>
           </thead>
@@ -83,7 +83,7 @@
                 </span>
               </td>
               <td>${{candidate?.hourlyRate}}</td>
-              <td>{{candidate?.availableFrom | date: 'dd/MM/yyyy'}}</td>
+              <!-- <td>{{candidate?.availableFrom | date: 'dd/MM/yyyy'}}</td> -->
               <td>
                 <button class="btn btn-sm btn-primary" (click)="viewCandidateDetails(candidate)"> <i
                     class="bi bi-eye"></i> View</button>
@@ -91,6 +91,15 @@
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <!-- Add pagination controls -->
+      <div class="row mt-3 align-items-center">
+        <div class="row">
+          <div class="pagination">
+            <pagination-controls [idMaxSize]="100" (pageChange)="paginate($event)"></pagination-controls>
+          </div>
+        </div>
       </div>
 
       <div *ngIf="!loading && (!candidatesList || candidatesList.length === 0)" class="text-center">
@@ -106,7 +115,7 @@
               Got Bench Resources? Earn 3X Their CTC Working for UK Clients!
             </p>
 
-            <p>Do you have skilled professionals sitting idle or on the bench? Don’t let that potential go to waste — upload their profiles to our portal and unlock global opportunities.</p>
+            <p>Do you have skilled professionals sitting idle or on the bench? Don't let that potential go to waste — upload their profiles to our portal and unlock global opportunities.</p>
             <p>
               We are actively hiring bench or idle resources to work on projects for top-tier UK clients. This means:
             </p>
@@ -114,10 +123,10 @@
             <p>💼 You can earn up to 3x their current CTC</p>
             <p>🚀 Immediate deployment opportunities</p>
             <p>🔁 Flexible engagement models (contract-to-hire, short-term, long-term)</p>
-            <p>Whether you’re managing software engineers, QA experts, DevOps, data analysts, or project managers — if they’re ready to be deployed, we’re ready to connect them to high-paying opportunities abroad.</p>
+            <p>Whether you're managing software engineers, QA experts, DevOps, data analysts, or project managers — if they're ready to be deployed, we're ready to connect them to high-paying opportunities abroad.</p>
             <p>Why keep your bench idle when they can be earning in pounds?</p>
             <p>📤 Upload their profiles today and turn downtime into serious revenue.</p>
-            <p>👉 Contact us now</p>
+            <p>👉 Contact us now</p>
           </div>
         </div>
       </div>

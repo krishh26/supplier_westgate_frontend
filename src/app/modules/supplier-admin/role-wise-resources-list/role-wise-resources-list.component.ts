@@ -18,7 +18,7 @@ export class RoleWiseResourcesListComponent {
   resourcesList: any = [];
   candidatesList: any = [];
   page: number = pagination.page;
-  pagesize = pagination.itemsPerPage;
+  pagesize = 100; // Set to 100 items per page
   totalRecords: number = pagination.totalRecords;
   loading: boolean = false;
   supplierID: string = '';
@@ -81,7 +81,8 @@ export class RoleWiseResourcesListComponent {
         this.loading = false;
         if (response && response.status) {
           this.candidatesList = response?.data?.data || [];
-          this.totalRecords = response?.totalRecords || 0;
+          // Update totalRecords from meta_data for proper pagination
+          this.totalRecords = response?.data?.meta_data?.items || 0;
           // Store candidates list in localStorage
           localStorage.setItem('candidatesList', JSON.stringify(this.candidatesList));
         } else {
@@ -117,6 +118,13 @@ export class RoleWiseResourcesListComponent {
   pageChanged(event: any) {
     this.page = event;
     this.getCandidatesList();
+  }
+
+  // Add paginate method similar to project-all page
+  paginate(page: number) {
+    this.page = page;
+    this.getCandidatesList();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   viewCandidateDetails(candidate: any) {

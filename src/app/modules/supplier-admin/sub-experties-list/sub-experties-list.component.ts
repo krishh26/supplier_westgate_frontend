@@ -184,7 +184,7 @@ export class SubExpertiesListComponent {
     this.viewDocs = this.files?.filter((file: any) => file?.subExpertise === subExpertise);
 
     if (!this.viewDocs || this.viewDocs.length === 0) {
-      this.notificationService.showInfo(`No files available for ${subExpertise}`);
+   //   this.notificationService.showInfo(`No files available for ${subExpertise}`);
       this.viewDocs = [];
 
       // Still open the modal but it will show "No Files Available"
@@ -372,7 +372,16 @@ export class SubExpertiesListComponent {
   }
 
   toggleCollapse(index: number): void {
-    this.collapsedItems[index] = !this.collapsedItems[index];
+    // Check if the clicked item is currently open
+    const isCurrentlyOpen = this.collapsedItems[index] === true;
+
+    // Close all items first
+    this.collapsedItems = {};
+
+    // If the clicked item was closed, open it; if it was open, keep it closed
+    if (!isCurrentlyOpen) {
+      this.collapsedItems[index] = true;
+    }
   }
 
   deleteSubExpertise(subExpertiseName: string, event: MouseEvent): void {
