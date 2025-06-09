@@ -13,7 +13,7 @@
                                     </div>
                                     <div class="col-6">
                                         <h2 class="text-blue">
-                                            <strong>£{{projectValue?.totalpassedValue}}</strong>
+                                            <strong>£{{(projectValue?.totalpassedValue / 1000000) | number:'1.1-2'}}M</strong>
                                         </h2>
                                     </div>
                                 </div>
@@ -36,7 +36,7 @@
                                         </div>
                                         <div class="col-6">
                                             <h2 class="text-blue">
-                                                <strong>£{{projectValue?.totalpassedValue}}</strong>
+                                                <strong>£{{(projectValue?.totalpassedValue / 1000000) | number:'1.1-2'}}M</strong>
                                             </h2>
                                         </div>
                                     </div>
@@ -55,7 +55,7 @@
                                         </div>
                                         <div class="col-6">
                                             <h2 class="text-teal">
-                                                <strong>£{{projectValue?.sortListedValue}}</strong>
+                                                <strong>£{{(projectValue?.sortListedValue / 1000000) | number:'1.1-2'}}M</strong>
                                             </h2>
                                         </div>
                                     </div>
@@ -75,7 +75,7 @@
                                     </div>
                                     <div class="col-6">
                                         <h2 class="text-blue">
-                                            <strong>£{{projectValue?.insolutionValue}}</strong>
+                                            <strong>£{{(projectValue?.insolutionValue / 1000000) | number:'1.1-2'}}M</strong>
                                         </h2>
                                     </div>
                                 </div>
@@ -93,7 +93,7 @@
                                     </div>
                                     <div class="col-6">
                                         <h2 class="text-green">
-                                            <strong>£{{projectValue?.totalAwardedValue}}</strong>
+                                            <strong>£{{(projectValue?.totalAwardedValue / 1000000) | number:'1.1-2'}}M</strong>
                                         </h2>
                                     </div>
                                 </div>
@@ -112,7 +112,7 @@
                                     </div>
                                     <div class="col-6">
                                         <h2 class="text-brown">
-                                            <strong>£{{projectValue?.totalNotAwardedValue}}</strong>
+                                            <strong>£{{(projectValue?.totalNotAwardedValue / 1000000) | number:'1.1-2'}}M</strong>
                                         </h2>
                                     </div>
                                 </div>
@@ -130,7 +130,7 @@
                                     </div>
                                     <div class="col-6">
                                         <h2 class="text-teal">
-                                            <strong>£{{projectValue?.totalWaitingForResult}}</strong>
+                                            <strong>£{{(projectValue?.totalWaitingForResult / 1000000) | number:'1.1-2'}}M</strong>
                                         </h2>
                                     </div>
                                 </div>

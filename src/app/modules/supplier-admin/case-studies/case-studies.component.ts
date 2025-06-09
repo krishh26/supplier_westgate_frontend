@@ -28,6 +28,7 @@ export class CaseStudiesComponent {
   selectedCasestudy: any;
   categoryList: any = [];
   selectedCaseStudy: any = null;
+  currentUserId: string = '';
 
   constructor(
     private supplierService: SupplierAdminService,
@@ -92,6 +93,11 @@ export class CaseStudiesComponent {
         this.showLoader = false;
         this.caseStudyList = response?.data?.data;
         console.log(this.caseStudyList);
+
+        // Initialize showFullDescription property for each case study
+        this.caseStudyList.forEach((caseStudy: any) => {
+          caseStudy.showFullDescription = false;
+        });
 
         this.totalRecords = response?.totalCount;
       } else {
@@ -277,5 +283,28 @@ export class CaseStudiesComponent {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
+    // Helper method to check if description exceeds a certain length
+    isDescriptionLong(description: string, length: number = 100): boolean {
+      return description ? description.length > length : false;
+    }
+
+    // Helper method to check if drop reason exceeds a certain length
+    isDropReasonLong(dropUsers: any[], length: number = 50): boolean {
+      const reason = this.getDropReasonForCurrentUser(dropUsers);
+      return reason ? reason.length > length : false;
+    }
+
+    getDropReasonForCurrentUser(dropUsers: any[]): string {
+      if (!dropUsers || !dropUsers.length || !this.currentUserId) {
+        return '';
+      }
+
+      const currentUserDropInfo = dropUsers.find(drop => drop.userId === this.currentUserId);
+      if (currentUserDropInfo && currentUserDropInfo.reason && currentUserDropInfo.reason.length > 0) {
+        return currentUserDropInfo.reason[0].comment;
+      }
+
+      return '';
+    }
 
 }
