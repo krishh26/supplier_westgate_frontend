@@ -36,7 +36,7 @@ export class ProjectsDetailsComponent {
   ) {
     this.route.queryParams.subscribe((params) => {
       this.projectId = params['id'];
-      this.pageType = params['type'] || 2;
+      this.pageType = Number(params['type']) || 2;
     });
 
     this.loginUser = this.localStorageService.getLogger();
