@@ -43,34 +43,48 @@
                 </div>
               </div>
 
-              <!-- Professional Information -->
+                                          <!-- Professional Information -->
               <div class="row mb-4">
                 <div class="col-12">
                   <h5 class="text-primary mb-3">Professional Information</h5>
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label class="form-label">Job Title</label>
-                  <input type="text" class="form-control" [value]="resourceList[0]?.details?.jobTitle" readonly>
+                  <label class="form-label">Current Role</label>
+                  <div class="d-flex align-items-center">
+                    <span class="badge bg-primary">{{ resourceList[0]?.details?.currentRole || 'N/A' }}</span>
+                  </div>
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label class="form-label">Experience</label>
+                  <label class="form-label">Role</label>
+                  <div class="d-flex gap-2 flex-wrap">
+                    <span class="badge bg-primary" *ngFor="let role of getRolesArray(resourceList[0]?.details?.role)">
+                      {{ role }}
+                    </span>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Total Experience</label>
                   <input type="text" class="form-control" [value]="resourceList[0]?.details?.experience + ' years'" readonly>
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label class="form-label">Hourly Rate</label>
-                  <input type="text" class="form-control" [value]="'$' + resourceList[0]?.details?.hourlyRate" readonly>
+                  <label class="form-label">Projects Executed</label>
+                  <input type="text" class="form-control" [value]="resourceList[0]?.details?.projectsExecuted || '0'" readonly>
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label class="form-label">Available From</label>
-                  <input type="text" class="form-control" [value]="resourceList[0]?.details?.availableFrom | date: 'dd/MM/yyyy'" readonly>
+                  <label class="form-label">UK Day Rate</label>
+                  <input type="text" class="form-control" [value]="'£' + (resourceList[0]?.details?.ukDayRate || '0')" readonly>
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label class="form-label">Status</label>
-                  <div class="d-flex align-items-center">
-                    <span class="badge" [ngClass]="resourceList[0]?.details?.active ? 'bg-success' : 'bg-danger'">
-                      {{ resourceList[0]?.details?.active ? 'Active' : 'Inactive' }}
-                    </span>
-                  </div>
+                  <label class="form-label">UK Hourly Rate</label>
+                  <input type="text" class="form-control" [value]="'£' + (resourceList[0]?.details?.ukHourlyRate || '0')" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Indian Day Rate</label>
+                  <input type="text" class="form-control" [value]="'₹' + (resourceList[0]?.details?.indianDayRate || '0')" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">CTC</label>
+                  <input type="text" class="form-control" [value]="'₹' + (resourceList[0]?.details?.ctc || '0')" readonly>
                 </div>
               </div>
 
@@ -102,11 +116,42 @@
                 </div>
                 <div class="col-md-6 mb-3">
                   <label class="form-label">Technical Skills</label>
-                  <input type="text" class="form-control" [value]="resourceList[0]?.details?.technicalSkills?.join(', ')" readonly>
+                  <input type="text" class="form-control" [value]="getSkillsValue(resourceList[0]?.details?.technicalSkills)" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Soft Skills</label>
+                  <input type="text" class="form-control" [value]="getSkillsValue(resourceList[0]?.details?.softSkills)" readonly>
                 </div>
                 <div class="col-md-6 mb-3">
                   <label class="form-label">Languages Known</label>
-                  <input type="text" class="form-control" [value]="resourceList[0]?.details?.languages?.join(', ')" readonly>
+                  <input type="text" class="form-control" [value]="getSkillsValue(resourceList[0]?.details?.languages)" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Certifications</label>
+                  <input type="text" class="form-control" [value]="getSkillsValue(resourceList[0]?.details?.certifications)" readonly>
+                </div>
+                <div class="col-md-12 mb-3">
+                  <label class="form-label">Previous Employers</label>
+                  <input type="text" class="form-control" [value]="getSkillsValue(resourceList[0]?.details?.previousEmployers)" readonly>
+                </div>
+              </div>
+
+              <!-- Status Information -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <h5 class="text-primary mb-3">Status Information</h5>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Current Status</label>
+                  <div class="d-flex align-items-center">
+                    <span class="badge" [ngClass]="resourceList[0]?.details?.active ? 'bg-success' : 'bg-danger'">
+                      {{ resourceList[0]?.details?.active ? 'Active' : 'Inactive' }}
+                    </span>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Status Details</label>
+                  <input type="text" class="form-control" [value]="resourceList[0]?.details?.statusDetails || 'N/A'" readonly>
                 </div>
               </div>
 

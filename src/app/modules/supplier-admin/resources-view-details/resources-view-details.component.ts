@@ -137,4 +137,29 @@ export class ResourcesViewDetailsComponent {
   goBack() {
     this.router.navigate(['/supplier-admin/role-wise-resources-list']);
   }
+
+  onImageError(event: any) {
+    // Handle image loading error by hiding the image or showing a placeholder
+    event.target.style.display = 'none';
+    console.log('Image failed to load:', event.target.src);
+  }
+
+  getRolesArray(roles: string): string[] {
+    if (!roles) return ['N/A'];
+    // Split by comma and clean up whitespace
+    return roles.split(',').map(role => role.trim()).filter(role => role.length > 0);
+  }
+
+  getSkillsValue(skills: any): string {
+    // Return empty string if data is not available
+    if (!skills) return '';
+
+    // If it's an array, join with commas
+    if (Array.isArray(skills)) {
+      return skills.length > 0 ? skills.join(', ') : '';
+    }
+
+    // If it's a string, return as is
+    return skills.toString();
+  }
 }
