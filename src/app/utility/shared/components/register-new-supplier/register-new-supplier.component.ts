@@ -65,6 +65,10 @@ export class RegisterNewSupplierComponent implements OnInit {
   industryList: any[] = [];
   selectedIndustries: string[] = [];
 
+  // Business Types properties
+  businessTypesList: any[] = [];
+  selectedBusinessTypes: string[] = [];
+
   // Services properties
   servicesList: ServiceItem[] = [];
   selectedServices: ServiceItem[] = [];
@@ -175,6 +179,20 @@ export class RegisterNewSupplierComponent implements OnInit {
       { name: 'IoT Development', value: 'IoT Development' }
     ];
 
+    // Initialize business types list
+    this.businessTypesList = [
+      { name: 'Private Limited Company', value: 'Private Limited Company' },
+      { name: 'Public Limited Company', value: 'Public Limited Company' },
+      { name: 'Limited Liability Partnership (LLP)', value: 'Limited Liability Partnership (LLP)' },
+      { name: 'Partnership Firm', value: 'Partnership Firm' },
+      { name: 'Sole Proprietorship', value: 'Sole Proprietorship' },
+      { name: 'One Person Company (OPC)', value: 'One Person Company (OPC)' },
+      { name: 'Section 8 Company (Non-Profit)', value: 'Section 8 Company (Non-Profit)' },
+      { name: 'Hindu Undivided Family (HUF)', value: 'Hindu Undivided Family (HUF)' },
+      { name: 'Cooperative Society', value: 'Cooperative Society' },
+      { name: 'Trust', value: 'Trust' }
+    ];
+
     // Add fallback options for both expertise and I Can Do
     if (this.subExpertiseOptions.length === 0) {
       this.addFallbackSubExpertiseOptions();
@@ -222,6 +240,12 @@ export class RegisterNewSupplierComponent implements OnInit {
           inHoldComment: response?.data?.inHoldComment || [],
           icando: response?.data?.icando || []
         };
+
+        // Initialize selected values for dropdowns
+        this.selectedBusinessTypes = response?.data?.typeOfCompany || [];
+        this.selectedIndustries = response?.data?.industry_Sector || [];
+        this.selectedTechnologies = response?.data?.technologyStack || [];
+        this.selectedServices = response?.data?.icando?.map((service: string) => ({ name: service, value: service })) || [];
       } else {
         this.router.navigateByUrl('/link-expired');
       }
@@ -1321,6 +1345,15 @@ export class RegisterNewSupplierComponent implements OnInit {
       this.companyForm.icando = this.selectedServices.map(service => service.name);
     } else {
       this.companyForm.icando = [];
+    }
+  }
+
+  // Add method to handle business type selection changes
+  onBusinessTypeChange() {
+    if (this.selectedBusinessTypes && this.selectedBusinessTypes.length > 0) {
+      this.companyForm.typeOfCompany = this.selectedBusinessTypes;
+    } else {
+      this.companyForm.typeOfCompany = [];
     }
   }
 }
