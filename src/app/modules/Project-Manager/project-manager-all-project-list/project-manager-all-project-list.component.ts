@@ -151,7 +151,7 @@ export class ProjectManagerAllProjectListComponent implements OnInit {
       if (response?.message == "Industry fetched successfully") {
         this.showLoader = false;
         this.industryList = response?.data;
-        console.log(this.industryList);
+
       } else {
         this.notificationService.showError(response?.message);
         this.showLoader = false;

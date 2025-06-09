@@ -56,7 +56,7 @@ export class ProjectManagerMatchProjectListComponent implements OnInit {
     { value: 'NotAwarded', status: 'Not awarded' },
     { value: 'Dropped', status: 'Dropped' }
   ];
-  
+
 
   selectedCategories: any[] = [];
   selectedIndustries: any[] = [];
@@ -217,7 +217,7 @@ export class ProjectManagerMatchProjectListComponent implements OnInit {
       if (response?.message == "Industry fetched successfully") {
         this.showLoader = false;
         this.industryList = response?.data;
-        console.log(this.industryList);
+
       } else {
         this.notificationService.showError(response?.message);
         this.showLoader = false;
