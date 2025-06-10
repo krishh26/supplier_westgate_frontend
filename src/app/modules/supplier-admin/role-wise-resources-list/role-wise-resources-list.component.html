@@ -52,7 +52,7 @@
               <th>Languages</th>
               <th>Hourly Rate</th>
               <!-- <th>Available From</th> -->
-              <th>Actions</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -84,15 +84,20 @@
               </td>
               <td>${{candidate?.hourlyRate}}</td>
               <!-- <td>{{candidate?.availableFrom | date: 'dd/MM/yyyy'}}</td> -->
-              <td>
+              <!-- <td>
                 <button class="btn btn-sm btn-primary" (click)="viewCandidateDetails(candidate)"> <i
                     class="bi bi-eye"></i> View</button>
-              </td>
+              </td> -->
                <td>
-                <label class="switch">
-                  <input type="checkbox" [(ngModel)]="candidate.active" (ngModelChange)="onToggleSwitch(candidate)">
-                  <span class="slider round"></span>
-                </label>
+                <div class="d-flex align-items-center">
+                  <span class="badge" [ngClass]="candidate.active ? 'bg-success' : 'bg-danger'">
+                    {{candidate.active ? 'Benched' : 'InActive'}}
+                  </span>
+                  <label class="switch me-2">
+                    <input type="checkbox" [(ngModel)]="candidate.active" (ngModelChange)="onToggleSwitch(candidate)">
+                    <span class="slider round"></span>
+                  </label>
+                </div>
               </td>
             </tr>
           </tbody>
