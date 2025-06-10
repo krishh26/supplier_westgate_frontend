@@ -465,7 +465,7 @@ export class SuperadminService {
     }
 
     return this.httpClient.get<any>(
-      this.baseUrl + SuperAdminEndPoint.ROLES_LIST,
+      this.baseUrl + SuperAdminEndPoint.ROLES_LIST + '?supplierId=68302b7feb881ab67a50af0a',
       { params: queryParams }
     );
   }
