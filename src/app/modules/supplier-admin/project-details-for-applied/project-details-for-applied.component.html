@@ -76,11 +76,8 @@
                         <div class="row">
                             <div class="col-md-2"><strong>Due Date & Time:</strong></div>
                             <div class="col-md-10">
-                                {{
-                                projectDetails?.dueDate
-                                ? (projectDetails?.dueDate | date : "dd/MM/yyyy, h:mm a")
-                                : "-"
-                                }}
+                              {{ projectDetails?.dueDate | date : "dd/MM/yyyy" }} ,
+                              {{ projectDetails?.bidsubmissiontime }}
                             </div>
                         </div>
                         <div class="row">
@@ -169,12 +166,21 @@
                     <p><strong>Documents</strong></p>
                 </div>
             </section><br>
+            <div *ngIf="pageType === 2" class="alert alert-danger" role="alert">
+              ⚠ Important Notice : Access to Project Documents
+              Project documents will be visible only if your company is shortlisted.
+
+              If you're interested in bidding and believe you meet the minimum eligibility — specifically, the ability to
+              provide two relevant case studies from similar past projects — please register your interest.
+
+              Our team will review your submission and respond within 24 hours (Monday to Friday).
+          </div>
             <div class="row mb-4">
                 <div class="col-lg-6 col-xl-6 col-md-6 col-12 mob-mb1">
                     <h5>Client Documents</h5>
                     <div class="card">
                         <!-- Warning message when coming from projects-all page -->
-                        <div *ngIf="pageType === 2" class="alert alert-danger" role="alert">
+                        <!-- <div *ngIf="pageType === 2" class="alert alert-danger" role="alert">
                             ⚠ Important Notice : Access to Project Documents
                             Project documents will be visible only if your company is shortlisted.
 
@@ -182,43 +188,41 @@
                             provide two relevant case studies from similar past projects — please register your interest.
 
                             Our team will review your submission and respond within 24 hours (Monday to Friday).
-                        </div>
+                        </div> -->
                         <!-- Document list only shown when not coming from projects-all page -->
-                        <ul *ngIf="pageType !== 2" class="project-document">
-                            <ng-container *ngIf="projectDetails?.clientDocument?.length > 0">
-                                <li *ngFor="let clientdocument of projectDetails?.clientDocument">
-                                    <div class="row">
-                                        <div class="col-5 text-center">
-                                            <p class="mb-0">{{clientdocument?.name}}</p>
-                                        </div>
-                                        <div class="col-7 text-center">
-                                            <a href="href:;" class="btn btn-primarysm me-2" data-bs-toggle="modal"
-                                                data-bs-target="#ViewDocuments"
-                                                (click)="openDocument(clientdocument?.file)"><i
-                                                    class="bi bi-eye-fill"></i>
-                                                View</a>
-                                            <a href="href:;"
-                                                (click)="download(clientdocument?.file?.url, clientdocument?.name)"
-                                                class="btn btn-primarysm"><i
-                                                    class="bi bi-file-earmark-arrow-down-fill"></i>
-                                                Download</a>
-                                        </div>
+                        <ul *ngIf="pageType !== 2 && projectDetails?.clientDocument?.length > 0" class="project-document" style="list-style: none; padding: 0;">
+                            <li *ngFor="let clientdocument of projectDetails?.clientDocument">
+                                <div class="row">
+                                    <div class="col-5 text-center">
+                                        <p class="mb-0">{{clientdocument?.name}}</p>
                                     </div>
-                                </li>
-                            </ng-container>
-                            <ng-container *ngIf="projectDetails?.clientDocument?.length == 0">
-                                <li style="text-align: center;">
-                                    <p>No Record Found.</p>
-                                </li>
-                            </ng-container>
+                                    <div class="col-7 text-center">
+                                        <a href="href:;" class="btn btn-primarysm me-2" data-bs-toggle="modal"
+                                            data-bs-target="#ViewDocuments"
+                                            (click)="openDocument(clientdocument?.file)"><i
+                                                class="bi bi-eye-fill"></i>
+                                            View</a>
+                                        <a href="href:;"
+                                            (click)="download(clientdocument?.file?.url, clientdocument?.name)"
+                                            class="btn btn-primarysm"><i
+                                                class="bi bi-file-earmark-arrow-down-fill"></i>
+                                            Download</a>
+                                    </div>
+                                </div>
+                            </li>
                         </ul>
+                        <ng-container *ngIf="pageType !== 2 && projectDetails?.clientDocument?.length == 0">
+                            <div style="display: flex; justify-content: center; align-items: center; min-height: 100px; text-align: center;">
+                                <p style="margin: 0;">No Record Found.</p>
+                            </div>
+                        </ng-container>
                     </div>
                 </div>
                 <div class="col-lg-6 col-xl-6 col-md-6 col-12">
                     <h5>WestGate Documents</h5>
                     <div class="card">
                         <!-- Warning message when coming from projects-all page -->
-                        <div *ngIf="pageType === 2" class="alert alert-danger" role="alert">
+                        <!-- <div *ngIf="pageType === 2" class="alert alert-danger" role="alert">
                             ⚠ Important Notice : Access to Project Documents
                             Project documents will be visible only if your company is shortlisted.
 
@@ -226,35 +230,33 @@
                             provide two relevant case studies from similar past projects — please register your interest.
 
                             Our team will review your submission and respond within 24 hours (Monday to Friday).
-                        </div>
+                        </div> -->
                         <!-- Document list only shown when not coming from projects-all page -->
-                        <ul *ngIf="pageType !== 2" class="project-document">
-                            <ng-container *ngIf="projectDetails?.westGetDocument?.length > 0">
-                                <li *ngFor="let westGetDocument of projectDetails?.westGetDocument">
-                                    <div class="row">
-                                        <div class="col-5 text-center">
-                                            <p class="mb-0">{{westGetDocument?.name}}</p>
-                                        </div>
-                                        <div class="col-7 text-center">
-                                            <a href="href:;" class="btn btn-primarysm me-2" data-bs-toggle="modal"
-                                                data-bs-target="#ViewDocuments"
-                                                (click)="openDocument(westGetDocument?.file)"><i
-                                                    class="bi bi-eye-fill"></i>
-                                                View</a>
-                                            &nbsp;
-                                            <a href="href:;" class="btn btn-primarysm"
-                                                (click)="download(westGetDocument?.file?.url, westGetDocument?.name)"><i
-                                                    class="bi bi-file-earmark-arrow-down-fill"></i> Download</a>
-                                        </div>
+                        <ul *ngIf="pageType !== 2 && projectDetails?.westGetDocument?.length > 0" class="project-document" style="list-style: none; padding: 0;">
+                            <li *ngFor="let westGetDocument of projectDetails?.westGetDocument">
+                                <div class="row">
+                                    <div class="col-5 text-center">
+                                        <p class="mb-0">{{westGetDocument?.name}}</p>
                                     </div>
-                                </li>
-                            </ng-container>
-                            <ng-container *ngIf="projectDetails?.westGetDocument?.length == 0">
-                                <li style="text-align: center;">
-                                    <p>No Record Found.</p>
-                                </li>
-                            </ng-container>
+                                    <div class="col-7 text-center">
+                                        <a href="href:;" class="btn btn-primarysm me-2" data-bs-toggle="modal"
+                                            data-bs-target="#ViewDocuments"
+                                            (click)="openDocument(westGetDocument?.file)"><i
+                                                class="bi bi-eye-fill"></i>
+                                            View</a>
+                                        &nbsp;
+                                        <a href="href:;" class="btn btn-primarysm"
+                                            (click)="download(westGetDocument?.file?.url, westGetDocument?.name)"><i
+                                                class="bi bi-file-earmark-arrow-down-fill"></i> Download</a>
+                                    </div>
+                                </div>
+                            </li>
                         </ul>
+                        <ng-container *ngIf="pageType !== 2 && projectDetails?.westGetDocument?.length == 0">
+                            <div style="display: flex; justify-content: center; align-items: center; min-height: 100px; text-align: center;">
+                                <p style="margin: 0;">No Record Found.</p>
+                            </div>
+                        </ng-container>
                     </div>
                 </div>
             </div>

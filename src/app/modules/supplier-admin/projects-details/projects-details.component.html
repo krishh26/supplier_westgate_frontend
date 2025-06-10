@@ -76,11 +76,8 @@
             <div class="row">
               <div class="col-md-2"><strong>Due Date & Time:</strong></div>
               <div class="col-md-10">
-                {{
-                projectDetails?.dueDate
-                ? (projectDetails?.dueDate | date : "dd/MM/yyyy, h:mm a")
-                : "-"
-                }}
+                {{ projectDetails?.dueDate | date : "dd/MM/yyyy" }} ,
+                {{ projectDetails?.bidsubmissiontime }}
               </div>
             </div>
             <div class="row">
@@ -128,20 +125,21 @@
           <p><strong>Documents</strong></p>
         </div>
       </section><br>
+      <div *ngIf="pageType === 2" class="alert alert-warning" role="alert">
+        ⚠ Important Notice :
+        Project documents will be visible only if your company is shortlisted.
+
+        If you're interested in bidding and believe you meet the minimum eligibility — specifically, the ability to
+        provide two relevant case studies from similar past projects — please register your interest.
+
+        Our team will review your submission and respond within 24 hours (Monday to Friday).
+      </div>
       <div class="row mb-4">
         <div class="col-lg-6 col-xl-6 col-md-6 col-12 mob-mb1">
           <h5>Client Documents</h5>
           <div class="card">
             <!-- Warning message when coming from projects-all page -->
-            <div *ngIf="pageType === 2" class="alert alert-warning" role="alert">
-              ⚠ Important Notice : Access to Project Documents
-              Project documents will be visible only if your company is shortlisted.
 
-              If you're interested in bidding and believe you meet the minimum eligibility — specifically, the ability to
-              provide two relevant case studies from similar past projects — please register your interest.
-
-              Our team will review your submission and respond within 24 hours (Monday to Friday).
-            </div>
             <!-- Document list only shown when not coming from projects-all page -->
             <ul *ngIf="pageType !== 2" class="project-document">
               <ng-container *ngIf="projectDetails?.clientDocument?.length > 0">
@@ -162,27 +160,28 @@
                   </div>
                 </li>
               </ng-container>
-              <ng-container *ngIf="projectDetails?.clientDocument?.length == 0">
-                <li style="text-align: center;">
-                  <p>No Record Found.</p>
-                </li>
-              </ng-container>
+
             </ul>
+            <ng-container *ngIf="projectDetails?.clientDocument?.length == 0">
+              <div style="display: flex; justify-content: center; align-items: center; min-height: 100px; text-align: center;">
+                <p style="margin: 0;">No Record Found.</p>
+              </div>
+            </ng-container>
           </div>
         </div>
         <div class="col-lg-6 col-xl-6 col-md-6 col-12">
           <h5>WestGate Documents</h5>
           <div class="card">
             <!-- Warning message when coming from projects-all page -->
-            <div *ngIf="pageType === 2" class="alert alert-warning" role="alert">
-              ⚠ Important Notice : Access to Project Documents
+            <!-- <div *ngIf="pageType === 2" class="alert alert-warning" role="alert">
+              ⚠ Important Notice :
               Project documents will be visible only if your company is shortlisted.
 
               If you're interested in bidding and believe you meet the minimum eligibility — specifically, the ability to
               provide two relevant case studies from similar past projects — please register your interest.
 
               Our team will review your submission and respond within 24 hours (Monday to Friday).
-            </div>
+            </div> -->
             <!-- Document list only shown when not coming from projects-all page -->
             <ul *ngIf="pageType !== 2" class="project-document">
               <ng-container *ngIf="projectDetails?.westGetDocument?.length > 0">
@@ -204,12 +203,12 @@
                   </div>
                 </li>
               </ng-container>
-              <ng-container *ngIf="projectDetails?.westGetDocument?.length == 0">
-                <li style="text-align: center;">
-                  <p>No Record Found.</p>
-                </li>
-              </ng-container>
             </ul>
+            <ng-container *ngIf="projectDetails?.westGetDocument?.length == 0">
+              <div style="display: flex; justify-content: center; align-items: center; min-height: 100px; text-align: center;">
+                <p style="margin: 0;">No Record Found.</p>
+              </div>
+            </ng-container>
           </div>
         </div>
       </div>
