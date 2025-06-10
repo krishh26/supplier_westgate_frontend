@@ -1,4 +1,23 @@
 <main id="main">
+  <style>
+    .fa-info-circle {
+      color: #6c757d;
+      font-size: 0.85rem;
+      cursor: help;
+      transition: color 0.2s ease;
+      margin-left: 4px;
+    }
+    .fa-info-circle:hover {
+      color: #0d6efd;
+    }
+    .tooltip {
+      font-size: 0.875rem;
+    }
+    .tooltip-inner {
+      max-width: 300px;
+      text-align: left;
+    }
+  </style>
   <section>
     <div class="container-fluid">
       <div class="row align-items-center justify-content-between">
@@ -12,40 +31,60 @@
         <div class="row">
           <div class="col-lg-6 col-xl-6 col-12">
             <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Company Name</label>
+              <label for="inputEmail3" class="col-sm-4 col-form-label">Company Name
+                <i class="fas fa-info-circle ms-1"
+                   data-bs-toggle="tooltip"
+                   data-bs-placement="top"
+                   title="Enter the full legal name of the company."></i>
+              </label>
               <div class="col-sm-8">
                 <input formControlName="companyName" class="form-control" placeholder="Enter company name">
               </div>
             </div>
             <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Company Website</label>
+              <label for="inputEmail3" class="col-sm-4 col-form-label">Company Website
+                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                   title="Enter the official website URL (e.g., https://www.example.com)."></i>
+              </label>
               <div class="col-sm-8">
                 <input formControlName="website" type="text" class="form-control" placeholder="Enter company website">
               </div>
             </div>
             <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Year of Establishment</label>
+              <label for="inputEmail3" class="col-sm-4 col-form-label">Year of Establishment
+                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                   title="Enter the year when the company was founded (e.g., 2010)."></i>
+              </label>
               <div class="col-sm-8">
                 <input formControlName="yearOfEstablishment" type="text" class="form-control"
                   placeholder="Enter year of establishment" (keypress)="NumberOnly($event)">
               </div>
             </div>
             <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Registration Number</label>
+              <label for="inputEmail3" class="col-sm-4 col-form-label">Registration Number
+                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                   title="Enter the official GST or company registration number."></i>
+              </label>
               <div class="col-sm-8">
                 <input formControlName="registerNumber" type="text" class="form-control"
                   placeholder="Enter GST/Registration number">
               </div>
             </div>
             <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Type of Company</label>
+              <label for="inputEmail3" class="col-sm-4 col-form-label">Type of Company
+                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                   title="Indicate the type of business (e.g., Private Limited, LLP, Sole Proprietor)."></i>
+              </label>
               <div class="col-sm-8">
                 <input formControlName="typeOfCompany" type="text" class="form-control"
                   placeholder="Enter type of company">
               </div>
             </div>
             <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Industry/Sector</label>
+              <label for="inputEmail3" class="col-sm-4 col-form-label">Industry/Sector
+                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                   title="Select the relevant industry category (e.g., IT, Healthcare, Finance)."></i>
+              </label>
               <div class="col-sm-8">
                 <input formControlName="⁠industry_Sector" type="text" class="form-control"
                   placeholder="Enter industry/sector">
@@ -53,35 +92,50 @@
             </div>
 
             <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Company Address</label>
+              <label for="inputEmail3" class="col-sm-4 col-form-label">Company Address
+                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                   title="Provide the complete address including street, city, and postal code."></i>
+              </label>
               <div class="col-sm-8">
                 <input formControlName="companyAddress" type="text" class="form-control"
                   placeholder="Enter company address">
               </div>
             </div>
             <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Developer/Engineer Teams</label>
+              <label for="inputEmail3" class="col-sm-4 col-form-label">Developer/Engineer Teams
+                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                   title="Describe your technical team size and expertise (e.g., 5 developers, 3 engineers)."></i>
+              </label>
               <div class="col-sm-8">
                 <input formControlName="developerOrEngineerTeams" type="text" class="form-control"
                   placeholder="Enter developer/engineer">
               </div>
             </div>
             <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Data Privacy Policies</label>
+              <label for="inputEmail3" class="col-sm-4 col-form-label">Data Privacy Policies
+                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                   title="Describe your data protection and privacy compliance policies (e.g., GDPR compliant)."></i>
+              </label>
               <div class="col-sm-8">
                 <input formControlName="dataPrivacyPolicies" type="text" class="form-control"
                   placeholder="Enter data privacy policies">
               </div>
             </div>
             <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Security Certifications</label>
+              <label for="inputEmail3" class="col-sm-4 col-form-label">Security Certifications
+                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                   title="List any security certifications or standards (e.g., ISO 27001, SOC 2)."></i>
+              </label>
               <div class="col-sm-8">
                 <input formControlName="securityCertifications" type="text" class="form-control"
                   placeholder="Enter security certifications">
               </div>
             </div>
             <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Email Address</label>
+              <label for="inputEmail3" class="col-sm-4 col-form-label">Email Address
+                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                   title="Enter the official email address for business communication."></i>
+              </label>
               <div class="col-sm-8">
                 <input formControlName="email" type="text" class="form-control" placeholder="Enter email address">
               </div>
@@ -91,7 +145,10 @@
             <div class="row">
               <div class="col-lg-6 col-xl-6 col-12">
                 <div class="row mb-3">
-                  <label for="inputEmail3" class="col-sm-4 col-form-label">Phone Number</label>
+                  <label for="inputEmail3" class="col-sm-4 col-form-label">Phone Number
+                    <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                       title="Provide a valid phone number with country code."></i>
+                  </label>
                   <div class="col-sm-8">
                     <input formControlName="number" type="text" class="form-control" placeholder="Enter phone number"
                       [maxlength]="10" [minlength]="10" (keypress)="NumberOnly($event)">
@@ -100,7 +157,10 @@
               </div>
             </div>
             <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Customer Support Contact</label>
+              <label for="inputEmail3" class="col-sm-2 col-form-label">Customer Support Contact
+                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                   title="Enter the dedicated customer support phone number."></i>
+              </label>
               <div class="col-sm-10">
                 <input formControlName="customerSupportContact" class="form-control"
                   placeholder="Enter customer support contact" (keypress)="NumberOnly($event)" [maxlength]="10"
@@ -110,7 +170,10 @@
             <div class="row">
               <div class="col-lg-6 col-xl-6 col-12">
                 <div class="row mb-3">
-                  <label for="inputEmail3" class="col-sm-4 col-form-label">VAT or GST Number</label>
+                  <label for="inputEmail3" class="col-sm-4 col-form-label">VAT or GST Number
+                    <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                       title="Enter the VAT or GST registration number for tax purposes."></i>
+                  </label>
                   <div class="col-sm-8">
                     <input formControlName="VATOrGSTNumber" type="text" class="form-control"
                       placeholder="Enter VAT or GST number">
@@ -119,7 +182,10 @@
               </div>
               <div class="col-lg-6 col-xl-6 col-12">
                 <div class="row mb-3">
-                  <label for="inputEmail3" class="col-sm-4 col-form-label">Company Directors/Owners</label>
+                  <label for="inputEmail3" class="col-sm-4 col-form-label">Company Directors/Owners
+                    <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                       title="List the names of company directors or owners."></i>
+                  </label>
                   <div class="col-sm-8">
                     <input formControlName="companyDirectors_Owners" type="text" class="form-control"
                       placeholder="Enter company directors">
@@ -130,7 +196,10 @@
             <div class="row">
               <div class="col-lg-12 col-xl-12 col-12">
                 <div class="row mb-3">
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">Compliance Certifications</label>
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">Compliance Certifications
+                    <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                       title="List any official certifications or accreditations (e.g., ISO 9001, CMMI)."></i>
+                  </label>
                   <div class="col-sm-10">
                     <input formControlName="complianceCertifications" type="text" class="form-control"
                       placeholder="Enter compliance certifications">
@@ -139,7 +208,10 @@
               </div>
             </div>
             <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Products/Services Offered</label>
+              <label for="inputEmail3" class="col-sm-2 col-form-label">Products/Services Offered
+                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                   title="Describe the main products or services your company provides."></i>
+              </label>
               <div class="col-sm-10">
                 <input formControlName="products_ServicesOffered" type="email" class="form-control"
                   placeholder="Enter products/services offered">
@@ -147,14 +219,20 @@
             </div>
 
             <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Technology Stack</label>
+              <label for="inputEmail3" class="col-sm-2 col-form-label">Technology Stack
+                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                   title="List the technologies, programming languages, and frameworks you use."></i>
+              </label>
               <div class="col-sm-10">
                 <input formControlName="technologyStack" type="email" class="form-control"
                   placeholder="Enter technology stack">
               </div>
             </div>
             <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Licensing Details</label>
+              <label for="inputEmail3" class="col-sm-2 col-form-label">Licensing Details
+                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                   title="Provide information about software licenses and legal compliance."></i>
+              </label>
               <div class="col-sm-10">
                 <input formControlName="licensingDetails" type="email" class="form-control"
                   placeholder="Enter licensing details">
@@ -164,7 +242,10 @@
             <div class="row mt-0">
               <div class="col-lg-6 col-xl-6 col-12">
                 <div class="row mb-3">
-                  <label for="inputEmail3" class="col-sm-4 col-form-label">IP/Patents</label>
+                  <label for="inputEmail3" class="col-sm-4 col-form-label">IP/Patents
+                    <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                       title="List any intellectual property, patents, or proprietary technologies owned."></i>
+                  </label>
                   <div class="col-sm-8">
                     <input formControlName="IP_Patents" type="text" class="form-control" placeholder="Enter IP/patents">
                   </div>
@@ -172,7 +253,10 @@
               </div>
               <div class="col-lg-6 col-xl-6 col-12">
                 <div class="row mb-3">
-                  <label for="inputEmail3" class="col-sm-4 col-form-label">Employee Count</label>
+                  <label for="inputEmail3" class="col-sm-4 col-form-label">Employee Count
+                    <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                       title="Enter the total number of employees in your company."></i>
+                  </label>
                   <div class="col-sm-8">
                     <input formControlName="employeeCount" type="text" class="form-control"
                       placeholder="Enter employee count" (keypress)="NumberOnly($event)">
@@ -181,14 +265,20 @@
               </div>
             </div>
             <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Cybersecurity Practices</label>
+              <label for="inputEmail3" class="col-sm-2 col-form-label">Cybersecurity Practices
+                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                   title="Describe your cybersecurity measures and data protection practices."></i>
+              </label>
               <div class="col-sm-10">
                 <input formControlName="cybersecurityPractices" type="text" class="form-control"
                   placeholder="Enter cybersecurity practices">
               </div>
             </div>
             <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Password</label>
+              <label for="inputEmail3" class="col-sm-2 col-form-label">Password
+                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                   title="Create a secure password for the supplier account login."></i>
+              </label>
               <div class="col-sm-10">
                 <input formControlName="password" type="password" class="form-control" placeholder="Enter password">
               </div>

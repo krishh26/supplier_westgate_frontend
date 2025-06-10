@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { SuperadminService } from 'src/app/services/super-admin/superadmin.service';
 import { Patterns } from 'src/app/utility/shared/constant/validation-patterns.const';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-register-new-supplier',
   templateUrl: './register-new-supplier.component.html',
   styleUrls: ['./register-new-supplier.component.css']
 })
-export class RegisterNewSupplierComponent implements OnInit {
+export class RegisterNewSupplierComponent implements OnInit, AfterViewInit {
   companyForm!: FormGroup;
   showLoader: boolean = false;
   constructor(
@@ -44,6 +46,16 @@ export class RegisterNewSupplierComponent implements OnInit {
       employeeCount: ['', Validators.required],
       cybersecurityPractices: ['', Validators.required]
     });
+  }
+
+  ngAfterViewInit(): void {
+    // Initialize Bootstrap tooltips
+    setTimeout(() => {
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+    }, 100);
   }
 
   submitForm() {
