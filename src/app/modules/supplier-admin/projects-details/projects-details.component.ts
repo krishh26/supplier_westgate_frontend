@@ -3,6 +3,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
+import { SuperadminService } from 'src/app/services/super-admin/superadmin.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
@@ -32,7 +33,8 @@ export class ProjectsDetailsComponent {
     private router: Router,
     private route: ActivatedRoute,
     private localStorageService: LocalStorageService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private superadminService: SuperadminService
   ) {
     this.route.queryParams.subscribe((params) => {
       this.projectId = params['id'];
@@ -145,6 +147,22 @@ export class ProjectsDetailsComponent {
     this.projectService.projectApply(payload).subscribe((response) => {
       if (response?.status) {
         this.notificationService.showSuccess(response?.message);
+      } else {
+        return this.notificationService.showError(response?.message);
+      }
+    }, (error) => {
+      return this.notificationService.showError(error?.error?.message || 'Something went wrong !');
+    })
+  }
+
+  registerInterest() {
+    const payload = {
+      userId: this.loginUser.id,
+      projectId: this.projectId
+    }
+    this.superadminService.registerInterest(payload).subscribe((response) => {
+      if (response?.status) {
+        this.notificationService.showSuccess('Interest registered successfully!');
       } else {
         return this.notificationService.showError(response?.message);
       }

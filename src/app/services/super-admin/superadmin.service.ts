@@ -57,6 +57,7 @@ export enum SuperAdminEndPoint {
   CREATE_CUSTOM_EXPERTISE = '/web-user/masterlist/custom',
   GET_PUBLIC_DETAILS = '/web-user/public/get/',
   UPDATE_PUBLIC_USER = '/user/public/update/',
+  REGISTER_INTEREST = '/project/register-interest',
 }
 
 @Injectable({
@@ -654,5 +655,12 @@ export class SuperadminService {
   updateUserPublic(id: string, payload: any): Observable<any> {
     return this.httpClient.patch<any>(
       this.baseUrl + SuperAdminEndPoint.UPDATE_PUBLIC_USER + id, payload);
+  }
+
+          registerInterest(payload: any): Observable<any> {
+    return this.httpClient.patch<any>(
+      this.baseUrl + SuperAdminEndPoint.REGISTER_INTEREST + '/' + payload.projectId,
+      { interested: true }
+    );
   }
 }
