@@ -27,3 +27,46 @@
 #chat-button i {
   font-size: 20px; /* Adjust icon size as desired */
 }
+.card{
+  border: none;
+  position: relative;
+}
+
+.card-header {
+    padding: .5rem 1rem;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, .03);
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+}
+.card-body{
+  padding: 2rem;
+}
+.card-icon{
+  position: absolute;
+  right:40px;
+  top: 25%;
+}
+.card-icon img{
+  width: 84px;
+}
+
+@media (min-width: 320px) and (max-width: 767px){
+.card-icon{
+  position: absolute;
+  right:20px;
+  top: 40%;
+}
+.card-icon img{
+  width: 54px;
+}
+}
+@media (min-width: 768px) and (max-width: 1024px){
+.card-icon{
+  position: absolute;
+  right:20px;
+  top: 40%;
+}
+.card-icon img{
+  width: 54px;
+}
+}

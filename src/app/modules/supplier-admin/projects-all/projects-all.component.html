@@ -3,8 +3,8 @@
     <div class="container-fluid">
 
       <div class="row">
-        <div class="col-lg-2 col-xl-2 col-md-12 col-sm-12 col-12 bg-grays">
-          <div id="profile-menu-nav"><br><br>
+        <div class="col-lg-2 col-xl-2 col-md-12 col-sm-12 col-12 mob-mb2">
+          <div id="profile-menu-nav">
 
             <!-- <div class="sort-widget mb-3">
               <h6 class="p-600">Category</h6>
@@ -126,7 +126,7 @@
 
         <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12 col-12">
           <div class="row align-items-center justify-content-between">
-            <div class="col-lg-6 col-xl-6 col-12 mob-mb1">
+            <div class="col-lg-11 col-xl-11 col-sm-10 col-md-10 col-10 mob-mb1">
               <div class="form-group mb-0">
                 <span class="input-icon"><i class="bi bi-search"></i></span>
                 <input class="form-control control-search"
@@ -134,69 +134,72 @@
                   type="text" [(ngModel)]="searchText" (input)="searchtext()">
               </div>
             </div>
-            <div class="col-lg-1 col-xl-1 col-12 mob-mb1" style="margin-right: 350px; cursor: pointer;">
+            <div class="col-lg-auto col-xl-auto col-sm-2 col-md-2 col-2 mob-mb1" style="cursor: pointer;">
               <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip"
                 title="Search using BOS ID, Project name, Client name, Website, Notice reference"></i>
             </div>
           </div>
-          <div class="table-responsive mt-5 mb-3">
-            <table class="table table-striped align-middle">
-              <thead>
-                <tr>
-                  <th>Project Title</th>
-                  <th>BOS ID</th>
-                  <th>Publish Date</th>
-                  <!-- <th>Category</th>
-                  <th>Industry</th> -->
-                  <!-- <th>Min value (GBP)</th>
-                  <th>Max value (GBP)</th> -->
-                  <!-- <th>Project Type</th> -->
-                  <!-- <th>Supplier Status</th> -->
-                  <th>Due Date &amp; Time</th>
-                  <!-- <th>Action</th> -->
-                </tr>
-              </thead>
-              <tbody>
+          <div class="Flatcard shadow-1 mt-4">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table align-middle">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Project Title</th>
+                      <th>BOS ID</th>
+                      <th>Publish Date</th>
+                      <!-- <th>Category</th>
+                      <th>Industry</th> -->
+                      <!-- <th>Min value (GBP)</th>
+                      <th>Max value (GBP)</th> -->
+                      <!-- <th>Project Type</th> -->
+                      <!-- <th>Supplier Status</th> -->
+                      <th>Due Date &amp; Time</th>
+                      <!-- <th>Action</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
 
-                <tr>
-                  <td *ngIf="!projectList?.length" colspan="13">
-                    <app-no-record-found></app-no-record-found>
-                  </td>
-                </tr>
+                    <tr>
+                      <td *ngIf="!projectList?.length" colspan="13">
+                        <app-no-record-found></app-no-record-found>
+                      </td>
+                    </tr>
 
-                <tr
-                  *ngFor="let item of projectList |  paginate: { itemsPerPage: pagesize , currentPage: page, totalItems: totalRecords } ; let i = index">
-                  <td><a (click)="projectDetails(item?._id)" href="javascript:;">{{item?.projectName}}</a></td>
-                  <td v-align="middle">{{item?.BOSID}}</td>
-                  <td>{{item?.publishDate | date:'dd/MM/yyyy'}}</td>
-                  <!-- <td>{{item?.category}}</td>
-                  <td>{{item?.industry}}</td> -->
-                  <!-- <td>{{item?.minValue}}</td>
-                  <td>{{item?.maxValue}}</td> -->
-                  <!-- <td>{{item?.projectType}}</td> -->
-                  <!-- <td>{{item?.supplierStatus}}</td> -->
-                  <td>
-                    {{ item?.dueDate | date : "dd/MM/yyyy" }} ,
-                    {{ item.bidsubmissiontime }}
-                  </td>
-                  <!-- <td>
-                    <a *ngIf="isUserShortlisted(item?.sortListUserId)" style="background-color: darkgray;"
-                      class="btn btn-sm btn-dark m-1" title="Shortlist">Shortlisted</a>
-                    <a *ngIf="!isUserShortlisted(item?.sortListUserId)" (click)="sortListProject(item?._id)"
-                      class="btn btn-sm btn-dark m-1" title="Shortlist">Shortlist</a>
-                  </td> -->
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="row mt-3 align-items-center">
-            <div class="row">
-              <div class="pagination">
-                <pagination-controls [idMaxSize]="100" (pageChange)="paginate($event)"></pagination-controls>
+                    <tr
+                      *ngFor="let item of projectList |  paginate: { itemsPerPage: pagesize , currentPage: page, totalItems: totalRecords } ; let i = index">
+                      <td><a (click)="projectDetails(item?._id)" href="javascript:;">{{item?.projectName}}</a></td>
+                      <td v-align="middle">{{item?.BOSID}}</td>
+                      <td>{{item?.publishDate | date:'dd/MM/yyyy'}}</td>
+                      <!-- <td>{{item?.category}}</td>
+                      <td>{{item?.industry}}</td> -->
+                      <!-- <td>{{item?.minValue}}</td>
+                      <td>{{item?.maxValue}}</td> -->
+                      <!-- <td>{{item?.projectType}}</td> -->
+                      <!-- <td>{{item?.supplierStatus}}</td> -->
+                      <td>
+                        {{ item?.dueDate | date : "dd/MM/yyyy" }} ,
+                        {{ item.bidsubmissiontime }}
+                      </td>
+                      <!-- <td>
+                        <a *ngIf="isUserShortlisted(item?.sortListUserId)" style="background-color: darkgray;"
+                          class="btn btn-sm btn-dark m-1" title="Shortlist">Shortlisted</a>
+                        <a *ngIf="!isUserShortlisted(item?.sortListUserId)" (click)="sortListProject(item?._id)"
+                          class="btn btn-sm btn-dark m-1" title="Shortlist">Shortlist</a>
+                      </td> -->
+                    </tr>
+                  </tbody>
+                </table>
               </div>
+              <div class="row align-items-center">
+                  <div class="pagination">
+                    <pagination-controls [idMaxSize]="100" (pageChange)="paginate($event)"></pagination-controls>
+                  </div>
+                </div>
             </div>
           </div>
+
+          
         </div>
 
       </div>
