@@ -18,6 +18,10 @@ export class SupplierHeaderComponent implements OnInit {
   projectNotificationCount: any = [];
   routerSubscription: Subscription | null = null;
   navUrlArr: any[] = [];
+  isMobileNavOpen = false;
+  isDropdownOpen = false;
+
+
   constructor(
     private authService: AuthService,
     private localStorageService: LocalStorageService,
@@ -28,19 +32,19 @@ export class SupplierHeaderComponent implements OnInit {
     this.loginUser = this.localStorageService.getLogger();
     if (this?.loginUser?.subcontractingSupplier) {
       this.navUrlArr = [
-        { titel: 'Dashboard', route: ['/supplier-admin/supplier-dashboard-header'] },
-        { titel: 'Projects', route: ['/supplier-admin/project-list'] },
-        { titel: 'Case Studies', route: ['/supplier-admin/case-studies-list'] },
-        // { titel: 'My Projects', route: ['/supplier-admin/my-projects'] },
-        { titel: 'Resources', route: ['/supplier-admin/role-wise-resources-list'] },
+        { title: 'Dashboard', route: '/supplier-admin/supplier-dashboard-header' },
+        { title: 'Projects', route: '/supplier-admin/project-list' },
+        { title: 'Case Studies', route: '/supplier-admin/case-studies-list' },
+        // { title: 'My Projects', route: '/supplier-admin/my-projects' },
+        { title: 'Resources', route: '/supplier-admin/role-wise-resources-list' },
       ];
     } else {
       this.navUrlArr = [
-        // { titel: 'Dashboard', route: ['/supplier-admin/supplier-dashboard-header'] },
-        { titel: 'Projects', route: ['/supplier-admin/project-list'] },
-        // { titel: 'Case Studies', route: ['/supplier-admin/case-studies-list'] },
-        // { titel: 'My Projects', route: ['/supplier-admin/my-projects'] },
-        { titel: 'Resources', route: ['/supplier-admin/role-wise-resources-list'] },
+        // { title: 'Dashboard', route: '/supplier-admin/supplier-dashboard-header' },
+        { title: 'Projects', route: '/supplier-admin/project-list' },
+        // { title: 'Case Studies', route: '/supplier-admin/case-studies-list' },
+        // { title: 'My Projects', route: '/supplier-admin/my-projects' },
+        { title: 'Resources', route: '/supplier-admin/role-wise-resources-list' },
       ];
     }
   }
@@ -67,10 +71,30 @@ export class SupplierHeaderComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+    this.closeMobileNav();
   }
 
-  toggleDropdown() {
+  // Close Mobile Navigation when clicking a link
+  closeMobileNav() {
+    this.isMobileNavOpen = false;
+    this.isDropdownOpen = false;
+  }
+
+    // Toggle Mobile Navigation
+    toggleMobileNav() {
+      this.isMobileNavOpen = !this.isMobileNavOpen;
+    }
+
+  // Toggle Dropdown Menu
+  toggleDropdown(event: Event) {
+    event.stopPropagation(); // Prevents event bubbling
     this.clicked = !this.clicked;
+  }
+
+  // Toggle User Dropdown Menu
+  toggleUserDropdown(event: Event) {
+    event.stopPropagation(); // Prevents event bubbling
+    this.isDropdownOpen = !this.isDropdownOpen;
   }
 
   closeDropdown() {

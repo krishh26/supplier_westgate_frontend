@@ -1,24 +1,30 @@
 <!-- ======= Header ======= -->
 <header id="header">
-  <div class="container-fluid d-flex align-items-center">
-    <a routerLink="/supplier-admin/supplier-dashboard-header" class="logo mee-auto"><img src="assets/img/westgate.svg"
+  <div class="container-fluid d-flex align-items-center justify-content-between">
+    <a routerLink="/supplier-admin/supplier-dashboard-header" class="logo me-auto"><img src="assets/img/westgate.svg"
         alt="" class="img-fluid"></a>
-    <nav id="navbar" class="navbar w-100">
+
+    <!-- Mobile Toggle Button -->
+    <button class="mobile-nav-toggle" (click)="toggleMobileNav()">
+      <i class="bi bi-list"></i>
+    </button>
+
+    <nav id="navbar" class="navbar w-100" [ngClass]="{ 'active': isMobileNavOpen }">
       <ul class="mx-auto">
         <li class="nav-link noarrowdrop" *ngFor="let item of navUrlArr">
-          <a [class.active]="(item.route.includes(router.url))" class="nav-link " data-toggle="tab"
-            [routerLink]="item.route">
-            <span>{{item.titel}}</span>
+          <a [class.active]="router.url.includes(item.route)" class="nav-link" data-toggle="tab"
+            [routerLink]="item.route" (click)="closeMobileNav()">
+            <i *ngIf="item.title == 'Live Projects'" class="bi bi-dot text-danger p-22"></i>
+            <span>{{ item.title }}</span>
           </a>
         </li>
       </ul>
-      <i class="bi bi-list mobile-nav-toggle"></i>
     </nav>
 
     <nav class="navbar">
       <ul class="d-block">
         <li class="nav-link noarrowdrop">
-          <a style="cursor: pointer;" id="notificationDropdown" (click)="toggleDropdown()" data-toggle="dropdown">
+          <a style="cursor: pointer;" id="notificationDropdown" (click)="toggleDropdown($event)" data-toggle="dropdown">
             <i class="bi bi-bell" style="font-size: 17px;"></i> <span
               class="count-badge">{{projectNotificationCount?.unreadNotifications}}</span>
           </a>
@@ -51,20 +57,21 @@
       </ul>
     </nav>
 
+    <!-- User Profile Dropdown -->
     <nav class="navbar">
       <ul class="d-block">
-        <li class="dropdown"><a href="javascript:;">
+        <li class="dropdown">
+          <a href="javascript:;" (click)="toggleUserDropdown($event)">
             <span class="mobile-hide">
               {{ loginUser?.name.length > 20 ? (loginUser?.name | slice:0:20) + '...' : loginUser?.name }}
             </span>
             <i class="bi bi-chevron-down"></i>
-
           </a>
-          <ul>
-            <li><a routerLink="/supplier-admin/supplier-user-profile">Profile Seting</a></li>
-            <li><a routerLink="/supplier-admin/manage-user">Manage Users</a></li>
-            <li><a routerLink="/supplier-admin/change-password">Security</a></li>
-            <li><a style="cursor: pointer;" (click)="logout()">Logout</a></li>
+          <ul class="dropdown-menu" [ngClass]="{ 'show': isDropdownOpen }">
+            <li><a routerLink="/supplier-admin/supplier-user-profile" (click)="closeMobileNav()">Profile Setting</a></li>
+            <li><a routerLink="/supplier-admin/manage-user" (click)="closeMobileNav()">Manage Users</a></li>
+            <li><a routerLink="/supplier-admin/change-password" (click)="closeMobileNav()">Security</a></li>
+            <li><a style="cursor: pointer;" (click)="logout() ; closeMobileNav()">Logout</a></li>
           </ul>
         </li>
       </ul>

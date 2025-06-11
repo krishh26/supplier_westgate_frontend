@@ -11,26 +11,47 @@ import { NotificationService } from 'src/app/services/notification/notification.
 })
 export class SuperadminHeaderComponent {
   loginUser: any;
-  
+  isMobileNavOpen = false;
+  isDropdownOpen = false;
+
   constructor(
     private authService: AuthService,
     private localStorageService: LocalStorageService,
     public router: Router,
-    private notificationService: NotificationService,
+    private notificationService: NotificationService
   ) {
     this.loginUser = this.localStorageService.getLogger();
   }
 
   navUrlArr = [
-    { title: 'Dashboard', route: ['/super-admin/super-admin-dashboard'] },
-    { title: 'Projects', route: ['/super-admin/super-admin-projects-all'] },
-    { title: 'Supplier', route: ['/super-admin/super-admin-supplier'] },
-    { title: 'Register Supplier', route: ['/super-admin/add-new-supplier'] },
+    { title: 'Dashboard', route: '/super-admin/super-admin-dashboard' },
+    { title: 'Supplier', route: '/super-admin/super-admin-supplier' },
+    { title: 'Project Tracker', route: '/super-admin/status-wise-tracker' },
+    { title: 'TO DO Tasks', route: '/super-admin/todo-tasks' },
+    { title: 'Gap Analysis', route: '/super-admin/gap-analysis' },
+    { title: 'Approve/Reject', route: '/super-admin/approve-reject-projects' },
   ];
 
 
   logout(): void {
     this.authService.logout();
+    this.closeMobileNav();
   }
 
+  // Toggle Mobile Navigation
+  toggleMobileNav() {
+    this.isMobileNavOpen = !this.isMobileNavOpen;
+  }
+
+  // Close Mobile Navigation when clicking a link
+  closeMobileNav() {
+    this.isMobileNavOpen = false;
+    this.isDropdownOpen = false;
+  }
+
+  // Toggle Dropdown Menu
+  toggleDropdown(event: Event) {
+    event.stopPropagation(); // Prevents event bubbling
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
 }

@@ -1,33 +1,50 @@
 <!-- ======= Header ======= -->
 <header id="header">
-  <div class="container-fluid d-flex align-items-center">
-    <a href="javascript:;" class="logo me-auto"><img src="assets/img/westgate.svg" alt="" class="img-fluid"></a>
-    <nav id="navbar" class="navbar">
-      <ul>
-        <!-- <li><a class="nav-link active" href="dashboard.html">Dashboard</a></li>
-          <li><a class="nav-link" href="projects-all.html">Projects</a></li>
-          <li><a class="nav-link" href="supplier.html">Supplier</a></li> -->
+  <div class="container-fluid d-flex align-items-center justify-content-between">
+    <a href="javascript:;" class="logo me-auto">
+      <img src="assets/img/westgate.svg" alt="Logo" class="img-fluid" />
+    </a>
+
+    <!-- Mobile Toggle Button -->
+    <button class="mobile-nav-toggle" (click)="toggleMobileNav()">
+      <i class="bi bi-list"></i>
+    </button>
+
+    <nav id="navbar" class="navbar w-100" [ngClass]="{ 'active': isMobileNavOpen }">
+      <ul class="mx-auto">
         <li class="nav-link noarrowdrop" *ngFor="let item of navUrlArr">
-          <a [class.active]="(item.route.includes(router.url))" class="nav-link " data-toggle="tab"
-            [routerLink]="item.route">
+          <a [class.active]="router.url.includes(item.route)" class="nav-link" data-toggle="tab"
+            [routerLink]="item.route" (click)="closeMobileNav()">
             <i *ngIf="item.title == 'Live Projects'" class="bi bi-dot text-danger p-22"></i>
-            <span>{{item.title}}</span>
+            <span>{{ item.title }}</span>
           </a>
         </li>
-        <li class="dropdown"><a href="href:;">
-            <div class="login-avtar">
-              <img src="assets/img/face1.jpg" />
-            </div>
-            <span>{{loginUser?.userName}}</span> <i class="bi bi-chevron-down"></i>
+      </ul>
+    </nav>
+
+    <!-- User Profile Dropdown -->
+    <nav class="navbar">
+      <ul class="d-block">
+        <li class="dropdown">
+          <a href="javascript:;" (click)="toggleDropdown($event)">
+            <span class="mobile-hide">
+              {{
+              loginUser?.name.length > 20
+              ? (loginUser?.name | slice:0:20) + "..."
+              : loginUser?.name
+              }}
+            </span>
+            <i class="bi bi-chevron-down"></i>
           </a>
-          <ul>
-            <li><a href="href:;">Profile Seting</a></li>
-            <li><a style="cursor: pointer;" (click)="logout()">Logout</a></li>
+          <ul class="dropdown-menu" [ngClass]="{ 'show': isDropdownOpen }">
+            <li><a routerLink="/super-admin/super-admin-user-profile" (click)="closeMobileNav()">Profile Setting</a>
+            </li>
+            <li><a routerLink="/super-admin/admin-data-settings" (click)="closeMobileNav()">Admin Data Settings</a></li>
+            <li><a routerLink="/super-admin/change-password" (click)="closeMobileNav()">Security</a></li>
+            <li><a style="cursor: pointer" (click)="logout(); closeMobileNav()">Logout</a></li>
           </ul>
         </li>
       </ul>
-      <i class="bi bi-list mobile-nav-toggle"></i>
     </nav>
-    <!-- .navbar -->
   </div>
-</header><!-- End Header -->
+</header>
