@@ -47,10 +47,12 @@
             <tr>
               <th>Full Name</th>
               <th>Roles</th>
+              <th>I Can Be</th>
               <th>Experience</th>
               <th>Technical Skills</th>
               <th>Languages</th>
               <th>Hourly Rate</th>
+
               <!-- <th>Available From</th> -->
               <th></th>
             </tr>
@@ -67,7 +69,12 @@
               *ngFor="let candidate of candidatesList | paginate: { itemsPerPage: pagesize, currentPage: page, totalItems: totalRecords }; let i = index">
               <td><a href="javascript:void(0)" (click)="viewCandidateDetails(candidate)">{{candidate?.fullName}}</a></td>
               <td>
-                <span *ngFor="let role of candidate?.roleId" class="badge bg-primary me-1">
+                <span *ngFor="let role of candidate?.currentRoleData" class="badge bg-primary me-1">
+                  {{role.name}}
+                </span>
+              </td>
+                            <td>
+                <span *ngFor="let role of getICanBeRoles(candidate)" class="badge bg-secondary me-1">
                   {{role.name}}
                 </span>
               </td>

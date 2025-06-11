@@ -253,4 +253,17 @@ export class RoleWiseResourcesListComponent {
     );
   }
 
+  // Filter method to get roles that are not in currentRoleData
+  getICanBeRoles(candidate: any): any[] {
+    if (!candidate?.roleId || !Array.isArray(candidate.roleId)) {
+      return [];
+    }
+
+    // Get current role IDs
+    const currentRoleIds = candidate?.currentRoleData?.map((role: any) => role._id) || [];
+
+    // Filter roleId to exclude roles that are already in currentRoleData
+    return candidate.roleId.filter((role: any) => !currentRoleIds.includes(role._id));
+  }
+
 }
