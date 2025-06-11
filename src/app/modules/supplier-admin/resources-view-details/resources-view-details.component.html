@@ -51,15 +51,16 @@
                 <div class="col-md-6 mb-3">
                   <label class="form-label">Current Role</label>
                   <div class="d-flex align-items-center">
-                    <span class="badge bg-primary">{{ resourceList[0]?.details?.currentRole || 'N/A' }}</span>
+                    <span class="badge bg-primary">{{ resourceList[0]?.currentRoleData?.[0]?.name || 'N/A' }}</span>
                   </div>
                 </div>
                 <div class="col-md-6 mb-3">
                   <label class="form-label">Role</label>
                   <div class="d-flex gap-2 flex-wrap">
-                    <span class="badge bg-primary" *ngFor="let role of getRolesArray(resourceList[0]?.details?.role)">
-                      {{ role }}
+                    <span class="badge bg-primary" *ngFor="let role of resourceList[0]?.roleId">
+                      {{ role?.name }}
                     </span>
+                    <span class="badge bg-secondary" *ngIf="!resourceList[0]?.roleId?.name">N/A</span>
                   </div>
                 </div>
                 <div class="col-md-6 mb-3">
