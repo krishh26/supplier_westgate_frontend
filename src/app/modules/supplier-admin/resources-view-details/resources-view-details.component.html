@@ -60,7 +60,7 @@
                     <span class="badge bg-primary" *ngFor="let role of resourceList[0]?.roleId">
                       {{ role?.name }}
                     </span>
-                    <span class="badge bg-secondary" *ngIf="!resourceList[0]?.roleId?.name">N/A</span>
+                    <span class="badge bg-secondary" *ngIf="!resourceList[0]?.roleId?.length">N/A</span>
                   </div>
                 </div>
                 <div class="col-md-6 mb-3">
