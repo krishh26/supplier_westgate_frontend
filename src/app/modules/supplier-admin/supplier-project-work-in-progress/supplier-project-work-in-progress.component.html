@@ -76,70 +76,75 @@
         </div>
         <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12 col-12">
           <div class="row align-items-center justify-content-between">
-            <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
+            <div class="col-lg-11 col-xl-11 col-sm-10 col-md-10 col-10 mob-mb1">
               <div class="form-group mb-0">
                 <span class="input-icon"><i class="bi bi-search"></i></span>
                 <input type="search" class="form-control control-search" placeholder="Search by BOS ID & Project Title."
                   [formControl]="searchText">
               </div>
             </div>
+            <div class="col-lg-auto col-xl-auto col-sm-2 col-md-2 col-2 mob-mb1" style="cursor: pointer;">
+              <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip"
+                title="Search using BOS ID, Project name, Client name, Website, Notice reference"></i>
+            </div>
           </div>
-          <div class="table-responsive mt-5 mb-3">
-            <table class="table table-striped align-middle">
-              <thead>
-                <tr>
-                  <th>Project Title</th>
-                  <th>BOS ID</th>
-                  <th>Publish Date</th>
-                  <th>Status</th>
-                  <th>Due Date &amp; Time</th>
-                  <th style="width: 400px;">Latest Update</th>
-                </tr>
-              </thead>
-              <tbody>
+          <div class="Flatcard shadow-1 mt-4">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table align-middle">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Project Title</th>
+                      <th>BOS ID</th>
+                      <th>Publish Date</th>
+                      <th>Status</th>
+                      <th>Due Date &amp; Time</th>
+                      <th style="width: 400px;">Latest Update</th>
+                    </tr>
+                  </thead>
+                  <tbody>
 
-                <tr>
-                  <td *ngIf="!projectList?.length" colspan="13">
-                    <app-no-record-found></app-no-record-found>
-                  </td>
-                </tr>
+                    <tr>
+                      <td *ngIf="!projectList?.length" colspan="13">
+                        <app-no-record-found></app-no-record-found>
+                      </td>
+                    </tr>
 
-                <tr
-                  *ngFor="let item of projectList |  paginate: { itemsPerPage: pagesize , currentPage: page, totalItems: totalRecords } ; let i = index">
-                  <td><a (click)="projectDetails(item?._id)" href="javascript:;">{{item?.projectName}}</a></td>
-                  <td v-align="middle">{{item?.BOSID}}</td>
-                  <td>{{item?.publishDate | date:'dd/MM/yyyy'}}</td>
-                  <td>{{item?.bidManagerStatus}}</td>
-                  <td>
-                    {{ item?.dueDate | date : "dd/MM/yyyy" }} ,
-                    {{ item.bidsubmissiontime }}
-                  </td>
-                  <td>
-                    <div class="drop-reason-container">
-                      <div [ngClass]="{'collapsed-text': !item.showFullReason && isDropReasonLong(item?.dropUser), 'expanded-text': item.showFullReason}">
-                        {{ getDropReasonForCurrentUser(item?.dropUser) || '-' }}
-                      </div>
-                      <div *ngIf="isDropReasonLong(item?.dropUser)">
-                        <button *ngIf="!item.showFullReason" class="btn btn-link text-primary" (click)="item.showFullReason = true">View More</button>
-                        <button *ngIf="item.showFullReason" class="btn btn-link text-primary" (click)="item.showFullReason = false">View Less</button>
-                      </div>
-                    </div>
-                  </td>
-                  <!-- <td>
-                    <a class="btn btn-primary btn-sm" style="cursor: pointer" data-bs-toggle="modal"
-                      data-bs-target="#viewAllProjects" (click)="showComments(item?.dropUser)">View
-                    </a>
-                  </td> -->
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="row mt-3 align-items-center">
-            <div class="row">
-              <div class="pagination">
-                <pagination-controls [idMaxSize]="100" (pageChange)="paginate($event)"></pagination-controls>
+                    <tr
+                      *ngFor="let item of projectList |  paginate: { itemsPerPage: pagesize , currentPage: page, totalItems: totalRecords } ; let i = index">
+                      <td><a (click)="projectDetails(item?._id)" href="javascript:;">{{item?.projectName}}</a></td>
+                      <td v-align="middle">{{item?.BOSID}}</td>
+                      <td>{{item?.publishDate | date:'dd/MM/yyyy'}}</td>
+                      <td>{{item?.bidManagerStatus}}</td>
+                      <td>
+                        {{ item?.dueDate | date : "dd/MM/yyyy" }} ,
+                        {{ item.bidsubmissiontime }}
+                      </td>
+                      <td>
+                        <div class="drop-reason-container">
+                          <div [ngClass]="{'collapsed-text': !item.showFullReason && isDropReasonLong(item?.dropUser), 'expanded-text': item.showFullReason}">
+                            {{ getDropReasonForCurrentUser(item?.dropUser) || '-' }}
+                          </div>
+                          <div *ngIf="isDropReasonLong(item?.dropUser)">
+                            <button *ngIf="!item.showFullReason" class="btn btn-link text-primary" (click)="item.showFullReason = true">View More</button>
+                            <button *ngIf="item.showFullReason" class="btn btn-link text-primary" (click)="item.showFullReason = false">View Less</button>
+                          </div>
+                        </div>
+                      </td>
+                      <!-- <td>
+                        <a class="btn btn-primary btn-sm" style="cursor: pointer" data-bs-toggle="modal"
+                          data-bs-target="#viewAllProjects" (click)="showComments(item?.dropUser)">View
+                        </a>
+                      </td> -->
+                    </tr>
+                  </tbody>
+                </table>
               </div>
+              <div class="row align-items-center">
+                  <div class="pagination">
+                    <pagination-controls [idMaxSize]="100" (pageChange)="paginate($event)"></pagination-controls>
+                  </div>
+                </div>
             </div>
           </div>
         </div>
