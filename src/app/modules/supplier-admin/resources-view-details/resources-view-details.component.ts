@@ -15,14 +15,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class ResourcesViewDetailsComponent {
   resourceName: string = '';
   resourceList: any[] = [];
-  filteredResourceList: any[] = [];
-  totalRecords: number = pagination.totalRecords;
-  page: number = pagination.page;
-  pagesize = pagination.itemsPerPage;
   viewDocs: any[] = [];
   showLoader: boolean = false;
-  files: any = [];
-  searchText: string = '';
   selectedResource: any = null;
 
   constructor(
@@ -34,9 +28,10 @@ export class ResourcesViewDetailsComponent {
     private spinner: NgxSpinnerService
   ) { }
 
-  ngOnInit(): void {
+    ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.resourceName = params['resourceName'];
+
       if (params['resourceList']) {
         try {
           this.resourceList = JSON.parse(params['resourceList']);
@@ -55,12 +50,12 @@ export class ResourcesViewDetailsComponent {
                 }
               }
             }
+
+            // Set viewDocs from resource documents
+            if (resource.documents && resource.documents.length > 0) {
+              this.viewDocs = resource.documents;
+            }
           });
-
-          this.filteredResourceList = [...this.resourceList];
-          this.totalRecords = this.resourceList.length;
-
-          console.log('Processed resource list:', this.resourceList);
         } catch (error) {
           console.error('Error parsing resource list:', error);
           this.resourceList = [];
@@ -69,18 +64,7 @@ export class ResourcesViewDetailsComponent {
     });
   }
 
-  searchResources() {
-    if (!this.searchText.trim()) {
-      this.filteredResourceList = [...this.resourceList];
-      return;
-    }
 
-    const searchTerm = this.searchText.toLowerCase().trim();
-    this.filteredResourceList = this.resourceList.filter(item =>
-      item.name?.toLowerCase().includes(searchTerm) ||
-      item.supplierCount?.toString().includes(searchTerm)
-    );
-  }
 
   viewDetails(resource: any): void {
     this.selectedResource = resource;

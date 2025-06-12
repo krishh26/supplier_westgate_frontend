@@ -129,31 +129,44 @@ export class RoleWiseResourcesListComponent {
   }
 
   viewCandidateDetails(candidate: any) {
-    console.log('Viewing candidate details:', candidate);
+    const resourceData = [{
+      name: candidate.fullName,
+      supplierCount: 1,
+      currentRoleData: candidate.currentRoleData || [],
+      roleId: candidate.roleId || [],
+      details: {
+        jobTitle: candidate.jobTitle,
+        experience: candidate.totalExperience,
+        qualification: candidate.highestQualification,
+        yearOfGraduation: candidate.yearOfGraduation,
+        gender: candidate.gender,
+        nationality: candidate.nationality,
+        technicalSkills: candidate.technicalSkills,
+        softSkills: candidate.softSkills || [],
+        languages: candidate.languagesKnown,
+        certifications: candidate.certifications || [],
+        previousEmployers: candidate.previousEmployers || [],
+        hourlyRate: candidate.hourlyRate,
+        workingHours: candidate.workingHoursPerWeek,
+        availableFrom: candidate.availableFrom,
+        active: candidate.active,
+        inactiveComment: candidate.inactiveComment,
+        inactiveDate: candidate.inactiveDate,
+        // Additional fields that might be displayed in details
+        ukDayRate: candidate.ukDayRate || 0,
+        ukHourlyRate: candidate.ukHourlyRate || 0,
+        indianDayRate: candidate.indianDayRate || 0,
+        ctc: candidate.ctc || 0,
+        projectsExecuted: candidate.projectsExecuted || 0,
+        statusDetails: candidate.statusDetails || 'N/A'
+      },
+      documents: candidate.documents || []
+    }];
 
     this.router.navigate(['/supplier-admin/resources-view-details'], {
       queryParams: {
         resourceName: candidate.fullName,
-        resourceList: JSON.stringify([{
-          name: candidate.fullName,
-          supplierCount: 1,
-          details: {
-            jobTitle: candidate.jobTitle,
-            experience: candidate.totalExperience,
-            qualification: candidate.highestQualification,
-            yearOfGraduation: candidate.yearOfGraduation,
-            gender: candidate.gender,
-            nationality: candidate.nationality,
-            technicalSkills: candidate.technicalSkills,
-            languages: candidate.languagesKnown,
-            hourlyRate: candidate.hourlyRate,
-            workingHours: candidate.workingHoursPerWeek,
-            availableFrom: candidate.availableFrom,
-            active: candidate.active,
-            inactiveComment: candidate.inactiveComment,
-            inactiveDate: candidate.inactiveDate
-          }
-        }])
+        resourceList: JSON.stringify(resourceData)
       }
     });
   }
