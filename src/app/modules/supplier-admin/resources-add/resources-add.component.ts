@@ -668,14 +668,10 @@ export class ResourcesAddComponent implements OnInit {
 
   // Fetch live exchange rate from API
   fetchExchangeRate() {
-    // Using ExchangeRate-API for live rates
-    // Free tier allows limited requests per month
-    const apiUrl = 'https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_n1aAXw7HKXT0Epyvzptrkg4cO2Q23FmFwgiewENj';
-
-    this.http.get(apiUrl).subscribe(
+    this.superService.getPoundRate().subscribe(
       (response: any) => {
-        if (response && response.rates && response.rates.INR) {
-          this.exchangeRate = parseFloat(response.rates.INR.toFixed(2)); // Keep 2 decimal places for precision
+        if (response && response.data) {
+          this.exchangeRate = parseFloat(response.data.toFixed(2)); // Keep 2 decimal places for precision
           console.log(`Live exchange rate loaded: 1 GBP = ${this.exchangeRate} INR (exact)`);
           this.notificationService.showSuccess(`Using current exchange rate: 1 GBP = ${this.exchangeRate} INR`);
 
@@ -686,7 +682,7 @@ export class ResourcesAddComponent implements OnInit {
           }
         }
       },
-      (error) => {
+      (error: Error) => {
         console.error('Error fetching exchange rate:', error);
         this.notificationService.showError(`Could not fetch live exchange rate. Using default rate: 1 GBP = ${this.exchangeRate} INR`);
       }
