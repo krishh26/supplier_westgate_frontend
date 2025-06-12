@@ -51,7 +51,7 @@
               <th>Experience</th>
               <th>Technical Skills</th>
               <th>Languages</th>
-              <th>Hourly Rate</th>
+              <th>Day Rate</th>
 
               <!-- <th>Available From</th> -->
               <th></th>
@@ -89,7 +89,7 @@
                   {{language}}{{!last ? ', ' : ''}}
                 </span>
               </td>
-              <td>${{candidate?.hourlyRate}}</td>
+              <td>£{{candidate?.ukDayRate}}</td>
               <!-- <td>{{candidate?.availableFrom | date: 'dd/MM/yyyy'}}</td> -->
               <!-- <td>
                 <button class="btn btn-sm btn-primary" (click)="viewCandidateDetails(candidate)"> <i
