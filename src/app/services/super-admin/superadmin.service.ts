@@ -657,7 +657,11 @@ export class SuperadminService {
       this.baseUrl + SuperAdminEndPoint.UPDATE_PUBLIC_USER + id, payload);
   }
 
-          registerInterest(payload: any): Observable<any> {
+  getPoundRate(): Observable<any> {
+    return this.httpClient.get<any>(`${this.baseUrl}/pound-rate`);
+  }
+
+  registerInterest(payload: any): Observable<any> {
     return this.httpClient.patch<any>(
       this.baseUrl + SuperAdminEndPoint.REGISTER_INTEREST + '/' + payload.projectId,
       { interested: true }
