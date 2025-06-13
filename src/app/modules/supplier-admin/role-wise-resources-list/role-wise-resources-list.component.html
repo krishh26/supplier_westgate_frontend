@@ -1,99 +1,100 @@
 <main id="main">
   <section class="casestudy-section pt-0">
     <div class="container-fluid" *ngIf="loginUser?.resourceSharingSupplier">
-       <div class="subnav-pills">
-         <ul class="nav nav-pills m-auto">            
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Resources List</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Payment & Billing</a>
-            </li>
-             <li class="nav-item">
-              <a class="nav-link" href="#">Reporting & Analytics</a>
-            </li>            
+      <div class="subnav-pills">
+        <ul class="nav nav-pills m-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Resources List</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Payment & Billing</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Reporting & Analytics</a>
+          </li>
         </ul>
-       </div>
+      </div>
+
       <div class="row">
         <div class="col-lg-5 col-xl-5 col-md-12 col-sm-12 col-12">
-          <div class="card total-invoice-card"> 
+          <div class="card total-invoice-card">
             <div class="card-body">
               <p class="p-18 p-600 mb-7">Total Overview</p>
               <p class="counter-text mb-3">$124,306.00</p>
               <span class="white-badge">
                 <i class="bi bi-caret-up-fill"></i> +20% / <span class="text-muted">month</span>
               </span>
-          </div>
+            </div>
           </div>
         </div>
         <div class="col-lg-7 col-xl-7 col-md-12 col-sm-12 col-12">
           <div class="row">
             <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-12">
-              <div class="card mb-2"> 
+              <div class="card mb-2">
                 <div class="card-body">
                   <p>Paid</p>
                   <div class="row align-items-center">
                     <div class="col-6">
-                       <p class="counter-text2">$124,306.00</p>
+                      <p class="counter-text2">$124,306.00</p>
                     </div>
                     <div class="col-6 text-end">
-                       <span class="white-badge">
-                        + 82%  <span class="text-muted">Progress</span>
+                      <span class="white-badge">
+                        + 82% <span class="text-muted">Progress</span>
                       </span>
                     </div>
-                  </div>  
-              </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-12">
-              <div class="card mb-2"> 
+              <div class="card mb-2">
                 <div class="card-body">
                   <p>Unpaid</p>
                   <div class="row align-items-center">
                     <div class="col-6">
-                       <p class="counter-text2">$124,306.00</p>
+                      <p class="counter-text2">$124,306.00</p>
                     </div>
                     <div class="col-6 text-end">
-                       <span class="white-badge">
-                        <span class="text-danger">-15% </span>  <span class="text-muted">Progress</span>
+                      <span class="white-badge">
+                        <span class="text-danger">-15% </span> <span class="text-muted">Progress</span>
                       </span>
                     </div>
-                  </div>  
-              </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-12">
-              <div class="card mb-2"> 
+              <div class="card mb-2">
                 <div class="card-body">
                   <p>Pending</p>
                   <div class="row align-items-center">
                     <div class="col-6">
-                       <p class="counter-text2">$124,306.00</p>
+                      <p class="counter-text2">$124,306.00</p>
                     </div>
                     <div class="col-6 text-end">
-                       <span class="white-badge">
-                        + 82%  <span class="text-muted">Progress</span>
+                      <span class="white-badge">
+                        + 82% <span class="text-muted">Progress</span>
                       </span>
                     </div>
-                  </div>  
-              </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-12">
-              <div class="card"> 
+              <div class="card">
                 <div class="card-body">
                   <p>On-Hold</p>
                   <div class="row align-items-center">
                     <div class="col-6">
-                       <p class="counter-text2">$0</p>
+                      <p class="counter-text2">$0</p>
                     </div>
                     <div class="col-6 text-end">
-                       <span class="white-badge">
-                        + 82%  <span class="text-muted">Progress</span>
+                      <span class="white-badge">
+                        + 82% <span class="text-muted">Progress</span>
                       </span>
                     </div>
-                  </div>  
-              </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -101,38 +102,25 @@
       </div>
       <div class="spacer-1"></div>
 
-      <div class="row">
-        <div class="row align-items-center justify-content-between">
-          <div class="col-lg-6 col-xl-5 col-md-5 col-sm-6 col-12 mob-mb1">
-            <h4 class="text-theme">Resources List</h4>
+      <div class="row align-items-center justify-content-between">
+        <div class="col-lg-6 col-xl-5 col-md-5 col-sm-6 col-12 mob-mb1">
+          <h4 class="text-theme">Resources List</h4>
+        </div>
+        <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12 mob-mb1">
+          <div class="form-group mb-0 mob-mb1">
+            <select class="form-select" [(ngModel)]="selectedRole" (change)="onRoleChange()">
+              <option value="">Roles FIlter</option>
+              <option *ngFor="let role of rolesList" [value]="role.name">{{ role.name }}</option>
+            </select>
           </div>
-          <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12 mob-mb1">
-            <div class="form-group mb-0 mob-mb1">
-              <select class="form-select" [(ngModel)]="selectedRole" (change)="onRoleChange()">
-                <option value="">Roles FIlter</option>
-                <option *ngFor="let role of rolesList" [value]="role.name">{{ role.name }}</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-lg-2 col-xl-2 col-md-3 col-sm-3 col-12 text-end">
-            <button class="btn btn-primary mob-w-100" routerLink="/supplier-admin/add-resource">
-              Add Resource
-            </button>
-          </div>
-          <!-- <div class="col-lg-2 col-xl-2 col-md-2 col-sm-2 col-4">
-            <button class="btn btn-primary btn-sm" routerLink="/supplier-admin/roles-list">
-              <i class="bi bi-person-badge"></i> Roles
-            </button>
-          </div> -->
+        </div>
+        <div class="col-lg-2 col-xl-2 col-md-3 col-sm-3 col-12 text-end">
+          <button class="btn btn-primary mob-w-100" routerLink="/supplier-admin/add-resource">
+            Add Resource
+          </button>
         </div>
       </div>
-      <!-- <div class="d-flex align-items-center flex-grow-1">
-        <div class="form-group mb-0 flex-grow-1">
-          <span class="input-icon"><i class="bi bi-search"></i></span>
-          <input class="form-control control-search" placeholder="Search roles" type="text" [(ngModel)]="searchText"
-            (input)="searchtext()" />
-        </div>
-      </div> -->
+
       <!-- Loading spinner -->
       <div *ngIf="loading" class="text-center py-5">
         <div class="spinner-border text-primary" role="status">
@@ -153,27 +141,26 @@
               <th>Languages</th>
               <th>Day Rate</th>
 
-                    <!-- <th>Available From</th> -->
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-
-                  <tr>
-                    <td *ngIf="!candidatesList?.length" colspan="13">
-                      <app-no-record-found></app-no-record-found>
-                    </td>
-                  </tr>
-
+              <!-- <th>Available From</th> -->
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td *ngIf="!candidatesList?.length" colspan="13">
+                <app-no-record-found></app-no-record-found>
+              </td>
+            </tr>
             <tr
               *ngFor="let candidate of candidatesList | paginate: { itemsPerPage: pagesize, currentPage: page, totalItems: totalRecords }; let i = index">
-              <td><a href="javascript:void(0)" (click)="viewCandidateDetails(candidate)">{{candidate?.fullName}}</a></td>
+              <td><a href="javascript:void(0)" (click)="viewCandidateDetails(candidate)">{{candidate?.fullName}}</a>
+              </td>
               <td>
                 <span *ngFor="let role of candidate?.currentRoleData" class="badge bg-primary me-1">
                   {{role.name}}
                 </span>
               </td>
-                            <td>
+              <td>
                 <span *ngFor="let role of getICanBeRoles(candidate)" class="badge bg-secondary me-1">
                   {{role.name}}
                 </span>
@@ -195,7 +182,7 @@
                 <button class="btn btn-sm btn-primary" (click)="viewCandidateDetails(candidate)"> <i
                     class="bi bi-eye"></i> View</button>
               </td> -->
-               <td>
+              <td>
                 <div class="d-flex align-items-center">
                   <span class="badge" [ngClass]="candidate.active ? 'bg-success' : 'bg-danger'">
                     {{candidate.active ? 'Benched' : 'InActive'}}
@@ -205,16 +192,18 @@
                     <span class="slider round"></span>
                   </label>
                 </div>
-              </div>
-            </div>
+              </td>
+            </tr>
+
             <div *ngIf="!loading && (!candidatesList || candidatesList.length === 0)" class="text-center">
               <p>No candidates found.</p>
             </div>
-          </div>
-        </div>
-  <!-- // Roles table -->
-  
+          </tbody>
+        </table>
+        <!-- // Roles table -->
+      </div>
     </div>
+
     <div class="container-fluid" *ngIf="!loginUser?.resourceSharingSupplier">
       <div class="card">
         <div class="card-body">
@@ -224,15 +213,20 @@
               Got Bench Resources? Earn 3X Their CTC Working for UK Clients!
             </p>
 
-            <p>Do you have skilled professionals sitting idle or on the bench? Don't let that potential go to waste — upload their profiles to our portal and unlock global opportunities.</p>
+            <p>Do you have skilled professionals sitting idle or on the bench? Don't let that potential go to waste
+              —
+              upload their profiles to our portal and unlock global opportunities.</p>
             <p>
-              We are actively hiring bench or idle resources to work on projects for top-tier UK clients. This means:
+              We are actively hiring bench or idle resources to work on projects for top-tier UK clients. This
+              means:
             </p>
             <p>💷 Resources will be billed in GBP (Pounds)</p>
             <p>💼 You can earn up to 3x their current CTC</p>
             <p>🚀 Immediate deployment opportunities</p>
             <p>🔁 Flexible engagement models (contract-to-hire, short-term, long-term)</p>
-            <p>Whether you're managing software engineers, QA experts, DevOps, data analysts, or project managers — if they're ready to be deployed, we're ready to connect them to high-paying opportunities abroad.</p>
+            <p>Whether you're managing software engineers, QA experts, DevOps, data analysts, or project managers —
+              if
+              they're ready to be deployed, we're ready to connect them to high-paying opportunities abroad.</p>
             <p>Why keep your bench idle when they can be earning in pounds?</p>
             <p>📤 Upload their profiles today and turn downtime into serious revenue.</p>
             <p>👉 Contact us now</p>
@@ -240,5 +234,6 @@
         </div>
       </div>
     </div>
+
   </section>
 </main>

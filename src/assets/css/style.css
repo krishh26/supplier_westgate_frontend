@@ -121,7 +121,8 @@ h6 {
 .p-22 {
   font-size: 22px !important;
 }
-.p-600{
+
+.p-600 {
   font-weight: 600;
 }
 
@@ -189,12 +190,14 @@ h6 {
 .mb-2 {
   margin-bottom: 0.5rem !important;
 }
-.spacer-1{
+
+.spacer-1 {
   display: block;
   height: 30px;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/
@@ -1259,36 +1262,44 @@ Card Styling
 .border-radius16 {
   border-radius: 16px;
 }
-.Flatcard{
-    background-color:#FFF;
-    border-radius:  0.625rem;
-    overflow: hidden;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+
+.Flatcard {
+  background-color: #FFF;
+  border-radius: 0.625rem;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   padding: 0px;
 }
-.bg-light-orange{
+
+.bg-light-orange {
   background-color: #fee4cb !important;
 }
-.bg-light-levendar{
+
+.bg-light-levendar {
   background-color: #e9e7fd !important;
 }
-.bg-light-seablue{
+
+.bg-light-seablue {
   background-color: #dbf6fd !important;
 }
-.bg-light-pink{
+
+.bg-light-pink {
   background-color: #ffd3e2 !important;
 }
-.bg-light-green{
+
+.bg-light-green {
   background-color: #c8f7dc !important;
 }
-.counter-text{
+
+.counter-text {
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 0px;
 }
+
 /*----------------------------------------
 Projects Nav Tabs
 ------------------------------------------*/
@@ -1535,15 +1546,69 @@ Chat Page
 }
 
 .bg-success {
-    background-color: #C9F8E0 !important;
-    color: #329068 !important;   
+  background-color: #C9F8E0 !important;
+  color: #329068 !important;
 }
+
+/*=========================================
+Mobile Navigation code
+==========================================*/
+ul.offcanvas-nav {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+ul.offcanvas-nav li {
+  display: block;
+  list-style-type: none;
+}
+
+ul.offcanvas-nav li a {
+  display: block;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  color: #000;
+}
+
+ul.offcanvas-nav li a:hover,
+ul.offcanvas-nav li a.active {
+  background-color: #eff8ff;
+  color: #0077DC;
+}
+
+.dropdown-divider {
+  height: 0;
+  margin: .5rem 0 !important;
+  overflow: hidden;
+  border-top: 1px dotted #cfd5da !important;
+}
+
+.mobile-menunav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #000;
+  z-index: 999;
+}
+
+@media (max-width: 991px) {
+  .mobile-menunav-toggle {
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+  }
+}
+
 
 /*==========================================
 Media Query CSS
 ==========================================*/
 @media (min-width: 768px) and (max-width: 1024px) {
-  .mb-0{
+  .mb-0 {
     margin-bottom: 0px;
   }
 }
@@ -1633,7 +1698,8 @@ Media Query CSS
   .mob-mb1 {
     margin-bottom: 1rem;
   }
-  .mob-mb2{
+
+  .mob-mb2 {
     margin-bottom: 2rem;
   }
 
@@ -1985,17 +2051,21 @@ Media Query CSS
   .notificationDropdown-box {
     right: -90px;
   }
-  ul.projects-nav-tab{
+
+  ul.projects-nav-tab {
     display: block;
     padding: 15px;
   }
-  ul.projects-nav-tab li{
+
+  ul.projects-nav-tab li {
     display: block;
   }
-  ul.projects-nav-tab li a.active{
+
+  ul.projects-nav-tab li a.active {
     border-radius: 100px;
   }
-  .mob-w-100{
+
+  .mob-w-100 {
     width: 100%;
   }
 }

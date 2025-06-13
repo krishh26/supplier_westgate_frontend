@@ -104,7 +104,13 @@ ul.ProjectdetailsListview li p.text-muted {
   font-weight: 600;
   color: #F5F5F5 !important;
 }
-
+.badge-status{
+  background-color: #FFF;
+  padding: 5px 15px;
+  border-radius: 100px;
+  color:#e78963 ;
+  font-weight: 500;
+}
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .sticky-footer {

@@ -5,68 +5,162 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: #3cb2f1; /* Adjust background color as desired */
+  background-color: #3cb2f1;
+  /* Adjust background color as desired */
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-decoration: none; /* Remove underline from anchor tag */
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow effect */
-  transition: all 0.2s ease-in-out; /* Add smooth hover effect (optional) */
+  text-decoration: none;
+  /* Remove underline from anchor tag */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  /* Optional shadow effect */
+  transition: all 0.2s ease-in-out;
+  /* Add smooth hover effect (optional) */
 }
 
 #chat-button:hover {
-  background-color: #3e8e41; /* Adjust hover color as desired */
+  background-color: #3e8e41;
+  /* Adjust hover color as desired */
   cursor: pointer;
 }
 
 #chat-button a {
-  color: inherit; /* Inherit color from parent element */
+  color: inherit;
+  /* Inherit color from parent element */
 }
 
 #chat-button i {
-  font-size: 20px; /* Adjust icon size as desired */
+  font-size: 20px;
+  /* Adjust icon size as desired */
 }
-.card{
+
+.card {
   border: none;
   position: relative;
 }
 
 .card-header {
-    padding: .5rem 1rem;
-    margin-bottom: 0;
-    background-color: rgba(0, 0, 0, .03);
-    border-bottom: 1px solid rgba(0, 0, 0, .125);
+  padding: .5rem 1rem;
+  margin-bottom: 0;
+  background-color: rgba(0, 0, 0, .03);
+  border-bottom: 1px solid rgba(0, 0, 0, .125);
 }
-.card-body{
+
+.card-body {
   padding: 2rem;
 }
-.card-icon{
+
+.card-icon {
   position: absolute;
-  right:40px;
+  right: 40px;
   top: 25%;
 }
-.card-icon img{
+
+.card-icon img {
   width: 84px;
 }
 
-@media (min-width: 320px) and (max-width: 767px){
-.card-icon{
-  position: absolute;
-  right:20px;
-  top: 40%;
+@media (min-width: 320px) and (max-width: 767px) {
+  .card-icon {
+    position: absolute;
+    right: 20px;
+    top: 40%;
+  }
+
+  .card-icon img {
+    width: 54px;
+  }
 }
-.card-icon img{
-  width: 54px;
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .card-icon {
+    position: absolute;
+    right: 20px;
+    top: 40%;
+  }
+
+  .card-icon img {
+    width: 54px;
+  }
 }
+
+
+
+//Mobile navbar menu
+
+/* navbar hide on scroll down */
+.nav-up {
+  top: -80px;
 }
-@media (min-width: 768px) and (max-width: 1024px){
-.card-icon{
-  position: absolute;
-  right:20px;
-  top: 40%;
+
+.navbar {
+  transition: top 0.4s ease-in-out;
 }
-.card-icon img{
-  width: 54px;
+
+.sidebar,
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
 }
+
+.sidebar {
+  left: -100%;
+  max-width: 300px;
+  transition: all ease 0.25s;
+  overflow-y: auto;
+  z-index: 1032;
+}
+
+.overlay {
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.50);
+  visibility: hidden;
+  z-index: 1031;
+}
+
+.main-navigation.active .sidebar {
+  left: 0;
+}
+
+.main-navigation.active .overlay {
+  visibility: visible;
+}
+
+@media (min-width: 992px) {
+  .sidebar {
+    position: relative;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    flex-direction: row;
+    max-width: 100%;
+    transform: none;
+    transition: none;
+    overflow-y: visible;
+    z-index: auto;
+  }
+
+}
+
+.main-heading {
+  position: relative;
+  z-index: 100;
+}
+
+@media (max-width: 991.98px) {
+  .navbar-nav {
+    padding-top: 5rem;
+    padding-left: 1.5rem;
+  }
+}
+
+@media (min-width: 1084px) {
+  .order-lg-2 svg {
+    display: none;
+  }
 }
