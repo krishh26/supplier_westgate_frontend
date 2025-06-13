@@ -121,6 +121,9 @@ h6 {
 .p-22 {
   font-size: 22px !important;
 }
+.p-600{
+  font-weight: 600;
+}
 
 .Heading-h1 {
   font-size: 64px;
@@ -186,7 +189,12 @@ h6 {
 .mb-2 {
   margin-bottom: 0.5rem !important;
 }
-
+.spacer-1{
+  display: block;
+  height: 30px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/
@@ -1155,13 +1163,13 @@ Table CSS
 }
 
 .table>thead th {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   vertical-align: middle;
 }
 
 .table>tbody td {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .table-striped>tbody>tr:nth-of-type(odd)>* {
@@ -1526,9 +1534,19 @@ Chat Page
   display: none;
 }
 
+.bg-success {
+    background-color: #C9F8E0 !important;
+    color: #329068 !important;   
+}
+
 /*==========================================
 Media Query CSS
 ==========================================*/
+@media (min-width: 768px) and (max-width: 1024px) {
+  .mb-0{
+    margin-bottom: 0px;
+  }
+}
 
 @media (max-width: 768px) {
 
@@ -1957,7 +1975,7 @@ Media Query CSS
   }
 
   #header .logo img {
-    max-height: 150px !important;
+    max-height: 50px !important;
   }
 
   .navbar .dropdown ul {
@@ -1976,5 +1994,8 @@ Media Query CSS
   }
   ul.projects-nav-tab li a.active{
     border-radius: 100px;
+  }
+  .mob-w-100{
+    width: 100%;
   }
 }

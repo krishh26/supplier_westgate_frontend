@@ -58,9 +58,57 @@
   }
 }
 
+.project-details-card {
+  background-color: #FE9E78;
+  border-radius: 8px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  position: relative;
+  margin-bottom: 15px;
+  color: #FFF;
+}
+.project-details-card .card-body{
+  padding: 2rem;
+}
+.project-title{
+  background-color: #e78963;
+  color: #FFF;
+  padding: 0.75rem;
+  width: fit-content;
+  border-radius: 6px;
+  font-size: 22px;
+}
+
+ul.ProjectdetailsListview {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+ul.ProjectdetailsListview li {
+  list-style-type: none;
+  display: block;
+  border-bottom: 1px dashed #ffdbcc;
+  padding: 10px 0px;
+}
+
+ul.ProjectdetailsListview li:last-child {
+  border-bottom: none;
+  padding-bottom: 0px;
+}
+
+ul.ProjectdetailsListview li p {
+  margin-bottom: 0px;
+}
+
+ul.ProjectdetailsListview li p.text-muted {
+  font-weight: 600;
+  color: #F5F5F5 !important;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .sticky-footer {
+
     .col-md-8,
     .col-md-4 {
       text-align: center !important;

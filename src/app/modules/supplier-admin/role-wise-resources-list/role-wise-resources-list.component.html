@@ -1,21 +1,121 @@
 <main id="main">
-  <section class="casestudy-section">
+  <section class="casestudy-section pt-0">
     <div class="container-fluid" *ngIf="loginUser?.resourceSharingSupplier">
+       <div class="subnav-pills">
+         <ul class="nav nav-pills m-auto">            
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Resources List</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Payment & Billing</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" href="#">Reporting & Analytics</a>
+            </li>            
+        </ul>
+       </div>
+      <div class="row">
+        <div class="col-lg-5 col-xl-5 col-md-12 col-sm-12 col-12">
+          <div class="card total-invoice-card"> 
+            <div class="card-body">
+              <p class="p-18 p-600 mb-7">Total Overview</p>
+              <p class="counter-text mb-3">$124,306.00</p>
+              <span class="white-badge">
+                <i class="bi bi-caret-up-fill"></i> +20% / <span class="text-muted">month</span>
+              </span>
+          </div>
+          </div>
+        </div>
+        <div class="col-lg-7 col-xl-7 col-md-12 col-sm-12 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-12">
+              <div class="card mb-2"> 
+                <div class="card-body">
+                  <p>Paid</p>
+                  <div class="row align-items-center">
+                    <div class="col-6">
+                       <p class="counter-text2">$124,306.00</p>
+                    </div>
+                    <div class="col-6 text-end">
+                       <span class="white-badge">
+                        + 82%  <span class="text-muted">Progress</span>
+                      </span>
+                    </div>
+                  </div>  
+              </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-12">
+              <div class="card mb-2"> 
+                <div class="card-body">
+                  <p>Unpaid</p>
+                  <div class="row align-items-center">
+                    <div class="col-6">
+                       <p class="counter-text2">$124,306.00</p>
+                    </div>
+                    <div class="col-6 text-end">
+                       <span class="white-badge">
+                        <span class="text-danger">-15% </span>  <span class="text-muted">Progress</span>
+                      </span>
+                    </div>
+                  </div>  
+              </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-12">
+              <div class="card mb-2"> 
+                <div class="card-body">
+                  <p>Pending</p>
+                  <div class="row align-items-center">
+                    <div class="col-6">
+                       <p class="counter-text2">$124,306.00</p>
+                    </div>
+                    <div class="col-6 text-end">
+                       <span class="white-badge">
+                        + 82%  <span class="text-muted">Progress</span>
+                      </span>
+                    </div>
+                  </div>  
+              </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-12">
+              <div class="card"> 
+                <div class="card-body">
+                  <p>On-Hold</p>
+                  <div class="row align-items-center">
+                    <div class="col-6">
+                       <p class="counter-text2">$0</p>
+                    </div>
+                    <div class="col-6 text-end">
+                       <span class="white-badge">
+                        + 82%  <span class="text-muted">Progress</span>
+                      </span>
+                    </div>
+                  </div>  
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="spacer-1"></div>
+
       <div class="row">
         <div class="row align-items-center justify-content-between">
-          <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-6">
-            <h4 class="text-theme mb-4">Resources List</h4>
+          <div class="col-lg-6 col-xl-5 col-md-5 col-sm-6 col-12 mob-mb1">
+            <h4 class="text-theme">Resources List</h4>
           </div>
-          <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-6">
-            <div class="form-group">
+          <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12 mob-mb1">
+            <div class="form-group mb-0 mob-mb1">
               <select class="form-select" [(ngModel)]="selectedRole" (change)="onRoleChange()">
                 <option value="">Roles FIlter</option>
                 <option *ngFor="let role of rolesList" [value]="role.name">{{ role.name }}</option>
               </select>
             </div>
           </div>
-          <div class="col-lg-2 col-xl-2 col-md-2 col-sm-2 col-6">
-            <button class="btn btn-primary btn-sm" routerLink="/supplier-admin/add-resource">
+          <div class="col-lg-2 col-xl-2 col-md-3 col-sm-3 col-12 text-end">
+            <button class="btn btn-primary mob-w-100" routerLink="/supplier-admin/add-resource">
               Add Resource
             </button>
           </div>
@@ -41,88 +141,92 @@
       </div>
 
       <!-- Roles table -->
-      <div class="table-responsive">
-        <table class="table table-striped align-middle">
-          <thead>
-            <tr>
-              <th>Full Name</th>
-              <th>Roles</th>
-              <th>I Can Be</th>
-              <th>Experience</th>
-              <th>Technical Skills</th>
-              <th>Languages</th>
-              <th>Hourly Rate</th>
+        <div class="Flatcard shadow-1 mt-4">         
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-striped align-middle">
+                <thead class="table-light">
+                  <tr>
+                    <th>Full Name</th>
+                    <th>Roles</th>
+                    <th>I Can Be</th>
+                    <th>Experience</th>
+                    <th>Technical Skills</th>
+                    <th>Languages</th>
+                    <th>Hourly Rate</th>
 
-              <!-- <th>Available From</th> -->
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
+                    <!-- <th>Available From</th> -->
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
 
-            <tr>
-              <td *ngIf="!candidatesList?.length" colspan="13">
-                <app-no-record-found></app-no-record-found>
-              </td>
-            </tr>
+                  <tr>
+                    <td *ngIf="!candidatesList?.length" colspan="13">
+                      <app-no-record-found></app-no-record-found>
+                    </td>
+                  </tr>
 
-            <tr
-              *ngFor="let candidate of candidatesList | paginate: { itemsPerPage: pagesize, currentPage: page, totalItems: totalRecords }; let i = index">
-              <td><a href="javascript:void(0)" (click)="viewCandidateDetails(candidate)">{{candidate?.fullName}}</a></td>
-              <td>
-                <span *ngFor="let role of candidate?.currentRoleData" class="badge bg-primary me-1">
-                  {{role.name}}
-                </span>
-              </td>
-                            <td>
-                <span *ngFor="let role of getICanBeRoles(candidate)" class="badge bg-secondary me-1">
-                  {{role.name}}
-                </span>
-              </td>
-              <td>{{candidate?.totalExperience}} years</td>
-              <td>
-                <span *ngFor="let skill of candidate?.technicalSkills; let last = last">
-                  {{skill}}{{!last ? ', ' : ''}}
-                </span>
-              </td>
-              <td>
-                <span *ngFor="let language of candidate?.languagesKnown; let last = last">
-                  {{language}}{{!last ? ', ' : ''}}
-                </span>
-              </td>
-              <td>${{candidate?.hourlyRate}}</td>
-              <!-- <td>{{candidate?.availableFrom | date: 'dd/MM/yyyy'}}</td> -->
-              <!-- <td>
-                <button class="btn btn-sm btn-primary" (click)="viewCandidateDetails(candidate)"> <i
-                    class="bi bi-eye"></i> View</button>
-              </td> -->
-               <td>
-                <div class="d-flex align-items-center">
-                  <span class="badge" [ngClass]="candidate.active ? 'bg-success' : 'bg-danger'">
-                    {{candidate.active ? 'Benched' : 'InActive'}}
-                  </span>
-                  <label class="switch me-2">
-                    <input type="checkbox" [(ngModel)]="candidate.active" (ngModelChange)="onToggleSwitch(candidate)">
-                    <span class="slider round"></span>
-                  </label>
+                  <tr
+                    *ngFor="let candidate of candidatesList | paginate: { itemsPerPage: pagesize, currentPage: page, totalItems: totalRecords }; let i = index">
+                    <td><a href="javascript:void(0)" (click)="viewCandidateDetails(candidate)">{{candidate?.fullName}}</a></td>
+                    <td>
+                      <span *ngFor="let role of candidate?.currentRoleData" class="badge bg-primary me-1">
+                        {{role.name}}
+                      </span>
+                    </td>
+                                  <td>
+                      <span *ngFor="let role of getICanBeRoles(candidate)" class="badge bg-secondary me-1">
+                        {{role.name}}
+                      </span>
+                    </td>
+                    <td>{{candidate?.totalExperience}} years</td>
+                    <td>
+                      <span *ngFor="let skill of candidate?.technicalSkills; let last = last">
+                        {{skill}}{{!last ? ', ' : ''}}
+                      </span>
+                    </td>
+                    <td>
+                      <span *ngFor="let language of candidate?.languagesKnown; let last = last">
+                        {{language}}{{!last ? ', ' : ''}}
+                      </span>
+                    </td>
+                    <td>${{candidate?.hourlyRate}}</td>
+                    <!-- <td>{{candidate?.availableFrom | date: 'dd/MM/yyyy'}}</td> -->
+                    <!-- <td>
+                      <button class="btn btn-sm btn-primary" (click)="viewCandidateDetails(candidate)"> <i
+                          class="bi bi-eye"></i> View</button>
+                    </td> -->
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <span class="badge" [ngClass]="candidate.active ? 'bg-success' : 'bg-danger'">
+                          {{candidate.active ? 'Benched' : 'InActive'}}
+                        </span>
+                        <label class="switch me-2">
+                          <input type="checkbox" [(ngModel)]="candidate.active" (ngModelChange)="onToggleSwitch(candidate)">
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+                <!-- Add pagination controls -->
+            <div class="row mt-3 align-items-center">
+              <div class="row">
+                <div class="pagination">
+                  <pagination-controls [idMaxSize]="100" (pageChange)="paginate($event)"></pagination-controls>
                 </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Add pagination controls -->
-      <div class="row mt-3 align-items-center">
-        <div class="row">
-          <div class="pagination">
-            <pagination-controls [idMaxSize]="100" (pageChange)="paginate($event)"></pagination-controls>
+              </div>
+            </div>
+            <div *ngIf="!loading && (!candidatesList || candidatesList.length === 0)" class="text-center">
+              <p>No candidates found.</p>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div *ngIf="!loading && (!candidatesList || candidatesList.length === 0)" class="text-center">
-        <p>No candidates found.</p>
-      </div>
+  <!-- // Roles table -->
+  
     </div>
     <div class="container-fluid" *ngIf="!loginUser?.resourceSharingSupplier">
       <div class="card">

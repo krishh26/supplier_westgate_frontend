@@ -1,7 +1,7 @@
 <main id="main">
   <section class="pb-0" style="padding-top: 10px !important;">
     <div class="container-fluid text-center">
-      <p style="text-align: center; font-weight: bold;">"We expect our suppliers to upload their case studies,
+      <p style="text-align: center; font-weight: bold;">"adfsdf We expect our suppliers to upload their case studies,
         because
         the projects will be matched according to the case studies. So, having more case studies will help you
         get
@@ -42,69 +42,72 @@
             </div>
           </div>
           <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 col-12">
-            <div class="table-responsive mt-5 mb-3">
-              <table class="table table-striped align-middle">
-                <thead>
-                  <tr>
-                    <th width="100px">Project Name</th>
-                    <th width="300px">Description</th>
-                    <th>Industry</th>
-                    <th>Type</th>
-                    <th>Start Date</th>
+            <div class="Flatcard shadow-1 mt-4 border">
+              <div class="card-body">
+                 <div class="table-responsive">
+                  <table class="table table-striped align-middle">
+                    <thead class="table-light">
+                      <tr>
+                        <th width="100px">Project Name</th>
+                        <th width="300px">Description</th>
+                        <th>Industry</th>
+                        <th>Type</th>
+                        <th>Start Date</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
 
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
+                      <tr>
+                        <td *ngIf="!caseStudyList?.length" colspan="13">
+                          <app-no-record-found></app-no-record-found>
+                        </td>
+                      </tr>
 
-                  <tr>
-                    <td *ngIf="!caseStudyList?.length" colspan="13">
-                      <app-no-record-found></app-no-record-found>
-                    </td>
-                  </tr>
+                      <tr
+                        *ngFor="let item of caseStudyList |  paginate: { itemsPerPage: pagesize , currentPage: page, totalItems: totalRecords } ; let i = index">
+                        <td style="max-width: 300px; width: 300px;">{{item?.name}}</td>
+                        <td style="max-width: 600px; width: 600px;">
+                          <div class="description-container">
+                            <div [ngClass]="{'collapsed-text': !item.showFullDescription && isDescriptionLong(item?.description), 'expanded-text': item.showFullDescription}">
+                              {{ item?.description || '-' }}
+                            </div>
+                            <div *ngIf="isDescriptionLong(item?.description)">
+                              <button *ngIf="!item.showFullDescription" class="btn btn-link text-primary" (click)="item.showFullDescription = true">View More</button>
+                              <button *ngIf="item.showFullDescription" class="btn btn-link text-primary" (click)="item.showFullDescription = false">View Less</button>
+                            </div>
+                          </div>
+                        </td>
+                        <td>{{item?.industry}}</td>
+                        <td>{{item?.type}}</td>
+                        <td>{{item?.date | date:'dd/MM/yyyy'}}</td>
 
-                  <tr
-                    *ngFor="let item of caseStudyList |  paginate: { itemsPerPage: pagesize , currentPage: page, totalItems: totalRecords } ; let i = index">
-                    <td style="max-width: 300px; width: 300px;">{{item?.name}}</td>
-                    <td style="max-width: 600px; width: 600px;">
-                      <div class="description-container">
-                        <div [ngClass]="{'collapsed-text': !item.showFullDescription && isDescriptionLong(item?.description), 'expanded-text': item.showFullDescription}">
-                          {{ item?.description || '-' }}
-                        </div>
-                        <div *ngIf="isDescriptionLong(item?.description)">
-                          <button *ngIf="!item.showFullDescription" class="btn btn-link text-primary" (click)="item.showFullDescription = true">View More</button>
-                          <button *ngIf="item.showFullDescription" class="btn btn-link text-primary" (click)="item.showFullDescription = false">View Less</button>
-                        </div>
-                      </div>
-                    </td>
-                    <td>{{item?.industry}}</td>
-                    <td>{{item?.type}}</td>
-                    <td>{{item?.date | date:'dd/MM/yyyy'}}</td>
-
-                    <td>
-                      <div class="d-flex gap-2">
-                        <button class="btn btn-sm btn-primary" (click)="viewCaseStudyDetails(item)" title="View Details">
-                          <i class="bi bi-eye"></i> View
-                        </button>
-                        <a class="btn btn-primary btn-sm" style="cursor: pointer;"
-                            routerLink="/supplier-admin/add-casestudy" [state]="{ caseStudy: item, isEdit: true }">
-                          <i class="bi bi-pencil-fill"></i>
-                        </a>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                        <td>
+                          <div class="d-flex gap-2">
+                            <button class="btn btn-sm btn-primary" (click)="viewCaseStudyDetails(item)" title="View Details">
+                              <i class="bi bi-eye"></i> View
+                            </button>
+                            <a class="btn btn-primary btn-sm" style="cursor: pointer;"
+                                routerLink="/supplier-admin/add-casestudy" [state]="{ caseStudy: item, isEdit: true }">
+                              <i class="bi bi-pencil-fill"></i>
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="row mt-3 align-items-center">
+                  <div class="row">
+                    <div class="pagination">
+                      <pagination-controls [idMaxSize]="100" (pageChange)="paginate($event)"></pagination-controls>
+                    </div>
+                  </div>
+              </div>
+              </div>
+            </div>           
           </div>
-        </div>
-        <div class="row mt-3 align-items-center">
-          <div class="row">
-            <div class="pagination">
-              <pagination-controls [idMaxSize]="100" (pageChange)="paginate($event)"></pagination-controls>
-            </div>
-          </div>
-        </div>
+        </div>        
       </div>
     </div>
   </section>
