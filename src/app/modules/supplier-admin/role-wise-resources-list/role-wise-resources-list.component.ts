@@ -9,13 +9,14 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { pagination } from 'src/app/utility/shared/constant/pagination.constant';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { SupplierCommentModalComponent } from '../supplier-comment-modal/supplier-comment-modal.component';
+
 @Component({
   selector: 'app-role-wise-resources-list',
   templateUrl: './role-wise-resources-list.component.html',
   styleUrls: ['./role-wise-resources-list.component.scss']
 })
 export class RoleWiseResourcesListComponent {
-
+  activeTab: string = 'resources'; // Default active tab
   resourcesList: any = [];
   candidatesList: any = [];
   page: number = pagination.page;
@@ -37,7 +38,7 @@ export class RoleWiseResourcesListComponent {
     private localStorageService: LocalStorageService
   ) {
     this.loginUser = this.localStorageService.getLogger();
-   }
+  }
 
   ngOnInit() {
     const storedData = localStorage.getItem("supplierData");
@@ -279,4 +280,7 @@ export class RoleWiseResourcesListComponent {
     return candidate.roleId.filter((role: any) => !currentRoleIds.includes(role._id));
   }
 
+  switchTab(tab: string) {
+    this.activeTab = tab;
+  }
 }
