@@ -100,6 +100,7 @@
                       <th>Status</th>
                       <th>Due Date &amp; Time</th>
                       <th style="width: 400px;">Latest Update</th>
+                      <th>Result Expected</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -130,6 +131,9 @@
                             <button *ngIf="item.showFullReason" class="btn btn-link text-primary" (click)="item.showFullReason = false">View Less</button>
                           </div>
                         </div>
+                      </td>
+                      <td>
+                        {{ item?.resultExpected | date : "dd/MM/yyyy" }}
                       </td>
                       <!-- <td>
                         <a class="btn btn-primary btn-sm" style="cursor: pointer" data-bs-toggle="modal"
