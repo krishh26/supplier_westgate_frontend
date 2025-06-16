@@ -18,6 +18,7 @@ export class ResourcesViewDetailsComponent {
   viewDocs: any[] = [];
   showLoader: boolean = false;
   selectedResource: any = null;
+  activeTab: string = 'overview'; // Default active tab
 
   constructor(
     private route: ActivatedRoute,
@@ -145,5 +146,9 @@ export class ResourcesViewDetailsComponent {
 
     // If it's a string, return as is
     return skills.toString();
+  }
+
+  switchTab(tab: string) {
+    this.activeTab = tab;
   }
 }

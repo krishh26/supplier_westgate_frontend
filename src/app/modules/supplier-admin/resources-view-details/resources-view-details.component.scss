@@ -261,3 +261,7 @@
     margin-bottom: 1rem;
 }
 }
+
+.form-control[readonly] {
+  background-color: #F5F5F5 !important;
+}

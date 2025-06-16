@@ -1,131 +1,136 @@
 <main id="main">
 
-    <!--Mobile Menu Code start-->
-    <a class="mobile-menunav-toggle" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"><i class="bi bi-list"></i></a>
+  <!--Mobile Menu Code start-->
+  <a class="mobile-menunav-toggle" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+    aria-controls="offcanvasExample"><i class="bi bi-list"></i></a>
 
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-        <div class="offcanvas-header">
-            <img src="assets/img/westgate.svg" width="200" alt="" class="img-fluid">
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <nav>
-                <ul class="offcanvas-nav">
-                    <li><a href="dashoard" class="active">Dashboard</a></li>
-                    <li><a href="dashoard">Projects</a></li>
-                    <li><a href="dashoard">Case Studies</a></li>
-                    <li><a href="dashoard">Resources</a></li>
-                    <li><hr class="dropdown-divider"> </li>
-                    <li><a href="dashoard">Notification</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a href="dashoard">Profile Setting</a></li>
-                    <li><a href="dashoard">Manage Users</a></li>
-                    <li><a href="dashoard">Security</a></li>
-                    <li><a href="dashoard">Logout</a></li>
-                </ul>
-            </nav>
-        </div>
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+      <img src="assets/img/westgate.svg" width="200" alt="" class="img-fluid">
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <!--Mobile Menu Code close-->
+    <div class="offcanvas-body">
+      <nav>
+        <ul class="offcanvas-nav">
+          <li><a href="dashoard" class="active">Dashboard</a></li>
+          <li><a href="dashoard">Projects</a></li>
+          <li><a href="dashoard">Case Studies</a></li>
+          <li><a href="dashoard">Resources</a></li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a href="dashoard">Notification</a></li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a href="dashoard">Profile Setting</a></li>
+          <li><a href="dashoard">Manage Users</a></li>
+          <li><a href="dashoard">Security</a></li>
+          <li><a href="dashoard">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <!--Mobile Menu Code close-->
 
-    <section class="dashboard-section">
-        <div class="container-fluid">
+  <section class="dashboard-section">
+    <div class="container-fluid">
 
-            <div class="Flatcard mb-4">
-                <div class="card-header bg-white">
-                    <h4>All Time Projects</h4>
-                </div>
+      <!-- <div class="Flatcard mb-4">
+        <div class="card-header bg-white">
+          <h4>All Time Projects</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12 mb-3">
+              <div class="card bg-light-orange shadow-none">
+                <div class="card-icon"><img src="/assets/img/publishing.png" /></div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12 mb-3">
-                            <div class="card bg-light-orange shadow-none">
-                                <div class="card-icon"><img src="/assets/img/publishing.png" /></div>
-                                <div class="card-body">
-                                    <p class="counter-text">{{projectCount?.totalpassed}}</p>
-                                    <p class="mb-0">Published</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  <p class="counter-text">{{projectCount?.totalpassed}}</p>
+                  <p class="mb-0">Published</p>
                 </div>
+              </div>
             </div>
+          </div>
+        </div>
+      </div> -->
 
-            <div class="Flatcard">
-                <div class="card-header bg-white">
-                    <h4>Current Live Projects</h4>
-                </div>
+      <div class="Flatcard">
+        <div class="card-header bg-white">
+          <h4>Current Live Projects</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12 mb-3">
+              <div class="card bg-light-orange shadow-none">
+                <div class="card-icon"><img src="/assets/img/publishing.png" /></div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12 mb-3">
-                            <div class="card bg-light-orange shadow-none">
-                                <div class="card-icon"><img src="/assets/img/publishing.png" /></div>
-                                <div class="card-body">
-                                    <p class="counter-text">{{projectCount?.totalpassed}}</p>
-                                    <p class="mb-0">Published</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12 mb-3">
-                            <div class="card bg-light-levendar shadow-none">
-                                <div class="card-icon"><img src="/assets/img/shortlisted.png" /></div>
-                                <div class="card-body">
-                                    <p class="counter-text">{{projectCount?.sortListed}}</p>
-                                    <p class="mb-0">Shortlisted</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12 mb-3">
-                            <div class="card bg-light-seablue shadow-none">
-                                <div class="card-icon"><img src="/assets/img/in-solution.png" /></div>
-                                <div class="card-body">
-                                    <p class="counter-text">{{projectCount?.totalInSolution}}</p>
-                                    <p class="mb-0">In-Solution</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12 mb-3">
-                            <div class="card bg-light-green shadow-none">
-                                <div class="card-icon"><img src="/assets/img/awarded.png" /></div>
-                                <div class="card-body">
-                                    <p class="counter-text">{{projectCount?.totalAwarded}}</p>
-                                    <p class="mb-0">Awarded</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12 mb-3">
-                            <div class="card bg-light-pink shadow-none">
-                                <div class="card-icon"><img src="/assets/img/not-awarded.png" /></div>
-                                <div class="card-body">
-                                    <p class="counter-text">{{projectCount?.totalNotAwarded}}</p>
-                                    <p class="mb-0">Not Awarded</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12 mb-3">
-                            <div class="card bg-light-levendar shadow-none">
-                                <div class="card-icon"><img src="/assets/img/shortlisted.png" /></div>
-                                <div class="card-body">
-                                    <p class="counter-text">{{projectCount?.totalWaitingForResult}}</p>
-                                    <p class="mb-0">Waiting For Result</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  <p class="counter-text">{{projectCount?.totalpassed}}</p>
+                  <p class="mb-0">Published</p>
                 </div>
+              </div>
             </div>
+            <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12 mb-3">
+              <div class="card bg-light-levendar shadow-none">
+                <div class="card-icon"><img src="/assets/img/shortlisted.png" /></div>
+                <div class="card-body">
+                  <p class="counter-text">{{projectCount?.sortListed}}</p>
+                  <p class="mb-0">Shortlisted</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12 mb-3">
+              <div class="card bg-light-seablue shadow-none">
+                <div class="card-icon"><img src="/assets/img/in-solution.png" /></div>
+                <div class="card-body">
+                  <p class="counter-text">{{projectCount?.totalInSolution}}</p>
+                  <p class="mb-0">In-Solution</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12 mb-3">
+              <div class="card bg-light-green shadow-none">
+                <div class="card-icon"><img src="/assets/img/awarded.png" /></div>
+                <div class="card-body">
+                  <p class="counter-text">{{projectCount?.totalAwarded}}</p>
+                  <p class="mb-0">Awarded</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12 mb-3">
+              <div class="card bg-light-pink shadow-none">
+                <div class="card-icon"><img src="/assets/img/not-awarded.png" /></div>
+                <div class="card-body">
+                  <p class="counter-text">{{projectCount?.totalNotAwarded}}</p>
+                  <p class="mb-0">Not Awarded</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12 mb-3">
+              <div class="card bg-light-levendar shadow-none">
+                <div class="card-icon"><img src="/assets/img/shortlisted.png" /></div>
+                <div class="card-body">
+                  <p class="counter-text">{{projectCount?.totalWaitingForResult}}</p>
+                  <p class="mb-0">Waiting For Result</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
-            <!-- <div class="row">
+      <!-- <div class="row">
                 <div class="col-lg-8 col-xl-6 col-md-8 col-sm-10 col-12">
                     <div class="col-12 mb-5">
                         <div class="statistic-card">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-6">
-                                       
+
                                     </div>
                                     <div class="col-6">
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -253,8 +258,8 @@
                 </div>
 
             </div> -->
-        </div>
-    </section>
+    </div>
+  </section>
 </main>
 
 
