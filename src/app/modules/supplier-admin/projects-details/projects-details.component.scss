@@ -59,19 +59,19 @@
 }
 
 .project-details-card {
-  background-color: #FE9E78;
+  background-color: #eeeeee;
   border-radius: 8px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   position: relative;
   margin-bottom: 15px;
-  color: #FFF;
+  color: #000;
 }
 .project-details-card .card-body{
   padding: 2rem;
 }
 .project-title{
-  background-color: #e78963;
-  color: #FFF;
+  background-color: #dddddd;
+  color: #000;
   padding: 0.75rem;
   width: fit-content;
   border-radius: 6px;
@@ -87,7 +87,7 @@ ul.ProjectdetailsListview {
 ul.ProjectdetailsListview li {
   list-style-type: none;
   display: block;
-  border-bottom: 1px dashed #ffdbcc;
+  border-bottom: 1px dashed #bbbbbb;
   padding: 10px 0px;
 }
 
@@ -102,13 +102,13 @@ ul.ProjectdetailsListview li p {
 
 ul.ProjectdetailsListview li p.text-muted {
   font-weight: 600;
-  color: #F5F5F5 !important;
+  color: #333333 !important;
 }
 .badge-status{
   background-color: #FFF;
   padding: 5px 15px;
   border-radius: 100px;
-  color:#e78963 ;
+  color: #333333;
   font-weight: 500;
 }
 /* Responsive adjustments */
