@@ -217,7 +217,29 @@
                   <div class="row">
                     <label class="col-sm-4 col-form-label">I Can Do</label>
                     <div class="col-sm-8">
-                      <span class="form-control readonly-input"> {{ getFormattedICanDo() }} </span>
+                      <ng-select
+                        [items]="tags"
+                        [multiple]="true"
+                        [closeOnSelect]="false"
+                        [searchable]="true"
+                        [loading]="isLoadingTags"
+                        [(ngModel)]="selectedTags"
+                        [compareWith]="compareTagsFn"
+                        bindLabel="name"
+                        placeholder="Select tags"
+                        (search)="onTagSearch($event)"
+                        (change)="onTagSelectionChange($event)"
+                        [clearable]="false">
+                      </ng-select>
+                      <div class="mt-2">
+                        <span class="form-control readonly-input"> {{ getFormattedICanDo() }} </span>
+                      </div>
+                      <div class="mt-2 text-end">
+                        <button class="btn btn-primary" (click)="updateProfile()" [disabled]="isUpdating">
+                          <span *ngIf="isUpdating" class="spinner-border spinner-border-sm me-1"></span>
+                          {{ isUpdating ? 'Updating...' : 'Update Profile' }}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>

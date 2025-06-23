@@ -20,6 +20,8 @@ export enum SupplierAdminEndPoint {
   SUPPLIER_DETAILS = '/user/suplier/get',
   DELETE_EXPERTISE_DOCUMENT = '/web-user/deleteFile',
   ADD_EXPERTISE_AND_SUBEXPERTISE = '/web-user/add-expertise',
+  TAGS = '/tags',
+  UPDATE_USER = '/user/update'
 }
 
 @Injectable({
@@ -114,5 +116,17 @@ export class SupplierAdminService {
   uploadDocument(payload: any): Observable<any> {
     return this.httpClient
       .post<any>(this.baseUrl + SupplierAdminEndPoint.DOCUMENT_UPLOAD, payload);
+  }
+
+  getTags(search: string = ''): Observable<any> {
+    let params = new HttpParams();
+    if (search) {
+      params = params.set('search', search);
+    }
+    return this.httpClient.get<any>(`${this.baseUrl}/tags`, { params });
+  }
+
+  updateUserProfile(userId: string, payload: any): Observable<any> {
+    return this.httpClient.patch<any>(`${this.baseUrl}${SupplierAdminEndPoint.UPDATE_USER}/${userId}`, payload);
   }
 }

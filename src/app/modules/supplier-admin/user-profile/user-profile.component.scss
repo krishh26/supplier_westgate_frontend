@@ -17,3 +17,14 @@
   margin-left: 8px;
   cursor: pointer;
 }
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+// Custom styles for ng-select
+::ng-deep {
+  .ng-select {
+    .ng-select-container {
+      min-height: 36px;
+    }
+  }
+}

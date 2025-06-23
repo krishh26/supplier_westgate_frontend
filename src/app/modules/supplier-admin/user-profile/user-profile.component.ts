@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { NotificationService } from 'src/app/services/notification/notification.service';
+import { SupplierAdminService } from 'src/app/services/supplier-admin/supplier-admin.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -109,38 +110,47 @@ export class UserProfileComponent implements OnInit {
 
   userForm = new FormGroup(this.userDataForm, []);
 
+  tags: any[] = [];
+  selectedTags: any[] = [];
+  existingTags: any[] = [];
+  isLoadingTags = false;
+  isUpdating = false;
+
   constructor(
     private authService: AuthService,
     private notificationService: NotificationService,
     private localStorageService: LocalStorageService,
     private router: Router,
+    private supplierService: SupplierAdminService
   ) {
     this.loginUser = this.localStorageService.getLogger();
-   }
+  }
 
   ngOnInit(): void {
     this.getUserDetails();
+    this.loadTags();
   }
 
   getUserDetails(): void {
-    this.authService.getUserData().subscribe((response: any) => {
-      if (response?.status) {
-        this.userData = response.data;
-        console.log('response.data', response.data);
-        this.userForm.controls['email'].setValue(response?.data?.email || "");
-        this.userForm.controls['name'].setValue(response?.data?.name || "");
-        this.userForm.controls['companyAddress'].setValue(response?.data?.companyAddress || "");
-        this.userForm.controls['customerSupportContact'].setValue(response?.data?.customerSupportContact || "");
-        this.userForm.controls['VATOrGSTNumber'].setValue(response?.data?.VATOrGSTNumber || "");
-        this.userForm.controls['complianceCertifications'].setValue(response?.data?.complianceCertifications || "");
-        this.userForm.controls['employeeCount'].setValue(response?.data?.employeeCount || "");
-        this.userForm.controls['typeOfCompany'].setValue(response?.data?.typeOfCompany || "");
-        this.userForm.controls['website'].setValue(response?.data?.website || "");
-        this.userForm.controls['yearOfEstablishment'].setValue(response?.data?.yearOfEstablishment || "");
-        this.userForm.controls['companyDirectors_Owners'].setValue(response?.data?.companyDirectors_Owners || "");
+    this.authService.getUserData().subscribe({
+      next: (response: any) => {
+        if (response?.status) {
+          this.userData = response.data;
+          this.loginUser = response.data;
+          if (this.loginUser?.expertiseICanDo) {
+            // Store existing tags in their original format
+            this.existingTags = [...this.loginUser.expertiseICanDo];
+            // Convert existing tags to match the format of new tags for ng-select
+            this.selectedTags = this.existingTags.map(tag => ({
+              _id: tag.itemId,
+              name: tag.name
+            }));
+          }
+        }
+      },
+      error: (error) => {
+        this.notificationService.showError(error?.error?.message || 'Error loading user details');
       }
-    }, (error) => {
-      this.notificationService.showError(error?.error?.message || 'Error');
     });
   }
 
@@ -208,4 +218,108 @@ export class UserProfileComponent implements OnInit {
     return this.loginUser?.technologyStack?.join(', ') || '-';
   }
 
+  loadTags(search: string = '') {
+    this.isLoadingTags = true;
+    this.supplierService.getTags(search).subscribe({
+      next: (response) => {
+        if (response?.status) {
+          this.tags = response.data?.tags || [];
+        }
+      },
+      error: (error) => {
+        this.notificationService.showError(error?.error?.message || 'Error loading tags');
+      },
+      complete: () => {
+        this.isLoadingTags = false;
+      }
+    });
+  }
+
+  onTagSearch(event: any) {
+    const search = event?.term || '';
+    this.loadTags(search);
+  }
+
+  onTagSelectionChange(event: any) {
+    if (!event) {
+      // If trying to remove, reset to existing tags
+      this.selectedTags = this.existingTags.map(tag => ({
+        _id: tag.itemId,
+        name: tag.name
+      }));
+      return;
+    }
+
+    // Ensure existing tags are always included
+    const existingTagIds = this.existingTags.map(tag => tag.itemId);
+    const selectedTagIds = event.map((tag: any) => tag._id);
+
+    // Check if any existing tag is missing from selection
+    const isMissingExistingTags = existingTagIds.some(id => !selectedTagIds.includes(id));
+
+    if (isMissingExistingTags) {
+      // If existing tags were removed, restore them
+      this.selectedTags = [
+        ...this.existingTags.map(tag => ({
+          _id: tag.itemId,
+          name: tag.name
+        })),
+        ...event.filter((tag: any) => !existingTagIds.includes(tag._id))
+      ];
+    } else {
+      this.selectedTags = event;
+    }
+  }
+
+  updateProfile() {
+    if (!this.loginUser?._id) {
+      this.notificationService.showError('User ID not found');
+      return;
+    }
+
+    // Convert selected tags to the required format and filter out existing ones
+    const existingTagIds = this.existingTags.map(tag => tag.itemId);
+    const newTags = this.selectedTags
+      .filter(tag => !existingTagIds.includes(tag._id))
+      .map(tag => ({
+        itemId: tag._id,
+        name: tag.name
+      }));
+
+    if (newTags.length === 0) {
+      this.notificationService.showError('No new tags selected to add');
+      return;
+    }
+
+    this.isUpdating = true;
+
+    const payload = {
+      expertiseICanDo: [
+        ...this.existingTags,
+        ...newTags
+      ]
+    };
+
+    this.supplierService.updateUserProfile(this.loginUser._id, payload).subscribe({
+      next: (response) => {
+        if (response?.status) {
+          this.notificationService.showSuccess('Profile updated successfully');
+          this.existingTags = payload.expertiseICanDo;
+          this.getUserDetails();
+        } else {
+          this.notificationService.showError(response?.message || 'Failed to update profile');
+        }
+      },
+      error: (error) => {
+        this.notificationService.showError(error?.error?.message || 'Error updating profile');
+      },
+      complete: () => {
+        this.isUpdating = false;
+      }
+    });
+  }
+
+  compareTagsFn(item: any, selected: any) {
+    return item?._id === selected?._id || item?._id === selected?.itemId;
+  }
 }
