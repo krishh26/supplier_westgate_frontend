@@ -197,7 +197,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   getFormattedICanDo(): string {
-    return this.loginUser?.icando?.join(', ') || '-';
+    return this.loginUser?.expertiseICanDo?.map((item: any) => item.name).join(', ') || '-';
   }
 
   getFormattedKeyClients(): string {
