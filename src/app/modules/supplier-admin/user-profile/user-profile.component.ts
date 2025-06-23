@@ -188,4 +188,24 @@ export class UserProfileComponent implements OnInit {
     return true;
   }
 
+  getFormattedCertifications(): string {
+    return this.loginUser?.certifications?.join(', ') || '-';
+  }
+
+  getFormattedExpertise(): string {
+    return this.loginUser?.expertise?.map((item: any) => item.name)?.join(', ') || '-';
+  }
+
+  getFormattedICanDo(): string {
+    return this.loginUser?.icando?.join(', ') || '-';
+  }
+
+  getFormattedKeyClients(): string {
+    return this.loginUser?.keyClients?.join(', ') || '-';
+  }
+
+  getFormattedTechnologyStack(): string {
+    return this.loginUser?.technologyStack?.join(', ') || '-';
+  }
+
 }
