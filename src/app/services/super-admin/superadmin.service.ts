@@ -58,6 +58,7 @@ export enum SuperAdminEndPoint {
   GET_PUBLIC_DETAILS = '/web-user/public/get/',
   UPDATE_PUBLIC_USER = '/user/public/update/',
   REGISTER_INTEREST = '/project/register-interest',
+  GET_TAGS = '/tags',
 }
 
 @Injectable({
@@ -665,6 +666,13 @@ export class SuperadminService {
     return this.httpClient.patch<any>(
       this.baseUrl + SuperAdminEndPoint.REGISTER_INTEREST + '/' + payload.projectId,
       { interested: true }
+    );
+  }
+
+  getTags(options: { params?: HttpParams } = {}): Observable<any> {
+    return this.httpClient.get<any>(
+      this.baseUrl + SuperAdminEndPoint.GET_TAGS,
+      options
     );
   }
 }

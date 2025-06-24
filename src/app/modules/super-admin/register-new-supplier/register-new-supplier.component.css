@@ -1,0 +1,76 @@
+.tag-input-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+}
+.tag {
+  background: #eaf4fd;
+  color: #222;
+  border-radius: 4px;
+  border: 1px solid #d0e3f6;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  padding: 3px 12px 3px 6px;
+  font-weight: 500;
+}
+.remove-tag {
+  margin-right: 6px;
+  margin-left: 2px;
+  cursor: pointer;
+  color: #888;
+  font-size: 15px;
+  font-weight: bold;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.remove-tag:hover {
+  opacity: 1;
+  color: #1976d2;
+}
+
+.fa-info-circle {
+  color: #6c757d;
+  font-size: 0.9rem;
+  cursor: help;
+  transition: color 0.2s ease;
+}
+.fa-info-circle:hover {
+  color: #0d6efd;
+}
+.tooltip {
+  font-size: 0.875rem;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.form-control.ng-invalid.ng-touched {
+  border-color: #dc3545;
+}
+
+.form-select.ng-invalid.ng-touched {
+  border-color: #dc3545;
+}
+
+.form-control.ng-invalid.ng-touched,
+.form-select.ng-invalid.ng-touched {
+  animation: shake 0.3s ease-in-out;
+}
+
+.subexpertise-row {
+  display: block;
+  margin-bottom: 6px;
+}

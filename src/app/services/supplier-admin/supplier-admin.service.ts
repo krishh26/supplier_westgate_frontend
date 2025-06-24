@@ -21,7 +21,9 @@ export enum SupplierAdminEndPoint {
   DELETE_EXPERTISE_DOCUMENT = '/web-user/deleteFile',
   ADD_EXPERTISE_AND_SUBEXPERTISE = '/web-user/add-expertise',
   TAGS = '/tags',
-  UPDATE_USER = '/user/update'
+  UPDATE_USER = '/user/update',
+  DROPDOWN_LIST = '/web-user/drop-down-list',
+  SUB_EXPERTISE_LIST = '/web-user/sub-expertise/list'
 }
 
 @Injectable({
@@ -128,5 +130,13 @@ export class SupplierAdminService {
 
   updateUserProfile(userId: string, payload: any): Observable<any> {
     return this.httpClient.patch<any>(`${this.baseUrl}${SupplierAdminEndPoint.UPDATE_USER}/${userId}`, payload);
+  }
+
+  getDropdownList(): Observable<any> {
+    return this.httpClient.get<any>(`${this.baseUrl}${SupplierAdminEndPoint.DROPDOWN_LIST}`);
+  }
+
+  getSubExpertiseList(): Observable<any> {
+    return this.httpClient.get<any>(`${this.baseUrl}${SupplierAdminEndPoint.SUB_EXPERTISE_LIST}`);
   }
 }

@@ -20,277 +20,592 @@
   </style>
   <section>
     <div class="container-fluid">
+
       <div class="row align-items-center justify-content-between">
-        <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
+        <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-6">
           <div class="form-group mb-0">
             <h4 class="text-theme"><strong>Register New Supplier</strong></h4>
           </div><br>
         </div>
+        <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-6 text-end">
+          <button class="btn btn-primary" routerLink="/super-admin/super-admin-supplier">
+            Back
+          </button>
+        </div>
       </div>
-      <form [formGroup]="companyForm" (ngSubmit)="submitForm()">
+
+      <form (ngSubmit)="submitForm(); $event.preventDefault()" #supplierForm="ngForm" autocomplete="off" novalidate>
         <div class="row">
-          <div class="col-lg-6 col-xl-6 col-12">
-            <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Company Name
-                <i class="fas fa-info-circle ms-1"
-                   data-bs-toggle="tooltip"
-                   data-bs-placement="top"
-                   title="Enter the full legal name of the company."></i>
-              </label>
-              <div class="col-sm-8">
-                <input formControlName="companyName" class="form-control" placeholder="Enter company name">
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Company Website
-                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                   title="Enter the official website URL (e.g., https://www.example.com)."></i>
-              </label>
-              <div class="col-sm-8">
-                <input formControlName="website" type="text" class="form-control" placeholder="Enter company website">
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Year of Establishment
-                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                   title="Enter the year when the company was founded (e.g., 2010)."></i>
-              </label>
-              <div class="col-sm-8">
-                <input formControlName="yearOfEstablishment" type="text" class="form-control"
-                  placeholder="Enter year of establishment" (keypress)="NumberOnly($event)">
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Registration Number
-                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                   title="Enter the official GST or company registration number."></i>
-              </label>
-              <div class="col-sm-8">
-                <input formControlName="registerNumber" type="text" class="form-control"
-                  placeholder="Enter GST/Registration number">
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Type of Company
-                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                   title="Indicate the type of business (e.g., Private Limited, LLP, Sole Proprietor)."></i>
-              </label>
-              <div class="col-sm-8">
-                <input formControlName="typeOfCompany" type="text" class="form-control"
-                  placeholder="Enter type of company">
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Industry/Sector
-                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                   title="Select the relevant industry category (e.g., IT, Healthcare, Finance)."></i>
-              </label>
-              <div class="col-sm-8">
-                <input formControlName="⁠industry_Sector" type="text" class="form-control"
-                  placeholder="Enter industry/sector">
-              </div>
-            </div>
+          <div class="col-12">
+            <div class="card mb-4">
+              <div class="card-body">
+                <!-- Company Details -->
+                <div class="row mb-4">
+                  <div class="col-12">
+                    <h5 class="text-primary mb-3">Company Details</h5>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="companyName" class="col-sm-4 col-form-label">Company Name <span
+                          class="text-danger">*</span>
+                        <i class="fas fa-info-circle ms-1"
+                           data-bs-toggle="tooltip"
+                           data-bs-placement="top"
+                           title="Enter the full legal name of the company."></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="companyForm.companyName" name="companyName" class="form-control"
+                          placeholder="Enter company name" id="companyName" required #companyNameInput="ngModel">
+                        <div *ngIf="companyNameInput.invalid && (companyNameInput.dirty || companyNameInput.touched)"
+                          class="text-danger small">
+                          Company Name is required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-            <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Company Address
-                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                   title="Provide the complete address including street, city, and postal code."></i>
-              </label>
-              <div class="col-sm-8">
-                <input formControlName="companyAddress" type="text" class="form-control"
-                  placeholder="Enter company address">
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Developer/Engineer Teams
-                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                   title="Describe your technical team size and expertise (e.g., 5 developers, 3 engineers)."></i>
-              </label>
-              <div class="col-sm-8">
-                <input formControlName="developerOrEngineerTeams" type="text" class="form-control"
-                  placeholder="Enter developer/engineer">
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Data Privacy Policies
-                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                   title="Describe your data protection and privacy compliance policies (e.g., GDPR compliant)."></i>
-              </label>
-              <div class="col-sm-8">
-                <input formControlName="dataPrivacyPolicies" type="text" class="form-control"
-                  placeholder="Enter data privacy policies">
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Security Certifications
-                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                   title="List any security certifications or standards (e.g., ISO 27001, SOC 2)."></i>
-              </label>
-              <div class="col-sm-8">
-                <input formControlName="securityCertifications" type="text" class="form-control"
-                  placeholder="Enter security certifications">
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-4 col-form-label">Email Address
-                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                   title="Enter the official email address for business communication."></i>
-              </label>
-              <div class="col-sm-8">
-                <input formControlName="email" type="text" class="form-control" placeholder="Enter email address">
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 col-xl-6 col-12">
-            <div class="row">
-              <div class="col-lg-6 col-xl-6 col-12">
-                <div class="row mb-3">
-                  <label for="inputEmail3" class="col-sm-4 col-form-label">Phone Number
-                    <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                       title="Provide a valid phone number with country code."></i>
-                  </label>
-                  <div class="col-sm-8">
-                    <input formControlName="number" type="text" class="form-control" placeholder="Enter phone number"
-                      [maxlength]="10" [minlength]="10" (keypress)="NumberOnly($event)">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Customer Support Contact
-                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                   title="Enter the dedicated customer support phone number."></i>
-              </label>
-              <div class="col-sm-10">
-                <input formControlName="customerSupportContact" class="form-control"
-                  placeholder="Enter customer support contact" (keypress)="NumberOnly($event)" [maxlength]="10"
-                  [minlength]="10">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-6 col-xl-6 col-12">
-                <div class="row mb-3">
-                  <label for="inputEmail3" class="col-sm-4 col-form-label">VAT or GST Number
-                    <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                       title="Enter the VAT or GST registration number for tax purposes."></i>
-                  </label>
-                  <div class="col-sm-8">
-                    <input formControlName="VATOrGSTNumber" type="text" class="form-control"
-                      placeholder="Enter VAT or GST number">
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6 col-xl-6 col-12">
-                <div class="row mb-3">
-                  <label for="inputEmail3" class="col-sm-4 col-form-label">Company Directors/Owners
-                    <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                       title="List the names of company directors or owners."></i>
-                  </label>
-                  <div class="col-sm-8">
-                    <input formControlName="companyDirectors_Owners" type="text" class="form-control"
-                      placeholder="Enter company directors">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12 col-xl-12 col-12">
-                <div class="row mb-3">
-                  <label for="inputEmail3" class="col-sm-2 col-form-label">Compliance Certifications
-                    <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                       title="List any official certifications or accreditations (e.g., ISO 9001, CMMI)."></i>
-                  </label>
-                  <div class="col-sm-10">
-                    <input formControlName="complianceCertifications" type="text" class="form-control"
-                      placeholder="Enter compliance certifications">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Products/Services Offered
-                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                   title="Describe the main products or services your company provides."></i>
-              </label>
-              <div class="col-sm-10">
-                <input formControlName="products_ServicesOffered" type="email" class="form-control"
-                  placeholder="Enter products/services offered">
-              </div>
-            </div>
+                  <!-- <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="logo" class="col-sm-4 col-form-label">Company Logo URL</label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="companyForm.logo" name="logo" type="text" class="form-control" placeholder="Enter logo URL" id="logo">
+                      </div>
+                    </div>
+                  </div> -->
 
-            <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Technology Stack
-                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                   title="List the technologies, programming languages, and frameworks you use."></i>
-              </label>
-              <div class="col-sm-10">
-                <input formControlName="technologyStack" type="email" class="form-control"
-                  placeholder="Enter technology stack">
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Licensing Details
-                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                   title="Provide information about software licenses and legal compliance."></i>
-              </label>
-              <div class="col-sm-10">
-                <input formControlName="licensingDetails" type="email" class="form-control"
-                  placeholder="Enter licensing details">
-              </div>
-            </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="website" class="col-sm-4 col-form-label">Company Website
+                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                           title="Enter the official website URL (e.g., https://www.example.com)."></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="companyForm.website" name="website" type="text" class="form-control"
+                          placeholder="Enter company website" id="website">
+                      </div>
+                    </div>
+                  </div>
 
-            <div class="row mt-0">
-              <div class="col-lg-6 col-xl-6 col-12">
-                <div class="row mb-3">
-                  <label for="inputEmail3" class="col-sm-4 col-form-label">IP/Patents
-                    <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                       title="List any intellectual property, patents, or proprietary technologies owned."></i>
-                  </label>
-                  <div class="col-sm-8">
-                    <input formControlName="IP_Patents" type="text" class="form-control" placeholder="Enter IP/patents">
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="companyAddress" class="col-sm-4 col-form-label">Company Address
+                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                           title="Provide the complete address including street, city, and postal code."></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="companyForm.companyAddress" name="companyAddress" type="text"
+                          class="form-control" placeholder="Enter company address" id="companyAddress">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="country" class="col-sm-4 col-form-label">Country
+                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                           title="Select or type the country where the company is registered."></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="companyForm.country" name="country" type="text" class="form-control"
+                          placeholder="Enter country" id="country">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="email" class="col-sm-4 col-form-label">Contact Email <span
+                          class="text-danger">*</span>
+                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                           title="Enter the official email address for business communication."></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="companyForm.email" name="email" type="text" class="form-control"
+                          placeholder="Enter contact email" id="email" required #companyEmailInput="ngModel">
+                        <div *ngIf="companyEmailInput.invalid && (companyEmailInput.dirty || companyEmailInput.touched)"
+                          class="text-danger small">
+                          Contact email is required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="phone" class="col-sm-4 col-form-label">Contact Number
+                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                           title="Provide a valid phone number with country code."></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="companyForm.companyContactNumber" name="phone" type="text"
+                          class="form-control" placeholder="Enter contact number" [maxlength]="10" [minlength]="10"
+                          (keypress)="NumberOnly($event)" id="phone">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="yearEstablishment" class="col-sm-4 col-form-label">Year Established
+                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                           title="Enter the date the company was founded (dd/mm/yyyy)."></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="companyForm.yearOfEstablishment" name="yearOfEstablishment" type="date"
+                          class="form-control" [max]="today" id="yearEstablishment">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 mb-3">
+                    <div class="row">
+                      <label for="executiveSummary" class="col-sm-2 col-form-label">Executive Summary
+                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                           title="Write a brief summary of your company's mission, services, and goals."></i>
+                      </label>
+                      <div class="col-sm-10">
+                        <textarea [(ngModel)]="companyForm.executiveSummary" name="executiveSummary"
+                          class="form-control" placeholder="Enter company executive summary" id="executiveSummary"
+                          rows="4"></textarea>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-lg-6 col-xl-6 col-12">
-                <div class="row mb-3">
-                  <label for="inputEmail3" class="col-sm-4 col-form-label">Employee Count
-                    <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                       title="Enter the total number of employees in your company."></i>
-                  </label>
-                  <div class="col-sm-8">
-                    <input formControlName="employeeCount" type="text" class="form-control"
-                      placeholder="Enter employee count" (keypress)="NumberOnly($event)">
+
+                <!-- POC Details -->
+                <div class="row mb-4">
+                  <div class="col-12">
+                    <h5 class="text-primary mb-3">POC Details</h5>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="poc_name" class="col-sm-4 col-form-label">POC Name <span
+                          class="text-danger">*</span>
+                        <i class="fas fa-info-circle ms-1"
+                           data-bs-toggle="tooltip"
+                           data-bs-placement="top"
+                           title="Enter the full name of the Point of Contact."></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="companyForm.poc_name" name="poc_name" type="text" class="form-control"
+                          placeholder="Enter POC name" id="poc_name" required #pocNameInput="ngModel">
+                        <div *ngIf="pocNameInput.invalid && (pocNameInput.dirty || pocNameInput.touched)"
+                          class="text-danger small">
+                          POC Name is required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="poc_phone" class="col-sm-4 col-form-label">POC Phone <span
+                          class="text-danger">*</span>
+                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                           title="Enter the direct contact number for the POC."></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="companyForm.poc_phone" name="poc_phone" type="text" class="form-control"
+                          placeholder="Enter POC phone number" [maxlength]="10" [minlength]="10"
+                          (keypress)="NumberOnly($event)" id="poc_phone" required #pocPhoneInput="ngModel">
+                        <div *ngIf="pocPhoneInput.invalid && (pocPhoneInput.dirty || pocPhoneInput.touched)"
+                          class="text-danger small">
+                          POC Phone is required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="poc_email" class="col-sm-4 col-form-label">POC Email <span
+                          class="text-danger">*</span>
+                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                           title="Provide the email address of the POC, this email will be used for login."></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="companyForm.poc_email" name="poc_email" type="text" class="form-control"
+                          placeholder="Enter POC email" id="poc_email" required #pocEmailInput="ngModel">
+                        <div *ngIf="pocEmailInput.invalid && (pocEmailInput.dirty || pocEmailInput.touched)"
+                          class="text-danger small">
+                          POC Email is required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="poc_role" class="col-sm-4 col-form-label">POC Role
+                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                           title="Specify the role or designation of the POC in the company."></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="companyForm.poc_role" name="poc_role" type="text" class="form-control"
+                          placeholder="Enter POC role" id="poc_role">
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Cybersecurity Practices
-                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                   title="Describe your cybersecurity measures and data protection practices."></i>
-              </label>
-              <div class="col-sm-10">
-                <input formControlName="cybersecurityPractices" type="text" class="form-control"
-                  placeholder="Enter cybersecurity practices">
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Password
-                <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                   title="Create a secure password for the supplier account login."></i>
-              </label>
-              <div class="col-sm-10">
-                <input formControlName="password" type="password" class="form-control" placeholder="Enter password">
+
+                <!-- Business Details -->
+                <div class="row mb-4">
+                  <div class="col-12">
+                    <h5 class="text-primary mb-3">Business Details</h5>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="typeOfCompany" class="col-sm-4 col-form-label">Business Type
+                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                           title="Indicate the type of business (e.g., Private Limited, LLP, Sole Proprietor)."></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <ng-select placeholder="Select Business Type" class="custom-ng-select-option"
+                          [items]="businessTypesList" bindLabel="name" [multiple]="true" bindValue="value"
+                          [(ngModel)]="selectedBusinessTypes" name="selectedBusinessTypes" (change)="onBusinessTypeChange()"
+                          [closeOnSelect]="false" [searchable]="true" [clearable]="true">
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="industry_Sector" class="col-sm-4 col-form-label">Industry Sector
+                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                           title="Select the relevant industry category (e.g., IT, Healthcare, Finance)."></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <ng-select placeholder="Select Industry Sector" class="custom-ng-select-option"
+                          [items]="industryList" bindLabel="name" [multiple]="true" bindValue="value"
+                          [(ngModel)]="selectedIndustries" name="selectedIndustries" (change)="onIndustryChange()"
+                          [addTag]="true" (add)="onItemAddIndustry($event)">
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="employeeCount" class="col-sm-4 col-form-label">Company Size
+                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                           title="Enter the number of employees (e.g., 10–50, 100–500)."></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="companyForm.employeeCount" name="employeeCount" type="text"
+                          class="form-control" placeholder="Enter employee count" (keypress)="NumberOnly($event)"
+                          id="employeeCount">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="turnover" class="col-sm-4 col-form-label">Turnover
+                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                           title="Mention the annual revenue or turnover (e.g., ₹5 Cr, $1M)."></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="companyForm.turnover" name="turnover" type="text" class="form-control"
+                          placeholder="Enter turnover" (keypress)="NumberOnly($event)" id="turnover">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="totalProjectsExecuted" class="col-sm-4 col-form-label">Total Projects Executed
+                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                           title="Specify the number of completed projects to date."></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="companyForm.totalProjectsExecuted" name="totalProjectsExecuted" type="text"
+                          class="form-control" placeholder="Enter total projects executed"
+                          (keypress)="NumberOnly($event)" id="totalProjectsExecuted">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="certifications" class="col-sm-4 col-form-label">Certifications
+                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                           title="List any official certifications or accreditations (e.g., ISO 9001, CMMI)."></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <div class="form-control p-2">
+                          <div class="tags">
+                            <span *ngFor="let cert of companyForm.certifications; let i = index" class="tag">
+                              <span class="remove-tag" (click)="removeArrayItem('certifications', i)">&times;</span>
+                              {{ cert }}
+                            </span>
+                          </div>
+                          <div class="mt-2">
+                            <input type="text" class="form-control" placeholder="Enter certification and press Enter"
+                              (keydown.enter)="handleEnterKey($event, 'certifications')">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 mb-3">
+                    <!-- Expertise field -->
+                    <label for="expertise" class="col-form-label">Expertise
+                      <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                         title="List all the products, platforms, or software solutions your company has built or developed over time (e.g., ERP systems, mobile apps, SaaS platforms)."></i>
+                    </label>
+                    <div class="form-control p-2">
+                      <div *ngFor="let expertise of companyForm.expertise; let i = index" class="mb-3">
+                        <span class="tag">
+                          <span class="remove-tag" (click)="removeExpertise(i)">&times;</span>
+                          {{ expertise.name }}
+                        </span>
+                        <div class="ms-3">
+                          <div class="tags">
+                            <span *ngFor="let sub of expertise.subExpertise; let j = index" class="tag">
+                              <span class="remove-tag" (click)="removeSubExpertise(i, j)">&times;</span>
+                              {{ sub }}
+                            </span>
+                          </div>
+                          <div class="mt-2">
+                            <div class="dropdown">
+                              <ng-select [(ngModel)]="selectedSubExpertiseMap[i]" name="subExpertise_{{i}}"
+                                [items]="subExpertiseOptions" [multiple]="true"
+                                placeholder="Select sub-expertise (required) - Mention the industries or sectors your company has delivered this solution to (e.g., Education, Healthcare, FinTech, Retail)." [closeOnSelect]="false"
+                                [searchable]="true" [clearable]="true" (change)="onSubExpertiseChange(i, $event)"
+                                [addTag]="onAddTagSubExpertise" [loading]="addingNewSubExpertise">
+                                <ng-template ng-header-tmp>
+                                  <div class="p-2 border-bottom">
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox"
+                                        [checked]="selectedSubExpertiseMap[i]?.length === subExpertiseOptions?.length"
+                                        (change)="toggleSelectAllSubExpertise(i, $event)">
+                                      <label class="form-check-label">Select All</label>
+                                    </div>
+                                  </div>
+                                </ng-template>
+                                <ng-template ng-tag-tmp let-search="searchTerm">
+                                  <div *ngIf="search">
+                                    <span>Add new sub-expertise "{{search}}"</span>
+                                  </div>
+                                </ng-template>
+                              </ng-select>
+                            </div>
+                            <button type="button" class="btn btn-primary mt-2" (click)="addMultipleSubExpertise(i)"
+                              [disabled]="!selectedSubExpertiseMap[i] || selectedSubExpertiseMap[i].length === 0">
+                              Add Sub-Expertise
+                            </button>
+                            <div *ngIf="expertise.subExpertise.length === 0" class="text-danger small mt-1">
+                              Sub-expertise is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mt-2">
+                        <div class="dropdown">
+                          <ng-select placeholder="Select expertise" [items]="expertiseGroupedOptions" bindLabel="name"
+                            [multiple]="true" [(ngModel)]="selectedExpertiseItems" name="selectedExpertiseItems"
+                            [closeOnSelect]="false" [searchable]="true" [clearable]="true" [addTag]="onAddTag"
+                            [groupBy]="'type'" [hideSelected]="false" [virtualScroll]="true">
+                            <ng-template ng-header-tmp>
+                              <div class="p-2 border-bottom">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox"
+                                    [checked]="selectedExpertiseItems?.length === expertiseDropdownOptions?.length"
+                                    (change)="toggleSelectAllExpertise($event)">
+                                  <label class="form-check-label">Select All</label>
+                                </div>
+                              </div>
+                            </ng-template>
+                            <ng-template ng-optgroup-tmp let-item="item">
+                              <span class="group-header text-primary">{{item.type | titlecase}}</span>
+                            </ng-template>
+                            <ng-template ng-label-tmp let-item="item">
+                              <span>{{item.name}}</span>
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-index="index">
+                              <span>{{item.name}}</span>
+                            </ng-template>
+                            <ng-template ng-tag-tmp let-search="searchTerm">
+                              <div *ngIf="search">
+                                <div class="mb-2">Add "{{search}}" to expertise</div>
+                                <div class="radio-group d-flex flex-column">
+                                  <div class="form-check mb-1">
+                                    <input class="form-check-input" type="radio" name="expertiseType" id="typeTech"
+                                      [(ngModel)]="newExpertiseType" value="technologies">
+                                    <label class="form-check-label" for="typeTech">Technologies</label>
+                                  </div>
+                                  <div class="form-check mb-1">
+                                    <input class="form-check-input" type="radio" name="expertiseType" id="typeProduct"
+                                      [(ngModel)]="newExpertiseType" value="product">
+                                    <label class="form-check-label" for="typeProduct">Product</label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="expertiseType" id="typeDomain"
+                                      [(ngModel)]="newExpertiseType" value="domain">
+                                    <label class="form-check-label" for="typeDomain">Domain</label>
+                                  </div>
+                                </div>
+                              </div>
+                            </ng-template>
+                          </ng-select>
+                        </div>
+                        <button type="button" class="btn btn-primary mt-2" (click)="addSelectedExpertise()"
+                          [disabled]="!selectedExpertiseItems || selectedExpertiseItems.length === 0">
+                          Add Expertise
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 mb-3">
+                    <!-- Services field -->
+                    <div class="row">
+                      <label for="expertiseICanDo" class="col-sm-2 col-form-label">I Can Do
+                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                           title="Select the type of solutions you offer"></i>
+                      </label>
+                      <div class="col-sm-10">
+                        <ng-select placeholder="Select I Can Do Services" class="custom-ng-select-option"
+                          [items]="servicesList" bindLabel="name" [multiple]="true"
+                          [(ngModel)]="selectedServices" name="expertiseICanDo"
+                          [closeOnSelect]="false" [searchable]="true" [clearable]="true"
+                          (change)="onServicesChange()" [loading]="showLoader"
+                          [typeahead]="tagSearchInput$" (search)="onTagSearch($event)"
+                          [hideSelected]="true">
+                          <ng-template ng-option-tmp let-item="item">
+                            {{ item.name }}
+                          </ng-template>
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="technologyStack" class="col-sm-4 col-form-label">Technology Stack</label>
+                      <div class="col-sm-8">
+                        <ng-select placeholder="Select Technologies" class="custom-ng-select-option"
+                          [items]="technologiesList" bindLabel="name" [multiple]="true" bindValue="value"
+                          [(ngModel)]="selectedTechnologies" name="selectedTechnologies"
+                          (change)="onTechnologiesChange()" [addTag]="addTechnology" [loading]="showLoader">
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Client Information -->
+                <div class="row mb-4">
+                  <div class="col-12">
+                    <h5 class="text-primary mb-3">Client Information</h5>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <div class="row">
+                      <label for="keyClients" class="col-sm-4 col-form-label">Key Clients</label>
+                      <div class="col-sm-8">
+                        <div class="form-control p-2">
+                          <div class="tags">
+                            <span *ngFor="let client of companyForm.keyClients; let i = index" class="tag">
+                              <span class="remove-tag" (click)="removeArrayItem('keyClients', i)">&times;</span>
+                              {{ client }}
+                            </span>
+                          </div>
+                          <div class="mt-2">
+                            <input type="text" class="form-control" placeholder="Enter key client and press Enter"
+                              (keydown.enter)="handleEnterKey($event, 'keyClients')">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Supplier Type -->
+                <div class="row mb-4">
+                  <div class="col-12">
+                    <h5 class="text-primary mb-3">Supplier Type <span class="text-danger">*</span></h5>
+                    <p class="text-muted small">At least one supplier type must be selected</p>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox"
+                            [(ngModel)]="companyForm.resourceSharingSupplier" name="resourceSharingSupplier"
+                            id="resourceSharingSupplier" (change)="checkSupplierTypeSelection()">
+                          <label class="form-check-label" for="resourceSharingSupplier">
+                            Resource Sharing Supplier
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox"
+                            [(ngModel)]="companyForm.subcontractingSupplier" name="subcontractingSupplier"
+                            id="subcontractingSupplier" (change)="checkSupplierTypeSelection()">
+                          <label class="form-check-label" for="subcontractingSupplier">
+                            Sub Contracting Supplier
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12" *ngIf="showSupplierTypeError">
+                    <div class="alert alert-danger py-1">
+                      Please select at least one supplier type
+                    </div>
+                  </div>
+                </div>
+
+                <!-- In Hold Comments -->
+                <!-- <div class="row mb-4">
+                  <div class="col-12">
+                    <h5 class="text-primary mb-3">In Hold Comments</h5>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <div class="row">
+                      <label for="inHoldComment" class="col-sm-4 col-form-label">Comment</label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="inHoldComment" name="inHoldComment" type="text" class="form-control"
+                          placeholder="Enter comment" id="inHoldComment">
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
               </div>
             </div>
           </div>
         </div>
         <div class="row mt-4">
-          <div class="col-12 text-end">
-            <button type="submit" class="btn btn-primary">Publish</button>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" [(ngModel)]="companyForm.isSendMail"
+                    name="pocUpdateProfileMail" id="pocUpdateProfileMail">
+                  <label class="form-check-label" for="pocUpdateProfileMail">
+                    Send Mail To POC User For Update Profile.
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 text-end">
+            <button type="submit" class="btn btn-primary mob-w-100 me-2" [disabled]="!companyForm.companyName || !companyForm.poc_name || !companyForm.poc_phone || !companyForm.poc_email ||
+                        (!companyForm.resourceSharingSupplier && !companyForm.subcontractingSupplier) ||
+                        hasInvalidExpertise()">Submit</button>
           </div>
         </div>
       </form>
     </div>
   </section>
-</main><!-- End #main -->
+</main>
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
