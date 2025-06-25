@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { SupplierAdminService } from 'src/app/services/supplier-admin/supplier-admin.service';
 
@@ -20,7 +21,8 @@ export class SupplierDashboardComponent {
     private supplierService: SupplierAdminService,
     private notificationService: NotificationService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private spinner: NgxSpinnerService,
   ) {
   }
 
@@ -29,27 +31,26 @@ export class SupplierDashboardComponent {
   }
 
   getProjectDetails() {
-    this.showLoader = true;
+    this.spinner.show();
     this.supplierService.getDashboardList().subscribe((response) => {
+      this.spinner.hide();
       if (response?.status == true) {
-        this.showLoader = false;
         this.projectValue = response?.data?.projectValue;
         this.projectCount = response?.data?.projectCount;
         console.log(this.projectValue);
 
       } else {
         this.notificationService.showError(response?.message);
-        this.showLoader = false;
       }
     }, (error) => {
       this.notificationService.showError(error?.error?.message);
-      this.showLoader = false;
+      this.spinner.hide();
     });
   }
 
   navigateToProjectList(status: string) {
     this.router.navigate(['/supplier-admin/dashboard-project-list'], { state: { status: status } });
   }
-  
+
 
 }
