@@ -4,13 +4,16 @@
       <div class="subnav-pills">
         <ul class="nav nav-pills m-auto">
           <li class="nav-item">
-            <a class="nav-link" [class.active]="activeTab === 'resources'" (click)="switchTab('resources')" href="javascript:void(0);">Resources List</a>
+            <a class="nav-link" [class.active]="activeTab === 'resources'" (click)="switchTab('resources')"
+              href="javascript:void(0);">Resources List</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [class.active]="activeTab === 'payment'" (click)="switchTab('payment')" href="javascript:void(0);">Payment & Billing</a>
+            <a class="nav-link" [class.active]="activeTab === 'payment'" (click)="switchTab('payment')"
+              href="javascript:void(0);">Payment & Billing</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [class.active]="activeTab === 'reporting'" (click)="switchTab('reporting')" href="javascript:void(0);">Reporting & Analytics</a>
+            <a class="nav-link" [class.active]="activeTab === 'reporting'" (click)="switchTab('reporting')"
+              href="javascript:void(0);">Reporting & Analytics</a>
           </li>
         </ul>
       </div>
@@ -131,79 +134,89 @@
         </div>
 
         <!-- Roles table -->
-        <div class="table-responsive">
-          <table class="table table-striped align-middle">
-            <thead>
-              <tr>
-                <th>Full Name</th>
-                <th>Roles</th>
-                <th>I Can Be</th>
-                <th>Experience</th>
-                <th>Technical Skills</th>
-                <th>Languages</th>
-                <th>Day Rate</th>
 
-                <!-- <th>Available From</th> -->
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td *ngIf="!candidatesList?.length" colspan="13">
-                  <app-no-record-found></app-no-record-found>
-                </td>
-              </tr>
-              <tr
-                *ngFor="let candidate of candidatesList | paginate: { itemsPerPage: pagesize, currentPage: page, totalItems: totalRecords }; let i = index">
-                <td><a href="javascript:void(0)" (click)="viewCandidateDetails(candidate)">{{candidate?.fullName}}</a>
-                </td>
-                <td>
-                  <span *ngFor="let role of candidate?.currentRoleData" class="badge bg-primary me-1">
-                    {{role.name}}
-                  </span>
-                </td>
-                <td>
-                  <span *ngFor="let role of getICanBeRoles(candidate)" class="badge bg-secondary me-1">
-                    {{role.name}}
-                  </span>
-                </td>
-                <td>{{candidate?.totalExperience}} years</td>
-                <td>
-                  <span *ngFor="let skill of candidate?.technicalSkills; let last = last">
-                    {{skill}}{{!last ? ', ' : ''}}
-                  </span>
-                </td>
-                <td>
-                  <span *ngFor="let language of candidate?.languagesKnown; let last = last">
-                    {{language}}{{!last ? ', ' : ''}}
-                  </span>
-                </td>
-                <td>£{{candidate?.ukDayRate}}</td>
-                <!-- <td>{{candidate?.availableFrom | date: 'dd/MM/yyyy'}}</td> -->
-                <!-- <td>
-                  <button class="btn btn-sm btn-primary" (click)="viewCandidateDetails(candidate)"> <i
-                      class="bi bi-eye"></i> View</button>
-                </td> -->
-                <td>
-                  <div class="d-flex align-items-center">
-                    <span class="badge" [ngClass]="candidate.active ? 'bg-success' : 'bg-danger'">
-                      {{candidate.active ? 'Benched' : 'InActive'}}
-                    </span>
-                    <label class="switch me-2">
-                      <input type="checkbox" [(ngModel)]="candidate.active" (ngModelChange)="onToggleSwitch(candidate)">
-                      <span class="slider round"></span>
-                    </label>
-                  </div>
-                </td>
-              </tr>
+        <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 col-12">
+          <div class="Flatcard shadow-1 mt-4 border">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-striped align-middle">
+                  <thead>
+                    <tr>
+                      <th>Full Name</th>
+                      <th>Roles</th>
+                      <th>I Can Be</th>
+                      <th>Experience</th>
+                      <th>Technical Skills</th>
+                      <th>Languages</th>
+                      <th>Day Rate</th>
 
-              <div *ngIf="!loading && (!candidatesList || candidatesList.length === 0)" class="text-center">
-                <p>No candidates found.</p>
+                      <!-- <th>Available From</th> -->
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td *ngIf="!candidatesList?.length" colspan="13">
+                        <app-no-record-found></app-no-record-found>
+                      </td>
+                    </tr>
+                    <tr
+                      *ngFor="let candidate of candidatesList | paginate: { itemsPerPage: pagesize, currentPage: page, totalItems: totalRecords }; let i = index">
+                      <td><a href="javascript:void(0)" (click)="viewCandidateDetails(candidate)">{{candidate?.fullName}}</a>
+                      </td>
+                      <td>
+                        <span *ngFor="let role of candidate?.currentRoleData" class="badge bg-primary me-1">
+                          {{role.name}}
+                        </span>
+                      </td>
+                      <td>
+                        <span *ngFor="let role of getICanBeRoles(candidate)" class="badge bg-secondary me-1">
+                          {{role.name}}
+                        </span>
+                      </td>
+                      <td>{{candidate?.totalExperience}} years</td>
+                      <td>
+                        <span *ngFor="let skill of candidate?.technicalSkills; let last = last">
+                          {{skill}}{{!last ? ', ' : ''}}
+                        </span>
+                      </td>
+                      <td>
+                        <span *ngFor="let language of candidate?.languagesKnown; let last = last">
+                          {{language}}{{!last ? ', ' : ''}}
+                        </span>
+                      </td>
+                      <td>£{{candidate?.ukDayRate}}</td>
+                      <!-- <td>{{candidate?.availableFrom | date: 'dd/MM/yyyy'}}</td> -->
+                      <!-- <td>
+                        <button class="btn btn-sm btn-primary" (click)="viewCandidateDetails(candidate)"> <i
+                            class="bi bi-eye"></i> View</button>
+                      </td> -->
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <span class="badge" [ngClass]="candidate.active ? 'bg-success' : 'bg-danger'">
+                            {{candidate.active ? 'Benched' : 'InActive'}}
+                          </span>
+                          <label class="switch me-2">
+                            <input type="checkbox" [(ngModel)]="candidate.active" (ngModelChange)="onToggleSwitch(candidate)">
+                            <span class="slider round"></span>
+                          </label>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <div *ngIf="!loading && (!candidatesList || candidatesList.length === 0)" class="text-center">
+                      <p>No candidates found.</p>
+                    </div>
+                  </tbody>
+                </table>
+                <!-- // Roles table -->
               </div>
-            </tbody>
-          </table>
-          <!-- // Roles table -->
+            </div>
+          </div>
         </div>
+
+
+
       </div>
 
       <!-- Payment & Billing Tab Content -->

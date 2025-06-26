@@ -9,46 +9,55 @@
                     <a routerLink="/supplier-admin/add-user" class="btn btn-primary w-100">Add</a>
                 </div>
             </div>
-            <div class="table-responsive">
-                <table class="table table-striped align-middle">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>User Name</th>
-                            <th>Mail ID</th>
-                            <th>User ID</th>
-                            <th>Domain</th>
-                            <th>Department</th>
-                            <th>Joined</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
 
-                        <tr>
-                            <td *ngIf="!manageUserList?.length" colspan="8">
-                                <app-no-record-found></app-no-record-found>
-                            </td>
-                        </tr>
+            <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 col-12">
+              <div class="Flatcard shadow-1 mt-4 border">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-striped align-middle">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>User Name</th>
+                                <th>Mail ID</th>
+                                <th>User ID</th>
+                                <th>Domain</th>
+                                <th>Department</th>
+                                <th>Joined</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                        <tr
-                            *ngFor="let item of manageUserList |  paginate: { itemsPerPage: pagesize , currentPage: page, totalItems: totalRecords } ; let i = index">
-                            <td>
-                                <div class="avtar32">
-                                    <img src="assets/img/face1.jpg" />
-                                </div>
-                            </td>
-                            <td><a href="javascript:;">{{item?.userName}}</a></td>
-                            <td><a href="javascript:;">{{item?.email}}</a></td>
-                            <td>{{item?._id}}</td>
-                            <td>{{item?.domain}}</td>
-                            <td>{{item?.department}}</td>
-                            <td>{{item?.doj | date : 'dd/MM/yyyy'}}</td>
-                            <td><button (click)="deleteUser(item?._id)" class="btn btn-sm btn-secondary">Remove</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+                            <tr>
+                                <td *ngIf="!manageUserList?.length" colspan="8">
+                                    <app-no-record-found></app-no-record-found>
+                                </td>
+                            </tr>
+
+                            <tr
+                                *ngFor="let item of manageUserList |  paginate: { itemsPerPage: pagesize , currentPage: page, totalItems: totalRecords } ; let i = index">
+                                <td>
+                                    <div class="avtar32">
+                                        <img src="assets/img/face1.jpg" />
+                                    </div>
+                                </td>
+                                <td><a href="javascript:;">{{item?.userName}}</a></td>
+                                <td><a href="javascript:;">{{item?.email}}</a></td>
+                                <td>{{item?._id}}</td>
+                                <td>{{item?.domain}}</td>
+                                <td>{{item?.department}}</td>
+                                <td>{{item?.doj | date : 'dd/MM/yyyy'}}</td>
+                                <td><button (click)="deleteUser(item?._id)" class="btn btn-sm btn-secondary">Remove</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+              </div>
             </div>
+
+
 
         </div>
     </section>
