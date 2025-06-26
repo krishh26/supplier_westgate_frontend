@@ -1,6 +1,6 @@
 <main id="main">
   <section class="pb-0" style="padding-top: 10px !important;">
-      <div class="container-fluid text-center">
+    <div class="container-fluid text-center">
       <p style="text-align: center; font-weight: bold;">"We expect our suppliers to upload their case studies,
         because
         the projects will be matched according to the case studies. So, having more case studies will help you
@@ -33,37 +33,45 @@
           </button>
         </div> -->
       </div>
-      <div class="table-responsive">
-        <table class="table table-striped align-middle">
-          <thead>
-            <tr>
-              <th>Expertise</th>
-              <!-- <th>Upload Files</th> -->
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngIf="!expertiseList?.length">
-              <td colspan="3">
-                <app-no-record-found></app-no-record-found>
-              </td>
-            </tr>
-            <tr
-              *ngFor="let item of expertiseList">
-              <td>{{ item }}</td>
-              <!-- <td>
-                <input type="file" multiple (change)="onFilesSelected($event, item)" accept=".pdf, .doc, .docx" />
-              </td> -->
-              <td>
-              <td>
-                <a class="btn btn-primary btn-sm" style="cursor: pointer" (click)="navigateToSubExpertise(item)">View
-                  Industry / Sub Expertise</a>
-              </td>
 
-            </tr>
-          </tbody>
+      <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 col-12">
+        <div class="Flatcard shadow-1 mt-4 border">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-striped align-middle">
+                <thead>
+                  <tr>
+                    <th>Expertise</th>
+                    <!-- <th>Upload Files</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngIf="!expertiseList?.length">
+                    <td colspan="3">
+                      <app-no-record-found></app-no-record-found>
+                    </td>
+                  </tr>
+                  <tr *ngFor="let item of expertiseList">
+                    <td>{{ item }}</td>
+                    <!-- <td>
+                      <input type="file" multiple (change)="onFilesSelected($event, item)" accept=".pdf, .doc, .docx" />
+                    </td> -->
+                    <td>
+                    <td>
+                      <a class="btn btn-primary btn-sm" style="cursor: pointer" (click)="navigateToSubExpertise(item)">View
+                        Industry / Sub Expertise</a>
+                    </td>
 
-        </table>
+                  </tr>
+                </tbody>
+
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
+
+
     </div>
   </section>
 </main>
@@ -131,8 +139,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary btn-sm" (click)="saveExpertise()"
-          [disabled]="!newExpertise">
+        <button type="button" class="btn btn-primary btn-sm" (click)="saveExpertise()" [disabled]="!newExpertise">
           Save
         </button>
       </div>
