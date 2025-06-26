@@ -39,10 +39,11 @@
           <div class="card-body">
             <div class="table-responsive">
               <table class="table  align-middle">
-                <thead>
+                <thead class="table-light">
                   <tr>
                     <th>Expertise</th>
                     <!-- <th>Upload Files</th> -->
+                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -57,11 +58,9 @@
                       <input type="file" multiple (change)="onFilesSelected($event, item)" accept=".pdf, .doc, .docx" />
                     </td> -->
                     <td>
-                    <td>
                       <a class="btn btn-primary btn-sm" style="cursor: pointer" (click)="navigateToSubExpertise(item)">View
                         Industry / Sub Expertise</a>
                     </td>
-
                   </tr>
                 </tbody>
 
