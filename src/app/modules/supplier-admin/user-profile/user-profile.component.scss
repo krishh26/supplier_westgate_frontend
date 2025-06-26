@@ -93,3 +93,132 @@
     }
   }
 }
+
+// Tooltip styles
+.fa-info-circle {
+  color: #6c757d;
+  font-size: 0.85rem;
+  cursor: help;
+  transition: color 0.2s ease;
+  margin-left: 4px;
+
+  &:hover {
+    color: #0d6efd;
+  }
+}
+
+.tooltip {
+  font-size: 0.875rem;
+}
+
+.tooltip-inner {
+  max-width: 300px;
+  text-align: left;
+}
+
+// Form styles
+.readonly-input {
+  background-color: #f8f9fa;
+  cursor: not-allowed;
+}
+
+.form-control {
+  &.p-2 {
+    min-height: 38px;
+  }
+}
+
+// Tag styles
+.tag {
+  display: inline-flex;
+  align-items: center;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin: 2px;
+  font-size: 0.875rem;
+
+  .remove-tag {
+    cursor: pointer;
+    margin-left: 6px;
+    font-size: 1.2rem;
+    line-height: 1;
+    color: #6c757d;
+
+    &:hover {
+      color: #dc3545;
+    }
+  }
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+// Custom ng-select styles
+.custom-ng-select-option {
+  .ng-select-container {
+    min-height: 38px;
+  }
+
+  .ng-value-container {
+    padding: 4px 8px;
+  }
+
+  .ng-placeholder {
+    color: #6c757d;
+  }
+}
+
+// Radio group styles
+.radio-group {
+  padding: 8px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+// Button styles
+.btn-close {
+  padding: 0.25rem;
+  font-size: 0.75rem;
+  line-height: 1;
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// Expertise section styles
+.expertise-section {
+  .sub-expertise {
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-left: 2px solid #dee2e6;
+  }
+}
+
+// Spinner styles
+.spinner-border {
+  width: 1rem;
+  height: 1rem;
+  border-width: 0.15em;
+}
+
+// Mobile responsiveness
+@media (max-width: 768px) {
+  .col-form-label {
+    margin-bottom: 0.5rem;
+  }
+
+  .mob-w-100 {
+    width: 100%;
+  }
+
+  .mob-mb1 {
+    margin-bottom: 1rem;
+  }
+}

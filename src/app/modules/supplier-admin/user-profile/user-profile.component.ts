@@ -534,6 +534,10 @@ export class UserProfileComponent implements OnInit, DynamicArrays {
     }
   }
 
+  onAddTag = (name: string) => {
+    return { name, type: this.newExpertiseType };
+  };
+
   onAddTagSubExpertise = (name: string) => {
     return { name: name, _id: null };
   };
