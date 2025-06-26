@@ -30,12 +30,16 @@ interface CategoryData {
   }>;
 }
 
+interface DynamicArrays {
+  [key: string]: string[];
+}
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, DynamicArrays {
   userData!: any;
   skills: any[] = [
     {
@@ -159,13 +163,24 @@ export class UserProfileComponent implements OnInit {
   businessTypesList: any[] = [];
   selectedBusinessTypes: string[] = [];
 
-  // Industry Sector properties
-  industryList: any[] = [];
-  selectedIndustries: string[] = [];
+  // Technology Stack properties
+  technologiesList: any[] = [];
+  selectedTechnologies: any[] = [];
+
+  // Client Information properties
+  keyClients: string[] = [];
 
   // New properties for business details
   newCertification: string = '';
   certifications: string[] = [];
+
+  // Supplier Type properties
+  showSupplierTypeError = false;
+
+  // Dynamic arrays for handleEnterKey and removeArrayItem methods
+  [key: string]: any;
+
+  maxDate = new Date().toISOString().split('T')[0]; // For date input max value
 
   constructor(
     private authService: AuthService,
@@ -205,8 +220,9 @@ export class UserProfileComponent implements OnInit {
     this.loadExpertiseOptions();
     this.loadSubExpertiseOptions();
     this.initializeBusinessTypes();
-    this.getIndustryList();
+    this.initializeTechnologiesList();
     this.initializeCertifications();
+    this.initializeKeyClients();
 
     // Initialize existing expertise
     if (this.loginUser?.expertise) {
@@ -292,8 +308,8 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  NumberOnly(event: any): boolean {
-    const charCode = (event.which) ? event.which : event.keyCode;
+  NumberOnly(event: KeyboardEvent): boolean {
+    const charCode = event.which ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
       return false;
     }
@@ -330,11 +346,24 @@ export class UserProfileComponent implements OnInit {
       : '-';
   }
 
+  compareTagsFn(item1: any, item2: any): boolean {
+    return item1 && item2 && (item1._id === item2._id || item1._id === item2.itemId);
+  }
+
   loadTags() {
     this.isLoadingTags = true;
     this.supplierAdminService.getTags().subscribe({
       next: (response) => {
-        this.tags = response.data;
+        if (response?.status && response?.data?.tags) {
+          this.tags = response.data.tags;
+
+          // Initialize selected tags from loginUser
+          if (this.loginUser?.expertiseICanDo?.length > 0) {
+            this.selectedTags = this.tags.filter(tag =>
+              this.loginUser.expertiseICanDo.some((userTag: any) => userTag.itemId === tag._id)
+            );
+          }
+        }
         this.isLoadingTags = false;
       },
       error: (error) => {
@@ -345,20 +374,26 @@ export class UserProfileComponent implements OnInit {
   }
 
   onTagSearch(event: any) {
-    // Implement if needed
+    if (event?.term) {
+      this.isLoadingTags = true;
+      this.supplierAdminService.getTags(event.term).subscribe({
+        next: (response) => {
+          if (response?.status && response?.data?.tags) {
+            this.tags = response.data.tags;
+          }
+          this.isLoadingTags = false;
+        },
+        error: (error) => {
+          console.error('Error searching tags:', error);
+          this.isLoadingTags = false;
+        }
+      });
+    }
   }
 
-  onTagSelectionChange(event: any) {
-    // Keep existing tags and add new ones
-    const newTags = event.filter((tag: any) =>
-      !this.existingTags.some((existing: any) => existing._id === tag._id)
-    );
-
-    this.selectedTags = [...this.existingTags, ...newTags];
-  }
-
-  compareTagsFn(item: any, selected: any) {
-    return item?._id === selected?._id;
+  onTagSelectionChange(event: any[]): void {
+    // Directly update selectedTags
+    this.selectedTags = event || [];
   }
 
   loadExpertiseOptions() {
@@ -519,32 +554,31 @@ export class UserProfileComponent implements OnInit {
       subExpertise: this.subExpertiseMap[index] || []
     }));
 
-    // Format tags data
-    const tagsPayload = this.selectedTags.map(tag => ({
+    // Format tags data - ensure it's not empty objects
+    const expertiseICanDo = (this.selectedTags || []).map(tag => ({
       itemId: tag._id,
       name: tag.name
-    }));
+    })).filter(tag => tag.itemId && tag.name);
 
     const payload = {
       expertise: expertisePayload,
-      expertiseICanDo: tagsPayload,
+      expertiseICanDo: expertiseICanDo,
       employeeCount: this.loginUser.employeeCount,
       turnover: this.loginUser.turnover,
       totalProjectsExecuted: this.loginUser.totalProjectsExecuted,
       certifications: this.certifications,
       typeOfCompany: this.selectedBusinessTypes,
-      industrySector: this.selectedIndustries
+      technologyStack: this.selectedTechnologies,
+      keyClients: this.keyClients
     };
+
+    console.log('Update Profile Payload:', payload);
 
     this.supplierAdminService.updateUserProfile(this.loginUser._id, payload).subscribe({
       next: (response) => {
         const updatedUser = { ...this.loginUser, ...response.data };
         this.localStorageService.setItem('loginUser', updatedUser);
         this.loginUser = updatedUser;
-
-        this.existingTags = this.selectedTags;
-        this.existingExpertise = this.selectedExpertise;
-
         this.notificationService.showSuccess('Profile updated successfully');
         this.isUpdating = false;
       },
@@ -578,45 +612,6 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  getIndustryList() {
-    this.superadminService.getIndustryList().subscribe({
-      next: (response) => {
-        console.log('Industry response:', response); // Debug log
-        if (response?.status) {
-          // Map the industry data correctly based on API response
-          this.industryList = response.data.map((item: any) => ({
-            name: item.name || item.industry || item,
-            value: item.name || item.industry || item
-          }));
-
-          // Set initial selection based on loginUser data
-          if (this.loginUser?.industrySector) {
-            this.selectedIndustries = Array.isArray(this.loginUser.industrySector)
-              ? this.loginUser.industrySector
-              : [this.loginUser.industrySector];
-          }
-        }
-      },
-      error: (error) => {
-        console.error('Error fetching industry list:', error);
-      }
-    });
-  }
-
-  onBusinessTypeChange() {
-    // Update the form data
-    if (this.selectedBusinessTypes && this.selectedBusinessTypes.length > 0) {
-      this.loginUser.typeOfCompany = this.selectedBusinessTypes;
-    }
-  }
-
-  onIndustryChange() {
-    // Update the form data
-    if (this.selectedIndustries && this.selectedIndustries.length > 0) {
-      this.loginUser.industrySector = this.selectedIndustries;
-    }
-  }
-
   initializeCertifications() {
     if (this.loginUser?.certifications) {
       this.certifications = Array.isArray(this.loginUser.certifications)
@@ -625,21 +620,83 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  handleEnterKey(event: Event, arrayName: string) {
-    event.preventDefault();
-    if (arrayName === 'certifications' && this.newCertification?.trim()) {
-      if (!this.certifications.includes(this.newCertification.trim())) {
-        this.certifications.push(this.newCertification.trim());
-        this.loginUser.certifications = this.certifications;
-        this.newCertification = '';
+  initializeKeyClients(): void {
+    if (this.loginUser?.keyClients) {
+      this.keyClients = Array.isArray(this.loginUser.keyClients)
+        ? [...this.loginUser.keyClients]
+        : [this.loginUser.keyClients];
+    } else {
+      this.keyClients = [];
+    }
+  }
+
+  onKeyDown(event: KeyboardEvent, arrayName: string): void {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      const input = event.target as HTMLInputElement;
+      const value = input.value.trim();
+
+      if (value) {
+        if (arrayName === 'keyClients') {
+          this.keyClients.push(value);
+          this.loginUser.keyClients = [...this.keyClients];
+        } else if (!this[arrayName]) {
+          this[arrayName] = [];
+        }
+        input.value = '';
       }
     }
   }
 
-  removeArrayItem(arrayName: string, index: number) {
-    if (arrayName === 'certifications') {
-      this.certifications.splice(index, 1);
-      this.loginUser.certifications = this.certifications;
+  initializeTechnologiesList(): void {
+    this.technologiesList = [
+      'Microsoft',
+      'Java',
+      'Python',
+      'JavaScript',
+      'TypeScript',
+      'C#',
+      'PHP',
+      'Ruby',
+      'Swift',
+      'Kotlin',
+      'Go'
+    ];
+
+    // Set initial selection based on loginUser data
+    if (this.loginUser?.technologyStack) {
+      this.selectedTechnologies = Array.isArray(this.loginUser.technologyStack)
+        ? [...this.loginUser.technologyStack]
+        : [this.loginUser.technologyStack];
+    } else {
+      this.selectedTechnologies = [];
+    }
+  }
+
+  onTechnologiesChange(event: any): void {
+    this.selectedTechnologies = event || [];
+  }
+
+  checkSupplierTypeSelection(): void {
+    this.showSupplierTypeError = !this.loginUser.resourceSharingSupplier && !this.loginUser.subcontractingSupplier;
+  }
+
+  hasInvalidExpertise(): boolean {
+    return false; // Implement your validation logic here
+  }
+
+  onBusinessTypeChange(): void {
+    if (this.selectedBusinessTypes && this.selectedBusinessTypes.length > 0) {
+      this.loginUser.typeOfCompany = this.selectedBusinessTypes;
+    }
+  }
+
+  removeArrayItem(arrayName: string, index: number): void {
+    if (arrayName === 'keyClients') {
+      this.keyClients.splice(index, 1);
+      this.loginUser.keyClients = [...this.keyClients];
+    } else if (this[arrayName] && Array.isArray(this[arrayName])) {
+      this[arrayName].splice(index, 1);
     }
   }
 }
