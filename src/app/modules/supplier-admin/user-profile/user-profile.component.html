@@ -319,85 +319,78 @@
                   </div>
 
                   <div class="col-12 mb-3">
-                    <div class="row">
-                      <label class="col-sm-2 col-form-label">Expertise
-                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                           title="List all the products, platforms, or software solutions your company has built or developed over time."></i>
-                      </label>
-                      <div class="col-sm-10">
-                        <ng-select
-                          [items]="expertiseGroupedOptions"
-                          [multiple]="true"
-                          [closeOnSelect]="false"
-                          [searchable]="true"
-                          [loading]="isLoadingExpertise"
-                          [(ngModel)]="selectedExpertiseItems"
-                          name="selectedExpertiseItems"
-                          [groupBy]="'type'"
-                          [hideSelected]="false"
-                          [virtualScroll]="true"
-                          bindLabel="name"
-                          bindValue="itemId"
-                          placeholder="Select expertise"
-                          (change)="onExpertiseSelectionChange($event)">
-                          <ng-template ng-header-tmp>
-                            <div class="p-2 border-bottom">
-                              <div class="form-check">
-                                <input class="form-check-input" type="checkbox"
-                                  [checked]="selectedExpertiseItems?.length === expertiseGroupedOptions?.length"
-                                  (change)="toggleSelectAllExpertise($event)">
-                                <label class="form-check-label">Select All</label>
+                    <!-- Expertise field -->
+                    <label for="expertise" class="col-form-label">Expertise
+                      <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                         title="List all the products, platforms, or software solutions your company has built or developed over time (e.g., ERP systems, mobile apps, SaaS platforms)."></i>
+                    </label>
+                    <div class="form-control p-3">
+                      <div class="expertise-container">
+                        <!-- Existing expertise items -->
+                        <div *ngFor="let expertise of selectedExpertise; let i = index" class="expertise-item">
+                          <div class="expertise-header">
+                            <div class="tag">
+                              <span class="remove-tag">&times;</span>
+                              {{ expertise.name }}
+                            </div>
+                          </div>
+
+                          <!-- Sub-expertise section -->
+                          <div class="sub-expertise-container">
+                            <div class="sub-expertise-tags" *ngIf="subExpertiseMap[i]?.length">
+                              <div *ngFor="let sub of subExpertiseMap[i]; let j = index" class="tag">
+                                <span class="remove-tag" (click)="removeSubExpertise(i, j)">&times;</span>
+                                {{ sub }}
                               </div>
                             </div>
-                          </ng-template>
-                          <ng-template ng-optgroup-tmp let-item="item">
-                            <span class="group-header text-primary">{{item.type | titlecase}}</span>
-                          </ng-template>
-                          <ng-template ng-option-tmp let-item="item">
-                            <span>{{item.name}}</span>
-                          </ng-template>
-                        </ng-select>
-                        <div *ngFor="let expertise of selectedExpertise; let i = index" class="mt-2">
-                          <div class="d-flex align-items-center">
-                            <span class="badge bg-primary me-2">{{expertise.name}}</span>
-                            <button *ngIf="i >= existingExpertise.length" class="btn btn-sm btn-danger" (click)="removeExpertise(i)">×</button>
-                          </div>
-                          <div class="mt-2">
-                            <ng-select
+
+                            <ng-select [(ngModel)]="selectedSubExpertiseMap[i]"
+                              name="subExpertise_{{i}}"
                               [items]="subExpertiseOptions"
                               [multiple]="true"
                               [closeOnSelect]="false"
                               [searchable]="true"
+                              [clearable]="true"
+                              [addTag]="onAddTagSubExpertise"
                               [loading]="isLoadingSubExpertise"
-                              [(ngModel)]="selectedSubExpertiseMap[i]"
-                              [addTag]="true"
-                              [addTagText]="'Add new: '"
-                              bindLabel="name"
-                              bindValue="name"
-                              placeholder="Select or add sub-expertise"
+                              placeholder="Select sub-expertise (required) - Mention the industries or sectors your company has delivered this solution to (e.g., Education, Healthcare, FinTech, Retail)."
                               (change)="onSubExpertiseChange(i, $event)">
-                              <ng-template ng-header-tmp>
-                                <div class="p-2 border-bottom">
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="checkbox"
-                                      [checked]="selectedSubExpertiseMap[i]?.length === subExpertiseOptions?.length"
-                                      (change)="toggleSelectAllSubExpertise(i, $event)">
-                                    <label class="form-check-label">Select All</label>
-                                  </div>
-                                </div>
-                              </ng-template>
                             </ng-select>
-                            <button class="btn btn-sm btn-primary mt-2" (click)="addSubExpertise(i)"
-                              [disabled]="!selectedSubExpertiseMap[i]?.length">
+
+                            <button type="button" class="btn btn-primary mt-2"
+                              (click)="addSubExpertise(i)"
+                              [disabled]="!selectedSubExpertiseMap[i] || selectedSubExpertiseMap[i].length === 0">
                               Add Sub-Expertise
                             </button>
-                            <div *ngIf="subExpertiseMap[i]?.length" class="mt-2">
-                              <span *ngFor="let sub of subExpertiseMap[i]; let j = index" class="badge bg-secondary me-2">
-                                {{sub}}
-                                <button class="btn btn-sm text-white" (click)="removeSubExpertise(i, j)">×</button>
-                              </span>
+
+                            <div *ngIf="!subExpertiseMap[i]?.length" class="validation-error">
+                              Sub-expertise is required
                             </div>
                           </div>
+                        </div>
+
+                        <!-- Add new expertise section -->
+                        <div class="expertise-select">
+                          <ng-select placeholder="Select expertise"
+                            [items]="expertiseGroupedOptions"
+                            bindLabel="name"
+                            [multiple]="true"
+                            [(ngModel)]="selectedExpertiseItems"
+                            name="selectedExpertiseItems"
+                            [closeOnSelect]="false"
+                            [searchable]="true"
+                            [clearable]="true"
+                            [addTag]="onAddTag"
+                            [groupBy]="'type'"
+                            [hideSelected]="false"
+                            [virtualScroll]="true">
+                          </ng-select>
+
+                          <button type="button" class="btn btn-primary add-expertise-btn"
+                            (click)="onExpertiseSelectionChange($event)"
+                            [disabled]="!selectedExpertiseItems || selectedExpertiseItems.length === 0">
+                            Add Expertise
+                          </button>
                         </div>
                       </div>
                     </div>

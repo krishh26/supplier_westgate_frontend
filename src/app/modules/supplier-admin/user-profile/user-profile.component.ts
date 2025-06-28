@@ -182,6 +182,9 @@ export class UserProfileComponent implements OnInit, DynamicArrays {
 
   maxDate = new Date().toISOString().split('T')[0]; // For date input max value
 
+  // Add new properties
+  expertiseDropdownOptions: ExpertiseItem[] = [];
+
   constructor(
     private authService: AuthService,
     private notificationService: NotificationService,
@@ -414,10 +417,8 @@ export class UserProfileComponent implements OnInit, DynamicArrays {
 
           // Process each category in the data array
           response.data.forEach((category: CategoryData) => {
-            // Get the category key (technologies, domain, product, etc.)
             const categoryKey = Object.keys(category)[0];
 
-            // Process items from this category
             if (Array.isArray(category[categoryKey])) {
               category[categoryKey].forEach(item => {
                 const expertiseItem: ExpertiseItem = {
@@ -458,6 +459,7 @@ export class UserProfileComponent implements OnInit, DynamicArrays {
 
           this.expertiseOptions = allItems;
           this.expertiseGroupedOptions = [...allItems];
+          this.expertiseDropdownOptions = [...allItems];
 
           console.log('Mapped expertise options:', this.expertiseOptions);
           console.log('Grouped expertise options:', this.expertiseGroupedOptions);
@@ -574,6 +576,30 @@ export class UserProfileComponent implements OnInit, DynamicArrays {
   onAddTagSubExpertise = (name: string) => {
     return { name: name, _id: null };
   };
+
+  addSelectedExpertise() {
+    if (this.selectedExpertiseItems && this.selectedExpertiseItems.length > 0) {
+      const newExpertise = this.selectedExpertiseItems.filter(item =>
+        !this.selectedExpertise.some(existing => existing.itemId === item.itemId)
+      );
+      this.selectedExpertise = [...this.selectedExpertise, ...newExpertise];
+      this.selectedExpertiseItems = [];
+    }
+  }
+
+  addMultipleSubExpertise(index: number) {
+    if (!this.subExpertiseMap[index]) {
+      this.subExpertiseMap[index] = [];
+    }
+
+    const selectedItems = this.selectedSubExpertiseMap[index] || [];
+    const newItems = selectedItems
+      .map(item => (typeof item === 'string' ? item : item.name))
+      .filter(item => !this.subExpertiseMap[index].includes(item));
+
+    this.subExpertiseMap[index] = [...this.subExpertiseMap[index], ...newItems];
+    this.selectedSubExpertiseMap[index] = [];
+  }
 
   updateProfile() {
     if (!this.loginUser?._id) {
