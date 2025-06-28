@@ -402,29 +402,62 @@ export class UserProfileComponent implements OnInit, DynamicArrays {
       next: (response) => {
         console.log('Expertise response:', response);
         if (response?.status && response?.data) {
-          // Initialize arrays to store expertise items
-          let allExpertise: ExpertiseItem[] = [];
+          // Initialize type groups to store items by type
+          const typeGroups: { [key: string]: ExpertiseItem[] } = {
+            'product': [],
+            'domain': [],
+            'technologies': [],
+            'product-other': [],
+            'domain-other': [],
+            'technologies-other': []
+          };
 
           // Process each category in the data array
           response.data.forEach((category: CategoryData) => {
             // Get the category key (technologies, domain, product, etc.)
             const categoryKey = Object.keys(category)[0];
 
-            // Add all items from this category to our array
+            // Process items from this category
             if (Array.isArray(category[categoryKey])) {
-              const items = category[categoryKey].map(item => ({
-                name: item.name,
-                itemId: item._id,
-                type: item.type || categoryKey,
-                isSystem: item.isSystem,
-                isMandatory: item.isMandatory || false
-              }));
-              allExpertise = [...allExpertise, ...items];
+              category[categoryKey].forEach(item => {
+                const expertiseItem: ExpertiseItem = {
+                  name: item.name,
+                  itemId: item._id,
+                  type: item.type || categoryKey,
+                  isSystem: item.isSystem,
+                  isMandatory: item.isMandatory || false
+                };
+
+                // Determine which group to add the item to
+                const isOtherType = item.name.toLowerCase().includes('other');
+                const groupKey = isOtherType ? `${categoryKey}-other` : categoryKey;
+
+                if (typeGroups[groupKey]) {
+                  typeGroups[groupKey].push(expertiseItem);
+                }
+              });
             }
           });
 
-          this.expertiseOptions = allExpertise;
-          this.expertiseGroupedOptions = [...allExpertise];
+          // Combine all items in the specified order
+          let allItems: ExpertiseItem[] = [];
+
+          // First add the 3 main types
+          allItems = allItems.concat(
+            typeGroups['product'] || [],
+            typeGroups['domain'] || [],
+            typeGroups['technologies'] || []
+          );
+
+          // Then add the 3 "other" types
+          allItems = allItems.concat(
+            typeGroups['product-other'] || [],
+            typeGroups['domain-other'] || [],
+            typeGroups['technologies-other'] || []
+          );
+
+          this.expertiseOptions = allItems;
+          this.expertiseGroupedOptions = [...allItems];
 
           console.log('Mapped expertise options:', this.expertiseOptions);
           console.log('Grouped expertise options:', this.expertiseGroupedOptions);
