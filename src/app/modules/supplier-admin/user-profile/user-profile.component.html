@@ -10,12 +10,12 @@
     .fa-info-circle:hover {
       color: #0d6efd;
     }
-    .tooltip {
-      font-size: 0.875rem;
-    }
     .tooltip-inner {
-      max-width: 300px;
-      text-align: left;
+      max-width: 300px !important;
+      text-align: left !important;
+      padding: 8px 12px !important;
+      font-size: 0.875rem !important;
+      background-color: rgba(0, 0, 0, 0.8) !important;
     }
     input[readonly], textarea[readonly] {
       background-color: rgb(245, 245, 245) !important;
@@ -54,8 +54,7 @@
                   <div class="col-md-6 mb-3">
                     <div class="row">
                       <label for="companyName" class="col-sm-4 col-form-label">Company Name <span class="text-danger">*</span>
-                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                           title="Enter the full legal name of the company."></i>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Enter the full legal name of the company.'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
                         <input [(ngModel)]="loginUser.companyName" name="companyName" class="form-control" readonly
@@ -71,8 +70,7 @@
                   <div class="col-md-6 mb-3">
                     <div class="row">
                       <label for="website" class="col-sm-4 col-form-label">Company Website
-                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                           title="Enter the official website URL (e.g., https://www.example.com)."></i>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Enter the official website URL (e.g., https://www.example.com).'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
                         <input [(ngModel)]="loginUser.website" name="website" type="text" class="form-control" readonly
@@ -84,8 +82,7 @@
                   <div class="col-md-6 mb-3">
                     <div class="row">
                       <label for="companyAddress" class="col-sm-4 col-form-label">Company Address
-                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                           title="Provide the complete address including street, city, and postal code."></i>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Provide the complete address including street, city, and postal code.'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
                         <input [(ngModel)]="loginUser.companyAddress" name="companyAddress" type="text" readonly
@@ -97,8 +94,7 @@
                   <div class="col-md-6 mb-3">
                     <div class="row">
                       <label for="country" class="col-sm-4 col-form-label">Country
-                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                           title="Select or type the country where the company is registered."></i>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Select or type the country where the company is registered.'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
                         <input [(ngModel)]="loginUser.country" name="country" type="text" class="form-control" readonly
@@ -110,8 +106,7 @@
                   <div class="col-md-6 mb-3">
                     <div class="row">
                       <label for="email" class="col-sm-4 col-form-label">Contact Email <span class="text-danger">*</span>
-                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                           title="Enter the official email address for business communication."></i>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Enter the official email address for business communication.'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
                         <input [(ngModel)]="loginUser.email" name="email" type="text" class="form-control" readonly
@@ -127,8 +122,7 @@
                   <div class="col-md-6 mb-3">
                     <div class="row">
                       <label for="phone" class="col-sm-4 col-form-label">Contact Number
-                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                           title="Provide a valid phone number with country code."></i>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Provide a valid phone number with country code.'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
                         <input [(ngModel)]="loginUser.companyContactNumber" name="phone" type="text" readonly
@@ -141,8 +135,7 @@
                   <div class="col-md-6 mb-3">
                     <div class="row">
                       <label for="yearEstablishment" class="col-sm-4 col-form-label">Year Established
-                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                           title="Enter the date the company was founded (dd/mm/yyyy)."></i>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Enter the date the company was founded (dd/mm/yyyy).'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
                         <input [(ngModel)]="loginUser.yearOfEstablishment" name="yearOfEstablishment" type="date" readonly
@@ -154,8 +147,7 @@
                   <div class="col-md-12 mb-3">
                     <div class="row">
                       <label for="executiveSummary" class="col-sm-2 col-form-label">Executive Summary
-                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                           title="Write a brief summary of your company's mission, services, and goals."></i>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Write a brief summary of your company\'s mission, services, and goals.'" placement="top"></i>
                       </label>
                       <div class="col-sm-10">
                         <textarea [(ngModel)]="loginUser.executiveSummary" name="executiveSummary" readonly
@@ -175,8 +167,7 @@
                   <div class="col-md-6 mb-3">
                     <div class="row">
                       <label for="poc_name" class="col-sm-4 col-form-label">POC Name <span class="text-danger">*</span>
-                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                           title="Enter the full name of the Point of Contact."></i>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Enter the full name of the Point of Contact.'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
                         <input [(ngModel)]="loginUser.poc_name" name="poc_name" type="text" class="form-control" readonly
@@ -188,8 +179,7 @@
                   <div class="col-md-6 mb-3">
                     <div class="row">
                       <label for="poc_phone" class="col-sm-4 col-form-label">POC Phone <span class="text-danger">*</span>
-                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                           title="Enter the contact number of the POC."></i>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Enter the contact number of the POC.'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
                         <input [(ngModel)]="loginUser.poc_phone" name="poc_phone" type="text" class="form-control" readonly
@@ -201,8 +191,7 @@
                   <div class="col-md-6 mb-3">
                     <div class="row">
                       <label for="poc_email" class="col-sm-4 col-form-label">POC Email <span class="text-danger">*</span>
-                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                           title="Provide the email address of the POC, this email will be used for login."></i>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Provide the email address of the POC, this email will be used for login.'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
                         <input [(ngModel)]="loginUser.poc_email" name="poc_email" type="text" class="form-control" readonly
@@ -214,8 +203,7 @@
                   <div class="col-md-6 mb-3">
                     <div class="row">
                       <label for="poc_role" class="col-sm-4 col-form-label">POC Role
-                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                           title="Specify the role or designation of the POC in the company."></i>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Specify the role or designation of the POC in the company.'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
                         <input [(ngModel)]="loginUser.poc_role" name="poc_role" type="text" class="form-control" readonly
@@ -234,8 +222,7 @@
                   <div class="col-md-6 mb-3">
                     <div class="row">
                       <label for="typeOfCompany" class="col-sm-4 col-form-label">Business Type
-                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                           title="Select the legal structure of your business (e.g., Private Limited, LLP, etc.)."></i>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Select the legal structure of your business (e.g., Private Limited, LLP, etc.).'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
                         <ng-select
@@ -257,8 +244,7 @@
                   <div class="col-md-6 mb-3">
                     <div class="row">
                       <label for="employeeCount" class="col-sm-4 col-form-label">Company Size
-                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                           title="Enter the total number of employees in your company."></i>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Enter the total number of employees in your company.'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
                         <input [(ngModel)]="loginUser.employeeCount" name="employeeCount" type="text"
@@ -271,8 +257,7 @@
                   <div class="col-md-6 mb-3">
                     <div class="row">
                       <label for="turnover" class="col-sm-4 col-form-label">Turnover
-                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                           title="Mention the annual revenue or turnover (e.g., ₹5 Cr, $1M)."></i>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Mention the annual revenue or turnover (e.g., ₹5 Cr, $1M).'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
                         <input [(ngModel)]="loginUser.turnover" name="turnover" type="text"
@@ -285,8 +270,7 @@
                   <div class="col-md-6 mb-3">
                     <div class="row">
                       <label for="totalProjectsExecuted" class="col-sm-4 col-form-label">Total Projects Executed
-                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                           title="Enter the total number of projects your company has completed."></i>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Enter the total number of projects your company has completed.'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
                         <input [(ngModel)]="loginUser.totalProjectsExecuted" name="totalProjectsExecuted"
@@ -299,8 +283,7 @@
                   <div class="col-md-6 mb-3">
                     <div class="row">
                       <label for="certifications" class="col-sm-4 col-form-label">Certifications
-                        <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                           title="List any official certifications or accreditations (e.g., ISO 9001, CMMI)."></i>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'List any official certifications or accreditations (e.g., ISO 9001, CMMI).'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
                         <div class="d-flex gap-2 mb-2">
@@ -321,8 +304,7 @@
                   <div class="col-12 mb-3">
                     <!-- Expertise field -->
                     <label for="expertise" class="col-form-label">Expertise
-                      <i class="fas fa-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                         title="List all the products, platforms, or software solutions your company has built or developed over time (e.g., ERP systems, mobile apps, SaaS platforms)."></i>
+                      <i class="fas fa-info-circle ms-1" [ngbTooltip]="'List all the products, platforms, or software solutions your company has built or developed over time (e.g., ERP systems, mobile apps, SaaS platforms).'" placement="top"></i>
                     </label>
                     <div class="form-control p-3">
                       <div class="expertise-container">
