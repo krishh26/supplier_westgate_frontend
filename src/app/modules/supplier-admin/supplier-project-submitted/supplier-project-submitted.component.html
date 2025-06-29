@@ -85,8 +85,7 @@
               </div>
             </div>
             <div class="col-lg-auto col-xl-auto col-sm-2 col-md-2 col-2 mob-mb1" style="cursor: pointer;">
-              <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip"
-                title="Search using BOS ID, Project name, Client name, Website, Notice reference"></i>
+              <i class="bi bi-info-circle-fill info-icon" [ngbTooltip]="'Search using BOS ID, Project name, Client name, Website, Notice reference'" placement="left"></i>
             </div>
           </div>
           <div class="Flatcard shadow-1 mt-4">
@@ -251,5 +250,21 @@
     font-size: 0.85em;
     padding: 0;
     margin-top: 4px;
+  }
+  .tooltip-inner {
+    max-width: 300px !important;
+    text-align: left !important;
+    padding: 8px 12px !important;
+    font-size: 0.875rem !important;
+    background-color: rgba(0, 0, 0, 0.8) !important;
+  }
+  .info-icon {
+    color: #6c757d;
+    font-size: 1.1rem;
+    cursor: help;
+    transition: color 0.2s ease;
+  }
+  .info-icon:hover {
+    color: #0d6efd;
   }
 </style>
