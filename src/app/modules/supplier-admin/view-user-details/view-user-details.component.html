@@ -55,6 +55,9 @@
           </div><br>
         </div>
         <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-6 text-end">
+          <button class="btn btn-primary me-2" routerLink="/supplier-admin/supplier-user-profile">
+            Edit
+          </button>
           <button class="btn btn-primary" routerLink="/supplier-admin/project-list">
             Back
           </button>
@@ -250,13 +253,14 @@
                           [items]="businessTypesList"
                           [multiple]="true"
                           [closeOnSelect]="false"
-                          [searchable]="true"
+                          [searchable]="false"
+                          [clearable]="false"
+                          [disabled]="true"
                           [(ngModel)]="selectedBusinessTypes"
                           name="selectedBusinessTypes"
                           bindLabel="name"
                           bindValue="value"
-                          placeholder="Select business type"
-                          (change)="onBusinessTypeChange()">
+                          placeholder="Select business type">
                         </ng-select>
                       </div>
                     </div>
@@ -270,7 +274,7 @@
                       <div class="col-sm-8">
                         <input [(ngModel)]="loginUser.employeeCount" name="employeeCount" type="text"
                           class="form-control" placeholder="Enter company size" (keypress)="NumberOnly($event)"
-                          id="employeeCount">
+                          id="employeeCount" readonly>
                       </div>
                     </div>
                   </div>
@@ -283,7 +287,7 @@
                       <div class="col-sm-8">
                         <input [(ngModel)]="loginUser.turnover" name="turnover" type="text"
                           class="form-control" placeholder="Enter turnover" (keypress)="NumberOnly($event)"
-                          id="turnover">
+                          id="turnover" readonly>
                       </div>
                     </div>
                   </div>
@@ -296,7 +300,7 @@
                       <div class="col-sm-8">
                         <input [(ngModel)]="loginUser.totalProjectsExecuted" name="totalProjectsExecuted"
                           type="text" class="form-control" placeholder="Enter total projects"
-                          (keypress)="NumberOnly($event)" id="totalProjectsExecuted">
+                          (keypress)="NumberOnly($event)" id="totalProjectsExecuted" readonly>
                       </div>
                     </div>
                   </div>
@@ -310,12 +314,11 @@
                         <div class="d-flex gap-2 mb-2">
                           <input [(ngModel)]="newCertification" name="newCertification" type="text"
                             class="form-control" placeholder="Add certification and press Enter"
-                            (keydown)="onKeyDown($event, 'certifications')" id="certifications">
+                            (keydown)="onKeyDown($event, 'certifications')" id="certifications" readonly>
                         </div>
                         <div *ngIf="certifications.length > 0" class="mb-2">
                           <span *ngFor="let cert of certifications; let i = index" class="badge bg-primary me-2 mb-2">
                             {{cert}}
-                            <button class="btn btn-sm text-white p-0 ms-1" (click)="removeArrayItem('certifications', i)">×</button>
                           </span>
                         </div>
                       </div>
@@ -333,7 +336,6 @@
                         <div *ngFor="let expertise of selectedExpertise; let i = index" class="expertise-item">
                           <div class="expertise-header">
                             <div class="tag">
-                              <span class="remove-tag">&times;</span>
                               {{ expertise.name }}
                             </div>
                           </div>
@@ -341,8 +343,7 @@
                           <!-- Sub-expertise section -->
                           <div class="sub-expertise-container">
                             <div class="sub-expertise-tags" *ngIf="subExpertiseMap[i]?.length">
-                              <div *ngFor="let sub of subExpertiseMap[i]; let j = index" class="tag">
-                                <span class="remove-tag" (click)="removeSubExpertise(i, j)">&times;</span>
+                              <div *ngFor="let sub of subExpertiseMap[i]" class="tag">
                                 {{ sub }}
                               </div>
                             </div>
@@ -352,23 +353,11 @@
                               [items]="subExpertiseOptions"
                               [multiple]="true"
                               [closeOnSelect]="false"
-                              [searchable]="true"
-                              [clearable]="true"
-                              [addTag]="onAddTagSubExpertise"
-                              [loading]="isLoadingSubExpertise"
-                              placeholder="Select sub-expertise (required) - Mention the industries or sectors your company has delivered this solution to (e.g., Education, Healthcare, FinTech, Retail)."
-                              (change)="onSubExpertiseChange(i, $event)">
+                              [searchable]="false"
+                              [clearable]="false"
+                              [disabled]="true"
+                              placeholder="Select sub-expertise">
                             </ng-select>
-
-                            <button type="button" class="btn btn-primary mt-2"
-                              (click)="addSubExpertise(i)"
-                              [disabled]="!selectedSubExpertiseMap[i] || selectedSubExpertiseMap[i].length === 0">
-                              Add Sub-Expertise
-                            </button>
-
-                            <div *ngIf="!subExpertiseMap[i]?.length" class="validation-error">
-                              Sub-expertise is required
-                            </div>
                           </div>
                         </div>
 
@@ -381,19 +370,13 @@
                             [(ngModel)]="selectedExpertiseItems"
                             name="selectedExpertiseItems"
                             [closeOnSelect]="false"
-                            [searchable]="true"
-                            [clearable]="true"
-                            [addTag]="onAddTag"
+                            [searchable]="false"
+                            [clearable]="false"
+                            [disabled]="true"
                             [groupBy]="'type'"
                             [hideSelected]="false"
                             [virtualScroll]="true">
                           </ng-select>
-
-                          <button type="button" class="btn btn-primary add-expertise-btn"
-                            (click)="onExpertiseSelectionChange($event)"
-                            [disabled]="!selectedExpertiseItems || selectedExpertiseItems.length === 0">
-                            Add Expertise
-                          </button>
                         </div>
                       </div>
                     </div>
@@ -407,14 +390,14 @@
                           [items]="tags"
                           [multiple]="true"
                           [closeOnSelect]="false"
-                          [searchable]="true"
+                          [searchable]="false"
                           [loading]="isLoadingTags"
                           [(ngModel)]="selectedTags"
                           name="selectedTags"
                           bindLabel="name"
-                          [clearable]="true"
-                          placeholder="Select what you can do"
-                          (change)="onTagSelectionChange($event)">
+                          [clearable]="false"
+                          [disabled]="true"
+                          placeholder="Select what you can do">
                         </ng-select>
                       </div>
                     </div>
@@ -428,11 +411,12 @@
                           [items]="technologiesList"
                           [multiple]="true"
                           [closeOnSelect]="false"
-                          [searchable]="true"
+                          [searchable]="false"
                           [(ngModel)]="selectedTechnologies"
                           name="selectedTechnologies"
-                          placeholder="Select technologies"
-                          (change)="onTechnologiesChange($event)">
+                          [clearable]="false"
+                          [disabled]="true"
+                          placeholder="Select technologies">
                         </ng-select>
                       </div>
                     </div>
@@ -452,12 +436,11 @@
                           <div class="tags">
                             <span *ngFor="let client of keyClients; let i = index" class="badge bg-primary me-2">
                               {{client}}
-                              <button class="btn btn-sm text-white p-0 ms-1" (click)="removeArrayItem('keyClients', i)">×</button>
                             </span>
                           </div>
                           <div class="mt-2">
                             <input type="text" class="form-control" placeholder="Enter key client and press Enter"
-                              (keydown)="onKeyDown($event, 'keyClients')">
+                              (keydown)="onKeyDown($event, 'keyClients')" readonly>
                           </div>
                         </div>
                       </div>
@@ -495,9 +478,7 @@
                 <!-- Update Profile Button -->
                 <div class="row">
                   <div class="col-12 text-end">
-                    <button type="submit" class="btn btn-primary" [disabled]="isUpdating || !loginUser.companyName || !loginUser.poc_name || !loginUser.poc_phone || !loginUser.poc_email ||
-                      (!loginUser.resourceSharingSupplier && !loginUser.subcontractingSupplier) ||
-                      hasInvalidExpertise()">
+                    <button type="submit" class="btn btn-primary" style="display: none;">
                       <span *ngIf="isUpdating" class="spinner-border spinner-border-sm me-1"></span>
                       {{ isUpdating ? 'Updating...' : 'Update Profile' }}
                     </button>
