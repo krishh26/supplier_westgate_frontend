@@ -1,0 +1,520 @@
+<main id="main">
+  <style>
+    .fa-info-circle {
+      color: #6c757d;
+      font-size: 0.85rem;
+      cursor: help;
+      transition: color 0.2s ease;
+      margin-left: 4px;
+    }
+    .fa-info-circle:hover {
+      color: #0d6efd;
+    }
+    .tooltip-inner {
+      max-width: 300px !important;
+      text-align: left !important;
+      padding: 8px 12px !important;
+      font-size: 0.875rem !important;
+      background-color: rgba(0, 0, 0, 0.8) !important;
+    }
+    input[readonly], textarea[readonly] {
+      background-color: rgb(245, 245, 245) !important;
+    }
+    .form-check-input:disabled {
+      background-color: rgb(245, 245, 245) !important;
+      opacity: 1 !important;
+    }
+    .text-primary {
+      color: #1976d2 !important;
+    }
+    ::ng-deep .ng-select .ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup {
+      color: #1976d2 !important;
+      font-weight: 600;
+    }
+    .sub-expertise-tags .tag {
+      background-color: #F1F2F3 !important;
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin: 2px;
+      display: inline-flex;
+      align-items: center;
+    }
+    ::ng-deep .expertise-select .ng-select .ng-select-container {
+      background-color: #F1F2F3 !important;
+    }
+    ::ng-deep .expertise-select .ng-select.ng-select-focused .ng-select-container {
+      background-color: #F1F2F3 !important;
+    }
+  </style>
+  <section>
+    <div class="container-fluid">
+      <div class="row align-items-center justify-content-between">
+        <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-6">
+          <div class="form-group mb-0">
+            <h4 class="text-theme"><strong>User Profile</strong></h4>
+          </div><br>
+        </div>
+        <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-6 text-end">
+          <button class="btn btn-primary" routerLink="/supplier-admin/project-list">
+            Back
+          </button>
+        </div>
+      </div>
+
+      <form (ngSubmit)="updateProfile(); $event.preventDefault()" #userProfileForm="ngForm" autocomplete="off" novalidate>
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-4">
+              <div class="card-body">
+                <!-- Company Details -->
+                <div class="row mb-4">
+                  <div class="col-12">
+                    <h5 class="text-primary mb-3">Company Details</h5>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="companyName" class="col-sm-4 col-form-label">Company Name <span class="text-danger">*</span>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Enter the full legal name of the company.'" placement="top"></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="loginUser.companyName" name="companyName" class="form-control" readonly
+                          placeholder="Enter company name" id="companyName" required #companyNameInput="ngModel" />
+                        <div *ngIf="companyNameInput.invalid && (companyNameInput.dirty || companyNameInput.touched)"
+                          class="text-danger small">
+                          Company Name is required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="website" class="col-sm-4 col-form-label">Company Website
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Enter the official website URL (e.g., https://www.example.com).'" placement="top"></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="loginUser.website" name="website" type="text" class="form-control" readonly
+                          placeholder="Enter company website" id="website">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="companyAddress" class="col-sm-4 col-form-label">Company Address
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Provide the complete address including street, city, and postal code.'" placement="top"></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="loginUser.companyAddress" name="companyAddress" type="text" readonly
+                          class="form-control" placeholder="Enter company address" id="companyAddress">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="country" class="col-sm-4 col-form-label">Country
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Select or type the country where the company is registered.'" placement="top"></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="loginUser.country" name="country" type="text" class="form-control" readonly
+                          placeholder="Enter country" id="country">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="email" class="col-sm-4 col-form-label">Contact Email <span class="text-danger">*</span>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Enter the official email address for business communication.'" placement="top"></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="loginUser.email" name="email" type="text" class="form-control" readonly
+                          placeholder="Enter contact email" id="email" required #emailInput="ngModel">
+                        <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)"
+                          class="text-danger small">
+                          Contact email is required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="phone" class="col-sm-4 col-form-label">Contact Number
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Provide a valid phone number with country code.'" placement="top"></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="loginUser.companyContactNumber" name="phone" type="text" readonly
+                          class="form-control" placeholder="Enter contact number" [maxlength]="10" [minlength]="10"
+                          id="phone">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="yearEstablishment" class="col-sm-4 col-form-label">Year Established
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Enter the date the company was founded (dd/mm/yyyy).'" placement="top"></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="loginUser.yearOfEstablishment" name="yearOfEstablishment" type="date" readonly
+                          class="form-control" [attr.max]="maxDate" id="yearEstablishment">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 mb-3">
+                    <div class="row">
+                      <label for="executiveSummary" class="col-sm-2 col-form-label">Executive Summary
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Write a brief summary of your company\'s mission, services, and goals.'" placement="top"></i>
+                      </label>
+                      <div class="col-sm-10">
+                        <textarea [(ngModel)]="loginUser.executiveSummary" name="executiveSummary" readonly
+                          class="form-control" placeholder="Enter company executive summary" id="executiveSummary"
+                          rows="4"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- POC Details -->
+                <div class="row mb-4">
+                  <div class="col-12">
+                    <h5 class="text-primary mb-3">POC Details</h5>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="poc_name" class="col-sm-4 col-form-label">POC Name <span class="text-danger">*</span>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Enter the full name of the Point of Contact.'" placement="top"></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="loginUser.poc_name" name="poc_name" type="text" class="form-control" readonly
+                          placeholder="Enter POC name" id="poc_name" required #pocNameInput="ngModel" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="poc_phone" class="col-sm-4 col-form-label">POC Phone <span class="text-danger">*</span>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Enter the contact number of the POC.'" placement="top"></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="loginUser.poc_phone" name="poc_phone" type="text" class="form-control" readonly
+                          placeholder="Enter POC phone" id="poc_phone" required #pocPhoneInput="ngModel" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="poc_email" class="col-sm-4 col-form-label">POC Email <span class="text-danger">*</span>
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Provide the email address of the POC, this email will be used for login.'" placement="top"></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="loginUser.poc_email" name="poc_email" type="text" class="form-control" readonly
+                          placeholder="Enter POC email" id="poc_email" required #pocEmailInput="ngModel" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="poc_role" class="col-sm-4 col-form-label">POC Role
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Specify the role or designation of the POC in the company.'" placement="top"></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="loginUser.poc_role" name="poc_role" type="text" class="form-control" readonly
+                          placeholder="Enter POC role" id="poc_role" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Business Details -->
+                <div class="row mb-4">
+                  <div class="col-12">
+                    <h5 class="text-primary mb-3">Business Details</h5>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="typeOfCompany" class="col-sm-4 col-form-label">Business Type
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Select the legal structure of your business (e.g., Private Limited, LLP, etc.).'" placement="top"></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <ng-select
+                          [items]="businessTypesList"
+                          [multiple]="true"
+                          [closeOnSelect]="false"
+                          [searchable]="true"
+                          [(ngModel)]="selectedBusinessTypes"
+                          name="selectedBusinessTypes"
+                          bindLabel="name"
+                          bindValue="value"
+                          placeholder="Select business type"
+                          (change)="onBusinessTypeChange()">
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="employeeCount" class="col-sm-4 col-form-label">Company Size
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Enter the total number of employees in your company.'" placement="top"></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="loginUser.employeeCount" name="employeeCount" type="text"
+                          class="form-control" placeholder="Enter company size" (keypress)="NumberOnly($event)"
+                          id="employeeCount">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="turnover" class="col-sm-4 col-form-label">Turnover
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Mention the annual revenue or turnover (e.g., ₹5 Cr, $1M).'" placement="top"></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="loginUser.turnover" name="turnover" type="text"
+                          class="form-control" placeholder="Enter turnover" (keypress)="NumberOnly($event)"
+                          id="turnover">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="totalProjectsExecuted" class="col-sm-4 col-form-label">Total Projects Executed
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Enter the total number of projects your company has completed.'" placement="top"></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <input [(ngModel)]="loginUser.totalProjectsExecuted" name="totalProjectsExecuted"
+                          type="text" class="form-control" placeholder="Enter total projects"
+                          (keypress)="NumberOnly($event)" id="totalProjectsExecuted">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label for="certifications" class="col-sm-4 col-form-label">Certifications
+                        <i class="fas fa-info-circle ms-1" [ngbTooltip]="'List any official certifications or accreditations (e.g., ISO 9001, CMMI).'" placement="top"></i>
+                      </label>
+                      <div class="col-sm-8">
+                        <div class="d-flex gap-2 mb-2">
+                          <input [(ngModel)]="newCertification" name="newCertification" type="text"
+                            class="form-control" placeholder="Add certification and press Enter"
+                            (keydown)="onKeyDown($event, 'certifications')" id="certifications">
+                        </div>
+                        <div *ngIf="certifications.length > 0" class="mb-2">
+                          <span *ngFor="let cert of certifications; let i = index" class="badge bg-primary me-2 mb-2">
+                            {{cert}}
+                            <button class="btn btn-sm text-white p-0 ms-1" (click)="removeArrayItem('certifications', i)">×</button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 mb-3">
+                    <!-- Expertise field -->
+                    <label for="expertise" class="col-form-label">Expertise
+                      <i class="fas fa-info-circle ms-1" [ngbTooltip]="'List all the products, platforms, or software solutions your company has built or developed over time (e.g., ERP systems, mobile apps, SaaS platforms).'" placement="top"></i>
+                    </label>
+                    <div class="form-control p-3">
+                      <div class="expertise-container">
+                        <!-- Existing expertise items -->
+                        <div *ngFor="let expertise of selectedExpertise; let i = index" class="expertise-item">
+                          <div class="expertise-header">
+                            <div class="tag">
+                              <span class="remove-tag">&times;</span>
+                              {{ expertise.name }}
+                            </div>
+                          </div>
+
+                          <!-- Sub-expertise section -->
+                          <div class="sub-expertise-container">
+                            <div class="sub-expertise-tags" *ngIf="subExpertiseMap[i]?.length">
+                              <div *ngFor="let sub of subExpertiseMap[i]; let j = index" class="tag">
+                                <span class="remove-tag" (click)="removeSubExpertise(i, j)">&times;</span>
+                                {{ sub }}
+                              </div>
+                            </div>
+
+                            <ng-select [(ngModel)]="selectedSubExpertiseMap[i]"
+                              name="subExpertise_{{i}}"
+                              [items]="subExpertiseOptions"
+                              [multiple]="true"
+                              [closeOnSelect]="false"
+                              [searchable]="true"
+                              [clearable]="true"
+                              [addTag]="onAddTagSubExpertise"
+                              [loading]="isLoadingSubExpertise"
+                              placeholder="Select sub-expertise (required) - Mention the industries or sectors your company has delivered this solution to (e.g., Education, Healthcare, FinTech, Retail)."
+                              (change)="onSubExpertiseChange(i, $event)">
+                            </ng-select>
+
+                            <button type="button" class="btn btn-primary mt-2"
+                              (click)="addSubExpertise(i)"
+                              [disabled]="!selectedSubExpertiseMap[i] || selectedSubExpertiseMap[i].length === 0">
+                              Add Sub-Expertise
+                            </button>
+
+                            <div *ngIf="!subExpertiseMap[i]?.length" class="validation-error">
+                              Sub-expertise is required
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Add new expertise section -->
+                        <div class="expertise-select">
+                          <ng-select placeholder="Select expertise"
+                            [items]="expertiseGroupedOptions"
+                            bindLabel="name"
+                            [multiple]="true"
+                            [(ngModel)]="selectedExpertiseItems"
+                            name="selectedExpertiseItems"
+                            [closeOnSelect]="false"
+                            [searchable]="true"
+                            [clearable]="true"
+                            [addTag]="onAddTag"
+                            [groupBy]="'type'"
+                            [hideSelected]="false"
+                            [virtualScroll]="true">
+                          </ng-select>
+
+                          <button type="button" class="btn btn-primary add-expertise-btn"
+                            (click)="onExpertiseSelectionChange($event)"
+                            [disabled]="!selectedExpertiseItems || selectedExpertiseItems.length === 0">
+                            Add Expertise
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label class="col-sm-4 col-form-label">I Can Do</label>
+                      <div class="col-sm-8">
+                        <ng-select
+                          [items]="tags"
+                          [multiple]="true"
+                          [closeOnSelect]="false"
+                          [searchable]="true"
+                          [loading]="isLoadingTags"
+                          [(ngModel)]="selectedTags"
+                          name="selectedTags"
+                          bindLabel="name"
+                          [clearable]="true"
+                          placeholder="Select what you can do"
+                          (change)="onTagSelectionChange($event)">
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label class="col-sm-4 col-form-label">Technology Stack</label>
+                      <div class="col-sm-8">
+                        <ng-select
+                          [items]="technologiesList"
+                          [multiple]="true"
+                          [closeOnSelect]="false"
+                          [searchable]="true"
+                          [(ngModel)]="selectedTechnologies"
+                          name="selectedTechnologies"
+                          placeholder="Select technologies"
+                          (change)="onTechnologiesChange($event)">
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Client Information -->
+                <div class="row mb-4">
+                  <div class="col-12">
+                    <h5 class="text-primary mb-3">Client Information</h5>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <div class="row">
+                      <label for="keyClients" class="col-sm-4 col-form-label">Key Clients</label>
+                      <div class="col-sm-8">
+                        <div class="form-control p-2">
+                          <div class="tags">
+                            <span *ngFor="let client of keyClients; let i = index" class="badge bg-primary me-2">
+                              {{client}}
+                              <button class="btn btn-sm text-white p-0 ms-1" (click)="removeArrayItem('keyClients', i)">×</button>
+                            </span>
+                          </div>
+                          <div class="mt-2">
+                            <input type="text" class="form-control" placeholder="Enter key client and press Enter"
+                              (keydown)="onKeyDown($event, 'keyClients')">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Supplier Type -->
+                <div class="row mb-4">
+                  <div class="col-12">
+                    <h5 class="text-primary mb-3">Additional Information</h5>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label class="col-sm-4 col-form-label">Resource Sharing Supplier</label>
+                      <div class="col-sm-8">
+                        <span class="form-control readonly-input">
+                          {{ loginUser?.resourceSharingSupplier ? 'Yes' : 'No' }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="row">
+                      <label class="col-sm-4 col-form-label">Subcontracting Supplier</label>
+                      <div class="col-sm-8">
+                        <span class="form-control readonly-input">
+                          {{ loginUser?.subcontractingSupplier ? 'Yes' : 'No' }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Update Profile Button -->
+                <div class="row">
+                  <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-primary" [disabled]="isUpdating || !loginUser.companyName || !loginUser.poc_name || !loginUser.poc_phone || !loginUser.poc_email ||
+                      (!loginUser.resourceSharingSupplier && !loginUser.subcontractingSupplier) ||
+                      hasInvalidExpertise()">
+                      <span *ngIf="isUpdating" class="spinner-border spinner-border-sm me-1"></span>
+                      {{ isUpdating ? 'Updating...' : 'Update Profile' }}
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+
+

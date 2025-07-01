@@ -50,6 +50,7 @@ import { SupplierCommentModalComponent } from './supplier-comment-modal/supplier
 import { ResourcesCommentModalComponent } from './resources-comment-modal/resources-comment-modal.component';
 import { ResourcesViewDetailsComponent } from './resources-view-details/resources-view-details.component';
 import { ResourcesAddComponent } from './resources-add/resources-add.component';
+import { ViewUserDetailsComponent } from './view-user-details/view-user-details.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import { ResourcesAddComponent } from './resources-add/resources-add.component';
     ResourcesCommentModalComponent,
     ResourcesViewDetailsComponent,
     ResourcesAddComponent,
+    ViewUserDetailsComponent
   ],
   imports: [
     CommonModule,
