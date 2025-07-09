@@ -51,6 +51,7 @@ import { ResourcesCommentModalComponent } from './resources-comment-modal/resour
 import { ResourcesViewDetailsComponent } from './resources-view-details/resources-view-details.component';
 import { ResourcesAddComponent } from './resources-add/resources-add.component';
 import { ViewUserDetailsComponent } from './view-user-details/view-user-details.component';
+import { ProfileSetupComponent } from './profile-setup/profile-setup.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { ViewUserDetailsComponent } from './view-user-details/view-user-details.
     ResourcesCommentModalComponent,
     ResourcesViewDetailsComponent,
     ResourcesAddComponent,
-    ViewUserDetailsComponent
+    ViewUserDetailsComponent,
+    ProfileSetupComponent
   ],
   imports: [
     CommonModule,

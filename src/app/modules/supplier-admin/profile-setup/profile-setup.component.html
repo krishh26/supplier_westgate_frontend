@@ -1,0 +1,1017 @@
+<section class="gray-body">
+  <div class="container">
+    <div class="row mb-3 align-items-center">
+      <div class="col-12">
+        <ul class="wizard">
+          <li *ngFor="let step of steps" [class.active]="step.active" [class.completed]="step.completed"></li>
+        </ul>
+      </div>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <div class="col-12">
+        <h4>{{ steps[currentStep - 1].title }}</h4>
+      </div>
+    </div>
+
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <!-- Step 1: Company Details -->
+      <div class="custom-card" *ngIf="currentStep === 1">
+        <div class="card-header"><strong>Company Details</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Company Name <span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Enter the full legal name of the company"></i></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" formControlName="companyName" placeholder="WESTGATE IT HUB PRIVATE LIMITED"
+                    [class.is-invalid]="isFieldInvalid('companyName')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Company Website <span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Enter the official website URL (www.example.com)"></i></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" formControlName="companyWebsite" placeholder="https://wwww.westgateithub.com"
+                    [class.is-invalid]="isFieldInvalid('companyWebsite')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Company Address <span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Enter company address"></i></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" formControlName="companyAddress" placeholder="Uttarahalli Main Road"
+                    [class.is-invalid]="isFieldInvalid('companyAddress')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Country <span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Enter country details"></i></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" formControlName="country" placeholder="Uttarahalli Main Road"
+                    [class.is-invalid]="isFieldInvalid('country')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Contact Email <span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Enter the official email id"></i></label>
+                <div class="col-sm-8">
+                  <input type="email" class="form-control" formControlName="contactEmail" placeholder="India"
+                    [class.is-invalid]="isFieldInvalid('contactEmail')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Contact Number <span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Enter the official contact number"></i></label>
+                <div class="col-sm-8">
+                  <input type="tel" class="form-control" formControlName="contactNumber" placeholder="7781978685"
+                    [class.is-invalid]="isFieldInvalid('contactNumber')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Established Year <span
+                    class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Enter the date the company was founded (DD/MM/YYYY)"></i></label>
+                <div class="col-sm-8">
+                  <input type="date" class="form-control" formControlName="establishedYear"
+                    [class.is-invalid]="isFieldInvalid('establishedYear')">
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Exicutive Summary <span
+                    class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Write a brief summary of your "></i></label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" formControlName="executiveSummary" rows="3" cols="100"
+                    placeholder="Write a brief summary of your" [class.is-invalid]="isFieldInvalid('executiveSummary')"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-header"><strong>POC Details</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">POC Name <span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Enter the full name of the Point of Contact"></i></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" formControlName="pocName" placeholder="Enter POC Name"
+                    [class.is-invalid]="isFieldInvalid('pocName')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">POC Phone <span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Enter the contact number of POC"></i></label>
+                <div class="col-sm-8">
+                  <input type="tel" class="form-control" formControlName="pocPhone" placeholder="Enter POC Phone"
+                    [class.is-invalid]="isFieldInvalid('pocPhone')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">POC Email <span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Enter POC email address"></i></label>
+                <div class="col-sm-8">
+                  <input type="email" class="form-control" formControlName="pocEmail" placeholder="POC Email"
+                    [class.is-invalid]="isFieldInvalid('pocEmail')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">POC Role <span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Specify the role or designation of the POC in the company"></i></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" formControlName="pocRole" placeholder="Enter desigmation"
+                    [class.is-invalid]="isFieldInvalid('pocRole')">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-header"><strong>Business Details</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Business Type <span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Select the legal structure of your business (Ex. Private Limited, LLP)"></i></label>
+                <div class="col-sm-8">
+                  <select class="form-select" formControlName="businessType"
+                    [class.is-invalid]="isFieldInvalid('businessType')">
+                    <option value="">Select business type</option>
+                    <option value="Private Limited Company">Private Limited Company</option>
+                    <option value="Public Limited Comapny">Public Limited Comapny</option>
+                    <option value="Limited Liability Partnership (LLP)">Limited Liability Partnership (LLP)</option>
+                    <option value="Partnership Firm">Partnership Firm</option>
+                    <option value="Sole Properitership">Sole Properitership</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Company Size <span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Enter the total number of employee in your company"></i></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" formControlName="companySize" placeholder="20"
+                    [class.is-invalid]="isFieldInvalid('companySize')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Turnover <span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Mention the annual revenue or turnover"></i></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" formControlName="turnover" placeholder="Enter turnover"
+                    [class.is-invalid]="isFieldInvalid('turnover')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Total Projects Executed <span
+                    class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Enter the total number porjects your company has compelted"></i></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" formControlName="totalProjectsExecuted" placeholder="Enter total projects"
+                    [class.is-invalid]="isFieldInvalid('totalProjectsExecuted')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Certification <span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="List any official certifications or accreditations (Ex.IOS, 9001, CMM)"></i></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" formControlName="certification" placeholder="Add certification and press Enter"
+                    [class.is-invalid]="isFieldInvalid('certification')">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Technology Stack & Services -->
+      <div class="custom-card" *ngIf="currentStep === 2">
+        <div class="card-header"><strong>Technology stack</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Expertise <span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="List all the producs, platform, or software solutions your company has built or developed over  time (Ex. ERP system, mobile app, Saas platforms)"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose your expertise" formControlName="expertise"
+                    [class.is-invalid]="isFieldInvalid('expertise')">
+                    <option value="NFT/Web3 Platform">NFT/Web3 Platform</option>
+                    <option value="Learning Management System">Learning Management System</option>
+                    <option value="Custom Software Development">Custom Software Development</option>
+                    <option value="mobile Application Development">mobile Application Development</option>
+                    <option value="Website Development">Website Development</option>
+                    <option value="E- Commerce Development">E- Commerce Development</option>
+                    <option value="Enterprise Resource Planning">Enterprise Resource Planning</option>
+                    <option value="Online Learning Marketplace">Online Learning Marketplace</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other expertise">
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Services <span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your services"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose your services" formControlName="services"
+                    [class.is-invalid]="isFieldInvalid('services')">
+                    <option value="AI & Machine Learning">AI & Machine Learning</option>
+                    <option value="Analytics & Reporting">Analytics & Reporting</option>
+                    <option value="Blockchain Development">Blockchain Development</option>
+                    <option value="Custom Software Development">Custom Software Development</option>
+                    <option value="Data Migration & Legacy Modernisation">Data Migration & Legacy Modernisation</option>
+                    <option value="Digital Marketing & SEO">Digital Marketing & SEO</option>
+                    <option value="Hosting and Infrastructure">Hosting and Infrastructure</option>
+                    <option value="IT Consulting & System Integration">IT Consulting & System Integration</option>
+                    <option value="IoT Development">IoT Development</option>
+                    <option value="Logos">Logos</option>
+                    <option value="Managed Cloud Services">Managed Cloud Services</option>
+                    <option value="Pre-Built Software Solutions">Pre-Built Software Solutions</option>
+                    <option value="Quality Assurance and Software Testing">Quality Assurance and Software Testing</option>
+                    <option value="Security & Compliance">Security & Compliance</option>
+                    <option value="Support & Maintenance">Support & Maintenance</option>
+                    <option value="UI/UX">UI/UX</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Technology Stak <span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your services"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose your services" formControlName="technologyStack"
+                    [class.is-invalid]="isFieldInvalid('technologyStack')">
+                    <option value="AI & Machine Learning">AI & Machine Learning</option>
+                    <option value="Analytics & Reporting">Analytics & Reporting</option>
+                    <option value="Blockchain Development">Blockchain Development</option>
+                    <option value="Custom Software Development">Custom Software Development</option>
+                    <option value="Data Migration & Legacy Modernisation">Data Migration & Legacy Modernisation</option>
+                    <option value="Digital Marketing & SEO">Digital Marketing & SEO</option>
+                    <option value="Hosting and Infrastructure">Hosting and Infrastructure</option>
+                    <option value="IT Consulting & System Integration">IT Consulting & System Integration</option>
+                    <option value="IoT Development">IoT Development</option>
+                    <option value="Logos">Logos</option>
+                    <option value="Managed Cloud Services">Managed Cloud Services</option>
+                    <option value="Pre-Built Software Solutions">Pre-Built Software Solutions</option>
+                    <option value="Quality Assurance and Software Testing">Quality Assurance and Software Testing</option>
+                    <option value="Security & Compliance">Security & Compliance</option>
+                    <option value="Support & Maintenance">Support & Maintenance</option>
+                    <option value="UI/UX">UI/UX</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Core Services & Capabilities -->
+      <div class="custom-card" *ngIf="currentStep === 3">
+        <div class="card-header"><strong>Services and Capabilities</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Cloud Platforms<span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your cloud technology"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose your cloud platform" formControlName="cloudPlatforms"
+                    [class.is-invalid]="isFieldInvalid('cloudPlatforms')">
+                    <option value="Amazon Web Services (AWS)">Amazon Web Services (AWS)</option>
+                    <option value="Microsoft Azure">Microsoft Azure</option>
+                    <option value="Google Cloud Platform (GCP)">Google Cloud Platform (GCP)</option>
+                    <option value="OVHcloud">OVHcloud</option>
+                    <option value="Scaleway">Scaleway</option>
+                    <option value="Hetzner Cloud">Hetzner Cloud</option>
+                    <option value="Deutsche Telekom Cloud">Deutsche Telekom Cloud</option>
+                    <option value="Thales Cloud">Thales Cloud</option>
+                    <option value="Atos Cloud">Atos Cloud</option>
+                    <option value="CloudSigma">CloudSigma</option>
+                    <option value="NTT-Netmagic">NTT-Netmagic</option>
+                    <option value="Tata Communications IZO Cloud">Tata Communications IZO Cloud</option>
+                    <option value="CtrlS">CtrlS</option>
+                    <option value="ESDS">ESDS</option>
+                    <option value="Sify CloudInfinit">Sify CloudInfinit</option>
+                    <option value="Nxtra by Airtel">Nxtra by Airtel</option>
+                    <option value="Reliance Jio Cloud">Reliance Jio Cloud</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">DevOps & Automation<span
+                    class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your cloud technology"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose your DevOps" formControlName="devOps"
+                    [class.is-invalid]="isFieldInvalid('devOps')">
+                    <option value="Terraform">Terraform</option>
+                    <option value="Ansible">Ansible</option>
+                    <option value="Jenkins">Jenkins</option>
+                    <option value="GitLab CI/CD">GitLab CI/CD</option>
+                    <option value="GitHub Actions">GitHub Actions</option>
+                    <option value="CircleCI">CircleCI</option>
+                    <option value="ArgoCD">ArgoCD</option>
+                    <option value="Puppet">Puppet</option>
+                    <option value="Chef">Chef</option>
+                    <option value="HashiCorp Vault">HashiCorp Vault</option>
+                    <option value="LaunchDarkly">LaunchDarkly</option>
+                    <option value="Backstage">Backstage</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Containerization & Orchestration<span
+                    class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your cloud technology"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose your Containerization & Orchestration" formControlName="containerization"
+                    [class.is-invalid]="isFieldInvalid('containerization')">
+                    <option value="Docker">Docker</option>
+                    <option value="Kubernetes">Kubernetes</option>
+                    <option value="OpenShift">OpenShift</option>
+                    <option value="Helm">Helm</option>
+                    <option value="Istio">Istio</option>
+                    <option value="Rancher">Rancher</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: Infrastructure, Integration & Security -->
+      <div class="custom-card" *ngIf="currentStep === 4">
+        <div class="card-header"><strong>Infrastructure, Intigration and Security Details</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Networking and Infrastructure<span
+                    class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your cloud technology"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose netwrking & infrastrucutre" formControlName="networking"
+                    [class.is-invalid]="isFieldInvalid('networking')">
+                    <option value="Cisco">Cisco</option>
+                    <option value="Juniper Networks">Juniper Networks</option>
+                    <option value="Fortinet">Fortinet</option>
+                    <option value="Aruba Networks">Aruba Networks</option>
+                    <option value="F5">F5</option>
+                    <option value="Zscaler">Zscaler</option>
+                    <option value="Cloudflare">Cloudflare</option>
+                    <option value="Tailscale">Tailscale</option>
+                    <option value="Teleport">Teleport</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Security and IAM<span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your cloud technology"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose security & IAM" formControlName="security"
+                    [class.is-invalid]="isFieldInvalid('security')">
+                    <option value="Palo Alto Networks">Palo Alto Networks</option>
+                    <option value="CrowdStrike">CrowdStrike</option>
+                    <option value="Okta">Okta</option>
+                    <option value="Microsoft Defender">Microsoft Defender</option>
+                    <option value="SentinelOne">SentinelOne</option>
+                    <option value="Splunk">Splunk</option>
+                    <option value="Qualys">Qualys</option>
+                    <option value="Fortinet">Fortinet</option>
+                    <option value="Tenable">Tenable</option>
+                    <option value="Rapid7">Rapid7</option>
+                    <option value="Auth0">Auth0</option>
+                    <option value="Ping Identity">Ping Identity</option>
+                    <option value="Duo Security">Duo Security</option>
+                    <option value="CyberArk">CyberArk</option>
+                    <option value="BeyondTrust">BeyondTrust</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Monitoring and  Observability<span
+                    class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your cloud technology"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose monitoring & observability" formControlName="monitoring"
+                    [class.is-invalid]="isFieldInvalid('monitoring')">
+                    <option value="Datadog">Datadog</option>
+                    <option value="Prometheus">Prometheus</option>
+                    <option value="Grafana">Grafana</option>
+                    <option value="New Relic">New Relic</option>
+                    <option value="Splunk Observability">Splunk Observability</option>
+                    <option value="Zabbix">Zabbix</option>
+                    <option value="ELK Stack">ELK Stack</option>
+                    <option value="PagerDuty">PagerDuty</option>
+                    <option value="Opsgenie">Opsgenie</option>
+                    <option value="Moogsoft">Moogsoft</option>
+                    <option value="BigPanda">BigPanda</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+             <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Integration and API Management<span
+                    class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose intigration & API management"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Select a State" formControlName="apiManagement"
+                    [class.is-invalid]="isFieldInvalid('apiManagement')">
+
+                    <option value="Apigee">Apigee</option>
+                    <option value="Azure API Management">Azure API Management</option>
+                    <option value="AWS API Gateway">AWS API Gateway</option>
+                    <option value="MuleSoft">MuleSoft</option>
+                    <option value="Boomi">Boomi</option>
+                     <option value="Workato">Workato</option>
+                    <option value="Zapier">Zapier</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Event Streaming and  Messaging<span
+                    class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your cloud technology"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose event streaming" formControlName="eventStreaming"
+                    [class.is-invalid]="isFieldInvalid('eventStreaming')">
+                    <option value="Apache Kafka">Apache Kafka</option>
+                    <option value="Confluent">Confluent</option>
+                    <option value="RabbitMQ">RabbitMQ</option>
+                    <option value="NATS">NATS</option>
+                    <option value="Amazon EventBridge">Amazon EventBridge</option>
+                     <option value="Azure Event Grid">Azure Event Grid</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5: Data, Intelligence & Automation -->
+      <div class="custom-card" *ngIf="currentStep === 5">
+        <div class="card-header"><strong>Data, Intelligence and Automation Details</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Database Platforms<span
+                    class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your cloud technology"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose database platform" formControlName="databasePlatforms"
+                    [class.is-invalid]="isFieldInvalid('databasePlatforms')">
+                    <option value="PostgreSQL">PostgreSQL</option>
+                    <option value="MySQL">MySQL</option>
+                    <option value="Microsoft SQL Server">Microsoft SQL Server</option>
+                    <option value="MongoDB">MongoDB</option>
+                    <option value="Redis">Redis</option>
+                    <option value="Cassandra">Cassandra</option>
+                    <option value="Amazon Aurora">Amazon Aurora</option>
+                    <option value="Oracle DB">Oracle DB</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Data, Analytics & BI<span
+                    class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your data, analytics & BI"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose data analytics & BI" formControlName="dataAnalytics"
+                    [class.is-invalid]="isFieldInvalid('dataAnalytics')">
+                    <option value="Power BI">Power BI</option>
+                    <option value="Tableau">Tableau</option>
+                    <option value="Looker">Looker</option>
+                    <option value="Qlik Sense">Qlik Sense</option>
+                    <option value="Apache Superset">Apache Superset</option>
+                    <option value="Snowflake">Snowflake</option>
+                    <option value="Databricks">Databricks</option>
+                    <option value="Google BigQuery">Google BigQuery</option>
+                    <option value="Amazon Redshift">Amazon Redshift</option>
+                    <option value="dbt">dbt</option>
+                    <option value="Apache Airflow">Apache Airflow</option>
+                    <option value="Fivetran">Fivetran</option>
+                    <option value="Stitch">Stitch</option>
+                    <option value="Talend">Talend</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">AI / ML Platforms<span
+                    class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your AI / ML platforms"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose AI / ML platforms" formControlName="aiMlPlatforms"
+                    [class.is-invalid]="isFieldInvalid('aiMlPlatforms')">
+                    <option value="TensorFlow">TensorFlow</option>
+                    <option value="PyTorch">PyTorch</option>
+                    <option value="Hugging Face">Hugging Face</option>
+                    <option value="Azure ML">Azure ML</option>
+                    <option value="AWS SageMaker">AWS SageMaker</option>
+                    <option value="Google Vertex AI">Google Vertex AI</option>
+                    <option value="MLflow">MLflow</option>
+                    <option value="DataRobot">DataRobot</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 6: Enterprise Systems & Business Apps -->
+      <div class="custom-card" *ngIf="currentStep === 6">
+        <div class="card-header"><strong>Enterprise Systems and Business Application</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">ERP / Enterprise<br> Systems<span
+                    class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your ERP / Enterprise Systems"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose ERP / Enterprise systems" formControlName="erpSystems"
+                    [class.is-invalid]="isFieldInvalid('erpSystems')">
+                    <option value="SAP">SAP</option>
+                    <option value="Oracle ERP Cloud">Oracle ERP Cloud</option>
+                    <option value="NetSuite">NetSuite</option>
+                    <option value="Microsoft Dynamics 365">Microsoft Dynamics 365</option>
+                    <option value="Workday">Workday</option>
+                    <option value="Infor">Infor</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">CRM and Customer Platforms<span
+                    class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your CRM & Customer Platforms"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose CRM & customer platforms" formControlName="crmPlatforms"
+                    [class.is-invalid]="isFieldInvalid('crmPlatforms')">
+                    <option value="Salesforce">Salesforce</option>
+                    <option value="HubSpot">HubSpot</option>
+                    <option value="Zoho CRM">Zoho CRM</option>
+                    <option value="Microsoft Dynamics CRM">Microsoft Dynamics CRM</option>
+                    <option value="Freshsales">Freshsales</option>
+                    <option value="Pipedrive">Pipedrive</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">ITSM / IT Operations<span
+                    class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your ITSM / IT Operations"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose ITSM / IT operations" formControlName="itsm"
+                    [class.is-invalid]="isFieldInvalid('itsm')">
+                    <option value="ServiceNow">ServiceNow</option>
+                    <option value="BMC Remedy">BMC Remedy</option>
+                    <option value="Ivanti">Ivanti</option>
+                    <option value="ManageEngine">ManageEngine</option>
+                    <option value="Jira Service Management">Jira Service Management</option>
+                    <option value="Freshservice">Freshservice</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Business Apps & Productivity<span
+                    class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your Business Apps & Productivity"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose Business Apps and  productivity" formControlName="businessApps"
+                    [class.is-invalid]="isFieldInvalid('businessApps')">
+                    <option value="ServiceNow">ServiceNow</option>
+                    <option value="BMC Remedy">BMC Remedy</option>
+                    <option value="Ivanti">Ivanti</option>
+                    <option value="ManageEngine">ManageEngine</option>
+                    <option value="Jira Service Management">Jira Service Management</option>
+                    <option value="Freshservice">Freshservice</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 7: Front-End, Composable & Emerging Tech -->
+      <div class="custom-card" *ngIf="currentStep === 7">
+        <div class="card-header"><strong>Front-End, Composable and Emerging Technology</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">E-Commerce & CMS<span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your E-Commerce & CMS"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose E-Commerce & CMS" formControlName="eCommerceCms"
+                    [class.is-invalid]="isFieldInvalid('eCommerceCms')">
+                    <option value="Shopify">Shopify</option>
+                    <option value="Magento">Magento</option>
+                    <option value="WooCommerce">WooCommerce</option>
+                    <option value="BigCommerce">BigCommerce</option>
+                    <option value="WordPress">WordPress</option>
+                    <option value="Wix">Wix</option>
+                    <option value="Drupal">Drupal</option>
+                    <option value="Adobe Experience Manager (AEM)">Adobe Experience Manager (AEM)</option>
+                    <option value="Contentful">Contentful</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Learning & HR Systems<span
+                    class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your Learning & HR Systems"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose Learning & HR Systems" formControlName="learningHrSystems"
+                    [class.is-invalid]="isFieldInvalid('learningHrSystems')">
+                    <option value="Moodle">Moodle</option>
+                    <option value="Canvas LMS">Canvas LMS</option>
+                    <option value="Blackboard">Blackboard</option>
+                    <option value="TalentLMS">TalentLMS</option>
+                    <option value="SAP SuccessFactors">SAP SuccessFactors</option>
+                    <option value="Workday HCM">Workday HCM</option>
+                    <option value="BambooHR">BambooHR</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Low-Code / No-Code Platforms<span
+                    class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your Low-Code / No-Code Platforms"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose Low-Code / No-Code Platforms" formControlName="lowCodeNoCode"
+                    [class.is-invalid]="isFieldInvalid('lowCodeNoCode')">
+                    <option value="OutSystems">OutSystems</option>
+                    <option value="Mendix">Mendix</option>
+                    <option value="Microsoft Power Apps">Microsoft Power Apps</option>
+                    <option value="Appian">Appian</option>
+                    <option value="Airtable">Airtable</option>
+                    <option value="Bubble">Bubble</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Testing and QA<span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your Testing & QA"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose Testing & QA" formControlName="testingQa"
+                    [class.is-invalid]="isFieldInvalid('testingQa')">
+                    <option value="Selenium">Selenium</option>
+                    <option value="Cypress">Cypress</option>
+                    <option value="Playwright">Playwright</option>
+                    <option value="TestCafe">TestCafe</option>
+                    <option value="Postman">Postman</option>
+                    <option value="Insomnia">Insomnia</option>
+                    <option value="Hoppscotch">Hoppscotch</option>
+                    <option value="Appium">Appium</option>
+                    <option value="Espresso">Espresso</option>
+                    <option value="XCUITest">XCUITest</option>
+                    <option value="Detox">Detox</option>
+                    <option value="Kobiton">Kobiton</option>
+                    <option value="Apache JMeter">Apache JMeter</option>
+                    <option value="k6">k6</option>
+                    <option value="Gatling">Gatling</option>
+                    <option value="Locust">Locust</option>
+                    <option value="BlazeMeter">BlazeMeter</option>
+                    <option value="OWASP ZAP">OWASP ZAP</option>
+                    <option value="Burp Suite">Burp Suite</option>
+                    <option value="Nikto">Nikto</option>
+                    <option value="TestRail">TestRail</option>
+                    <option value="Xray">Xray</option>
+                    <option value="Zephyr">Zephyr</option>
+                    <option value="qTest">qTest</option>
+                    <option value="Testim.io">Testim.io</option>
+                    <option value="mabl">mabl</option>
+                    <option value="Functionize">Functionize</option>
+                    <option value="Leapwork">Leapwork</option>
+                    <option value="Percy">Percy</option>
+                    <option value="Applitools">Applitools</option>
+                    <option value="Loki">Loki</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Web3 and Decentralized Tech<span
+                    class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your Web3 & Decentralized Tech"></i></label>
+                <div class="col-sm-10">
+                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
+                    data-placeholder="Choose Web3 and decentralized tech" formControlName="web3Decentralized"
+                    [class.is-invalid]="isFieldInvalid('web3Decentralized')">
+                    <option value="Ethereum">Ethereum</option>
+                    <option value="Polygon">Polygon</option>
+                    <option value="Hyperledger Fabric">Hyperledger Fabric</option>
+                    <option value="IPFS">IPFS</option>
+                    <option value="Filecoin">Filecoin</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" disabled placeholder="Other">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Success Message -->
+      <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+      <!-- Error Message -->
+      <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      <!-- Navigation Buttons -->
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-12 text-end">
+            <button type="button" class="btn btn-dark me-2" (click)="previousStep()" *ngIf="currentStep > 1">Back</button>
+            <button type="button" class="btn btn-primary" (click)="nextStep()" *ngIf="currentStep < totalSteps">Next Step</button>
+            <button type="submit" class="btn btn-primary" *ngIf="currentStep === totalSteps" [disabled]="loading">
+              <span class="spinner-border spinner-border-sm" *ngIf="loading"></span>
+              Submit Form
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- Success Section -->
+    <div class="p-5 text-center" *ngIf="successMessage">
+      <img src="assets/img/success-image.png" width="230" class="mb-3" />
+      <h3 class="text-success"><strong>Registration Successfully</strong></h3>
+      <p class="mb-0">You will get the registration details with registration id</p>
+      <p class="text-muted">Thank you for booking a registration.</p>
+      <a routerLink="/supplier-admin/supplier-dashboard" class="btn btn-primary">BACK TO HOME</a>
+    </div>
+  </div>
+</section>
+

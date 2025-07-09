@@ -40,6 +40,7 @@ import { EditRolesComponent } from './edit-roles/edit-roles.component';
 import { ResourcesViewDetailsComponent } from './resources-view-details/resources-view-details.component';
 import { ResourcesAddComponent } from './resources-add/resources-add.component';
 import { ViewUserDetailsComponent } from './view-user-details/view-user-details.component';
+import { ProfileSetupComponent } from './profile-setup/profile-setup.component';
 const routes: Routes = [
   {
     path: '',
@@ -204,6 +205,10 @@ const routes: Routes = [
       {
         path: "view-user-details",
         component: ViewUserDetailsComponent
+      },
+      {
+        path: "profile-setup",
+        component: ProfileSetupComponent
       }
     ]
   },

@@ -139,4 +139,8 @@ export class SupplierAdminService {
   getSubExpertiseList(): Observable<any> {
     return this.httpClient.get<any>(`${this.baseUrl}${SupplierAdminEndPoint.SUB_EXPERTISE_LIST}`);
   }
+
+  submitProfileSetup(formData: any): Observable<any> {
+    return this.httpClient.post(`${this.baseUrl}/supplier/profile-setup`, formData);
+  }
 }
