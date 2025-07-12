@@ -296,6 +296,20 @@
                 </div>
               </div>
 
+
+              <!-- Product dropdown -->
+              <div class="row mb-3 align-items-center" *ngIf="showProductDropdown">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Pre-Built Products
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Select products"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="products" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    [clearable]="true" bindLabel="name" bindValue="name" placeholder="Select products"
+                    formControlName="product">
+                  </ng-select>
+                </div>
+              </div>
+
               <!-- Technology Stack -->
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm">Technology Stack
@@ -323,18 +337,6 @@
                 </div>
               </div>
 
-              <!-- Product dropdown -->
-              <div class="row mb-3 align-items-center" *ngIf="showProductDropdown">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Pre-Built Products
-                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Select products"></i></label>
-                <div class="col-sm-10">
-                  <ng-select [items]="products" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
-                    [clearable]="true" bindLabel="name" bindValue="name" placeholder="Select products"
-                    formControlName="product">
-                  </ng-select>
-                </div>
-              </div>
             </div>
           </div>
         </div>
