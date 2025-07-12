@@ -336,60 +336,60 @@ export class ProfileSetupComponent implements OnInit {
 
       // Step 2 fields
       services: [[], Validators.required],
-      servicesOther: [''],
+      servicesOther: [{value: '', disabled: true}],
       technologyStack: [[], Validators.required],
-      technologyStackOther: [''],
+      technologyStackOther: [{value: '', disabled: true}],
       product: [[]],
 
       // Step 3 fields
       cloudPlatforms: [['OVHcloud', 'NTT-Netmagic'], Validators.required],
-      cloudPlatformsOther: [''],
+      cloudPlatformsOther: [{value: '', disabled: true}],
       devOpsAutomation: [[], Validators.required],
-      devOpsAutomationOther: [''],
+      devOpsAutomationOther: [{value: '', disabled: true}],
       containerizationOrchestration: [[], Validators.required],
-      containerizationOrchestrationOther: [''],
+      containerizationOrchestrationOther: [{value: '', disabled: true}],
 
       // Step 4 fields
       networkingInfrastructure: [[], Validators.required],
-      networkingInfrastructureOther: [''],
+      networkingInfrastructureOther: [{value: '', disabled: true}],
       securityIAM: [[], Validators.required],
-      securityIAMOther: [''],
+      securityIAMOther: [{value: '', disabled: true}],
       monitoringObservability: [[], Validators.required],
-      monitoringObservabilityOther: [''],
+      monitoringObservabilityOther: [{value: '', disabled: true}],
       integrationAPIManagement: [[], Validators.required],
-      integrationAPIManagementOther: [''],
+      integrationAPIManagementOther: [{value: '', disabled: true}],
       eventStreamingMessaging: [[], Validators.required],
-      eventStreamingMessagingOther: [''],
+      eventStreamingMessagingOther: [{value: '', disabled: true}],
 
       // Step 5 fields
       databasePlatforms: [[], Validators.required],
-      databasePlatformsOther: [''],
+      databasePlatformsOther: [{value: '', disabled: true}],
       dataAnalyticsBI: [[], Validators.required],
-      dataAnalyticsBIOther: [''],
+      dataAnalyticsBIOther: [{value: '', disabled: true}],
       aiMLPlatforms: [[], Validators.required],
-      aiMLPlatformsOther: [''],
+      aiMLPlatformsOther: [{value: '', disabled: true}],
 
       // Step 6 fields
       erpEnterpriseSystems: [[], Validators.required],
-      erpEnterpriseSystemsOther: [''],
+      erpEnterpriseSystemsOther: [{value: '', disabled: true}],
       crmCustomerPlatforms: [[], Validators.required],
-      crmCustomerPlatformsOther: [''],
+      crmCustomerPlatformsOther: [{value: '', disabled: true}],
       itsmITOperations: [[], Validators.required],
-      itsmITOperationsOther: [''],
+      itsmITOperationsOther: [{value: '', disabled: true}],
       businessAppsProductivity: [[], Validators.required],
-      businessAppsProductivityOther: [''],
+      businessAppsProductivityOther: [{value: '', disabled: true}],
 
       // Step 7 fields
       eCommerceCMS: [[], Validators.required],
-      eCommerceCMSOther: [''],
+      eCommerceCMSOther: [{value: '', disabled: true}],
       learningHRSystems: [[], Validators.required],
-      learningHRSystemsOther: [''],
+      learningHRSystemsOther: [{value: '', disabled: true}],
       lowCodeNoCodePlatforms: [[], Validators.required],
-      lowCodeNoCodePlatformsOther: [''],
+      lowCodeNoCodePlatformsOther: [{value: '', disabled: true}],
       testingQA: [[], Validators.required],
-      testingQAOther: [''],
+      testingQAOther: [{value: '', disabled: true}],
       web3DecentralizedTech: [[], Validators.required],
-      web3DecentralizedTechOther: ['']
+      web3DecentralizedTechOther: [{value: '', disabled: true}]
     });
   }
 
@@ -419,6 +419,9 @@ export class ProfileSetupComponent implements OnInit {
     // Set initial values for all dropdowns
     this.setInitialDropdownValues();
 
+    // Setup subscriptions for "Other" field management
+    this.setupOtherFieldSubscriptions();
+
     // Subscribe to technology stack changes
     this.profileForm.get('technologyStack')?.valueChanges.subscribe(selectedTech => {
       const hasOther = selectedTech?.includes('Other');
@@ -427,9 +430,14 @@ export class ProfileSetupComponent implements OnInit {
       if (!hasOther) {
         otherInput?.disable();
         otherInput?.setValue('');
+        otherInput?.clearValidators();
+        otherInput?.markAsUntouched();
       } else {
         otherInput?.enable();
+        otherInput?.setValidators([Validators.required]);
+        otherInput?.markAsTouched();
       }
+      otherInput?.updateValueAndValidity();
     });
 
     // Subscribe to services changes
@@ -449,6 +457,21 @@ export class ProfileSetupComponent implements OnInit {
         this.profileForm.get('product')?.updateValueAndValidity();
         this.profileForm.get('product')?.setValue([]);
       }
+
+      // Handle "Other" option for services
+      const hasOther = selectedServices?.includes('Other');
+      const otherInput = this.profileForm.get('servicesOther');
+      if (!hasOther) {
+        otherInput?.disable();
+        otherInput?.setValue('');
+        otherInput?.clearValidators();
+        otherInput?.markAsUntouched();
+      } else {
+        otherInput?.enable();
+        otherInput?.setValidators([Validators.required]);
+        otherInput?.markAsTouched();
+      }
+      otherInput?.updateValueAndValidity();
     });
 
     // Subscribe to step changes
@@ -747,7 +770,7 @@ export class ProfileSetupComponent implements OnInit {
     if (this.profileForm.valid && this.isCurrentStepValid()) {
       this.loading = true;
 
-      // Get the form values
+      // Get the form values (including disabled controls)
       const formData = { ...this.profileForm.getRawValue() };
 
       // Create the registration data structure
@@ -859,9 +882,7 @@ export class ProfileSetupComponent implements OnInit {
       learningHRSystems: 'learningHRSystemsOther',
       lowCodeNoCodePlatforms: 'lowCodeNoCodePlatformsOther',
       testingQA: 'testingQAOther',
-      web3DecentralizedTech: 'web3DecentralizedTechOther',
-      services: 'servicesOther',
-      technologyStack: 'technologyStackOther'
+      web3DecentralizedTech: 'web3DecentralizedTechOther'
     };
 
     Object.entries(fieldsWithOther).forEach(([mainField, otherField]) => {
@@ -869,15 +890,21 @@ export class ProfileSetupComponent implements OnInit {
       const otherControl = this.profileForm.get(otherField);
 
       if (control && otherControl) {
+        // Initially disable the "Other" field
+        otherControl.disable();
+        otherControl.setValue('');
+
         // Subscribe to main field changes
         control.valueChanges.subscribe(values => {
           if (values?.includes('other')) {
             otherControl.enable();
             otherControl.setValidators([Validators.required]);
+            otherControl.markAsTouched(); // Mark as touched to show validation immediately
           } else {
             otherControl.disable();
             otherControl.setValue('');
             otherControl.clearValidators();
+            otherControl.markAsUntouched();
           }
           otherControl.updateValueAndValidity();
         });
