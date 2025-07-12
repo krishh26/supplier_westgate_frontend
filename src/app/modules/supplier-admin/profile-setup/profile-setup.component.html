@@ -25,7 +25,7 @@
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Enter the full legal name of the company"></i></label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" formControlName="companyName" placeholder="WESTGATE IT HUB PRIVATE LIMITED"
+                  <input type="text" class="form-control" formControlName="companyName" placeholder="Enter company name"
                     [class.is-invalid]="isFieldInvalid('companyName')">
                 </div>
               </div>
@@ -34,10 +34,10 @@
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-4 col-form-label col-form-label-sm">Company Website <span class="astric">*</span>
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Enter the official website URL (www.example.com)"></i></label>
+                    title="Enter the official website URL"></i></label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" formControlName="companyWebsite" placeholder="https://wwww.westgateithub.com"
-                    [class.is-invalid]="isFieldInvalid('companyWebsite')">
+                  <input type="text" class="form-control" formControlName="website" placeholder="Enter website URL"
+                    [class.is-invalid]="isFieldInvalid('website')">
                 </div>
               </div>
             </div>
@@ -47,7 +47,7 @@
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Enter company address"></i></label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" formControlName="companyAddress" placeholder="Uttarahalli Main Road"
+                  <input type="text" class="form-control" formControlName="companyAddress" placeholder="Enter company address"
                     [class.is-invalid]="isFieldInvalid('companyAddress')">
                 </div>
               </div>
@@ -56,9 +56,9 @@
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-4 col-form-label col-form-label-sm">Country <span class="astric">*</span>
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Enter country details"></i></label>
+                    title="Enter country"></i></label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" formControlName="country" placeholder="Uttarahalli Main Road"
+                  <input type="text" class="form-control" formControlName="country" placeholder="Enter country"
                     [class.is-invalid]="isFieldInvalid('country')">
                 </div>
               </div>
@@ -67,10 +67,10 @@
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-4 col-form-label col-form-label-sm">Contact Email <span class="astric">*</span>
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Enter the official email id"></i></label>
+                    title="Enter the official email"></i></label>
                 <div class="col-sm-8">
-                  <input type="email" class="form-control" formControlName="contactEmail" placeholder="India"
-                    [class.is-invalid]="isFieldInvalid('contactEmail')">
+                  <input type="email" class="form-control" formControlName="email" placeholder="Enter email"
+                    [class.is-invalid]="isFieldInvalid('email')">
                 </div>
               </div>
             </div>
@@ -80,32 +80,35 @@
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Enter the official contact number"></i></label>
                 <div class="col-sm-8">
-                  <input type="tel" class="form-control" formControlName="contactNumber" placeholder="7781978685"
-                    [class.is-invalid]="isFieldInvalid('contactNumber')">
+                  <input type="tel" class="form-control" formControlName="companyContactNumber" placeholder="Enter contact number"  (keypress)="NumberOnly($event)" minlength="10" maxlength="10"
+                    [class.is-invalid]="isFieldInvalid('companyContactNumber')">
                 </div>
               </div>
             </div>
             <div class="col-lg-6 col-xl-6 col-12">
               <div class="row mb-3 align-items-center">
-                <label class="col-sm-4 col-form-label col-form-label-sm">Established Year <span
-                    class="astric">*</span>
+                <label class="col-sm-4 col-form-label col-form-label-sm">Established Year <span class="astric">*</span>
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Enter the date the company was founded (DD/MM/YYYY)"></i></label>
+                    title="Select establishment date"></i></label>
                 <div class="col-sm-8">
-                  <input type="date" class="form-control" formControlName="establishedYear"
-                    [class.is-invalid]="isFieldInvalid('establishedYear')">
+                  <input type="date" class="form-control" formControlName="yearOfEstablishment"
+                    [max]="currentDate" [min]="'1900-01-01'"
+                    [class.is-invalid]="isFieldInvalid('yearOfEstablishment')">
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('yearOfEstablishment')">
+                    Please select a valid establishment date
+                  </div>
                 </div>
               </div>
             </div>
             <div class="col-12">
               <div class="row mb-3 align-items-center">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Exicutive Summary <span
-                    class="astric">*</span>
+                <label class="col-sm-2 col-form-label col-form-label-sm">Executive Summary <span class="astric">*</span>
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Write a brief summary of your "></i></label>
+                    title="Write a brief summary"></i></label>
                 <div class="col-sm-10">
-                  <textarea class="form-control" formControlName="executiveSummary" rows="3" cols="100"
-                    placeholder="Write a brief summary of your" [class.is-invalid]="isFieldInvalid('executiveSummary')"></textarea>
+                  <textarea class="form-control" formControlName="executiveSummary" rows="3"
+                    placeholder="Write a brief summary of your company"
+                    [class.is-invalid]="isFieldInvalid('executiveSummary')"></textarea>
                 </div>
               </div>
             </div>
@@ -114,50 +117,48 @@
 
         <div class="card-header"><strong>POC Details</strong></div>
         <div class="card-body">
+          <div formArrayName="pocDetails">
+            <div *ngFor="let poc of getPocDetails(); let i = index" [formGroupName]="i" class="row mb-3">
+              <div class="col-lg-6 col-xl-6 col-12">
+                <div class="row mb-3 align-items-center">
+                  <label class="col-sm-4 col-form-label col-form-label-sm">POC Name <span class="astric">*</span></label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" formControlName="name" placeholder="Enter POC name">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-xl-6 col-12">
+                <div class="row mb-3 align-items-center">
+                  <label class="col-sm-4 col-form-label col-form-label-sm">POC Phone <span class="astric">*</span></label>
+                  <div class="col-sm-8">
+                    <input type="tel" class="form-control" formControlName="phone" placeholder="Enter POC phone" (keypress)="NumberOnly($event)" minlength="10" maxlength="10">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-xl-6 col-12">
+                <div class="row mb-3 align-items-center">
+                  <label class="col-sm-4 col-form-label col-form-label-sm">POC Email <span class="astric">*</span></label>
+                  <div class="col-sm-8">
+                    <input type="email" class="form-control" formControlName="email" placeholder="Enter POC email">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-xl-6 col-12">
+                <div class="row mb-3 align-items-center">
+                  <label class="col-sm-4 col-form-label col-form-label-sm">POC Role <span class="astric">*</span></label>
+                  <div class="col-sm-8 d-flex">
+                    <input type="text" class="form-control" formControlName="role" placeholder="Enter POC role">
+                    <button type="button" class="btn btn-danger ms-2" *ngIf="i > 0" (click)="removePocDetail(i)">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="row">
-            <div class="col-lg-6 col-xl-6 col-12">
-              <div class="row mb-3 align-items-center">
-                <label class="col-sm-4 col-form-label col-form-label-sm">POC Name <span class="astric">*</span>
-                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Enter the full name of the Point of Contact"></i></label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" formControlName="pocName" placeholder="Enter POC Name"
-                    [class.is-invalid]="isFieldInvalid('pocName')">
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 col-xl-6 col-12">
-              <div class="row mb-3 align-items-center">
-                <label class="col-sm-4 col-form-label col-form-label-sm">POC Phone <span class="astric">*</span>
-                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Enter the contact number of POC"></i></label>
-                <div class="col-sm-8">
-                  <input type="tel" class="form-control" formControlName="pocPhone" placeholder="Enter POC Phone"
-                    [class.is-invalid]="isFieldInvalid('pocPhone')">
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 col-xl-6 col-12">
-              <div class="row mb-3 align-items-center">
-                <label class="col-sm-4 col-form-label col-form-label-sm">POC Email <span class="astric">*</span>
-                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Enter POC email address"></i></label>
-                <div class="col-sm-8">
-                  <input type="email" class="form-control" formControlName="pocEmail" placeholder="POC Email"
-                    [class.is-invalid]="isFieldInvalid('pocEmail')">
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 col-xl-6 col-12">
-              <div class="row mb-3 align-items-center">
-                <label class="col-sm-4 col-form-label col-form-label-sm">POC Role <span class="astric">*</span>
-                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Specify the role or designation of the POC in the company"></i></label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" formControlName="pocRole" placeholder="Enter desigmation"
-                    [class.is-invalid]="isFieldInvalid('pocRole')">
-                </div>
-              </div>
+            <div class="col-12 text-end">
+              <button type="button" class="btn btn-primary" (click)="addPocDetail()">Add Another POC</button>
             </div>
           </div>
         </div>
@@ -165,66 +166,103 @@
         <div class="card-header"><strong>Business Details</strong></div>
         <div class="card-body">
           <div class="row">
-            <div class="col-lg-6 col-xl-6 col-12">
-              <div class="row mb-3 align-items-center">
-                <label class="col-sm-4 col-form-label col-form-label-sm">Business Type <span class="astric">*</span>
-                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Select the legal structure of your business (Ex. Private Limited, LLP)"></i></label>
-                <div class="col-sm-8">
-                  <select class="form-select" formControlName="businessType"
-                    [class.is-invalid]="isFieldInvalid('businessType')">
-                    <option value="">Select business type</option>
-                    <option value="Private Limited Company">Private Limited Company</option>
-                    <option value="Public Limited Comapny">Public Limited Comapny</option>
-                    <option value="Limited Liability Partnership (LLP)">Limited Liability Partnership (LLP)</option>
-                    <option value="Partnership Firm">Partnership Firm</option>
-                    <option value="Sole Properitership">Sole Properitership</option>
-                  </select>
+            <div class="col-12">
+              <div class="row mb-3">
+                <div class="col-lg-6 col-xl-6">
+                  <div class="form-group">
+                    <label class="form-label">Business Type <span class="astric">*</span>
+                      <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Select business type"></i>
+                    </label>
+                    <ng-select
+                      [items]="businessTypesList"
+                      [multiple]="true"
+                      [closeOnSelect]="false"
+                      [searchable]="true"
+                      [clearable]="true"
+                      bindLabel="name"
+                      bindValue="value"
+                      placeholder="Select business type"
+                      formControlName="typeOfCompany"
+                      [class.is-invalid]="isFieldInvalid('typeOfCompany')">
+                    </ng-select>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-xl-6">
+                  <div class="form-group">
+                    <label class="form-label">Employee Count <span class="astric">*</span>
+                      <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Enter total number of employees"></i>
+                    </label>
+                    <input type="text" class="form-control" formControlName="employeeCount"
+                      placeholder="Enter employee count" (keypress)="NumberOnly($event)"
+                      [class.is-invalid]="isFieldInvalid('employeeCount')">
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-6 col-xl-6 col-12">
-              <div class="row mb-3 align-items-center">
-                <label class="col-sm-4 col-form-label col-form-label-sm">Company Size <span class="astric">*</span>
-                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Enter the total number of employee in your company"></i></label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" formControlName="companySize" placeholder="20"
-                    [class.is-invalid]="isFieldInvalid('companySize')">
+              <div class="row mb-3">
+                <div class="col-lg-6 col-xl-6">
+                  <div class="form-group">
+                    <label class="form-label">Turnover <span class="astric">*</span>
+                      <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Enter annual turnover"></i>
+                    </label>
+                    <input type="text" class="form-control" formControlName="turnover"
+                      placeholder="Enter turnover" (keypress)="NumberOnly($event)"
+                      [class.is-invalid]="isFieldInvalid('turnover')">
+                  </div>
+                </div>
+                <div class="col-lg-6 col-xl-6">
+                  <div class="form-group">
+                    <label class="form-label">Total Projects <span class="astric">*</span>
+                      <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Enter total projects executed"></i>
+                    </label>
+                    <input type="text" class="form-control" formControlName="totalProjectsExecuted"
+                      placeholder="Enter total projects" (keypress)="NumberOnly($event)"
+                      [class.is-invalid]="isFieldInvalid('totalProjectsExecuted')">
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-6 col-xl-6 col-12">
-              <div class="row mb-3 align-items-center">
-                <label class="col-sm-4 col-form-label col-form-label-sm">Turnover <span class="astric">*</span>
-                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Mention the annual revenue or turnover"></i></label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" formControlName="turnover" placeholder="Enter turnover"
-                    [class.is-invalid]="isFieldInvalid('turnover')">
+              <div class="row mb-3">
+                <div class="col-lg-6 col-xl-6">
+                  <div class="form-group">
+                    <label class="form-label">Certifications
+                      <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Enter certifications"></i>
+                    </label>
+                    <div class="tag-input-container">
+                      <div class="tag-list" *ngIf="certificationTags.length > 0">
+                        <span class="tag" *ngFor="let tag of certificationTags; let i = index">
+                          {{tag}}
+                          <i class="bi bi-x" (click)="removeTag(i)"></i>
+                        </span>
+                      </div>
+                      <input type="text"
+                        class="form-control"
+                        [formControlName]="'certificationInput'"
+                        placeholder="Type certification and press Enter"
+                        (keyup.enter)="addTag($event)">
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-6 col-xl-6 col-12">
-              <div class="row mb-3 align-items-center">
-                <label class="col-sm-4 col-form-label col-form-label-sm">Total Projects Executed <span
-                    class="astric">*</span>
-                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Enter the total number porjects your company has compelted"></i></label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" formControlName="totalProjectsExecuted" placeholder="Enter total projects"
-                    [class.is-invalid]="isFieldInvalid('totalProjectsExecuted')">
+              <div class="row mb-3">
+                <div class="col-lg-6 col-xl-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" formControlName="resourceSharingSupplier" id="resourceSharing">
+                    <label class="form-check-label" for="resourceSharing">
+                      Resource Sharing Supplier
+                    </label>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div class="col-lg-6 col-xl-6 col-12">
-              <div class="row mb-3 align-items-center">
-                <label class="col-sm-4 col-form-label col-form-label-sm">Certification <span class="astric">*</span>
-                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="List any official certifications or accreditations (Ex.IOS, 9001, CMM)"></i></label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" formControlName="certification" placeholder="Add certification and press Enter"
-                    [class.is-invalid]="isFieldInvalid('certification')">
+                <div class="col-lg-6 col-xl-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" formControlName="subcontractingSupplier" id="subcontracting">
+                    <label class="form-check-label" for="subcontracting">
+                      Subcontracting Supplier
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -234,103 +272,96 @@
 
       <!-- Step 2: Technology Stack & Services -->
       <div class="custom-card" *ngIf="currentStep === 2">
-        <div class="card-header"><strong>Technology stack</strong></div>
+        <div class="card-header"><strong>Technology Stack & Services</strong></div>
         <div class="card-body">
           <div class="row">
             <div class="col-12">
+              <!-- Services -->
               <div class="row mb-3 align-items-center">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Expertise <span class="astric">*</span>
+                <label class="col-sm-2 col-form-label col-form-label-sm">Services<span class="astric">*</span>
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="List all the producs, platform, or software solutions your company has built or developed over  time (Ex. ERP system, mobile app, Saas platforms)"></i></label>
+                    title="Select services you can provide"></i></label>
                 <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose your expertise" formControlName="expertise"
-                    [class.is-invalid]="isFieldInvalid('expertise')">
-                    <option value="NFT/Web3 Platform">NFT/Web3 Platform</option>
-                    <option value="Learning Management System">Learning Management System</option>
-                    <option value="Custom Software Development">Custom Software Development</option>
-                    <option value="mobile Application Development">mobile Application Development</option>
-                    <option value="Website Development">Website Development</option>
-                    <option value="E- Commerce Development">E- Commerce Development</option>
-                    <option value="Enterprise Resource Planning">Enterprise Resource Planning</option>
-                    <option value="Online Learning Marketplace">Online Learning Marketplace</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row mb-3 align-items-center">
-                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other expertise">
-                </div>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="row mb-3 align-items-center">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Services <span class="astric">*</span>
-                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Choose your services"></i></label>
-                <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose your services" formControlName="services"
+                  <ng-select
+                    [items]="services"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    bindLabel="name"
+                    bindValue="name"
+                    placeholder="Select services you can provide"
+                    formControlName="services"
                     [class.is-invalid]="isFieldInvalid('services')">
-                    <option value="AI & Machine Learning">AI & Machine Learning</option>
-                    <option value="Analytics & Reporting">Analytics & Reporting</option>
-                    <option value="Blockchain Development">Blockchain Development</option>
-                    <option value="Custom Software Development">Custom Software Development</option>
-                    <option value="Data Migration & Legacy Modernisation">Data Migration & Legacy Modernisation</option>
-                    <option value="Digital Marketing & SEO">Digital Marketing & SEO</option>
-                    <option value="Hosting and Infrastructure">Hosting and Infrastructure</option>
-                    <option value="IT Consulting & System Integration">IT Consulting & System Integration</option>
-                    <option value="IoT Development">IoT Development</option>
-                    <option value="Logos">Logos</option>
-                    <option value="Managed Cloud Services">Managed Cloud Services</option>
-                    <option value="Pre-Built Software Solutions">Pre-Built Software Solutions</option>
-                    <option value="Quality Assurance and Software Testing">Quality Assurance and Software Testing</option>
-                    <option value="Security & Compliance">Security & Compliance</option>
-                    <option value="Support & Maintenance">Support & Maintenance</option>
-                    <option value="UI/UX">UI/UX</option>
-                  </select>
+                  </ng-select>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('services')">
+                    Please select at least one service
+                  </div>
                 </div>
               </div>
+
+              <!-- Services Other -->
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
+                  <input type="text" class="form-control" formControlName="servicesOther"
+                    placeholder="Please specify other services"
+                    [class.is-invalid]="isFieldInvalid('servicesOther')">
                 </div>
               </div>
-            </div>
-            <div class="col-12">
+
+              <!-- Technology Stack -->
               <div class="row mb-3 align-items-center">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Technology Stak <span class="astric">*</span>
+                <label class="col-sm-2 col-form-label col-form-label-sm">Technology Stack<span class="astric">*</span>
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Choose your services"></i></label>
+                    title="Select your technology stack"></i></label>
                 <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose your services" formControlName="technologyStack"
+                  <ng-select
+                    [items]="technologies"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    bindLabel="name"
+                    bindValue="name"
+                    placeholder="Select your technology stack"
+                    formControlName="technologyStack"
                     [class.is-invalid]="isFieldInvalid('technologyStack')">
-                    <option value="AI & Machine Learning">AI & Machine Learning</option>
-                    <option value="Analytics & Reporting">Analytics & Reporting</option>
-                    <option value="Blockchain Development">Blockchain Development</option>
-                    <option value="Custom Software Development">Custom Software Development</option>
-                    <option value="Data Migration & Legacy Modernisation">Data Migration & Legacy Modernisation</option>
-                    <option value="Digital Marketing & SEO">Digital Marketing & SEO</option>
-                    <option value="Hosting and Infrastructure">Hosting and Infrastructure</option>
-                    <option value="IT Consulting & System Integration">IT Consulting & System Integration</option>
-                    <option value="IoT Development">IoT Development</option>
-                    <option value="Logos">Logos</option>
-                    <option value="Managed Cloud Services">Managed Cloud Services</option>
-                    <option value="Pre-Built Software Solutions">Pre-Built Software Solutions</option>
-                    <option value="Quality Assurance and Software Testing">Quality Assurance and Software Testing</option>
-                    <option value="Security & Compliance">Security & Compliance</option>
-                    <option value="Support & Maintenance">Support & Maintenance</option>
-                    <option value="UI/UX">UI/UX</option>
-                  </select>
+                  </ng-select>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('technologyStack')">
+                    Please select at least one technology
+                  </div>
                 </div>
               </div>
+
+              <!-- Technology Stack Other -->
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
+                  <input type="text" class="form-control" formControlName="technologyStackOther"
+                    placeholder="Please specify other technologies"
+                    [class.is-invalid]="isFieldInvalid('technologyStackOther')">
+                </div>
+              </div>
+
+              <!-- Product dropdown -->
+              <div class="row mb-3 align-items-center" *ngIf="showProductDropdown">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Products<span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Select products"></i></label>
+                <div class="col-sm-10">
+                  <ng-select
+                    [items]="products"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    bindLabel="name"
+                    bindValue="name"
+                    placeholder="Select products"
+                    formControlName="product"
+                    [class.is-invalid]="isFieldInvalid('product')">
+                  </ng-select>
                 </div>
               </div>
             </div>
@@ -347,256 +378,292 @@
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm">Cloud Platforms<span class="astric">*</span>
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Choose your cloud technology"></i></label>
+                    title="Choose your cloud platforms"></i></label>
                 <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose your cloud platform" formControlName="cloudPlatforms"
+                  <ng-select
+                    [items]="cloudPlatformsList"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    [loading]="isLoadingCloudPlatforms"
+                    bindLabel="name"
+                    bindValue="_id"
+                    placeholder="Choose your cloud platforms"
+                    formControlName="cloudPlatforms"
                     [class.is-invalid]="isFieldInvalid('cloudPlatforms')">
-                    <option value="Amazon Web Services (AWS)">Amazon Web Services (AWS)</option>
-                    <option value="Microsoft Azure">Microsoft Azure</option>
-                    <option value="Google Cloud Platform (GCP)">Google Cloud Platform (GCP)</option>
-                    <option value="OVHcloud">OVHcloud</option>
-                    <option value="Scaleway">Scaleway</option>
-                    <option value="Hetzner Cloud">Hetzner Cloud</option>
-                    <option value="Deutsche Telekom Cloud">Deutsche Telekom Cloud</option>
-                    <option value="Thales Cloud">Thales Cloud</option>
-                    <option value="Atos Cloud">Atos Cloud</option>
-                    <option value="CloudSigma">CloudSigma</option>
-                    <option value="NTT-Netmagic">NTT-Netmagic</option>
-                    <option value="Tata Communications IZO Cloud">Tata Communications IZO Cloud</option>
-                    <option value="CtrlS">CtrlS</option>
-                    <option value="ESDS">ESDS</option>
-                    <option value="Sify CloudInfinit">Sify CloudInfinit</option>
-                    <option value="Nxtra by Airtel">Nxtra by Airtel</option>
-                    <option value="Reliance Jio Cloud">Reliance Jio Cloud</option>
-                  </select>
+                    <ng-template ng-option-tmp let-item="item">
+                      {{ item.name }}
+                    </ng-template>
+                  </ng-select>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('cloudPlatforms')">
+                    Please select at least one cloud platform
+                  </div>
                 </div>
               </div>
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
+                  <input type="text" class="form-control" formControlName="cloudPlatformsOther"
+                    placeholder="Please specify other cloud platforms">
                 </div>
               </div>
             </div>
             <div class="col-12">
               <div class="row mb-3 align-items-center">
-                <label class="col-sm-2 col-form-label col-form-label-sm">DevOps & Automation<span
-                    class="astric">*</span>
+                <label class="col-sm-2 col-form-label col-form-label-sm">DevOps & Automation<span class="astric">*</span>
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Choose your cloud technology"></i></label>
+                    title="Choose your DevOps tools"></i></label>
                 <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose your DevOps" formControlName="devOps"
-                    [class.is-invalid]="isFieldInvalid('devOps')">
-                    <option value="Terraform">Terraform</option>
-                    <option value="Ansible">Ansible</option>
-                    <option value="Jenkins">Jenkins</option>
-                    <option value="GitLab CI/CD">GitLab CI/CD</option>
-                    <option value="GitHub Actions">GitHub Actions</option>
-                    <option value="CircleCI">CircleCI</option>
-                    <option value="ArgoCD">ArgoCD</option>
-                    <option value="Puppet">Puppet</option>
-                    <option value="Chef">Chef</option>
-                    <option value="HashiCorp Vault">HashiCorp Vault</option>
-                    <option value="LaunchDarkly">LaunchDarkly</option>
-                    <option value="Backstage">Backstage</option>
-                  </select>
+                  <ng-select
+                    [items]="devOpsList"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    [loading]="isLoadingDropdownData"
+                    bindLabel="name"
+                    bindValue="_id"
+                    placeholder="Choose your DevOps tools"
+                    formControlName="devOpsAutomation"
+                    [class.is-invalid]="isFieldInvalid('devOpsAutomation')">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{ item.name }}
+                    </ng-template>
+                  </ng-select>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('devOpsAutomation')">
+                    Please select at least one DevOps tool
+                  </div>
                 </div>
               </div>
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
+                  <input type="text" class="form-control" formControlName="devOpsAutomationOther"
+                    placeholder="Please specify other DevOps tools">
                 </div>
               </div>
             </div>
             <div class="col-12">
               <div class="row mb-3 align-items-center">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Containerization & Orchestration<span
-                    class="astric">*</span>
+                <label class="col-sm-2 col-form-label col-form-label-sm">Containerization & Orchestration<span class="astric">*</span>
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Choose your cloud technology"></i></label>
+                    title="Choose your containerization tools"></i></label>
                 <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose your Containerization & Orchestration" formControlName="containerization"
-                    [class.is-invalid]="isFieldInvalid('containerization')">
-                    <option value="Docker">Docker</option>
-                    <option value="Kubernetes">Kubernetes</option>
-                    <option value="OpenShift">OpenShift</option>
-                    <option value="Helm">Helm</option>
-                    <option value="Istio">Istio</option>
-                    <option value="Rancher">Rancher</option>
-                  </select>
+                  <ng-select
+                    [items]="containerizationList"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    [loading]="isLoadingDropdownData"
+                    bindLabel="name"
+                    bindValue="_id"
+                    placeholder="Choose your containerization tools"
+                    formControlName="containerizationOrchestration"
+                    [class.is-invalid]="isFieldInvalid('containerizationOrchestration')">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{ item.name }}
+                    </ng-template>
+                  </ng-select>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('containerizationOrchestration')">
+                    Please select at least one containerization tool
+                  </div>
                 </div>
               </div>
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
+                  <input type="text" class="form-control" formControlName="containerizationOrchestrationOther"
+                    placeholder="Please specify other containerization tools">
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
 
       <!-- Step 4: Infrastructure, Integration & Security -->
       <div class="custom-card" *ngIf="currentStep === 4">
-        <div class="card-header"><strong>Infrastructure, Intigration and Security Details</strong></div>
+        <div class="card-header"><strong>Infrastructure, Integration and Security Details</strong></div>
         <div class="card-body">
           <div class="row">
             <div class="col-12">
+              <!-- Networking and Infrastructure -->
               <div class="row mb-3 align-items-center">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Networking and Infrastructure<span
-                    class="astric">*</span>
+                <label class="col-sm-2 col-form-label col-form-label-sm">Networking and Infrastructure<span class="astric">*</span>
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Choose your cloud technology"></i></label>
+                    title="Choose your networking & infrastructure tools"></i></label>
                 <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose netwrking & infrastrucutre" formControlName="networking"
-                    [class.is-invalid]="isFieldInvalid('networking')">
-                    <option value="Cisco">Cisco</option>
-                    <option value="Juniper Networks">Juniper Networks</option>
-                    <option value="Fortinet">Fortinet</option>
-                    <option value="Aruba Networks">Aruba Networks</option>
-                    <option value="F5">F5</option>
-                    <option value="Zscaler">Zscaler</option>
-                    <option value="Cloudflare">Cloudflare</option>
-                    <option value="Tailscale">Tailscale</option>
-                    <option value="Teleport">Teleport</option>
-                  </select>
+                  <ng-select
+                    [items]="networkingList"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    [loading]="isLoadingStep4Data"
+                    bindLabel="name"
+                    bindValue="_id"
+                    placeholder="Choose your networking tools"
+                    formControlName="networkingInfrastructure"
+                    [class.is-invalid]="isFieldInvalid('networkingInfrastructure')">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{ item.name }}
+                    </ng-template>
+                  </ng-select>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('networkingInfrastructure')">
+                    Please select at least one networking tool
+                  </div>
                 </div>
               </div>
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
+                  <input type="text" class="form-control" formControlName="networkingInfrastructureOther"
+                    placeholder="Please specify other networking tools">
                 </div>
               </div>
-            </div>
-            <div class="col-12">
+
+              <!-- Security and IAM -->
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm">Security and IAM<span class="astric">*</span>
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Choose your cloud technology"></i></label>
+                    title="Choose your security & IAM tools"></i></label>
                 <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose security & IAM" formControlName="security"
-                    [class.is-invalid]="isFieldInvalid('security')">
-                    <option value="Palo Alto Networks">Palo Alto Networks</option>
-                    <option value="CrowdStrike">CrowdStrike</option>
-                    <option value="Okta">Okta</option>
-                    <option value="Microsoft Defender">Microsoft Defender</option>
-                    <option value="SentinelOne">SentinelOne</option>
-                    <option value="Splunk">Splunk</option>
-                    <option value="Qualys">Qualys</option>
-                    <option value="Fortinet">Fortinet</option>
-                    <option value="Tenable">Tenable</option>
-                    <option value="Rapid7">Rapid7</option>
-                    <option value="Auth0">Auth0</option>
-                    <option value="Ping Identity">Ping Identity</option>
-                    <option value="Duo Security">Duo Security</option>
-                    <option value="CyberArk">CyberArk</option>
-                    <option value="BeyondTrust">BeyondTrust</option>
-                  </select>
+                  <ng-select
+                    [items]="securityList"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    [loading]="isLoadingStep4Data"
+                    bindLabel="name"
+                    bindValue="_id"
+                    placeholder="Choose your security tools"
+                    formControlName="securityIAM"
+                    [class.is-invalid]="isFieldInvalid('securityIAM')">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{ item.name }}
+                    </ng-template>
+                  </ng-select>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('securityIAM')">
+                    Please select at least one security tool
+                  </div>
                 </div>
               </div>
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
+                  <input type="text" class="form-control" formControlName="securityIAMOther"
+                    placeholder="Please specify other security tools">
                 </div>
               </div>
-            </div>
-            <div class="col-12">
-              <div class="row mb-3 align-items-center">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Monitoring and  Observability<span
-                    class="astric">*</span>
-                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Choose your cloud technology"></i></label>
-                <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose monitoring & observability" formControlName="monitoring"
-                    [class.is-invalid]="isFieldInvalid('monitoring')">
-                    <option value="Datadog">Datadog</option>
-                    <option value="Prometheus">Prometheus</option>
-                    <option value="Grafana">Grafana</option>
-                    <option value="New Relic">New Relic</option>
-                    <option value="Splunk Observability">Splunk Observability</option>
-                    <option value="Zabbix">Zabbix</option>
-                    <option value="ELK Stack">ELK Stack</option>
-                    <option value="PagerDuty">PagerDuty</option>
-                    <option value="Opsgenie">Opsgenie</option>
-                    <option value="Moogsoft">Moogsoft</option>
-                    <option value="BigPanda">BigPanda</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row mb-3 align-items-center">
-                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
-                </div>
-              </div>
-            </div>
-             <div class="col-12">
-              <div class="row mb-3 align-items-center">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Integration and API Management<span
-                    class="astric">*</span>
-                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Choose intigration & API management"></i></label>
-                <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Select a State" formControlName="apiManagement"
-                    [class.is-invalid]="isFieldInvalid('apiManagement')">
 
-                    <option value="Apigee">Apigee</option>
-                    <option value="Azure API Management">Azure API Management</option>
-                    <option value="AWS API Gateway">AWS API Gateway</option>
-                    <option value="MuleSoft">MuleSoft</option>
-                    <option value="Boomi">Boomi</option>
-                     <option value="Workato">Workato</option>
-                    <option value="Zapier">Zapier</option>
-                  </select>
-                </div>
-              </div>
+              <!-- Monitoring and Observability -->
               <div class="row mb-3 align-items-center">
-                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
-                </div>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="row mb-3 align-items-center">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Event Streaming and  Messaging<span
-                    class="astric">*</span>
+                <label class="col-sm-2 col-form-label col-form-label-sm">Monitoring and Observability<span class="astric">*</span>
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Choose your cloud technology"></i></label>
+                    title="Choose your monitoring & observability tools"></i></label>
                 <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose event streaming" formControlName="eventStreaming"
-                    [class.is-invalid]="isFieldInvalid('eventStreaming')">
-                    <option value="Apache Kafka">Apache Kafka</option>
-                    <option value="Confluent">Confluent</option>
-                    <option value="RabbitMQ">RabbitMQ</option>
-                    <option value="NATS">NATS</option>
-                    <option value="Amazon EventBridge">Amazon EventBridge</option>
-                     <option value="Azure Event Grid">Azure Event Grid</option>
-                  </select>
+                  <ng-select
+                    [items]="monitoringList"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    [loading]="isLoadingStep4Data"
+                    bindLabel="name"
+                    bindValue="_id"
+                    placeholder="Choose your monitoring tools"
+                    formControlName="monitoringObservability"
+                    [class.is-invalid]="isFieldInvalid('monitoringObservability')">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{ item.name }}
+                    </ng-template>
+                  </ng-select>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('monitoringObservability')">
+                    Please select at least one monitoring tool
+                  </div>
                 </div>
               </div>
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
+                  <input type="text" class="form-control" formControlName="monitoringObservabilityOther"
+                    placeholder="Please specify other monitoring tools">
+                </div>
+              </div>
+
+              <!-- Integration and API Management -->
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Integration and API Management<span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your integration & API management tools"></i></label>
+                <div class="col-sm-10">
+                  <ng-select
+                    [items]="apiManagementList"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    [loading]="isLoadingStep4Data"
+                    bindLabel="name"
+                    bindValue="_id"
+                    placeholder="Choose your API management tools"
+                    formControlName="integrationAPIManagement"
+                    [class.is-invalid]="isFieldInvalid('integrationAPIManagement')">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{ item.name }}
+                    </ng-template>
+                  </ng-select>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('integrationAPIManagement')">
+                    Please select at least one API management tool
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" formControlName="integrationAPIManagementOther"
+                    placeholder="Please specify other API management tools">
+                </div>
+              </div>
+
+              <!-- Event Streaming and Messaging -->
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Event Streaming and Messaging<span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your event streaming & messaging tools"></i></label>
+                <div class="col-sm-10">
+                  <ng-select
+                    [items]="eventStreamingList"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    [loading]="isLoadingStep4Data"
+                    bindLabel="name"
+                    bindValue="_id"
+                    placeholder="Choose your event streaming tools"
+                    formControlName="eventStreamingMessaging"
+                    [class.is-invalid]="isFieldInvalid('eventStreamingMessaging')">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{ item.name }}
+                    </ng-template>
+                  </ng-select>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('eventStreamingMessaging')">
+                    Please select at least one event streaming tool
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" formControlName="eventStreamingMessagingOther"
+                    placeholder="Please specify other event streaming tools">
                 </div>
               </div>
             </div>
-
-
           </div>
         </div>
       </div>
@@ -611,26 +678,26 @@
                 <label class="col-sm-2 col-form-label col-form-label-sm">Database Platforms<span
                     class="astric">*</span>
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Choose your cloud technology"></i></label>
+                    title="Choose your database platforms"></i></label>
                 <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose database platform" formControlName="databasePlatforms"
+                  <ng-select
+                    [items]="databasePlatformsList"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    bindLabel="name"
+                    bindValue="value"
+                    placeholder="Choose database platforms"
+                    formControlName="databasePlatforms"
                     [class.is-invalid]="isFieldInvalid('databasePlatforms')">
-                    <option value="PostgreSQL">PostgreSQL</option>
-                    <option value="MySQL">MySQL</option>
-                    <option value="Microsoft SQL Server">Microsoft SQL Server</option>
-                    <option value="MongoDB">MongoDB</option>
-                    <option value="Redis">Redis</option>
-                    <option value="Cassandra">Cassandra</option>
-                    <option value="Amazon Aurora">Amazon Aurora</option>
-                    <option value="Oracle DB">Oracle DB</option>
-                  </select>
+                  </ng-select>
                 </div>
               </div>
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
+                  <input type="text" class="form-control" formControlName="databasePlatformsOther" placeholder="Please specify other database platforms">
                 </div>
               </div>
             </div>
@@ -639,32 +706,26 @@
                 <label class="col-sm-2 col-form-label col-form-label-sm">Data, Analytics & BI<span
                     class="astric">*</span>
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Choose your data, analytics & BI"></i></label>
+                    title="Choose your data, analytics & BI tools"></i></label>
                 <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose data analytics & BI" formControlName="dataAnalytics"
-                    [class.is-invalid]="isFieldInvalid('dataAnalytics')">
-                    <option value="Power BI">Power BI</option>
-                    <option value="Tableau">Tableau</option>
-                    <option value="Looker">Looker</option>
-                    <option value="Qlik Sense">Qlik Sense</option>
-                    <option value="Apache Superset">Apache Superset</option>
-                    <option value="Snowflake">Snowflake</option>
-                    <option value="Databricks">Databricks</option>
-                    <option value="Google BigQuery">Google BigQuery</option>
-                    <option value="Amazon Redshift">Amazon Redshift</option>
-                    <option value="dbt">dbt</option>
-                    <option value="Apache Airflow">Apache Airflow</option>
-                    <option value="Fivetran">Fivetran</option>
-                    <option value="Stitch">Stitch</option>
-                    <option value="Talend">Talend</option>
-                  </select>
+                  <ng-select
+                    [items]="dataAnalyticsList"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    bindLabel="name"
+                    bindValue="value"
+                    placeholder="Choose data analytics & BI tools"
+                    formControlName="dataAnalyticsBI"
+                    [class.is-invalid]="isFieldInvalid('dataAnalyticsBI')">
+                  </ng-select>
                 </div>
               </div>
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
+                  <input type="text" class="form-control" formControlName="dataAnalyticsBIOther" placeholder="Please specify other data analytics tools">
                 </div>
               </div>
             </div>
@@ -675,24 +736,25 @@
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Choose your AI / ML platforms"></i></label>
                 <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose AI / ML platforms" formControlName="aiMlPlatforms"
-                    [class.is-invalid]="isFieldInvalid('aiMlPlatforms')">
-                    <option value="TensorFlow">TensorFlow</option>
-                    <option value="PyTorch">PyTorch</option>
-                    <option value="Hugging Face">Hugging Face</option>
-                    <option value="Azure ML">Azure ML</option>
-                    <option value="AWS SageMaker">AWS SageMaker</option>
-                    <option value="Google Vertex AI">Google Vertex AI</option>
-                    <option value="MLflow">MLflow</option>
-                    <option value="DataRobot">DataRobot</option>
-                  </select>
+                  <ng-select
+                    [items]="aiMlPlatformsList"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    bindLabel="name"
+                    bindValue="value"
+                    placeholder="Choose AI / ML platforms"
+                    formControlName="aiMLPlatforms"
+                    [class.is-invalid]="isFieldInvalid('aiMLPlatforms')">
+                  </ng-select>
                 </div>
               </div>
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
+                  <input type="text" class="form-control" formControlName="aiMLPlatformsOther"
+                    placeholder="Please specify other AI/ML platforms">
                 </div>
               </div>
             </div>
@@ -713,22 +775,24 @@
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Choose your ERP / Enterprise Systems"></i></label>
                 <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose ERP / Enterprise systems" formControlName="erpSystems"
-                    [class.is-invalid]="isFieldInvalid('erpSystems')">
-                    <option value="SAP">SAP</option>
-                    <option value="Oracle ERP Cloud">Oracle ERP Cloud</option>
-                    <option value="NetSuite">NetSuite</option>
-                    <option value="Microsoft Dynamics 365">Microsoft Dynamics 365</option>
-                    <option value="Workday">Workday</option>
-                    <option value="Infor">Infor</option>
-                  </select>
+                  <ng-select
+                    [items]="erpSystemsList"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    bindLabel="name"
+                    bindValue="value"
+                    placeholder="Choose ERP / Enterprise systems"
+                    formControlName="erpEnterpriseSystems"
+                    [class.is-invalid]="isFieldInvalid('erpEnterpriseSystems')">
+                  </ng-select>
                 </div>
               </div>
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
+                  <input type="text" class="form-control" formControlName="erpEnterpriseSystemsOther" placeholder="Please specify other ERP systems">
                 </div>
               </div>
             </div>
@@ -739,22 +803,24 @@
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Choose your CRM & Customer Platforms"></i></label>
                 <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose CRM & customer platforms" formControlName="crmPlatforms"
-                    [class.is-invalid]="isFieldInvalid('crmPlatforms')">
-                    <option value="Salesforce">Salesforce</option>
-                    <option value="HubSpot">HubSpot</option>
-                    <option value="Zoho CRM">Zoho CRM</option>
-                    <option value="Microsoft Dynamics CRM">Microsoft Dynamics CRM</option>
-                    <option value="Freshsales">Freshsales</option>
-                    <option value="Pipedrive">Pipedrive</option>
-                  </select>
+                  <ng-select
+                    [items]="crmPlatformsList"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    bindLabel="name"
+                    bindValue="value"
+                    placeholder="Choose CRM & customer platforms"
+                    formControlName="crmCustomerPlatforms"
+                    [class.is-invalid]="isFieldInvalid('crmCustomerPlatforms')">
+                  </ng-select>
                 </div>
               </div>
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
+                  <input type="text" class="form-control" formControlName="crmCustomerPlatformsOther" placeholder="Please specify other CRM platforms">
                 </div>
               </div>
             </div>
@@ -765,22 +831,24 @@
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Choose your ITSM / IT Operations"></i></label>
                 <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose ITSM / IT operations" formControlName="itsm"
-                    [class.is-invalid]="isFieldInvalid('itsm')">
-                    <option value="ServiceNow">ServiceNow</option>
-                    <option value="BMC Remedy">BMC Remedy</option>
-                    <option value="Ivanti">Ivanti</option>
-                    <option value="ManageEngine">ManageEngine</option>
-                    <option value="Jira Service Management">Jira Service Management</option>
-                    <option value="Freshservice">Freshservice</option>
-                  </select>
+                  <ng-select
+                    [items]="itsmList"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    bindLabel="name"
+                    bindValue="value"
+                    placeholder="Choose ITSM / IT operations"
+                    formControlName="itsmITOperations"
+                    [class.is-invalid]="isFieldInvalid('itsmITOperations')">
+                  </ng-select>
                 </div>
               </div>
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
+                  <input type="text" class="form-control" formControlName="itsmITOperationsOther" placeholder="Please specify other ITSM tools">
                 </div>
               </div>
             </div>
@@ -792,22 +860,24 @@
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Choose your Business Apps & Productivity"></i></label>
                 <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose Business Apps and  productivity" formControlName="businessApps"
-                    [class.is-invalid]="isFieldInvalid('businessApps')">
-                    <option value="ServiceNow">ServiceNow</option>
-                    <option value="BMC Remedy">BMC Remedy</option>
-                    <option value="Ivanti">Ivanti</option>
-                    <option value="ManageEngine">ManageEngine</option>
-                    <option value="Jira Service Management">Jira Service Management</option>
-                    <option value="Freshservice">Freshservice</option>
-                  </select>
+                  <ng-select
+                    [items]="businessAppsList"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    bindLabel="name"
+                    bindValue="value"
+                    placeholder="Choose Business Apps and productivity"
+                    formControlName="businessAppsProductivity"
+                    [class.is-invalid]="isFieldInvalid('businessAppsProductivity')">
+                  </ng-select>
                 </div>
               </div>
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
+                  <input type="text" class="form-control" formControlName="businessAppsProductivityOther" placeholder="Please specify other business apps">
                 </div>
               </div>
             </div>
@@ -827,25 +897,24 @@
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Choose your E-Commerce & CMS"></i></label>
                 <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose E-Commerce & CMS" formControlName="eCommerceCms"
-                    [class.is-invalid]="isFieldInvalid('eCommerceCms')">
-                    <option value="Shopify">Shopify</option>
-                    <option value="Magento">Magento</option>
-                    <option value="WooCommerce">WooCommerce</option>
-                    <option value="BigCommerce">BigCommerce</option>
-                    <option value="WordPress">WordPress</option>
-                    <option value="Wix">Wix</option>
-                    <option value="Drupal">Drupal</option>
-                    <option value="Adobe Experience Manager (AEM)">Adobe Experience Manager (AEM)</option>
-                    <option value="Contentful">Contentful</option>
-                  </select>
+                  <ng-select
+                    [items]="eCommerceCmsList"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    bindLabel="name"
+                    bindValue="value"
+                    placeholder="Choose E-Commerce & CMS"
+                    formControlName="eCommerceCMS"
+                    [class.is-invalid]="isFieldInvalid('eCommerceCMS')">
+                  </ng-select>
                 </div>
               </div>
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
+                  <input type="text" class="form-control" formControlName="eCommerceCMSOther" placeholder="Please specify other E-Commerce & CMS platforms">
                 </div>
               </div>
             </div>
@@ -856,23 +925,24 @@
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Choose your Learning & HR Systems"></i></label>
                 <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose Learning & HR Systems" formControlName="learningHrSystems"
-                    [class.is-invalid]="isFieldInvalid('learningHrSystems')">
-                    <option value="Moodle">Moodle</option>
-                    <option value="Canvas LMS">Canvas LMS</option>
-                    <option value="Blackboard">Blackboard</option>
-                    <option value="TalentLMS">TalentLMS</option>
-                    <option value="SAP SuccessFactors">SAP SuccessFactors</option>
-                    <option value="Workday HCM">Workday HCM</option>
-                    <option value="BambooHR">BambooHR</option>
-                  </select>
+                  <ng-select
+                    [items]="learningHrSystemsList"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    bindLabel="name"
+                    bindValue="value"
+                    placeholder="Choose Learning & HR Systems"
+                    formControlName="learningHRSystems"
+                    [class.is-invalid]="isFieldInvalid('learningHRSystems')">
+                  </ng-select>
                 </div>
               </div>
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
+                  <input type="text" class="form-control" formControlName="learningHRSystemsOther" placeholder="Please specify other Learning & HR systems">
                 </div>
               </div>
             </div>
@@ -883,22 +953,25 @@
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Choose your Low-Code / No-Code Platforms"></i></label>
                 <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose Low-Code / No-Code Platforms" formControlName="lowCodeNoCode"
-                    [class.is-invalid]="isFieldInvalid('lowCodeNoCode')">
-                    <option value="OutSystems">OutSystems</option>
-                    <option value="Mendix">Mendix</option>
-                    <option value="Microsoft Power Apps">Microsoft Power Apps</option>
-                    <option value="Appian">Appian</option>
-                    <option value="Airtable">Airtable</option>
-                    <option value="Bubble">Bubble</option>
-                  </select>
+                  <ng-select
+                    [items]="lowCodeNoCodeList"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    bindLabel="name"
+                    bindValue="value"
+                    placeholder="Choose Low-Code / No-Code Platforms"
+                    formControlName="lowCodeNoCodePlatforms"
+                    [class.is-invalid]="isFieldInvalid('lowCodeNoCodePlatforms')">
+                  </ng-select>
                 </div>
               </div>
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
+                  <input type="text" class="form-control" formControlName="lowCodeNoCodePlatformsOther"
+                    placeholder="Please specify other Low-Code / No-Code platforms">
                 </div>
               </div>
             </div>
@@ -909,47 +982,24 @@
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Choose your Testing & QA"></i></label>
                 <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose Testing & QA" formControlName="testingQa"
-                    [class.is-invalid]="isFieldInvalid('testingQa')">
-                    <option value="Selenium">Selenium</option>
-                    <option value="Cypress">Cypress</option>
-                    <option value="Playwright">Playwright</option>
-                    <option value="TestCafe">TestCafe</option>
-                    <option value="Postman">Postman</option>
-                    <option value="Insomnia">Insomnia</option>
-                    <option value="Hoppscotch">Hoppscotch</option>
-                    <option value="Appium">Appium</option>
-                    <option value="Espresso">Espresso</option>
-                    <option value="XCUITest">XCUITest</option>
-                    <option value="Detox">Detox</option>
-                    <option value="Kobiton">Kobiton</option>
-                    <option value="Apache JMeter">Apache JMeter</option>
-                    <option value="k6">k6</option>
-                    <option value="Gatling">Gatling</option>
-                    <option value="Locust">Locust</option>
-                    <option value="BlazeMeter">BlazeMeter</option>
-                    <option value="OWASP ZAP">OWASP ZAP</option>
-                    <option value="Burp Suite">Burp Suite</option>
-                    <option value="Nikto">Nikto</option>
-                    <option value="TestRail">TestRail</option>
-                    <option value="Xray">Xray</option>
-                    <option value="Zephyr">Zephyr</option>
-                    <option value="qTest">qTest</option>
-                    <option value="Testim.io">Testim.io</option>
-                    <option value="mabl">mabl</option>
-                    <option value="Functionize">Functionize</option>
-                    <option value="Leapwork">Leapwork</option>
-                    <option value="Percy">Percy</option>
-                    <option value="Applitools">Applitools</option>
-                    <option value="Loki">Loki</option>
-                  </select>
+                  <ng-select
+                    [items]="testingQaList"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    bindLabel="name"
+                    bindValue="value"
+                    placeholder="Choose Testing & QA"
+                    formControlName="testingQA"
+                    [class.is-invalid]="isFieldInvalid('testingQA')">
+                  </ng-select>
                 </div>
               </div>
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
+                  <input type="text" class="form-control" formControlName="testingQAOther" placeholder="Please specify other Testing & QA tools">
                 </div>
               </div>
             </div>
@@ -961,21 +1011,24 @@
                   <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Choose your Web3 & Decentralized Tech"></i></label>
                 <div class="col-sm-10">
-                  <select class="js-example-basic-multiple" name="states[]" multiple="multiple"
-                    data-placeholder="Choose Web3 and decentralized tech" formControlName="web3Decentralized"
-                    [class.is-invalid]="isFieldInvalid('web3Decentralized')">
-                    <option value="Ethereum">Ethereum</option>
-                    <option value="Polygon">Polygon</option>
-                    <option value="Hyperledger Fabric">Hyperledger Fabric</option>
-                    <option value="IPFS">IPFS</option>
-                    <option value="Filecoin">Filecoin</option>
-                  </select>
+                  <ng-select
+                    [items]="web3DecentralizedList"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    bindLabel="name"
+                    bindValue="value"
+                    placeholder="Choose Web3 and decentralized tech"
+                    formControlName="web3DecentralizedTech"
+                    [class.is-invalid]="isFieldInvalid('web3DecentralizedTech')">
+                  </ng-select>
                 </div>
               </div>
               <div class="row mb-3 align-items-center">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" disabled placeholder="Other">
+                  <input type="text" class="form-control" formControlName="web3DecentralizedTechOther" placeholder="Please specify other Web3 & Decentralized tech">
                 </div>
               </div>
             </div>
@@ -995,7 +1048,7 @@
           <div class="col-12 text-end">
             <button type="button" class="btn btn-dark me-2" (click)="previousStep()" *ngIf="currentStep > 1">Back</button>
             <button type="button" class="btn btn-primary" (click)="nextStep()" *ngIf="currentStep < totalSteps">Next Step</button>
-            <button type="submit" class="btn btn-primary" *ngIf="currentStep === totalSteps" [disabled]="loading">
+            <button type="submit" class="btn btn-primary" *ngIf="currentStep === totalSteps" [disabled]="loading || !isCurrentStepValid()">
               <span class="spinner-border spinner-border-sm" *ngIf="loading"></span>
               Submit Form
             </button>

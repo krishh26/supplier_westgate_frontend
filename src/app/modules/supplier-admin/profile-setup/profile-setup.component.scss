@@ -147,3 +147,73 @@
   ul.wizard li.completed::after {
     background: #22b873;
   }
+
+.tag-input-container {
+  .tag-list {
+    margin-bottom: 10px;
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      background: #e9ecef;
+      border-radius: 4px;
+      padding: 2px 8px;
+      margin: 2px 4px;
+      font-size: 14px;
+
+      i {
+        margin-left: 6px;
+        cursor: pointer;
+        &:hover {
+          color: #dc3545;
+        }
+      }
+    }
+  }
+
+  input {
+    width: 100%;
+  }
+}
+
+:host ::ng-deep {
+  .form-group {
+    margin-bottom: 1rem;
+
+    label {
+      margin-bottom: 0.5rem;
+      font-size: 14px;
+    }
+  }
+
+  .ng-select {
+    .ng-select-container {
+      min-height: 38px;
+      border-radius: 4px;
+    }
+
+    &.ng-select-multiple {
+      .ng-select-container {
+        height: auto;
+        min-height: 38px;
+      }
+    }
+
+    &.is-invalid {
+      .ng-select-container {
+        border-color: #dc3545;
+      }
+    }
+  }
+
+  .astric {
+    color: red;
+  }
+
+  .form-label {
+    i {
+      color: #6c757d;
+      font-size: 14px;
+      margin-left: 4px;
+    }
+  }
+}
