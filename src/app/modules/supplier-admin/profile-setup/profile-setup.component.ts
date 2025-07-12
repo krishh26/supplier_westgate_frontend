@@ -315,80 +315,80 @@ export class ProfileSetupComponent implements OnInit {
 
   private initForm() {
     this.profileForm = this.formBuilder.group({
-      // Step 1 fields
+      // Step 1 fields - Only Company Name and POC Details are mandatory
       companyName: ['', Validators.required],
-      website: ['', [Validators.required, Validators.pattern('https?://.+')]],
-      companyAddress: ['', Validators.required],
-      country: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      companyContactNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-      yearOfEstablishment: ['', Validators.required],
-      executiveSummary: ['', Validators.required],
+      website: [''],
+      companyAddress: [''],
+      country: [''],
+      email: [''],
+      companyContactNumber: [''],
+      yearOfEstablishment: [''],
+      executiveSummary: [''],
       pocDetails: this.formBuilder.array([this.createPocDetailFormGroup()]),
-      typeOfCompany: [[], Validators.required],
-      employeeCount: ['', [Validators.required, Validators.min(1)]],
-      turnover: ['', [Validators.required, Validators.min(0)]],
-      totalProjectsExecuted: ['', [Validators.required, Validators.min(0)]],
+      typeOfCompany: [[]],
+      employeeCount: [''],
+      turnover: [''],
+      totalProjectsExecuted: [''],
       certifications: [[]],
       resourceSharingSupplier: [false],
       subcontractingSupplier: [false],
       certificationInput: [''],
 
-      // Step 2 fields
-      services: [[], Validators.required],
+      // Step 2 fields - All non-mandatory
+      services: [[]],
       servicesOther: [{value: '', disabled: true}],
-      technologyStack: [[], Validators.required],
+      technologyStack: [[]],
       technologyStackOther: [{value: '', disabled: true}],
       product: [[]],
 
-      // Step 3 fields
-      cloudPlatforms: [['OVHcloud', 'NTT-Netmagic'], Validators.required],
+      // Step 3 fields - All non-mandatory
+      cloudPlatforms: [['OVHcloud', 'NTT-Netmagic']],
       cloudPlatformsOther: [{value: '', disabled: true}],
-      devOpsAutomation: [[], Validators.required],
+      devOpsAutomation: [[]],
       devOpsAutomationOther: [{value: '', disabled: true}],
-      containerizationOrchestration: [[], Validators.required],
+      containerizationOrchestration: [[]],
       containerizationOrchestrationOther: [{value: '', disabled: true}],
 
-      // Step 4 fields
-      networkingInfrastructure: [[], Validators.required],
+      // Step 4 fields - All non-mandatory
+      networkingInfrastructure: [[]],
       networkingInfrastructureOther: [{value: '', disabled: true}],
-      securityIAM: [[], Validators.required],
+      securityIAM: [[]],
       securityIAMOther: [{value: '', disabled: true}],
-      monitoringObservability: [[], Validators.required],
+      monitoringObservability: [[]],
       monitoringObservabilityOther: [{value: '', disabled: true}],
-      integrationAPIManagement: [[], Validators.required],
+      integrationAPIManagement: [[]],
       integrationAPIManagementOther: [{value: '', disabled: true}],
-      eventStreamingMessaging: [[], Validators.required],
+      eventStreamingMessaging: [[]],
       eventStreamingMessagingOther: [{value: '', disabled: true}],
 
-      // Step 5 fields
-      databasePlatforms: [[], Validators.required],
+      // Step 5 fields - All non-mandatory
+      databasePlatforms: [[]],
       databasePlatformsOther: [{value: '', disabled: true}],
-      dataAnalyticsBI: [[], Validators.required],
+      dataAnalyticsBI: [[]],
       dataAnalyticsBIOther: [{value: '', disabled: true}],
-      aiMLPlatforms: [[], Validators.required],
+      aiMLPlatforms: [[]],
       aiMLPlatformsOther: [{value: '', disabled: true}],
 
-      // Step 6 fields
-      erpEnterpriseSystems: [[], Validators.required],
+      // Step 6 fields - All non-mandatory
+      erpEnterpriseSystems: [[]],
       erpEnterpriseSystemsOther: [{value: '', disabled: true}],
-      crmCustomerPlatforms: [[], Validators.required],
+      crmCustomerPlatforms: [[]],
       crmCustomerPlatformsOther: [{value: '', disabled: true}],
-      itsmITOperations: [[], Validators.required],
+      itsmITOperations: [[]],
       itsmITOperationsOther: [{value: '', disabled: true}],
-      businessAppsProductivity: [[], Validators.required],
+      businessAppsProductivity: [[]],
       businessAppsProductivityOther: [{value: '', disabled: true}],
 
-      // Step 7 fields
-      eCommerceCMS: [[], Validators.required],
+      // Step 7 fields - All non-mandatory
+      eCommerceCMS: [[]],
       eCommerceCMSOther: [{value: '', disabled: true}],
-      learningHRSystems: [[], Validators.required],
+      learningHRSystems: [[]],
       learningHRSystemsOther: [{value: '', disabled: true}],
-      lowCodeNoCodePlatforms: [[], Validators.required],
+      lowCodeNoCodePlatforms: [[]],
       lowCodeNoCodePlatformsOther: [{value: '', disabled: true}],
-      testingQA: [[], Validators.required],
+      testingQA: [[]],
       testingQAOther: [{value: '', disabled: true}],
-      web3DecentralizedTech: [[], Validators.required],
+      web3DecentralizedTech: [[]],
       web3DecentralizedTechOther: [{value: '', disabled: true}]
     });
   }
@@ -700,51 +700,55 @@ export class ProfileSetupComponent implements OnInit {
 
   // ... rest of the component code ...
 
-  isCurrentStepValid(): boolean {
+    isCurrentStepValid(): boolean {
     console.log('Checking validation for step:', this.currentStep);
     console.log('Form valid state:', this.profileForm.valid);
     console.log('Loading state:', this.loading);
 
-    const stepValidations = {
-      1: [], // Remove all validations for step 1
-      2: ['services', 'technologyStack'].concat(this.showProductDropdown ? ['product'] : []),
-      3: ['cloudPlatforms', 'devOpsAutomation', 'containerizationOrchestration'],
-      4: ['networkingInfrastructure', 'securityIAM', 'monitoringObservability', 'integrationAPIManagement', 'eventStreamingMessaging'],
-      5: ['databasePlatforms', 'dataAnalyticsBI', 'aiMLPlatforms'],
-      6: ['erpEnterpriseSystems', 'crmCustomerPlatforms', 'itsmITOperations', 'businessAppsProductivity'],
-      7: ['eCommerceCMS', 'learningHRSystems', 'lowCodeNoCodePlatforms', 'testingQA', 'web3DecentralizedTech']
-    };
-
+    // Only validate mandatory fields: Company Name, POC Details, and at least one supplier type
     if (this.currentStep === 1) {
-      return true; // Always return true for step 1 since it's not required
-    }
+      const companyNameValid = this.profileForm.get('companyName')?.valid ?? false;
+      const pocDetailsValid = this.validatePocDetails();
+      const supplierTypeValid = this.validateSupplierType();
 
-    const fieldsToValidate = stepValidations[this.currentStep as keyof typeof stepValidations] || [];
-    const validationResults = fieldsToValidate.map(field => {
-      const control = this.profileForm.get(field);
-      const otherControl = this.profileForm.get(`${field}Other`);
-      const isValid = control ? !control.errors : true;
-      const hasOther = control?.value?.includes('other');
-      const otherIsValid = !hasOther || (otherControl ? !otherControl.errors : true);
-
-      console.log(`Field ${field}:`, {
-        exists: !!control,
-        value: control?.value,
-        errors: control?.errors,
-        isValid,
-        hasOther,
-        otherExists: !!otherControl,
-        otherValue: otherControl?.value,
-        otherErrors: otherControl?.errors,
-        otherIsValid
+      console.log('Step 1 validation:', {
+        companyNameValid,
+        pocDetailsValid,
+        supplierTypeValid
       });
 
-      return isValid && otherIsValid;
-    });
+      return companyNameValid && pocDetailsValid && supplierTypeValid;
+    }
 
-    const isValid = validationResults.every(result => result);
-    console.log('Step validation result:', isValid);
-    return isValid;
+    // For all other steps, no validation required
+    return true;
+  }
+
+  private validatePocDetails(): boolean {
+    const pocDetailsArray = this.profileForm.get('pocDetails') as FormArray;
+    if (pocDetailsArray.length === 0) {
+      return false;
+    }
+
+    // Check if at least one POC detail is valid
+    for (let i = 0; i < pocDetailsArray.length; i++) {
+      const pocGroup = pocDetailsArray.at(i) as FormGroup;
+      if (pocGroup.get('name')?.valid &&
+          pocGroup.get('phone')?.valid &&
+          pocGroup.get('email')?.valid &&
+          pocGroup.get('role')?.valid) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+    validateSupplierType(): boolean {
+    const resourceSharing = this.profileForm.get('resourceSharingSupplier')?.value;
+    const subcontracting = this.profileForm.get('subcontractingSupplier')?.value;
+
+    // At least one of the supplier types must be selected
+    return resourceSharing || subcontracting;
   }
 
   getProgressPercentage(): number {
