@@ -4,6 +4,8 @@ import { SupplierAdminService } from 'src/app/services/supplier-admin/supplier-a
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
+import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
+import { ActivatedRoute } from '@angular/router';
 
 interface Technology {
   _id: string;
@@ -38,6 +40,8 @@ export class ProfileSetupComponent implements OnInit {
   successMessage: string = '';
   currentDate: string = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
   certificationTags: string[] = [];
+  supplierId: string = '';
+  isEditMode: boolean = false;
 
   // Add business types list
   businessTypesList = [
@@ -254,7 +258,9 @@ export class ProfileSetupComponent implements OnInit {
     private supplierAdminService: SupplierAdminService,
     private router: Router,
     private modalService: NgbModal,
-    private http: HttpClient
+    private http: HttpClient,
+    private localStorageService: LocalStorageService,
+    private route: ActivatedRoute
   ) {
     this.initForm();
   }
@@ -403,12 +409,126 @@ export class ProfileSetupComponent implements OnInit {
   }
 
   private saveFormData() {
-    localStorage.setItem('profileSetupFormData', JSON.stringify(this.profileForm.value));
-    localStorage.setItem('profileSetupCurrentStep', this.currentStep.toString());
+    this.localStorageService.setItem('profileSetupFormData', this.profileForm.value);
+    this.localStorageService.setItem('profileSetupCurrentStep', this.currentStep.toString());
+  }
+
+  private checkEditMode(): void {
+    // Try to get supplier ID from route params first
+    this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.supplierId = params['id'];
+        this.isEditMode = true;
+      }
+    });
+
+    // If no route param, try to get from localStorage
+    if (!this.supplierId) {
+      const userData = this.localStorageService.getLogger();
+      if (userData && userData._id) {
+        this.supplierId = userData._id;
+        this.isEditMode = true;
+      }
+    }
+  }
+
+  private loadExistingProfileData(): void {
+    if (!this.supplierId) return;
+
+    this.loading = true;
+    this.supplierAdminService.getSupplierDetails(this.supplierId).subscribe(
+      (response: any) => {
+        this.loading = false;
+        if (response.status && response.data) {
+          this.populateFormWithExistingData(response.data);
+        }
+      },
+      (error: any) => {
+        this.loading = false;
+        console.error('Error loading existing profile data:', error);
+        this.errorMessage = 'Error loading existing profile data';
+      }
+    );
+  }
+
+  private populateFormWithExistingData(data: any): void {
+    // Populate form with existing data
+    this.profileForm.patchValue({
+      companyName: data.companyName || '',
+      website: data.website || '',
+      companyAddress: data.companyAddress || '',
+      country: data.country || '',
+      email: data.email || '',
+      companyContactNumber: data.companyContactNumber || '',
+      yearOfEstablishment: data.yearOfEstablishment || '',
+      executiveSummary: data.executiveSummary || '',
+      typeOfCompany: data.typeOfCompany || [],
+      employeeCount: data.employeeCount || '',
+      turnover: data.turnover || '',
+      totalProjectsExecuted: data.totalProjectsExecuted || '',
+      resourceSharingSupplier: data.resourceSharingSupplier || false,
+      subcontractingSupplier: data.subcontractingSupplier || false,
+      services: data.services || [],
+      technologyStack: data.technologyStack || [],
+      product: data.product || [],
+      cloudPlatforms: data.cloudPlatforms || ['OVHcloud', 'NTT-Netmagic'],
+      devOpsAutomation: data.devOpsAutomation || [],
+      containerizationOrchestration: data.containerizationOrchestration || [],
+      networkingInfrastructure: data.networkingInfrastructure || [],
+      securityIAM: data.securityIAM || [],
+      monitoringObservability: data.monitoringObservability || [],
+      integrationAPIManagement: data.integrationAPIManagement || [],
+      eventStreamingMessaging: data.eventStreamingMessaging || [],
+      databasePlatforms: data.databasePlatforms || [],
+      dataAnalyticsBI: data.dataAnalyticsBI || [],
+      aiMLPlatforms: data.aiMLPlatforms || [],
+      erpEnterpriseSystems: data.erpEnterpriseSystems || [],
+      crmCustomerPlatforms: data.crmCustomerPlatforms || [],
+      itsmITOperations: data.itsmITOperations || [],
+      businessAppsProductivity: data.businessAppsProductivity || [],
+      eCommerceCMS: data.eCommerceCMS || [],
+      learningHRSystems: data.learningHRSystems || [],
+      lowCodeNoCodePlatforms: data.lowCodeNoCodePlatforms || [],
+      testingQA: data.testingQA || [],
+      web3DecentralizedTech: data.web3DecentralizedTech || []
+    });
+
+    // Handle POC details
+    if (data.pocDetails && Array.isArray(data.pocDetails)) {
+      // Clear existing POC details
+      const pocArray = this.profileForm.get('pocDetails') as FormArray;
+      while (pocArray.length !== 0) {
+        pocArray.removeAt(0);
+      }
+
+      // Add POC details from data
+      data.pocDetails.forEach((poc: any) => {
+        pocArray.push(this.formBuilder.group({
+          name: [poc.name || '', Validators.required],
+          phone: [poc.phone || '', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+          email: [poc.email || '', [Validators.required, Validators.email]],
+          role: [poc.role || '', Validators.required]
+        }));
+      });
+    }
+
+    // Handle certifications
+    if (data.certifications && Array.isArray(data.certifications)) {
+      this.certificationTags = [...data.certifications];
+    }
   }
 
   ngOnInit(): void {
     this.initForm();
+
+    // Check if we're in edit mode by getting supplier ID from route or localStorage
+    this.checkEditMode();
+
+    // Load existing data if in edit mode
+    if (this.isEditMode) {
+      this.loadExistingProfileData();
+    }
+
     this.loadTechnologies();
     this.loadServices();
     this.loadProducts();
@@ -833,21 +953,40 @@ export class ProfileSetupComponent implements OnInit {
         technologyStack: this.combineMainAndOther(formData.technologyStack, formData.technologyStackOther)
       };
 
-      // Call the API to save the data
-      this.supplierAdminService.submitProfileSetup(registrationData).subscribe(
-        (response: any) => {
-          this.loading = false;
-          this.successMessage = 'Registration completed successfully!';
-          // Clear form data from localStorage
-          localStorage.removeItem('profileSetupFormData');
-          localStorage.removeItem('profileSetupCurrentStep');
-        },
-        (error: Error) => {
-          this.loading = false;
-          this.errorMessage = 'An error occurred while registering. Please try again.';
-          console.error('Error during registration:', error);
-        }
-      );
+      // Call the appropriate API based on edit mode
+      if (this.isEditMode && this.supplierId) {
+        // Update existing profile
+        this.supplierAdminService.updateProfileSetup(this.supplierId, registrationData).subscribe(
+          (response: any) => {
+            this.loading = false;
+            this.successMessage = 'Profile updated successfully!';
+            // Clear form data from localStorage
+            this.localStorageService.removeItem('profileSetupFormData');
+            this.localStorageService.removeItem('profileSetupCurrentStep');
+          },
+          (error: Error) => {
+            this.loading = false;
+            this.errorMessage = 'An error occurred while updating. Please try again.';
+            console.error('Error during update:', error);
+          }
+        );
+      } else {
+        // Register new profile
+        this.supplierAdminService.submitProfileSetup(registrationData).subscribe(
+          (response: any) => {
+            this.loading = false;
+            this.successMessage = 'Registration completed successfully!';
+            // Clear form data from localStorage
+            this.localStorageService.removeItem('profileSetupFormData');
+            this.localStorageService.removeItem('profileSetupCurrentStep');
+          },
+          (error: Error) => {
+            this.loading = false;
+            this.errorMessage = 'An error occurred while registering. Please try again.';
+            console.error('Error during registration:', error);
+          }
+        );
+      }
     } else {
       console.log('Form validation failed');
       console.log('Form validation errors:', this.getFormValidationErrors());

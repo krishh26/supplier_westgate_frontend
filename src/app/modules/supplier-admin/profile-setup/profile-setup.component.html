@@ -9,7 +9,7 @@
     </div>
     <div class="row mb-3 align-items-center">
       <div class="col-12">
-        <h4>{{ steps[currentStep - 1].title }}</h4>
+        <h4>{{ isEditMode ? 'Edit Profile - ' + steps[currentStep - 1].title : steps[currentStep - 1].title }}</h4>
       </div>
     </div>
 
@@ -961,7 +961,7 @@
             <button type="submit" class="btn btn-primary" *ngIf="currentStep === totalSteps"
               [disabled]="loading || !isCurrentStepValid()">
               <span class="spinner-border spinner-border-sm" *ngIf="loading"></span>
-              Submit Form
+              {{ isEditMode ? 'Update Profile' : 'Submit Form' }}
             </button>
           </div>
         </div>
@@ -971,9 +971,9 @@
     <!-- Success Section -->
     <div class="p-5 text-center" *ngIf="successMessage">
       <img src="assets/img/success-image.png" width="230" class="mb-3" />
-      <h3 class="text-success"><strong>Registration Successfully</strong></h3>
-      <p class="mb-0">You will get the registration details with registration id</p>
-      <p class="text-muted">Thank you for booking a registration.</p>
+      <h3 class="text-success"><strong>{{ isEditMode ? 'Profile Updated Successfully' : 'Registration Successfully' }}</strong></h3>
+      <p class="mb-0" *ngIf="!isEditMode">You will get the registration details with registration id</p>
+      <p class="text-muted">{{ isEditMode ? 'Your profile has been updated successfully.' : 'Thank you for booking a registration.' }}</p>
       <a routerLink="/supplier-admin/supplier-dashboard" class="btn btn-primary">BACK TO HOME</a>
     </div>
   </div>
