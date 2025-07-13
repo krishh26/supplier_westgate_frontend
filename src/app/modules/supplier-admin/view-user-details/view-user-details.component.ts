@@ -44,6 +44,7 @@ interface DynamicArrays {
 
 export class ViewUserDetailsComponent implements OnInit, DynamicArrays {
   userData!: any;
+  activeTab: string = 'profile';  // Add this line to initialize activeTab
   skills: any[] = [
     {
       id: 1,
@@ -188,6 +189,32 @@ export class ViewUserDetailsComponent implements OnInit, DynamicArrays {
   // Add new properties
   expertiseDropdownOptions: ExpertiseItem[] = [];
 
+  // --- Add these properties for tab navigation and dummy data ---
+  public services: string[] = [];
+  public technologyStack: string[] = [];
+  public product: string[] = [];
+  public testingTools: string[] = [];
+  public cloudPlatforms: string[] = [];
+  public devOpsAutomation: string[] = [];
+  public containerizationOrchestration: string[] = [];
+  public networkingInfrastructure: string[] = [];
+  public databasePlatforms: string[] = [];
+  public dataAnalyticsBI: string[] = [];
+  public aiMlPlatforms: string[] = [];
+  public securityIAM: string[] = [];
+  public monitoringObservability: string[] = [];
+  public integrationApiManagement: string[] = [];
+  public eventStreamingMessaging: string[] = [];
+  public erpEnterpriseSystems: string[] = [];
+  public crmCustomerPlatforms: string[] = [];
+  public itsmItOperations: string[] = [];
+  public businessAppsProductivity: string[] = [];
+  public ecommerceCMS: string[] = [];
+  public learningHRSystems: string[] = [];
+  public lowCodeNoCodePlatforms: string[] = [];
+  public testingQA: string[] = [];
+  public web3DecentralizedTech: string[] = [];
+
   constructor(
     private authService: AuthService,
     private notificationService: NotificationService,
@@ -221,6 +248,33 @@ export class ViewUserDetailsComponent implements OnInit, DynamicArrays {
   }
 
   ngOnInit(): void {
+    this.loginUser = this.localStorageService.getItem('loginUser');
+    // Example: If loginUser.services exists, assign it
+    this.services = this.loginUser?.services || [];
+    this.technologyStack = this.loginUser?.technologyStack || [];
+    this.product = this.loginUser?.product || [];
+    this.testingTools = this.loginUser?.testingTools || [];
+    this.cloudPlatforms = this.loginUser?.cloudPlatforms || [];
+    this.devOpsAutomation = this.loginUser?.devOpsAutomation || [];
+    this.containerizationOrchestration = this.loginUser?.containerizationOrchestration || [];
+    this.networkingInfrastructure = this.loginUser?.networkingInfrastructure || [];
+    this.databasePlatforms = this.loginUser?.databasePlatforms || [];
+    this.dataAnalyticsBI = this.loginUser?.dataAnalyticsBI || [];
+    this.aiMlPlatforms = this.loginUser?.aiMlPlatforms || [];
+    this.securityIAM = this.loginUser?.securityIAM || [];
+    this.monitoringObservability = this.loginUser?.monitoringObservability || [];
+    this.integrationApiManagement = this.loginUser?.integrationApiManagement || [];
+    this.eventStreamingMessaging = this.loginUser?.eventStreamingMessaging || [];
+    this.erpEnterpriseSystems = this.loginUser?.erpEnterpriseSystems || [];
+    this.crmCustomerPlatforms = this.loginUser?.crmCustomerPlatforms || [];
+    this.itsmItOperations = this.loginUser?.itsmItOperations || [];
+    this.businessAppsProductivity = this.loginUser?.businessAppsProductivity || [];
+    this.ecommerceCMS = this.loginUser?.ecommerceCMS || [];
+    this.learningHRSystems = this.loginUser?.learningHRSystems || [];
+    this.lowCodeNoCodePlatforms = this.loginUser?.lowCodeNoCodePlatforms || [];
+    this.testingQA = this.loginUser?.testingQA || [];
+    this.web3DecentralizedTech = this.loginUser?.web3DecentralizedTech || [];
+
     this.getUserDetails();
     this.loadTags();
     this.loadExpertiseOptions();

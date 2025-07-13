@@ -354,7 +354,7 @@
                     title="Choose your cloud platforms"></i></label>
                 <div class="col-sm-10">
                   <ng-select [items]="cloudPlatformsList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
-                    [clearable]="true" [loading]="isLoadingCloudPlatforms" bindLabel="name" bindValue="_id"
+                    [clearable]="true" [loading]="isLoadingCloudPlatforms" bindLabel="name" bindValue="name"
                     placeholder="Choose your cloud platforms" formControlName="cloudPlatforms">
                     <ng-template ng-option-tmp let-item="item">
                       {{ item.name }}
@@ -382,7 +382,7 @@
                     title="Choose your DevOps tools"></i></label>
                 <div class="col-sm-10">
                   <ng-select [items]="devOpsList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
-                    [clearable]="true" [loading]="isLoadingDropdownData" bindLabel="name" bindValue="_id"
+                    [clearable]="true" [loading]="isLoadingDropdownData" bindLabel="name" bindValue="name"
                     placeholder="Choose your DevOps tools" formControlName="devOpsAutomation">
                     <ng-template ng-option-tmp let-item="item">
                       {{ item.name }}
@@ -411,7 +411,7 @@
                 <div class="col-sm-10">
                   <ng-select [items]="containerizationList" [multiple]="true" [closeOnSelect]="false"
                     [searchable]="true" [clearable]="true" [loading]="isLoadingDropdownData" bindLabel="name"
-                    bindValue="_id" placeholder="Choose your containerization tools"
+                    bindValue="name" placeholder="Choose your containerization tools"
                     formControlName="containerizationOrchestration">
                     <ng-template ng-option-tmp let-item="item">
                       {{ item.name }}
@@ -449,7 +449,7 @@
                     title="Choose your networking & infrastructure tools"></i></label>
                 <div class="col-sm-10">
                   <ng-select [items]="networkingList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
-                    [clearable]="true" [loading]="isLoadingStep4Data" bindLabel="name" bindValue="_id"
+                    [clearable]="true" [loading]="isLoadingStep4Data" bindLabel="name" bindValue="name"
                     placeholder="Choose your networking tools" formControlName="networkingInfrastructure">
                     <ng-template ng-option-tmp let-item="item">
                       {{ item.name }}
@@ -477,7 +477,7 @@
                     title="Choose your security & IAM tools"></i></label>
                 <div class="col-sm-10">
                   <ng-select [items]="securityList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
-                    [clearable]="true" [loading]="isLoadingStep4Data" bindLabel="name" bindValue="_id"
+                    [clearable]="true" [loading]="isLoadingStep4Data" bindLabel="name" bindValue="name"
                     placeholder="Choose your security tools" formControlName="securityIAM">
                     <ng-template ng-option-tmp let-item="item">
                       {{ item.name }}
@@ -506,7 +506,7 @@
                     title="Choose your monitoring & observability tools"></i></label>
                 <div class="col-sm-10">
                   <ng-select [items]="monitoringList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
-                    [clearable]="true" [loading]="isLoadingStep4Data" bindLabel="name" bindValue="_id"
+                    [clearable]="true" [loading]="isLoadingStep4Data" bindLabel="name" bindValue="name"
                     placeholder="Choose your monitoring tools" formControlName="monitoringObservability"
                     [class.is-invalid]="isFieldInvalid('monitoringObservability')">
                     <ng-template ng-option-tmp let-item="item">
@@ -539,7 +539,7 @@
                     title="Choose your integration & API management tools"></i></label>
                 <div class="col-sm-10">
                   <ng-select [items]="apiManagementList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
-                    [clearable]="true" [loading]="isLoadingStep4Data" bindLabel="name" bindValue="_id"
+                    [clearable]="true" [loading]="isLoadingStep4Data" bindLabel="name" bindValue="name"
                     placeholder="Choose your API management tools" formControlName="integrationAPIManagement"
                     [class.is-invalid]="isFieldInvalid('integrationAPIManagement')">
                     <ng-template ng-option-tmp let-item="item">
@@ -572,7 +572,7 @@
                     title="Choose your event streaming & messaging tools"></i></label>
                 <div class="col-sm-10">
                   <ng-select [items]="eventStreamingList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
-                    [clearable]="true" [loading]="isLoadingStep4Data" bindLabel="name" bindValue="_id"
+                    [clearable]="true" [loading]="isLoadingStep4Data" bindLabel="name" bindValue="name"
                     placeholder="Choose your event streaming tools" formControlName="eventStreamingMessaging"
                     [class.is-invalid]="isFieldInvalid('eventStreamingMessaging')">
                     <ng-template ng-option-tmp let-item="item">
@@ -613,7 +613,7 @@
                     title="Choose your database platforms"></i></label>
                 <div class="col-sm-10">
                   <ng-select [items]="databasePlatformsList" [multiple]="true" [closeOnSelect]="false"
-                    [searchable]="true" [clearable]="true" bindLabel="name" bindValue="value"
+                    [searchable]="true" [clearable]="true" bindLabel="name" bindValue="name"
                     placeholder="Choose database platforms" formControlName="databasePlatforms"
                     [class.is-invalid]="isFieldInvalid('databasePlatforms')">
                   </ng-select>
@@ -640,7 +640,7 @@
                     title="Choose your data, analytics & BI tools"></i></label>
                 <div class="col-sm-10">
                   <ng-select [items]="dataAnalyticsList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
-                    [clearable]="true" bindLabel="name" bindValue="value" placeholder="Choose data analytics & BI tools"
+                    [clearable]="true" bindLabel="name" bindValue="name" placeholder="Choose data analytics & BI tools"
                     formControlName="dataAnalyticsBI" [class.is-invalid]="isFieldInvalid('dataAnalyticsBI')">
                   </ng-select>
                 </div>
@@ -665,7 +665,7 @@
                     title="Choose your AI / ML platforms"></i></label>
                 <div class="col-sm-10">
                   <ng-select [items]="aiMlPlatformsList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
-                    [clearable]="true" bindLabel="name" bindValue="value" placeholder="Choose AI / ML platforms"
+                    [clearable]="true" bindLabel="name" bindValue="name" placeholder="Choose AI / ML platforms"
                     formControlName="aiMLPlatforms" [class.is-invalid]="isFieldInvalid('aiMLPlatforms')">
                   </ng-select>
                 </div>
@@ -701,7 +701,7 @@
                     title="Choose your ERP / Enterprise Systems"></i></label>
                 <div class="col-sm-10">
                   <ng-select [items]="erpSystemsList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
-                    [clearable]="true" bindLabel="name" bindValue="value" placeholder="Choose ERP / Enterprise systems"
+                    [clearable]="true" bindLabel="name" bindValue="name" placeholder="Choose ERP / Enterprise systems"
                     formControlName="erpEnterpriseSystems" [class.is-invalid]="isFieldInvalid('erpEnterpriseSystems')">
                   </ng-select>
                 </div>
@@ -727,7 +727,7 @@
                     title="Choose your CRM & Customer Platforms"></i></label>
                 <div class="col-sm-10">
                   <ng-select [items]="crmPlatformsList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
-                    [clearable]="true" bindLabel="name" bindValue="value" placeholder="Choose CRM & customer platforms"
+                    [clearable]="true" bindLabel="name" bindValue="name" placeholder="Choose CRM & customer platforms"
                     formControlName="crmCustomerPlatforms" [class.is-invalid]="isFieldInvalid('crmCustomerPlatforms')">
                   </ng-select>
                 </div>
@@ -753,7 +753,7 @@
                     title="Choose your ITSM / IT Operations"></i></label>
                 <div class="col-sm-10">
                   <ng-select [items]="itsmList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
-                    [clearable]="true" bindLabel="name" bindValue="value" placeholder="Choose ITSM / IT operations"
+                    [clearable]="true" bindLabel="name" bindValue="name" placeholder="Choose ITSM / IT operations"
                     formControlName="itsmITOperations" [class.is-invalid]="isFieldInvalid('itsmITOperations')">
                   </ng-select>
                 </div>
@@ -780,7 +780,7 @@
                     title="Choose your Business Apps & Productivity"></i></label>
                 <div class="col-sm-10">
                   <ng-select [items]="businessAppsList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
-                    [clearable]="true" bindLabel="name" bindValue="value"
+                    [clearable]="true" bindLabel="name" bindValue="name"
                     placeholder="Choose Business Apps and productivity" formControlName="businessAppsProductivity"
                     [class.is-invalid]="isFieldInvalid('businessAppsProductivity')">
                   </ng-select>
@@ -816,7 +816,7 @@
                     title="Choose your E-Commerce & CMS"></i></label>
                 <div class="col-sm-10">
                   <ng-select [items]="eCommerceCmsList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
-                    [clearable]="true" bindLabel="name" bindValue="value" placeholder="Choose E-Commerce & CMS"
+                    [clearable]="true" bindLabel="name" bindValue="name" placeholder="Choose E-Commerce & CMS"
                     formControlName="eCommerceCMS" [class.is-invalid]="isFieldInvalid('eCommerceCMS')">
                   </ng-select>
                 </div>
@@ -842,7 +842,7 @@
                     title="Choose your Learning & HR Systems"></i></label>
                 <div class="col-sm-10">
                   <ng-select [items]="learningHrSystemsList" [multiple]="true" [closeOnSelect]="false"
-                    [searchable]="true" [clearable]="true" bindLabel="name" bindValue="value"
+                    [searchable]="true" [clearable]="true" bindLabel="name" bindValue="name"
                     placeholder="Choose Learning & HR Systems" formControlName="learningHRSystems"
                     [class.is-invalid]="isFieldInvalid('learningHRSystems')">
                   </ng-select>
@@ -869,7 +869,7 @@
                     title="Choose your Low-Code / No-Code Platforms"></i></label>
                 <div class="col-sm-10">
                   <ng-select [items]="lowCodeNoCodeList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
-                    [clearable]="true" bindLabel="name" bindValue="value"
+                    [clearable]="true" bindLabel="name" bindValue="name"
                     placeholder="Choose Low-Code / No-Code Platforms" formControlName="lowCodeNoCodePlatforms"
                     [class.is-invalid]="isFieldInvalid('lowCodeNoCodePlatforms')">
                   </ng-select>
@@ -896,7 +896,7 @@
                     title="Choose your Testing & QA"></i></label>
                 <div class="col-sm-10">
                   <ng-select [items]="testingQaList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
-                    [clearable]="true" bindLabel="name" bindValue="value" placeholder="Choose Testing & QA"
+                    [clearable]="true" bindLabel="name" bindValue="name" placeholder="Choose Testing & QA"
                     formControlName="testingQA" [class.is-invalid]="isFieldInvalid('testingQA')">
                   </ng-select>
                 </div>
@@ -923,7 +923,7 @@
                     title="Choose your Web3 & Decentralized Tech"></i></label>
                 <div class="col-sm-10">
                   <ng-select [items]="web3DecentralizedList" [multiple]="true" [closeOnSelect]="false"
-                    [searchable]="true" [clearable]="true" bindLabel="name" bindValue="value"
+                    [searchable]="true" [clearable]="true" bindLabel="name" bindValue="name"
                     placeholder="Choose Web3 and decentralized tech" formControlName="web3DecentralizedTech"
                     [class.is-invalid]="isFieldInvalid('web3DecentralizedTech')">
                   </ng-select>

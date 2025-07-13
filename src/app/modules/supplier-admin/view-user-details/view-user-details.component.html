@@ -45,8 +45,32 @@
     ::ng-deep .expertise-select .ng-select.ng-select-focused .ng-select-container {
       background-color: #F1F2F3 !important;
     }
+    .tabs {
+      display: flex;
+      gap: 20px;
+      border-bottom: 2px solid #eee;
+      margin-bottom: 20px;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      color: #888;
+      font-weight: 500;
+    }
+    .tab-btn.active {
+      color: #1976d2;
+      border-bottom: 3px solid #1976d2;
+    }
   </style>
-  <section>
+  <div class="tabs mb-4">
+    <button class="tab-btn" [class.active]="activeTab === 'profile'" (click)="activeTab = 'profile'">Profile</button>
+    <button class="tab-btn" [class.active]="activeTab === 'tools'" (click)="activeTab = 'tools'">Tools, Technologies & Platforms</button>
+  </div>
+  <section *ngIf="activeTab === 'profile'">
     <div class="container-fluid">
       <div class="row align-items-center justify-content-between">
         <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-6">
@@ -55,7 +79,7 @@
           </div><br>
         </div>
         <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-6 text-end">
-          <button class="btn btn-primary me-2" routerLink="/supplier-admin/supplier-user-profile">
+          <button class="btn btn-primary me-2" routerLink="/supplier-admin/profile-setup">
             Edit
           </button>
           <button class="btn btn-primary" routerLink="/supplier-admin/project-list">
@@ -325,84 +349,6 @@
                     </div>
                   </div>
 
-                  <div class="col-12 mb-3">
-                    <!-- Expertise field -->
-                    <label for="expertise" class="col-form-label">Expertise
-                      <i class="fas fa-info-circle ms-1" [ngbTooltip]="'List all the products, platforms, or software solutions your company has built or developed over time (e.g., ERP systems, mobile apps, SaaS platforms).'" placement="top"></i>
-                    </label>
-                    <div class="form-control p-3">
-                      <div class="expertise-container">
-                        <!-- Existing expertise items -->
-                        <div *ngFor="let expertise of selectedExpertise; let i = index" class="expertise-item">
-                          <div class="expertise-header">
-                            <div class="tag">
-                              {{ expertise.name }}
-                            </div>
-                          </div>
-
-                          <!-- Sub-expertise section -->
-                          <div class="sub-expertise-container">
-                            <div class="sub-expertise-tags" *ngIf="subExpertiseMap[i]?.length">
-                              <div *ngFor="let sub of subExpertiseMap[i]" class="tag">
-                                {{ sub }}
-                              </div>
-                            </div>
-
-                            <ng-select [(ngModel)]="selectedSubExpertiseMap[i]"
-                              name="subExpertise_{{i}}"
-                              [items]="subExpertiseOptions"
-                              [multiple]="true"
-                              [closeOnSelect]="false"
-                              [searchable]="false"
-                              [clearable]="false"
-                              [disabled]="true"
-                              placeholder="Select sub-expertise">
-                            </ng-select>
-                          </div>
-                        </div>
-
-                        <!-- Add new expertise section -->
-                        <div class="expertise-select">
-                          <ng-select placeholder="Select expertise"
-                            [items]="expertiseGroupedOptions"
-                            bindLabel="name"
-                            [multiple]="true"
-                            [(ngModel)]="selectedExpertiseItems"
-                            name="selectedExpertiseItems"
-                            [closeOnSelect]="false"
-                            [searchable]="false"
-                            [clearable]="false"
-                            [disabled]="true"
-                            [groupBy]="'type'"
-                            [hideSelected]="false"
-                            [virtualScroll]="true">
-                          </ng-select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6 mb-3">
-                    <div class="row">
-                      <label class="col-sm-4 col-form-label">I Can Do</label>
-                      <div class="col-sm-8">
-                        <ng-select
-                          [items]="tags"
-                          [multiple]="true"
-                          [closeOnSelect]="false"
-                          [searchable]="false"
-                          [loading]="isLoadingTags"
-                          [(ngModel)]="selectedTags"
-                          name="selectedTags"
-                          bindLabel="name"
-                          [clearable]="false"
-                          [disabled]="true"
-                          placeholder="Select what you can do">
-                        </ng-select>
-                      </div>
-                    </div>
-                  </div>
-
                   <div class="col-md-6 mb-3">
                     <div class="row">
                       <label class="col-sm-4 col-form-label">Technology Stack</label>
@@ -424,7 +370,7 @@
                 </div>
 
                 <!-- Client Information -->
-                <div class="row mb-4">
+                <!-- <div class="row mb-4">
                   <div class="col-12">
                     <h5 class="text-primary mb-3">Client Information</h5>
                   </div>
@@ -446,7 +392,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
                 <!-- Supplier Type -->
                 <div class="row mb-4">
@@ -490,6 +436,162 @@
           </div>
         </div>
       </form>
+    </div>
+  </section>
+
+  <section *ngIf="activeTab === 'tools'">
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="text-theme mb-4"><strong>Tools, Technologies & Platforms</strong></h4>
+          <form>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Services</label>
+                <input class="form-control" [value]="services.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Technology Stack</label>
+                <input class="form-control" [value]="technologyStack.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Product</label>
+                <input class="form-control" [value]="product.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Testing Tools</label>
+                <input class="form-control" [value]="testingTools.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Cloud Platforms</label>
+                <input class="form-control" [value]="cloudPlatforms.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">DevOps & Automation</label>
+                <input class="form-control" [value]="devOpsAutomation.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Containerization & Orchestration</label>
+                <input class="form-control" [value]="containerizationOrchestration.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Networking & Infrastructure</label>
+                <input class="form-control" [value]="networkingInfrastructure.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Database Platforms</label>
+                <input class="form-control" [value]="databasePlatforms.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Data, Analytics & BI</label>
+                <input class="form-control" [value]="dataAnalyticsBI.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">AI/ML Platforms</label>
+                <input class="form-control" [value]="aiMlPlatforms.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Security & IAM</label>
+                <input class="form-control" [value]="securityIAM.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Monitoring & Observability</label>
+                <input class="form-control" [value]="monitoringObservability.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Integration & API Management</label>
+                <input class="form-control" [value]="integrationApiManagement.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Event Streaming & Messaging</label>
+                <input class="form-control" [value]="eventStreamingMessaging.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">ERP/Enterprise Systems</label>
+                <input class="form-control" [value]="erpEnterpriseSystems.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">CRM & Customer Platforms</label>
+                <input class="form-control" [value]="crmCustomerPlatforms.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">ITSM/IT Operations</label>
+                <input class="form-control" [value]="itsmItOperations.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Business Apps & Productivity</label>
+                <input class="form-control" [value]="businessAppsProductivity.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">E-Commerce & CMS</label>
+                <input class="form-control" [value]="ecommerceCMS.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Learning & HR Systems</label>
+                <input class="form-control" [value]="learningHRSystems.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Low-Code/No-Code Platforms</label>
+                <input class="form-control" [value]="lowCodeNoCodePlatforms.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Testing & QA</label>
+                <input class="form-control" [value]="testingQA.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Web3 & Decentralized Tech</label>
+                <input class="form-control" [value]="web3DecentralizedTech.join(', ')" readonly>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </section>
 </main>
