@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { SupplierAdminService } from 'src/app/services/supplier-admin/supplier-admin.service';
 import { Router } from '@angular/router';
@@ -6,6 +6,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { ActivatedRoute } from '@angular/router';
+
+declare var bootstrap: any;
 
 interface Technology {
   _id: string;
@@ -30,7 +32,7 @@ interface Product {
   templateUrl: './profile-setup.component.html',
   styleUrls: ['./profile-setup.component.scss']
 })
-export class ProfileSetupComponent implements OnInit {
+export class ProfileSetupComponent implements OnInit, AfterViewInit {
   currentStep: number = 1;
   totalSteps: number = 7;
   profileForm!: FormGroup;
@@ -607,6 +609,18 @@ export class ProfileSetupComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit(): void {
+    // Initialize tooltips after view is initialized
+    this.initializeTooltips();
+  }
+
+  private initializeTooltips(): void {
+    setTimeout(() => {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+      Array.from(tooltipTriggerList).map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    }, 100);
+  }
+
   private setInitialDropdownValues() {
     const initialValues = {
       cloudPlatforms: ['OVHcloud', 'NTT-Netmagic'],
@@ -800,6 +814,7 @@ export class ProfileSetupComponent implements OnInit {
         }
 
         this.saveFormData(); // Save after step change
+        this.initializeTooltips(); // Reinitialize tooltips after step change
         console.log('Moving to step:', this.currentStep);
       }
     } else {
@@ -815,6 +830,7 @@ export class ProfileSetupComponent implements OnInit {
       this.steps[this.currentStep - 1].active = true;
       this.submitted = false;
       this.saveFormData(); // Save after step change
+      this.initializeTooltips(); // Reinitialize tooltips after step change
     }
   }
 

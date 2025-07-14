@@ -3,7 +3,13 @@
     <div class="row mb-3 align-items-center">
       <div class="col-12">
         <ul class="wizard">
-          <li *ngFor="let step of steps" [class.active]="step.active" [class.completed]="step.completed"></li>
+          <li *ngFor="let step of steps"
+              [class.active]="step.active"
+              [class.completed]="step.completed"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              [title]="step.title">
+          </li>
         </ul>
       </div>
     </div>
