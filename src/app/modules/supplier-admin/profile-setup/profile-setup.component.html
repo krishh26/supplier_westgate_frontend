@@ -290,12 +290,11 @@
               </div>
 
               <!-- Services Other -->
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showServicesOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="servicesOther"
-                    placeholder="Please specify other services" [class.is-invalid]="isFieldInvalid('servicesOther')"
-                    [disabled]="!profileForm.get('services')?.value?.includes('Other')">
+                    placeholder="Please specify other services" [class.is-invalid]="isFieldInvalid('servicesOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('servicesOther')">
                     Please specify other services
                   </div>
@@ -330,13 +329,12 @@
               </div>
 
               <!-- Technology Stack Other -->
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showTechnologyStackOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="technologyStackOther"
                     placeholder="Please specify other technologies"
-                    [class.is-invalid]="isFieldInvalid('technologyStackOther')"
-                    [disabled]="!profileForm.get('technologyStack')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('technologyStackOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('technologyStackOther')">
                     Please specify other technologies
                   </div>
@@ -368,13 +366,12 @@
                   </ng-select>
                 </div>
               </div>
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showCloudPlatformsOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="cloudPlatformsOther"
                     placeholder="Please specify other cloud platforms"
-                    [class.is-invalid]="isFieldInvalid('cloudPlatformsOther')"
-                    [disabled]="!profileForm.get('cloudPlatforms')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('cloudPlatformsOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('cloudPlatformsOther')">
                     Please specify other cloud platforms
                   </div>
@@ -396,13 +393,12 @@
                   </ng-select>
                 </div>
               </div>
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showDevOpsAutomationOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="devOpsAutomationOther"
                     placeholder="Please specify other DevOps tools"
-                    [class.is-invalid]="isFieldInvalid('devOpsAutomationOther')"
-                    [disabled]="!profileForm.get('devOpsAutomation')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('devOpsAutomationOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('devOpsAutomationOther')">
                     Please specify other DevOps tools
                   </div>
@@ -425,13 +421,12 @@
                   </ng-select>
                 </div>
               </div>
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showContainerizationOrchestrationOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="containerizationOrchestrationOther"
                     placeholder="Please specify other containerization tools"
-                    [class.is-invalid]="isFieldInvalid('containerizationOrchestrationOther')"
-                    [disabled]="!profileForm.get('containerizationOrchestration')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('containerizationOrchestrationOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('containerizationOrchestrationOther')">
                     Please specify other containerization tools
                   </div>
@@ -463,13 +458,12 @@
                   </ng-select>
                 </div>
               </div>
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showNetworkingInfrastructureOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="networkingInfrastructureOther"
                     placeholder="Please specify other networking tools"
-                    [class.is-invalid]="isFieldInvalid('networkingInfrastructureOther')"
-                    [disabled]="!profileForm.get('networkingInfrastructure')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('networkingInfrastructureOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('networkingInfrastructureOther')">
                     Please specify other networking tools
                   </div>
@@ -491,13 +485,12 @@
                   </ng-select>
                 </div>
               </div>
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showSecurityIAMOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="securityIAMOther"
                     placeholder="Please specify other security tools"
-                    [class.is-invalid]="isFieldInvalid('securityIAMOther')"
-                    [disabled]="!profileForm.get('securityIAM')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('securityIAMOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('securityIAMOther')">
                     Please specify other security tools
                   </div>
@@ -524,13 +517,12 @@
                   </div>
                 </div>
               </div>
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showMonitoringObservabilityOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="monitoringObservabilityOther"
                     placeholder="Please specify other monitoring tools"
-                    [class.is-invalid]="isFieldInvalid('monitoringObservabilityOther')"
-                    [disabled]="!profileForm.get('monitoringObservability')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('monitoringObservabilityOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('monitoringObservabilityOther')">
                     Please specify other monitoring tools
                   </div>
@@ -557,13 +549,12 @@
                   </div>
                 </div>
               </div>
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showIntegrationAPIManagementOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="integrationAPIManagementOther"
                     placeholder="Please specify other API management tools"
-                    [class.is-invalid]="isFieldInvalid('integrationAPIManagementOther')"
-                    [disabled]="!profileForm.get('integrationAPIManagement')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('integrationAPIManagementOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('integrationAPIManagementOther')">
                     Please specify other API management tools
                   </div>
@@ -590,13 +581,12 @@
                   </div>
                 </div>
               </div>
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showEventStreamingMessagingOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="eventStreamingMessagingOther"
                     placeholder="Please specify other event streaming tools"
-                    [class.is-invalid]="isFieldInvalid('eventStreamingMessagingOther')"
-                    [disabled]="!profileForm.get('eventStreamingMessaging')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('eventStreamingMessagingOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('eventStreamingMessagingOther')">
                     Please specify other event streaming tools
                   </div>
@@ -625,13 +615,12 @@
                   </ng-select>
                 </div>
               </div>
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showDatabasePlatformsOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="databasePlatformsOther"
                     placeholder="Please specify other database platforms"
-                    [class.is-invalid]="isFieldInvalid('databasePlatformsOther')"
-                    [disabled]="!profileForm.get('databasePlatforms')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('databasePlatformsOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('databasePlatformsOther')">
                     Please specify other database platforms
                   </div>
@@ -651,13 +640,12 @@
                   </ng-select>
                 </div>
               </div>
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showDataAnalyticsBIOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="dataAnalyticsBIOther"
                     placeholder="Please specify other data analytics tools"
-                    [class.is-invalid]="isFieldInvalid('dataAnalyticsBIOther')"
-                    [disabled]="!profileForm.get('dataAnalyticsBI')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('dataAnalyticsBIOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('dataAnalyticsBIOther')">
                     Please specify other data analytics tools
                   </div>
@@ -676,13 +664,12 @@
                   </ng-select>
                 </div>
               </div>
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showAiMLPlatformsOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="aiMLPlatformsOther"
                     placeholder="Please specify other AI/ML platforms"
-                    [class.is-invalid]="isFieldInvalid('aiMLPlatformsOther')"
-                    [disabled]="!profileForm.get('aiMLPlatforms')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('aiMLPlatformsOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('aiMLPlatformsOther')">
                     Please specify other AI/ML platforms
                   </div>
@@ -712,13 +699,12 @@
                   </ng-select>
                 </div>
               </div>
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showErpEnterpriseSystemsOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="erpEnterpriseSystemsOther"
                     placeholder="Please specify other ERP systems"
-                    [class.is-invalid]="isFieldInvalid('erpEnterpriseSystemsOther')"
-                    [disabled]="!profileForm.get('erpEnterpriseSystems')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('erpEnterpriseSystemsOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('erpEnterpriseSystemsOther')">
                     Please specify other ERP systems
                   </div>
@@ -738,13 +724,12 @@
                   </ng-select>
                 </div>
               </div>
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showCrmCustomerPlatformsOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="crmCustomerPlatformsOther"
                     placeholder="Please specify other CRM platforms"
-                    [class.is-invalid]="isFieldInvalid('crmCustomerPlatformsOther')"
-                    [disabled]="!profileForm.get('crmCustomerPlatforms')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('crmCustomerPlatformsOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('crmCustomerPlatformsOther')">
                     Please specify other CRM platforms
                   </div>
@@ -764,13 +749,12 @@
                   </ng-select>
                 </div>
               </div>
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showItsmITOperationsOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="itsmITOperationsOther"
                     placeholder="Please specify other ITSM tools"
-                    [class.is-invalid]="isFieldInvalid('itsmITOperationsOther')"
-                    [disabled]="!profileForm.get('itsmITOperations')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('itsmITOperationsOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('itsmITOperationsOther')">
                     Please specify other ITSM tools
                   </div>
@@ -792,13 +776,12 @@
                   </ng-select>
                 </div>
               </div>
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showBusinessAppsProductivityOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="businessAppsProductivityOther"
                     placeholder="Please specify other business apps"
-                    [class.is-invalid]="isFieldInvalid('businessAppsProductivityOther')"
-                    [disabled]="!profileForm.get('businessAppsProductivity')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('businessAppsProductivityOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('businessAppsProductivityOther')">
                     Please specify other business apps
                   </div>
@@ -827,13 +810,12 @@
                   </ng-select>
                 </div>
               </div>
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showECommerceCMSOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="eCommerceCMSOther"
                     placeholder="Please specify other E-Commerce & CMS platforms"
-                    [class.is-invalid]="isFieldInvalid('eCommerceCMSOther')"
-                    [disabled]="!profileForm.get('eCommerceCMS')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('eCommerceCMSOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('eCommerceCMSOther')">
                     Please specify other E-Commerce & CMS platforms
                   </div>
@@ -854,13 +836,12 @@
                   </ng-select>
                 </div>
               </div>
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showLearningHRSystemsOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="learningHRSystemsOther"
                     placeholder="Please specify other Learning & HR systems"
-                    [class.is-invalid]="isFieldInvalid('learningHRSystemsOther')"
-                    [disabled]="!profileForm.get('learningHRSystems')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('learningHRSystemsOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('learningHRSystemsOther')">
                     Please specify other Learning & HR systems
                   </div>
@@ -881,13 +862,12 @@
                   </ng-select>
                 </div>
               </div>
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showLowCodeNoCodePlatformsOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="lowCodeNoCodePlatformsOther"
                     placeholder="Please specify other Low-Code / No-Code platforms"
-                    [class.is-invalid]="isFieldInvalid('lowCodeNoCodePlatformsOther')"
-                    [disabled]="!profileForm.get('lowCodeNoCodePlatforms')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('lowCodeNoCodePlatformsOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('lowCodeNoCodePlatformsOther')">
                     Please specify other Low-Code / No-Code platforms
                   </div>
@@ -907,13 +887,12 @@
                   </ng-select>
                 </div>
               </div>
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showTestingQAOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="testingQAOther"
                     placeholder="Please specify other Testing & QA tools"
-                    [class.is-invalid]="isFieldInvalid('testingQAOther')"
-                    [disabled]="!profileForm.get('testingQA')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('testingQAOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('testingQAOther')">
                     Please specify other Testing & QA tools
                   </div>
@@ -935,13 +914,12 @@
                   </ng-select>
                 </div>
               </div>
-              <div class="row mb-3 align-items-center">
+              <div class="row mb-3 align-items-center" *ngIf="showWeb3DecentralizedTechOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" formControlName="web3DecentralizedTechOther"
                     placeholder="Please specify other Web3 & Decentralized tech"
-                    [class.is-invalid]="isFieldInvalid('web3DecentralizedTechOther')"
-                    [disabled]="!profileForm.get('web3DecentralizedTech')?.value?.includes('Other')">
+                    [class.is-invalid]="isFieldInvalid('web3DecentralizedTechOther')">
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('web3DecentralizedTechOther')">
                     Please specify other Web3 & Decentralized tech
                   </div>

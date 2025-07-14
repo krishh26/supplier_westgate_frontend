@@ -45,6 +45,30 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
   supplierId: string = '';
   isEditMode: boolean = false;
 
+  // Add properties to track visibility of "Other" input fields
+  showServicesOther = false;
+  showTechnologyStackOther = false;
+  showCloudPlatformsOther = false;
+  showDevOpsAutomationOther = false;
+  showContainerizationOrchestrationOther = false;
+  showNetworkingInfrastructureOther = false;
+  showSecurityIAMOther = false;
+  showMonitoringObservabilityOther = false;
+  showIntegrationAPIManagementOther = false;
+  showEventStreamingMessagingOther = false;
+  showDatabasePlatformsOther = false;
+  showDataAnalyticsBIOther = false;
+  showAiMLPlatformsOther = false;
+  showErpEnterpriseSystemsOther = false;
+  showCrmCustomerPlatformsOther = false;
+  showItsmITOperationsOther = false;
+  showBusinessAppsProductivityOther = false;
+  showECommerceCMSOther = false;
+  showLearningHRSystemsOther = false;
+  showLowCodeNoCodePlatformsOther = false;
+  showTestingQAOther = false;
+  showWeb3DecentralizedTechOther = false;
+
   // Add business types list
   businessTypesList = [
     { name: 'Private Limited Company', value: 'Private Limited Company' },
@@ -357,60 +381,60 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
 
       // Step 2 fields - All non-mandatory
       services: [[]],
-      servicesOther: [{value: '', disabled: true}],
+      servicesOther: [''],
       technologyStack: [[]],
-      technologyStackOther: [{value: '', disabled: true}],
+      technologyStackOther: [''],
       product: [[]],
 
       // Step 3 fields - All non-mandatory
       cloudPlatforms: [['OVHcloud', 'NTT-Netmagic']],
-      cloudPlatformsOther: [{value: '', disabled: true}],
+      cloudPlatformsOther: [''],
       devOpsAutomation: [[]],
-      devOpsAutomationOther: [{value: '', disabled: true}],
+      devOpsAutomationOther: [''],
       containerizationOrchestration: [[]],
-      containerizationOrchestrationOther: [{value: '', disabled: true}],
+      containerizationOrchestrationOther: [''],
 
       // Step 4 fields - All non-mandatory
       networkingInfrastructure: [[]],
-      networkingInfrastructureOther: [{value: '', disabled: true}],
+      networkingInfrastructureOther: [''],
       securityIAM: [[]],
-      securityIAMOther: [{value: '', disabled: true}],
+      securityIAMOther: [''],
       monitoringObservability: [[]],
-      monitoringObservabilityOther: [{value: '', disabled: true}],
+      monitoringObservabilityOther: [''],
       integrationAPIManagement: [[]],
-      integrationAPIManagementOther: [{value: '', disabled: true}],
+      integrationAPIManagementOther: [''],
       eventStreamingMessaging: [[]],
-      eventStreamingMessagingOther: [{value: '', disabled: true}],
+      eventStreamingMessagingOther: [''],
 
       // Step 5 fields - All non-mandatory
       databasePlatforms: [[]],
-      databasePlatformsOther: [{value: '', disabled: true}],
+      databasePlatformsOther: [''],
       dataAnalyticsBI: [[]],
-      dataAnalyticsBIOther: [{value: '', disabled: true}],
+      dataAnalyticsBIOther: [''],
       aiMLPlatforms: [[]],
-      aiMLPlatformsOther: [{value: '', disabled: true}],
+      aiMLPlatformsOther: [''],
 
       // Step 6 fields - All non-mandatory
       erpEnterpriseSystems: [[]],
-      erpEnterpriseSystemsOther: [{value: '', disabled: true}],
+      erpEnterpriseSystemsOther: [''],
       crmCustomerPlatforms: [[]],
-      crmCustomerPlatformsOther: [{value: '', disabled: true}],
+      crmCustomerPlatformsOther: [''],
       itsmITOperations: [[]],
-      itsmITOperationsOther: [{value: '', disabled: true}],
+      itsmITOperationsOther: [''],
       businessAppsProductivity: [[]],
-      businessAppsProductivityOther: [{value: '', disabled: true}],
+      businessAppsProductivityOther: [''],
 
       // Step 7 fields - All non-mandatory
       eCommerceCMS: [[]],
-      eCommerceCMSOther: [{value: '', disabled: true}],
+      eCommerceCMSOther: [''],
       learningHRSystems: [[]],
-      learningHRSystemsOther: [{value: '', disabled: true}],
+      learningHRSystemsOther: [''],
       lowCodeNoCodePlatforms: [[]],
-      lowCodeNoCodePlatformsOther: [{value: '', disabled: true}],
+      lowCodeNoCodePlatformsOther: [''],
       testingQA: [[]],
-      testingQAOther: [{value: '', disabled: true}],
+      testingQAOther: [''],
       web3DecentralizedTech: [[]],
-      web3DecentralizedTechOther: [{value: '', disabled: true}]
+      web3DecentralizedTechOther: ['']
     });
   }
 
@@ -508,6 +532,30 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
       web3DecentralizedTech: data.web3DecentralizedTech || []
     });
 
+    // Set visibility flags for "Other" input fields based on existing data
+    this.showServicesOther = data.services?.includes('Other') || false;
+    this.showTechnologyStackOther = data.technologyStack?.includes('Other') || false;
+    this.showCloudPlatformsOther = data.cloudPlatforms?.includes('Other') || false;
+    this.showDevOpsAutomationOther = data.devOpsAutomation?.includes('Other') || false;
+    this.showContainerizationOrchestrationOther = data.containerizationOrchestration?.includes('Other') || false;
+    this.showNetworkingInfrastructureOther = data.networkingInfrastructure?.includes('Other') || false;
+    this.showSecurityIAMOther = data.securityIAM?.includes('Other') || false;
+    this.showMonitoringObservabilityOther = data.monitoringObservability?.includes('Other') || false;
+    this.showIntegrationAPIManagementOther = data.integrationAPIManagement?.includes('Other') || false;
+    this.showEventStreamingMessagingOther = data.eventStreamingMessaging?.includes('Other') || false;
+    this.showDatabasePlatformsOther = data.databasePlatforms?.includes('Other') || false;
+    this.showDataAnalyticsBIOther = data.dataAnalyticsBI?.includes('Other') || false;
+    this.showAiMLPlatformsOther = data.aiMLPlatforms?.includes('Other') || false;
+    this.showErpEnterpriseSystemsOther = data.erpEnterpriseSystems?.includes('Other') || false;
+    this.showCrmCustomerPlatformsOther = data.crmCustomerPlatforms?.includes('Other') || false;
+    this.showItsmITOperationsOther = data.itsmITOperations?.includes('Other') || false;
+    this.showBusinessAppsProductivityOther = data.businessAppsProductivity?.includes('Other') || false;
+    this.showECommerceCMSOther = data.eCommerceCMS?.includes('Other') || false;
+    this.showLearningHRSystemsOther = data.learningHRSystems?.includes('Other') || false;
+    this.showLowCodeNoCodePlatformsOther = data.lowCodeNoCodePlatforms?.includes('Other') || false;
+    this.showTestingQAOther = data.testingQA?.includes('Other') || false;
+    this.showWeb3DecentralizedTechOther = data.web3DecentralizedTech?.includes('Other') || false;
+
     // Handle POC details
     if (data.pocDetails && Array.isArray(data.pocDetails)) {
       // Clear existing POC details
@@ -563,12 +611,12 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
       const otherInput = this.profileForm.get('technologyStackOther');
 
       if (!hasOther) {
-        otherInput?.disable();
+        this.showTechnologyStackOther = false;
         otherInput?.setValue('');
         otherInput?.clearValidators();
         otherInput?.markAsUntouched();
       } else {
-        otherInput?.enable();
+        this.showTechnologyStackOther = true;
         otherInput?.setValidators([Validators.required]);
         otherInput?.markAsTouched();
       }
@@ -597,12 +645,12 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
       const hasOther = selectedServices?.includes('Other');
       const otherInput = this.profileForm.get('servicesOther');
       if (!hasOther) {
-        otherInput?.disable();
+        this.showServicesOther = false;
         otherInput?.setValue('');
         otherInput?.clearValidators();
         otherInput?.markAsUntouched();
       } else {
-        otherInput?.enable();
+        this.showServicesOther = true;
         otherInput?.setValidators([Validators.required]);
         otherInput?.markAsTouched();
       }
@@ -1056,45 +1104,45 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
   // Update the setupOtherFieldSubscriptions method to handle all fields
   private setupOtherFieldSubscriptions() {
     const fieldsWithOther = {
-      cloudPlatforms: 'cloudPlatformsOther',
-      devOpsAutomation: 'devOpsAutomationOther',
-      containerizationOrchestration: 'containerizationOrchestrationOther',
-      networkingInfrastructure: 'networkingInfrastructureOther',
-      securityIAM: 'securityIAMOther',
-      monitoringObservability: 'monitoringObservabilityOther',
-      integrationAPIManagement: 'integrationAPIManagementOther',
-      eventStreamingMessaging: 'eventStreamingMessagingOther',
-      databasePlatforms: 'databasePlatformsOther',
-      dataAnalyticsBI: 'dataAnalyticsBIOther',
-      aiMLPlatforms: 'aiMLPlatformsOther',
-      erpEnterpriseSystems: 'erpEnterpriseSystemsOther',
-      crmCustomerPlatforms: 'crmCustomerPlatformsOther',
-      itsmITOperations: 'itsmITOperationsOther',
-      businessAppsProductivity: 'businessAppsProductivityOther',
-      eCommerceCMS: 'eCommerceCMSOther',
-      learningHRSystems: 'learningHRSystemsOther',
-      lowCodeNoCodePlatforms: 'lowCodeNoCodePlatformsOther',
-      testingQA: 'testingQAOther',
-      web3DecentralizedTech: 'web3DecentralizedTechOther'
+      cloudPlatforms: { otherField: 'cloudPlatformsOther', showProperty: 'showCloudPlatformsOther' },
+      devOpsAutomation: { otherField: 'devOpsAutomationOther', showProperty: 'showDevOpsAutomationOther' },
+      containerizationOrchestration: { otherField: 'containerizationOrchestrationOther', showProperty: 'showContainerizationOrchestrationOther' },
+      networkingInfrastructure: { otherField: 'networkingInfrastructureOther', showProperty: 'showNetworkingInfrastructureOther' },
+      securityIAM: { otherField: 'securityIAMOther', showProperty: 'showSecurityIAMOther' },
+      monitoringObservability: { otherField: 'monitoringObservabilityOther', showProperty: 'showMonitoringObservabilityOther' },
+      integrationAPIManagement: { otherField: 'integrationAPIManagementOther', showProperty: 'showIntegrationAPIManagementOther' },
+      eventStreamingMessaging: { otherField: 'eventStreamingMessagingOther', showProperty: 'showEventStreamingMessagingOther' },
+      databasePlatforms: { otherField: 'databasePlatformsOther', showProperty: 'showDatabasePlatformsOther' },
+      dataAnalyticsBI: { otherField: 'dataAnalyticsBIOther', showProperty: 'showDataAnalyticsBIOther' },
+      aiMLPlatforms: { otherField: 'aiMLPlatformsOther', showProperty: 'showAiMLPlatformsOther' },
+      erpEnterpriseSystems: { otherField: 'erpEnterpriseSystemsOther', showProperty: 'showErpEnterpriseSystemsOther' },
+      crmCustomerPlatforms: { otherField: 'crmCustomerPlatformsOther', showProperty: 'showCrmCustomerPlatformsOther' },
+      itsmITOperations: { otherField: 'itsmITOperationsOther', showProperty: 'showItsmITOperationsOther' },
+      businessAppsProductivity: { otherField: 'businessAppsProductivityOther', showProperty: 'showBusinessAppsProductivityOther' },
+      eCommerceCMS: { otherField: 'eCommerceCMSOther', showProperty: 'showECommerceCMSOther' },
+      learningHRSystems: { otherField: 'learningHRSystemsOther', showProperty: 'showLearningHRSystemsOther' },
+      lowCodeNoCodePlatforms: { otherField: 'lowCodeNoCodePlatformsOther', showProperty: 'showLowCodeNoCodePlatformsOther' },
+      testingQA: { otherField: 'testingQAOther', showProperty: 'showTestingQAOther' },
+      web3DecentralizedTech: { otherField: 'web3DecentralizedTechOther', showProperty: 'showWeb3DecentralizedTechOther' }
     };
 
-    Object.entries(fieldsWithOther).forEach(([mainField, otherField]) => {
+    Object.entries(fieldsWithOther).forEach(([mainField, config]) => {
       const control = this.profileForm.get(mainField);
-      const otherControl = this.profileForm.get(otherField);
+      const otherControl = this.profileForm.get(config.otherField);
 
       if (control && otherControl) {
-        // Initially disable the "Other" field
-        otherControl.disable();
+        // Initially hide the "Other" field
+        (this as any)[config.showProperty] = false;
         otherControl.setValue('');
 
         // Subscribe to main field changes
         control.valueChanges.subscribe(values => {
           if (values?.includes('Other')) {
-            otherControl.enable();
+            (this as any)[config.showProperty] = true;
             otherControl.setValidators([Validators.required]);
             otherControl.markAsTouched(); // Mark as touched to show validation immediately
           } else {
-            otherControl.disable();
+            (this as any)[config.showProperty] = false;
             otherControl.setValue('');
             otherControl.clearValidators();
             otherControl.markAsUntouched();
