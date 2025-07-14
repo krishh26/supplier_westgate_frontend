@@ -34,7 +34,7 @@ interface Product {
 })
 export class ProfileSetupComponent implements OnInit, AfterViewInit {
   currentStep: number = 1;
-  totalSteps: number = 7;
+  totalSteps: number = 8;
   profileForm!: FormGroup;
   submitted = false;
   loading = false;
@@ -252,7 +252,8 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     { number: 4, title: 'Infrastructure, Integration & Security', completed: false, active: false },
     { number: 5, title: 'Data, Intelligence & Automation', completed: false, active: false },
     { number: 6, title: 'Enterprise Systems & Business Apps', completed: false, active: false },
-    { number: 7, title: 'Front-End, Composable & Emerging Tech', completed: false, active: false }
+    { number: 7, title: 'Front-End, Composable & Emerging Tech', completed: false, active: false },
+    { number: 8, title: 'Success', completed: false, active: false }
   ];
 
   constructor(
@@ -797,7 +798,7 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     console.log('Current step validation result:', isValid);
 
     if (isValid) {
-      if (this.currentStep < this.totalSteps) {
+      if (this.currentStep < this.totalSteps - 1) { // Don't navigate to step 8 via nextStep
         this.steps[this.currentStep - 1].completed = true;
         this.steps[this.currentStep - 1].active = false;
         this.currentStep++;
@@ -824,7 +825,7 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
   }
 
   previousStep() {
-    if (this.currentStep > 1) {
+    if (this.currentStep > 1 && this.currentStep < this.totalSteps) { // Don't allow going back from success step
       this.steps[this.currentStep - 1].active = false;
       this.currentStep--;
       this.steps[this.currentStep - 1].active = true;
@@ -888,7 +889,24 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
   }
 
   getProgressPercentage(): number {
-    return ((this.currentStep - 1) / (this.totalSteps - 1)) * 100;
+    if (this.currentStep === this.totalSteps) {
+      return 100; // Success step shows 100%
+    }
+    return ((this.currentStep - 1) / (this.totalSteps - 2)) * 100;
+  }
+
+  private moveToSuccessStep(): void {
+    // Mark current step as completed
+    this.steps[this.currentStep - 1].completed = true;
+    this.steps[this.currentStep - 1].active = false;
+
+    // Move to success step (step 8)
+    this.currentStep = 8;
+    this.steps[this.currentStep - 1].active = true;
+    this.steps[this.currentStep - 1].completed = true;
+
+    // Initialize tooltips for the new step
+    this.initializeTooltips();
   }
 
   onSubmit() {
@@ -979,6 +997,8 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
             // Clear form data from localStorage
             this.localStorageService.removeItem('profileSetupFormData');
             this.localStorageService.removeItem('profileSetupCurrentStep');
+            // Navigate to success step
+            this.moveToSuccessStep();
           },
           (error: Error) => {
             this.loading = false;
@@ -995,6 +1015,8 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
             // Clear form data from localStorage
             this.localStorageService.removeItem('profileSetupFormData');
             this.localStorageService.removeItem('profileSetupCurrentStep');
+            // Navigate to success step
+            this.moveToSuccessStep();
           },
           (error: Error) => {
             this.loading = false;
