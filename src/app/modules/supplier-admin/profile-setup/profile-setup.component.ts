@@ -103,7 +103,8 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     { value: 'Redis', name: 'Redis' },
     { value: 'Cassandra', name: 'Cassandra' },
     { value: 'Amazon Aurora', name: 'Amazon Aurora' },
-    { value: 'Oracle DB', name: 'Oracle DB' }
+    { value: 'Oracle DB', name: 'Oracle DB' },
+    { value: 'Other', name: 'Other' }
   ];
 
   dataAnalyticsList: any[] = [
@@ -120,7 +121,8 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     { value: 'Apache Airflow', name: 'Apache Airflow' },
     { value: 'Fivetran', name: 'Fivetran' },
     { value: 'Stitch', name: 'Stitch' },
-    { value: 'Talend', name: 'Talend' }
+    { value: 'Talend', name: 'Talend' },
+    { value: 'Other', name: 'Other' }
   ];
 
   aiMlPlatformsList: any[] = [
@@ -131,7 +133,8 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     { value: 'AWS SageMaker', name: 'AWS SageMaker' },
     { value: 'Google Vertex AI', name: 'Google Vertex AI' },
     { value: 'MLflow', name: 'MLflow' },
-    { value: 'DataRobot', name: 'DataRobot' }
+    { value: 'DataRobot', name: 'DataRobot' },
+    { value: 'Other', name: 'Other' }
   ];
 
   // Add properties for step 6 dropdowns
@@ -141,7 +144,8 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     { value: 'NetSuite', name: 'NetSuite' },
     { value: 'Microsoft Dynamics 365', name: 'Microsoft Dynamics 365' },
     { value: 'Workday', name: 'Workday' },
-    { value: 'Infor', name: 'Infor' }
+    { value: 'Infor', name: 'Infor' },
+    { value: 'Other', name: 'Other' }
   ];
 
   crmPlatformsList: any[] = [
@@ -150,7 +154,8 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     { value: 'Zoho CRM', name: 'Zoho CRM' },
     { value: 'Microsoft Dynamics CRM', name: 'Microsoft Dynamics CRM' },
     { value: 'Freshsales', name: 'Freshsales' },
-    { value: 'Pipedrive', name: 'Pipedrive' }
+    { value: 'Pipedrive', name: 'Pipedrive' },
+    { value: 'Other', name: 'Other' }
   ];
 
   itsmList: any[] = [
@@ -159,7 +164,8 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     { value: 'Ivanti', name: 'Ivanti' },
     { value: 'ManageEngine', name: 'ManageEngine' },
     { value: 'Jira Service Management', name: 'Jira Service Management' },
-    { value: 'Freshservice', name: 'Freshservice' }
+    { value: 'Freshservice', name: 'Freshservice' },
+    { value: 'Other', name: 'Other' }
   ];
 
   businessAppsList: any[] = [
@@ -168,7 +174,8 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     { value: 'Ivanti', name: 'Ivanti' },
     { value: 'ManageEngine', name: 'ManageEngine' },
     { value: 'Jira Service Management', name: 'Jira Service Management' },
-    { value: 'Freshservice', name: 'Freshservice' }
+    { value: 'Freshservice', name: 'Freshservice' },
+    { value: 'Other', name: 'Other' }
   ];
 
   // Add properties for step 7 dropdowns
@@ -181,7 +188,8 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     { value: 'Wix', name: 'Wix' },
     { value: 'Drupal', name: 'Drupal' },
     { value: 'Adobe Experience Manager (AEM)', name: 'Adobe Experience Manager (AEM)' },
-    { value: 'Contentful', name: 'Contentful' }
+    { value: 'Contentful', name: 'Contentful' },
+    { value: 'Other', name: 'Other' }
   ];
 
   learningHrSystemsList: any[] = [
@@ -191,7 +199,8 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     { value: 'TalentLMS', name: 'TalentLMS' },
     { value: 'SAP SuccessFactors', name: 'SAP SuccessFactors' },
     { value: 'Workday HCM', name: 'Workday HCM' },
-    { value: 'BambooHR', name: 'BambooHR' }
+    { value: 'BambooHR', name: 'BambooHR' },
+    { value: 'Other', name: 'Other' }
   ];
 
   lowCodeNoCodeList: any[] = [
@@ -200,7 +209,8 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     { value: 'Microsoft Power Apps', name: 'Microsoft Power Apps' },
     { value: 'Appian', name: 'Appian' },
     { value: 'Airtable', name: 'Airtable' },
-    { value: 'Bubble', name: 'Bubble' }
+    { value: 'Bubble', name: 'Bubble' },
+    { value: 'Other', name: 'Other' }
   ];
 
   testingQaList: any[] = [
@@ -234,7 +244,8 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     { value: 'Leapwork', name: 'Leapwork' },
     { value: 'Percy', name: 'Percy' },
     { value: 'Applitools', name: 'Applitools' },
-    { value: 'Loki', name: 'Loki' }
+    { value: 'Loki', name: 'Loki' },
+    { value: 'Other', name: 'Other' }
   ];
 
   web3DecentralizedList: any[] = [
@@ -242,7 +253,8 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     { value: 'Polygon', name: 'Polygon' },
     { value: 'Hyperledger Fabric', name: 'Hyperledger Fabric' },
     { value: 'IPFS', name: 'IPFS' },
-    { value: 'Filecoin', name: 'Filecoin' }
+    { value: 'Filecoin', name: 'Filecoin' },
+    { value: 'Other', name: 'Other' }
   ];
 
   steps = [
@@ -300,19 +312,19 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
 
       // Update the lists with the response data
       if (networkingResponse.status && networkingResponse.data) {
-        this.networkingList = networkingResponse.data;
+        this.networkingList = [...networkingResponse.data, this.OTHER_OPTION];
       }
       if (securityResponse.status && securityResponse.data) {
-        this.securityList = securityResponse.data;
+        this.securityList = [...securityResponse.data, this.OTHER_OPTION];
       }
       if (monitoringResponse.status && monitoringResponse.data) {
-        this.monitoringList = monitoringResponse.data;
+        this.monitoringList = [...monitoringResponse.data, this.OTHER_OPTION];
       }
       if (apiManagementResponse.status && apiManagementResponse.data) {
-        this.apiManagementList = apiManagementResponse.data;
+        this.apiManagementList = [...apiManagementResponse.data, this.OTHER_OPTION];
       }
       if (eventStreamingResponse.status && eventStreamingResponse.data) {
-        this.eventStreamingList = eventStreamingResponse.data;
+        this.eventStreamingList = [...eventStreamingResponse.data, this.OTHER_OPTION];
       }
 
       this.isLoadingStep4Data = false;
@@ -749,7 +761,7 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
       }).toPromise();
 
       if (devOpsResponse.status && devOpsResponse.data) {
-        this.devOpsList = devOpsResponse.data;
+        this.devOpsList = [...devOpsResponse.data, this.OTHER_OPTION];
       }
 
       // Load Containerization & Orchestration data
@@ -758,7 +770,7 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
       }).toPromise();
 
       if (containerizationResponse.status && containerizationResponse.data) {
-        this.containerizationList = containerizationResponse.data;
+        this.containerizationList = [...containerizationResponse.data, this.OTHER_OPTION];
       }
 
       this.isLoadingDropdownData = false;
@@ -777,7 +789,7 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
       next: (response) => {
         console.log('Cloud Platforms response:', response);
         if (response.status && response.data) {
-          this.cloudPlatformsList = response.data;
+          this.cloudPlatformsList = [...response.data, this.OTHER_OPTION];
         }
         this.isLoadingCloudPlatforms = false;
       },
@@ -1077,7 +1089,7 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
 
         // Subscribe to main field changes
         control.valueChanges.subscribe(values => {
-          if (values?.includes('other')) {
+          if (values?.includes('Other')) {
             otherControl.enable();
             otherControl.setValidators([Validators.required]);
             otherControl.markAsTouched(); // Mark as touched to show validation immediately
