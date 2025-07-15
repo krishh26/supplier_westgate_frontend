@@ -119,167 +119,23 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
   isLoadingCloudPlatforms = false;
 
   // Add properties for step 5 dropdowns
-  databasePlatformsList: any[] = [
-    { value: 'PostgreSQL', name: 'PostgreSQL' },
-    { value: 'MySQL', name: 'MySQL' },
-    { value: 'Microsoft SQL Server', name: 'Microsoft SQL Server' },
-    { value: 'MongoDB', name: 'MongoDB' },
-    { value: 'Redis', name: 'Redis' },
-    { value: 'Cassandra', name: 'Cassandra' },
-    { value: 'Amazon Aurora', name: 'Amazon Aurora' },
-    { value: 'Oracle DB', name: 'Oracle DB' },
-    { value: 'Other', name: 'Other' }
-  ];
+  databasePlatformsList: any[] = [];
+  dataAnalyticsList: any[] = [];
+  aiMlPlatformsList: any[] = [];
+  erpSystemsList: any[] = [];
+  crmPlatformsList: any[] = [];
+  itsmList: any[] = [];
+  businessAppsList: any[] = [];
+  eCommerceCmsList: any[] = [];
+  learningHrSystemsList: any[] = [];
+  lowCodeNoCodeList: any[] = [];
+  testingQaList: any[] = [];
+  web3DecentralizedList: any[] = [];
 
-  dataAnalyticsList: any[] = [
-    { value: 'Power BI', name: 'Power BI' },
-    { value: 'Tableau', name: 'Tableau' },
-    { value: 'Looker', name: 'Looker' },
-    { value: 'Qlik Sense', name: 'Qlik Sense' },
-    { value: 'Apache Superset', name: 'Apache Superset' },
-    { value: 'Snowflake', name: 'Snowflake' },
-    { value: 'Databricks', name: 'Databricks' },
-    { value: 'Google BigQuery', name: 'Google BigQuery' },
-    { value: 'Amazon Redshift', name: 'Amazon Redshift' },
-    { value: 'dbt', name: 'dbt' },
-    { value: 'Apache Airflow', name: 'Apache Airflow' },
-    { value: 'Fivetran', name: 'Fivetran' },
-    { value: 'Stitch', name: 'Stitch' },
-    { value: 'Talend', name: 'Talend' },
-    { value: 'Other', name: 'Other' }
-  ];
-
-  aiMlPlatformsList: any[] = [
-    { value: 'TensorFlow', name: 'TensorFlow' },
-    { value: 'PyTorch', name: 'PyTorch' },
-    { value: 'Hugging Face', name: 'Hugging Face' },
-    { value: 'Azure ML', name: 'Azure ML' },
-    { value: 'AWS SageMaker', name: 'AWS SageMaker' },
-    { value: 'Google Vertex AI', name: 'Google Vertex AI' },
-    { value: 'MLflow', name: 'MLflow' },
-    { value: 'DataRobot', name: 'DataRobot' },
-    { value: 'Other', name: 'Other' }
-  ];
-
-  // Add properties for step 6 dropdowns
-  erpSystemsList: any[] = [
-    { value: 'SAP', name: 'SAP' },
-    { value: 'Oracle ERP Cloud', name: 'Oracle ERP Cloud' },
-    { value: 'NetSuite', name: 'NetSuite' },
-    { value: 'Microsoft Dynamics 365', name: 'Microsoft Dynamics 365' },
-    { value: 'Workday', name: 'Workday' },
-    { value: 'Infor', name: 'Infor' },
-    { value: 'Other', name: 'Other' }
-  ];
-
-  crmPlatformsList: any[] = [
-    { value: 'Salesforce', name: 'Salesforce' },
-    { value: 'HubSpot', name: 'HubSpot' },
-    { value: 'Zoho CRM', name: 'Zoho CRM' },
-    { value: 'Microsoft Dynamics CRM', name: 'Microsoft Dynamics CRM' },
-    { value: 'Freshsales', name: 'Freshsales' },
-    { value: 'Pipedrive', name: 'Pipedrive' },
-    { value: 'Other', name: 'Other' }
-  ];
-
-  itsmList: any[] = [
-    { value: 'ServiceNow', name: 'ServiceNow' },
-    { value: 'BMC Remedy', name: 'BMC Remedy' },
-    { value: 'Ivanti', name: 'Ivanti' },
-    { value: 'ManageEngine', name: 'ManageEngine' },
-    { value: 'Jira Service Management', name: 'Jira Service Management' },
-    { value: 'Freshservice', name: 'Freshservice' },
-    { value: 'Other', name: 'Other' }
-  ];
-
-  businessAppsList: any[] = [
-    { value: 'ServiceNow', name: 'ServiceNow' },
-    { value: 'BMC Remedy', name: 'BMC Remedy' },
-    { value: 'Ivanti', name: 'Ivanti' },
-    { value: 'ManageEngine', name: 'ManageEngine' },
-    { value: 'Jira Service Management', name: 'Jira Service Management' },
-    { value: 'Freshservice', name: 'Freshservice' },
-    { value: 'Other', name: 'Other' }
-  ];
-
-  // Add properties for step 7 dropdowns
-  eCommerceCmsList: any[] = [
-    { value: 'Shopify', name: 'Shopify' },
-    { value: 'Magento', name: 'Magento' },
-    { value: 'WooCommerce', name: 'WooCommerce' },
-    { value: 'BigCommerce', name: 'BigCommerce' },
-    { value: 'WordPress', name: 'WordPress' },
-    { value: 'Wix', name: 'Wix' },
-    { value: 'Drupal', name: 'Drupal' },
-    { value: 'Adobe Experience Manager (AEM)', name: 'Adobe Experience Manager (AEM)' },
-    { value: 'Contentful', name: 'Contentful' },
-    { value: 'Other', name: 'Other' }
-  ];
-
-  learningHrSystemsList: any[] = [
-    { value: 'Moodle', name: 'Moodle' },
-    { value: 'Canvas LMS', name: 'Canvas LMS' },
-    { value: 'Blackboard', name: 'Blackboard' },
-    { value: 'TalentLMS', name: 'TalentLMS' },
-    { value: 'SAP SuccessFactors', name: 'SAP SuccessFactors' },
-    { value: 'Workday HCM', name: 'Workday HCM' },
-    { value: 'BambooHR', name: 'BambooHR' },
-    { value: 'Other', name: 'Other' }
-  ];
-
-  lowCodeNoCodeList: any[] = [
-    { value: 'OutSystems', name: 'OutSystems' },
-    { value: 'Mendix', name: 'Mendix' },
-    { value: 'Microsoft Power Apps', name: 'Microsoft Power Apps' },
-    { value: 'Appian', name: 'Appian' },
-    { value: 'Airtable', name: 'Airtable' },
-    { value: 'Bubble', name: 'Bubble' },
-    { value: 'Other', name: 'Other' }
-  ];
-
-  testingQaList: any[] = [
-    { value: 'Selenium', name: 'Selenium' },
-    { value: 'Cypress', name: 'Cypress' },
-    { value: 'Playwright', name: 'Playwright' },
-    { value: 'TestCafe', name: 'TestCafe' },
-    { value: 'Postman', name: 'Postman' },
-    { value: 'Insomnia', name: 'Insomnia' },
-    { value: 'Hoppscotch', name: 'Hoppscotch' },
-    { value: 'Appium', name: 'Appium' },
-    { value: 'Espresso', name: 'Espresso' },
-    { value: 'XCUITest', name: 'XCUITest' },
-    { value: 'Detox', name: 'Detox' },
-    { value: 'Kobiton', name: 'Kobiton' },
-    { value: 'Apache JMeter', name: 'Apache JMeter' },
-    { value: 'k6', name: 'k6' },
-    { value: 'Gatling', name: 'Gatling' },
-    { value: 'Locust', name: 'Locust' },
-    { value: 'BlazeMeter', name: 'BlazeMeter' },
-    { value: 'OWASP ZAP', name: 'OWASP ZAP' },
-    { value: 'Burp Suite', name: 'Burp Suite' },
-    { value: 'Nikto', name: 'Nikto' },
-    { value: 'TestRail', name: 'TestRail' },
-    { value: 'Xray', name: 'Xray' },
-    { value: 'Zephyr', name: 'Zephyr' },
-    { value: 'qTest', name: 'qTest' },
-    { value: 'Testim.io', name: 'Testim.io' },
-    { value: 'mabl', name: 'mabl' },
-    { value: 'Functionize', name: 'Functionize' },
-    { value: 'Leapwork', name: 'Leapwork' },
-    { value: 'Percy', name: 'Percy' },
-    { value: 'Applitools', name: 'Applitools' },
-    { value: 'Loki', name: 'Loki' },
-    { value: 'Other', name: 'Other' }
-  ];
-
-  web3DecentralizedList: any[] = [
-    { value: 'Ethereum', name: 'Ethereum' },
-    { value: 'Polygon', name: 'Polygon' },
-    { value: 'Hyperledger Fabric', name: 'Hyperledger Fabric' },
-    { value: 'IPFS', name: 'IPFS' },
-    { value: 'Filecoin', name: 'Filecoin' },
-    { value: 'Other', name: 'Other' }
-  ];
+  // Add loading flags
+  isLoadingStep5Data = false;
+  isLoadingStep6Data = false;
+  isLoadingStep7Data = false;
 
   steps = [
     { number: 1, title: 'Profile Setup', completed: false, active: true },
@@ -848,7 +704,91 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // Update existing nextStep method to load cloud platforms data
+  // Add method to load step 5 dropdowns
+  async loadStep5Dropdowns() {
+    try {
+      this.isLoadingStep5Data = true;
+      const [
+        databaseResponse,
+        analyticsResponse,
+        aimlResponse
+      ] = await Promise.all([
+        this.loadDropdownData('Database Platforms'),
+        this.loadDropdownData('Data Analytics & BI'),
+        this.loadDropdownData('AI ML Platforms')
+      ]);
+
+      this.databasePlatformsList = [...databaseResponse, this.OTHER_OPTION];
+      this.dataAnalyticsList = [...analyticsResponse, this.OTHER_OPTION];
+      this.aiMlPlatformsList = [...aimlResponse, this.OTHER_OPTION];
+
+      this.isLoadingStep5Data = false;
+    } catch (error) {
+      console.error('Error loading step 5 dropdowns:', error);
+      this.isLoadingStep5Data = false;
+    }
+  }
+
+  // Add method to load step 6 dropdowns
+  async loadStep6Dropdowns() {
+    try {
+      this.isLoadingStep6Data = true;
+      const [
+        erpResponse,
+        crmResponse,
+        itsmResponse,
+        businessAppsResponse
+      ] = await Promise.all([
+        this.loadDropdownData('ERP Enterprise Systems'),
+        this.loadDropdownData('CRM Customer Platforms'),
+        this.loadDropdownData('ITSM IT Operations'),
+        this.loadDropdownData('Business Apps Productivity')
+      ]);
+
+      this.erpSystemsList = [...erpResponse, this.OTHER_OPTION];
+      this.crmPlatformsList = [...crmResponse, this.OTHER_OPTION];
+      this.itsmList = [...itsmResponse, this.OTHER_OPTION];
+      this.businessAppsList = [...businessAppsResponse, this.OTHER_OPTION];
+
+      this.isLoadingStep6Data = false;
+    } catch (error) {
+      console.error('Error loading step 6 dropdowns:', error);
+      this.isLoadingStep6Data = false;
+    }
+  }
+
+  // Add method to load step 7 dropdowns
+  async loadStep7Dropdowns() {
+    try {
+      this.isLoadingStep7Data = true;
+      const [
+        ecommerceResponse,
+        learningResponse,
+        lowcodeResponse,
+        testingResponse,
+        web3Response
+      ] = await Promise.all([
+        this.loadDropdownData('ECommerce CMS'),
+        this.loadDropdownData('Learning HR Systems'),
+        this.loadDropdownData('Low Code No Code Platforms'),
+        this.loadDropdownData('Testing QA'),
+        this.loadDropdownData('Web3 Decentralized Tech')
+      ]);
+
+      this.eCommerceCmsList = [...ecommerceResponse, this.OTHER_OPTION];
+      this.learningHrSystemsList = [...learningResponse, this.OTHER_OPTION];
+      this.lowCodeNoCodeList = [...lowcodeResponse, this.OTHER_OPTION];
+      this.testingQaList = [...testingResponse, this.OTHER_OPTION];
+      this.web3DecentralizedList = [...web3Response, this.OTHER_OPTION];
+
+      this.isLoadingStep7Data = false;
+    } catch (error) {
+      console.error('Error loading step 7 dropdowns:', error);
+      this.isLoadingStep7Data = false;
+    }
+  }
+
+  // Update nextStep method to load data for steps 5-7
   nextStep() {
     console.log('Next Step clicked - Current step:', this.currentStep);
     this.submitted = true;
@@ -865,13 +805,21 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
         this.steps[this.currentStep - 1].active = true;
         this.submitted = false;
 
-        // Load cloud platforms data when reaching step 3
+        // Load data based on step
         if (this.currentStep === 3) {
           this.loadCloudPlatforms();
         }
-        // Load step 4 data when reaching step 4
         if (this.currentStep === 4) {
           this.loadStep4Dropdowns();
+        }
+        if (this.currentStep === 5) {
+          this.loadStep5Dropdowns();
+        }
+        if (this.currentStep === 6) {
+          this.loadStep6Dropdowns();
+        }
+        if (this.currentStep === 7) {
+          this.loadStep7Dropdowns();
         }
 
         this.saveFormData(); // Save after step change
