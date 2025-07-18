@@ -226,7 +226,7 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
       yearOfEstablishment: [''],
       executiveSummary: [''],
       pocDetails: this.formBuilder.array([this.createPocDetailFormGroup()]),
-      typeOfCompany: [[]],
+      typeOfCompany: [''],
       employeeCount: [''],
       turnover: [''],
       totalProjectsExecuted: [''],
@@ -357,7 +357,7 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
       companyContactNumber: data.companyContactNumber || '',
       yearOfEstablishment: data.yearOfEstablishment || '',
       executiveSummary: data.executiveSummary || '',
-      typeOfCompany: data.typeOfCompany || [],
+      typeOfCompany: Array.isArray(data.typeOfCompany) ? (data.typeOfCompany[0] || '') : (data.typeOfCompany || ''),
       employeeCount: data.employeeCount || '',
       turnover: data.turnover || '',
       totalProjectsExecuted: data.totalProjectsExecuted || '',
@@ -991,7 +991,7 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
         certifications: this.certificationTags,
         resourceSharingSupplier: formData.resourceSharingSupplier,
         subcontractingSupplier: formData.subcontractingSupplier,
-        typeOfCompany: formData.typeOfCompany,
+        typeOfCompany: formData.typeOfCompany ? [formData.typeOfCompany] : [],
         technologyStack: this.combineMainAndOther(formData.technologyStack, formData.technologyStackOther)
       };
 
@@ -1105,6 +1105,14 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
   isFieldInvalid(fieldName: string): boolean {
     const field = this.profileForm.get(fieldName);
     return field ? (field.invalid && (field.dirty || field.touched || this.submitted)) : false;
+  }
+
+  // Handle business type change
+  onBusinessTypeChange(selectedValue: any) {
+    // This method is called when business type selection changes
+    // The value is already set in the form control, so we don't need to do anything here
+    // But we can add any additional logic if needed in the future
+    console.log('Business type changed to:', selectedValue);
   }
 
   // Add POC details methods

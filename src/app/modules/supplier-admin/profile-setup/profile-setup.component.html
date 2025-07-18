@@ -177,9 +177,9 @@
                       <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
                         title="Select business type"></i>
                     </label>
-                    <ng-select [items]="businessTypesList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    <ng-select [items]="businessTypesList" [multiple]="false" [closeOnSelect]="false" [searchable]="true"
                       [clearable]="true" bindLabel="name" bindValue="value" placeholder="Select business type"
-                      formControlName="typeOfCompany">
+                      formControlName="typeOfCompany" (change)="onBusinessTypeChange($event)">
                     </ng-select>
                   </div>
                 </div>
