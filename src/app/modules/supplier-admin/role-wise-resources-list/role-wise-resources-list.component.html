@@ -142,6 +142,7 @@
                 <table class="table  align-middle">
                   <thead class="table-light">
                     <tr>
+                      <th>Role ID</th>
                       <th>Full Name</th>
                       <th>Roles</th>
                       <th>I Can Be</th>
@@ -162,6 +163,7 @@
                     </tr>
                     <tr
                       *ngFor="let candidate of candidatesList | paginate: { itemsPerPage: pagesize, currentPage: page, totalItems: totalRecords }; let i = index">
+                      <td>{{candidate?.uniqueId}}</td>
                       <td><a href="javascript:void(0)" (click)="viewCandidateDetails(candidate)">{{candidate?.fullName}}</a>
                       </td>
                       <td>

@@ -24,6 +24,17 @@
 
           <div class="col-lg-6 col-xl-6 col-12">
             <div class="row mb-3">
+              <label class="col-sm-4 col-form-label">Resources ID <span class="text-danger">*</span></label>
+              <div class="col-sm-8">
+                <input formControlName="uniqueId" type="text" class="form-control" placeholder="Enter Resources ID">
+                <div *ngIf="userProfileForm.get('uniqueId')?.invalid && userProfileForm.get('uniqueId')?.touched"
+                  class="text-danger">
+                  Unique ID is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
               <label class="col-sm-4 col-form-label">Full Name <span class="text-danger">*</span></label>
               <div class="col-sm-8">
                 <input formControlName="fullName" type="text" class="form-control" placeholder="Enter full name">

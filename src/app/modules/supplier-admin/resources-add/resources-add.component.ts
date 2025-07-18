@@ -132,6 +132,7 @@ export class ResourcesAddComponent implements OnInit {
   initializeForm() {
     this.userProfileForm = this.fb.group({
       supplierId: [this.loginUser?._id || ''],
+      uniqueId: [''],
       fullName: ['', Validators.required],
       gender: [''],
       nationality: ['', Validators.required],
