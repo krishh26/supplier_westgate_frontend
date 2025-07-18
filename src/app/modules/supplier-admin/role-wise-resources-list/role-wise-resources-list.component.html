@@ -269,35 +269,44 @@
     </div>
 
     <div class="container-fluid" *ngIf="!loginUser?.resourceSharingSupplier">
-      <div class="card">
-        <div class="card-body">
-          <div class="align-items-center">
-            <p>
-              <!-- <span>🇬🇧</span>  -->
-              Got Bench Resources? Earn 3X Their CTC Working for UK Clients!
-            </p>
+      <div class="alert alert-warning border-0 shadow-sm p-4">
+        <div class="d-flex flex-column gap-3">
+          <h5 class="fw-bold text-primary mb-2">
+            Got Bench Resources? Earn 3X Their CTC Working for UK Clients!
+          </h5>
 
-            <p>Do you have skilled professionals sitting idle or on the bench? Don't let that potential go to waste
-              —
-              upload their profiles to our portal and unlock global opportunities.</p>
-            <p>
-              We are actively hiring bench or idle resources to work on projects for top-tier UK clients. This
-              means:
-            </p>
-            <p>💷 Resources will be billed in GBP (Pounds)</p>
-            <p>💼 You can earn up to 3x their current CTC</p>
-            <p>🚀 Immediate deployment opportunities</p>
-            <p>🔁 Flexible engagement models (contract-to-hire, short-term, long-term)</p>
-            <p>Whether you're managing software engineers, QA experts, DevOps, data analysts, or project managers —
-              if
-              they're ready to be deployed, we're ready to connect them to high-paying opportunities abroad.</p>
-            <p>Why keep your bench idle when they can be earning in pounds?</p>
-            <p>📤 Upload their profiles today and turn downtime into serious revenue.</p>
-            <p>👉 Contact us now</p>
-          </div>
+          <p class="mb-0">
+            Do you have skilled professionals sitting idle or on the bench? Don't let that potential go to waste —
+            upload their profiles to our portal and unlock global opportunities.
+          </p>
+
+          <p class="mb-0">
+            We are actively hiring bench or idle resources to work on projects for top-tier UK clients. This means:
+          </p>
+
+          <ul class="list-unstyled ps-3">
+            <li class="mb-1">💷 Resources will be billed in GBP (Pounds)</li>
+            <li class="mb-1">💼 You can earn up to 3x their current CTC</li>
+            <li class="mb-1">🚀 Immediate deployment opportunities</li>
+            <li class="mb-1">🔁 Flexible engagement models (contract-to-hire, short-term, long-term)</li>
+          </ul>
+
+          <p class="mb-0">
+            Whether you're managing software engineers, QA experts, DevOps, data analysts, or project managers —
+            if they're ready to be deployed, we're ready to connect them to high-paying opportunities abroad.
+          </p>
+
+          <p class="fw-semibold text-dark mb-0">
+            Why keep your bench idle when they can be earning in pounds?
+          </p>
+
+          <p class="mb-0">📤 Upload their profiles today and turn downtime into serious revenue.</p>
+          <p class="fw-bold text-success mb-0">👉 Contact us now</p>
         </div>
       </div>
     </div>
+
+
 
   </section>
 </main>
