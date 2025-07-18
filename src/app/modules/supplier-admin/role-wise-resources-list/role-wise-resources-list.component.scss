@@ -173,6 +173,44 @@ input:checked+.slider:hover {
   color: #4b555f !important;
 }
 
+// Ng-select custom styling
+::ng-deep .ng-select {
+  .ng-select-container {
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    min-height: 38px;
+
+    &:hover {
+      border-color: #86b7fe;
+    }
+
+    &.ng-has-value {
+      border-color: #86b7fe;
+      box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    }
+  }
+
+  .ng-value-container {
+    padding: 0.375rem 0.75rem;
+  }
+
+  .ng-placeholder {
+    color: #6c757d;
+    font-style: italic;
+  }
+
+  .ng-arrow-wrapper {
+    padding-right: 0.75rem;
+  }
+
+  // Ensure placeholder is visible when no value is selected
+  &.ng-select-multiple .ng-select-container .ng-placeholder,
+  &.ng-select-single .ng-select-container .ng-placeholder {
+    color: #6c757d !important;
+    opacity: 1 !important;
+  }
+}
+
 @media (min-width: 320px) and (max-width: 767px) {
   ul.projects-nav-tab {
     display: block;

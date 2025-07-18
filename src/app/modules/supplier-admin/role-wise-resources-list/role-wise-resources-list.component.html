@@ -113,10 +113,21 @@
           </div>
           <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12">
             <div class="form-group mb-0">
-              <select class="form-select" [(ngModel)]="selectedRole" (change)="onRoleChange()">
-                <option value="">Roles Filter</option>
-                <option *ngFor="let role of rolesList" [value]="role.name">{{ role.name }}</option>
-              </select>
+                            <ng-select
+                [(ngModel)]="selectedRole"
+                (change)="onRoleChange()"
+                [items]="rolesList"
+                [clearable]="true"
+                [searchable]="true"
+                placeholder="Select Role"
+                bindLabel="name"
+                bindValue="name"
+                [clearableText]="'Clear'"
+                [loading]="false">
+                <ng-template ng-option-tmp let-item="item">
+                  {{ item.name }}
+                </ng-template>
+              </ng-select>
             </div>
           </div>
           <div class="col-lg-2 col-xl-2 col-md-3 col-sm-3 col-12 text-end">
@@ -163,31 +174,43 @@
                     </tr>
                     <tr
                       *ngFor="let candidate of candidatesList | paginate: { itemsPerPage: pagesize, currentPage: page, totalItems: totalRecords }; let i = index">
-                      <td>{{candidate?.uniqueId}}</td>
-                      <td><a href="javascript:void(0)" (click)="viewCandidateDetails(candidate)">{{candidate?.fullName}}</a>
+                      <td>{{candidate?.uniqueId || '-'}}</td>
+                      <td><a href="javascript:void(0)" (click)="viewCandidateDetails(candidate)">{{candidate?.fullName || '-'}}</a>
                       </td>
                       <td>
-                        <span *ngFor="let role of candidate?.currentRoleData" class="badge bg-primary me-1">
-                          {{role.name}}
+                        <span *ngIf="candidate?.currentRoleData && candidate?.currentRoleData.length > 0; else noRoles">
+                          <span *ngFor="let role of candidate?.currentRoleData" class="badge bg-primary me-1">
+                            {{role.name}}
+                          </span>
                         </span>
+                        <ng-template #noRoles>-</ng-template>
                       </td>
                       <td>
-                        <span *ngFor="let role of getICanBeRoles(candidate)" class="badge bg-secondary me-1">
-                          {{role.name}}
+                        <span *ngIf="getICanBeRoles(candidate) && getICanBeRoles(candidate).length > 0; else noICanBeRoles">
+                          <span *ngFor="let role of getICanBeRoles(candidate)" class="badge bg-secondary me-1">
+                            {{role.name}}
+                          </span>
                         </span>
+                        <ng-template #noICanBeRoles>-</ng-template>
                       </td>
-                      <td>{{candidate?.totalExperience}} years</td>
+                      <td>{{candidate?.totalExperience ? candidate?.totalExperience + ' years' : '-'}}</td>
                       <td>
-                        <span *ngFor="let skill of candidate?.technicalSkills; let last = last">
-                          {{skill}}{{!last ? ', ' : ''}}
+                        <span *ngIf="candidate?.technicalSkills && candidate?.technicalSkills.length > 0; else noSkills">
+                          <span *ngFor="let skill of candidate?.technicalSkills; let last = last">
+                            {{skill}}{{!last ? ', ' : ''}}
+                          </span>
                         </span>
+                        <ng-template #noSkills>-</ng-template>
                       </td>
                       <td>
-                        <span *ngFor="let language of candidate?.languagesKnown; let last = last">
-                          {{language}}{{!last ? ', ' : ''}}
+                        <span *ngIf="candidate?.languagesKnown && candidate?.languagesKnown.length > 0; else noLanguages">
+                          <span *ngFor="let language of candidate?.languagesKnown; let last = last">
+                            {{language}}{{!last ? ', ' : ''}}
+                          </span>
                         </span>
+                        <ng-template #noLanguages>-</ng-template>
                       </td>
-                      <td>£{{candidate?.ukDayRate}}</td>
+                      <td>{{candidate?.ukDayRate ? '£' + candidate?.ukDayRate : '-'}}</td>
                       <!-- <td>{{candidate?.availableFrom | date: 'dd/MM/yyyy'}}</td> -->
                       <!-- <td>
                         <button class="btn btn-sm btn-primary" (click)="viewCandidateDetails(candidate)"> <i
