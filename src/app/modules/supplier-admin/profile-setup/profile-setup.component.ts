@@ -148,6 +148,29 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     { number: 8, title: 'Success', completed: false, active: false }
   ];
 
+  // Tag arrays for 'Other' fields (steps 2 to 7)
+  technologyStackOtherTags: string[] = [];
+  cloudPlatformsOtherTags: string[] = [];
+  devOpsAutomationOtherTags: string[] = [];
+  containerizationOrchestrationOtherTags: string[] = [];
+  networkingInfrastructureOtherTags: string[] = [];
+  securityIAMOtherTags: string[] = [];
+  monitoringObservabilityOtherTags: string[] = [];
+  integrationAPIManagementOtherTags: string[] = [];
+  eventStreamingMessagingOtherTags: string[] = [];
+  databasePlatformsOtherTags: string[] = [];
+  dataAnalyticsBIOtherTags: string[] = [];
+  aiMLPlatformsOtherTags: string[] = [];
+  erpEnterpriseSystemsOtherTags: string[] = [];
+  crmCustomerPlatformsOtherTags: string[] = [];
+  itsmITOperationsOtherTags: string[] = [];
+  businessAppsProductivityOtherTags: string[] = [];
+  eCommerceCMSOtherTags: string[] = [];
+  learningHRSystemsOtherTags: string[] = [];
+  lowCodeNoCodePlatformsOtherTags: string[] = [];
+  testingQAOtherTags: string[] = [];
+  web3DecentralizedTechOtherTags: string[] = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private supplierAdminService: SupplierAdminService,
@@ -237,60 +260,60 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
 
       // Step 2 fields - All non-mandatory
       services: [[]],
-      servicesOther: [''],
+      servicesOther: [[]],
       technologyStack: [[]],
-      technologyStackOther: [''],
+      technologyStackOther: [[]],
       product: [[]],
 
       // Step 3 fields - All non-mandatory
       cloudPlatforms: [['OVHcloud', 'NTT-Netmagic']],
-      cloudPlatformsOther: [''],
+      cloudPlatformsOther: [[]],
       devOpsAutomation: [[]],
-      devOpsAutomationOther: [''],
+      devOpsAutomationOther: [[]],
       containerizationOrchestration: [[]],
-      containerizationOrchestrationOther: [''],
+      containerizationOrchestrationOther: [[]],
 
       // Step 4 fields - All non-mandatory
       networkingInfrastructure: [[]],
-      networkingInfrastructureOther: [''],
+      networkingInfrastructureOther: [[]],
       securityIAM: [[]],
-      securityIAMOther: [''],
+      securityIAMOther: [[]],
       monitoringObservability: [[]],
-      monitoringObservabilityOther: [''],
+      monitoringObservabilityOther: [[]],
       integrationAPIManagement: [[]],
-      integrationAPIManagementOther: [''],
+      integrationAPIManagementOther: [[]],
       eventStreamingMessaging: [[]],
-      eventStreamingMessagingOther: [''],
+      eventStreamingMessagingOther: [[]],
 
       // Step 5 fields - All non-mandatory
       databasePlatforms: [[]],
-      databasePlatformsOther: [''],
+      databasePlatformsOther: [[]],
       dataAnalyticsBI: [[]],
-      dataAnalyticsBIOther: [''],
+      dataAnalyticsBIOther: [[]],
       aiMLPlatforms: [[]],
-      aiMLPlatformsOther: [''],
+      aiMLPlatformsOther: [[]],
 
       // Step 6 fields - All non-mandatory
       erpEnterpriseSystems: [[]],
-      erpEnterpriseSystemsOther: [''],
+      erpEnterpriseSystemsOther: [[]],
       crmCustomerPlatforms: [[]],
-      crmCustomerPlatformsOther: [''],
+      crmCustomerPlatformsOther: [[]],
       itsmITOperations: [[]],
-      itsmITOperationsOther: [''],
+      itsmITOperationsOther: [[]],
       businessAppsProductivity: [[]],
-      businessAppsProductivityOther: [''],
+      businessAppsProductivityOther: [[]],
 
       // Step 7 fields - All non-mandatory
       eCommerceCMS: [[]],
-      eCommerceCMSOther: [''],
+      eCommerceCMSOther: [[]],
       learningHRSystems: [[]],
-      learningHRSystemsOther: [''],
+      learningHRSystemsOther: [[]],
       lowCodeNoCodePlatforms: [[]],
-      lowCodeNoCodePlatformsOther: [''],
+      lowCodeNoCodePlatformsOther: [[]],
       testingQA: [[]],
-      testingQAOther: [''],
+      testingQAOther: [[]],
       web3DecentralizedTech: [[]],
-      web3DecentralizedTechOther: ['']
+      web3DecentralizedTechOther: [[]]
     });
   }
 
@@ -468,7 +491,7 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
 
       if (!hasOther) {
         this.showTechnologyStackOther = false;
-        otherInput?.setValue('');
+        otherInput?.setValue([]); // Set to empty array
         otherInput?.clearValidators();
         otherInput?.markAsUntouched();
       } else {
@@ -502,7 +525,7 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
       const otherInput = this.profileForm.get('servicesOther');
       if (!hasOther) {
         this.showServicesOther = false;
-        otherInput?.setValue('');
+        otherInput?.setValue([]); // Set to empty array
         otherInput?.clearValidators();
         otherInput?.markAsUntouched();
       } else {
@@ -517,7 +540,7 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     this.profileForm.valueChanges.subscribe(() => {
       // Load data when reaching step 3
       if (this.currentStep === 3) {
-        this.loadStep3Dropdowns();
+        this.loadCloudPlatforms();
       }
       // Load step 4 data when reaching step 4
       if (this.currentStep === 4) {
@@ -561,7 +584,28 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
       testingQA: [],
       web3DecentralizedTech: [],
       product: [],
-      certifications: []
+      certifications: [],
+      // Initialize 'Other' tag arrays
+      cloudPlatformsOther: [],
+      devOpsAutomationOther: [],
+      containerizationOrchestrationOther: [],
+      networkingInfrastructureOther: [],
+      securityIAMOther: [],
+      monitoringObservabilityOther: [],
+      integrationAPIManagementOther: [],
+      eventStreamingMessagingOther: [],
+      databasePlatformsOther: [],
+      dataAnalyticsBIOther: [],
+      aiMLPlatformsOther: [],
+      erpEnterpriseSystemsOther: [],
+      crmCustomerPlatformsOther: [],
+      itsmITOperationsOther: [],
+      businessAppsProductivityOther: [],
+      eCommerceCMSOther: [],
+      learningHRSystemsOther: [],
+      lowCodeNoCodePlatformsOther: [],
+      testingQAOther: [],
+      web3DecentralizedTechOther: []
     };
 
     // Set each value in the form
@@ -1040,13 +1084,11 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // Helper method to combine main field values with other field value
-  private combineMainAndOther(mainValues: string[], otherValue: string): string[] {
+  // Updated combineMainAndOther for array-based 'Other' fields
+  private combineMainAndOther(mainValues: string[], otherValues: string[]): string[] {
     if (!mainValues) mainValues = [];
-    if (otherValue && otherValue.trim()) {
-      return [...mainValues, otherValue.trim()];
-    }
-    return mainValues;
+    if (!otherValues) otherValues = [];
+    return [...mainValues.filter(v => v !== 'Other'), ...otherValues];
   }
 
   // Update the setupOtherFieldSubscriptions method to handle all fields
@@ -1081,7 +1123,7 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
       if (control && otherControl) {
         // Initially hide the "Other" field
         (this as any)[config.showProperty] = false;
-        otherControl.setValue('');
+        otherControl.setValue([]); // Set to empty array
 
         // Subscribe to main field changes
         control.valueChanges.subscribe(values => {
@@ -1091,7 +1133,7 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
             otherControl.markAsTouched(); // Mark as touched to show validation immediately
           } else {
             (this as any)[config.showProperty] = false;
-            otherControl.setValue('');
+            otherControl.setValue([]); // Set to empty array
             otherControl.clearValidators();
             otherControl.markAsUntouched();
           }
@@ -1171,5 +1213,147 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     console.log('Step valid:', this.isCurrentStepValid());
     console.log('Current step:', this.currentStep);
     console.log('Total steps:', this.totalSteps);
+  }
+
+  // Tag add/remove methods for each 'Other' field (steps 2 to 7)
+  addTechnologyStackOtherTag(event: any) {
+    this._addTag(event, this.technologyStackOtherTags, 'technologyStackOther');
+  }
+  removeTechnologyStackOtherTag(i: number) {
+    this._removeTag(i, this.technologyStackOtherTags, 'technologyStackOther');
+  }
+  addCloudPlatformsOtherTag(event: any) {
+    this._addTag(event, this.cloudPlatformsOtherTags, 'cloudPlatformsOther');
+  }
+  removeCloudPlatformsOtherTag(i: number) {
+    this._removeTag(i, this.cloudPlatformsOtherTags, 'cloudPlatformsOther');
+  }
+  addDevOpsAutomationOtherTag(event: any) {
+    this._addTag(event, this.devOpsAutomationOtherTags, 'devOpsAutomationOther');
+  }
+  removeDevOpsAutomationOtherTag(i: number) {
+    this._removeTag(i, this.devOpsAutomationOtherTags, 'devOpsAutomationOther');
+  }
+  addContainerizationOrchestrationOtherTag(event: any) {
+    this._addTag(event, this.containerizationOrchestrationOtherTags, 'containerizationOrchestrationOther');
+  }
+  removeContainerizationOrchestrationOtherTag(i: number) {
+    this._removeTag(i, this.containerizationOrchestrationOtherTags, 'containerizationOrchestrationOther');
+  }
+  addNetworkingInfrastructureOtherTag(event: any) {
+    this._addTag(event, this.networkingInfrastructureOtherTags, 'networkingInfrastructureOther');
+  }
+  removeNetworkingInfrastructureOtherTag(i: number) {
+    this._removeTag(i, this.networkingInfrastructureOtherTags, 'networkingInfrastructureOther');
+  }
+  addSecurityIAMOtherTag(event: any) {
+    this._addTag(event, this.securityIAMOtherTags, 'securityIAMOther');
+  }
+  removeSecurityIAMOtherTag(i: number) {
+    this._removeTag(i, this.securityIAMOtherTags, 'securityIAMOther');
+  }
+  addMonitoringObservabilityOtherTag(event: any) {
+    this._addTag(event, this.monitoringObservabilityOtherTags, 'monitoringObservabilityOther');
+  }
+  removeMonitoringObservabilityOtherTag(i: number) {
+    this._removeTag(i, this.monitoringObservabilityOtherTags, 'monitoringObservabilityOther');
+  }
+  addIntegrationAPIManagementOtherTag(event: any) {
+    this._addTag(event, this.integrationAPIManagementOtherTags, 'integrationAPIManagementOther');
+  }
+  removeIntegrationAPIManagementOtherTag(i: number) {
+    this._removeTag(i, this.integrationAPIManagementOtherTags, 'integrationAPIManagementOther');
+  }
+  addEventStreamingMessagingOtherTag(event: any) {
+    this._addTag(event, this.eventStreamingMessagingOtherTags, 'eventStreamingMessagingOther');
+  }
+  removeEventStreamingMessagingOtherTag(i: number) {
+    this._removeTag(i, this.eventStreamingMessagingOtherTags, 'eventStreamingMessagingOther');
+  }
+  addDatabasePlatformsOtherTag(event: any) {
+    this._addTag(event, this.databasePlatformsOtherTags, 'databasePlatformsOther');
+  }
+  removeDatabasePlatformsOtherTag(i: number) {
+    this._removeTag(i, this.databasePlatformsOtherTags, 'databasePlatformsOther');
+  }
+  addDataAnalyticsBIOtherTag(event: any) {
+    this._addTag(event, this.dataAnalyticsBIOtherTags, 'dataAnalyticsBIOther');
+  }
+  removeDataAnalyticsBIOtherTag(i: number) {
+    this._removeTag(i, this.dataAnalyticsBIOtherTags, 'dataAnalyticsBIOther');
+  }
+  addAiMLPlatformsOtherTag(event: any) {
+    this._addTag(event, this.aiMLPlatformsOtherTags, 'aiMLPlatformsOther');
+  }
+  removeAiMLPlatformsOtherTag(i: number) {
+    this._removeTag(i, this.aiMLPlatformsOtherTags, 'aiMLPlatformsOther');
+  }
+  addErpEnterpriseSystemsOtherTag(event: any) {
+    this._addTag(event, this.erpEnterpriseSystemsOtherTags, 'erpEnterpriseSystemsOther');
+  }
+  removeErpEnterpriseSystemsOtherTag(i: number) {
+    this._removeTag(i, this.erpEnterpriseSystemsOtherTags, 'erpEnterpriseSystemsOther');
+  }
+  addCrmCustomerPlatformsOtherTag(event: any) {
+    this._addTag(event, this.crmCustomerPlatformsOtherTags, 'crmCustomerPlatformsOther');
+  }
+  removeCrmCustomerPlatformsOtherTag(i: number) {
+    this._removeTag(i, this.crmCustomerPlatformsOtherTags, 'crmCustomerPlatformsOther');
+  }
+  addItsmITOperationsOtherTag(event: any) {
+    this._addTag(event, this.itsmITOperationsOtherTags, 'itsmITOperationsOther');
+  }
+  removeItsmITOperationsOtherTag(i: number) {
+    this._removeTag(i, this.itsmITOperationsOtherTags, 'itsmITOperationsOther');
+  }
+  addBusinessAppsProductivityOtherTag(event: any) {
+    this._addTag(event, this.businessAppsProductivityOtherTags, 'businessAppsProductivityOther');
+  }
+  removeBusinessAppsProductivityOtherTag(i: number) {
+    this._removeTag(i, this.businessAppsProductivityOtherTags, 'businessAppsProductivityOther');
+  }
+  addECommerceCMSOtherTag(event: any) {
+    this._addTag(event, this.eCommerceCMSOtherTags, 'eCommerceCMSOther');
+  }
+  removeECommerceCMSOtherTag(i: number) {
+    this._removeTag(i, this.eCommerceCMSOtherTags, 'eCommerceCMSOther');
+  }
+  addLearningHRSystemsOtherTag(event: any) {
+    this._addTag(event, this.learningHRSystemsOtherTags, 'learningHRSystemsOther');
+  }
+  removeLearningHRSystemsOtherTag(i: number) {
+    this._removeTag(i, this.learningHRSystemsOtherTags, 'learningHRSystemsOther');
+  }
+  addLowCodeNoCodePlatformsOtherTag(event: any) {
+    this._addTag(event, this.lowCodeNoCodePlatformsOtherTags, 'lowCodeNoCodePlatformsOther');
+  }
+  removeLowCodeNoCodePlatformsOtherTag(i: number) {
+    this._removeTag(i, this.lowCodeNoCodePlatformsOtherTags, 'lowCodeNoCodePlatformsOther');
+  }
+  addTestingQAOtherTag(event: any) {
+    this._addTag(event, this.testingQAOtherTags, 'testingQAOther');
+  }
+  removeTestingQAOtherTag(i: number) {
+    this._removeTag(i, this.testingQAOtherTags, 'testingQAOther');
+  }
+  addWeb3DecentralizedTechOtherTag(event: any) {
+    this._addTag(event, this.web3DecentralizedTechOtherTags, 'web3DecentralizedTechOther');
+  }
+  removeWeb3DecentralizedTechOtherTag(i: number) {
+    this._removeTag(i, this.web3DecentralizedTechOtherTags, 'web3DecentralizedTechOther');
+  }
+  // Generic tag add/remove helpers
+  private _addTag(event: any, tagArray: string[], formControlName: string) {
+    const input = event.target;
+    const value = input.value.trim();
+    if (value && !tagArray.includes(value)) {
+      tagArray.push(value);
+      this.profileForm.get(formControlName)?.setValue([...tagArray]);
+    }
+    input.value = '';
+  }
+  private _removeTag(i: number, tagArray: string[], formControlName: string) {
+    tagArray.splice(i, 1);
+    this.profileForm.get(formControlName)?.setValue([...tagArray]);
   }
 }

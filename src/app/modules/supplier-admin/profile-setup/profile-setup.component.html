@@ -332,9 +332,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showTechnologyStackOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="technologyStackOther"
-                    placeholder="Please specify other technologies"
-                    [class.is-invalid]="isFieldInvalid('technologyStackOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="technologyStackOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of technologyStackOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeTechnologyStackOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addTechnologyStackOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('technologyStackOther')">
                     Please specify other technologies
                   </div>
@@ -369,9 +377,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showCloudPlatformsOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="cloudPlatformsOther"
-                    placeholder="Please specify other cloud platforms"
-                    [class.is-invalid]="isFieldInvalid('cloudPlatformsOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="cloudPlatformsOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of cloudPlatformsOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeCloudPlatformsOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addCloudPlatformsOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('cloudPlatformsOther')">
                     Please specify other cloud platforms
                   </div>
@@ -396,9 +412,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showDevOpsAutomationOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="devOpsAutomationOther"
-                    placeholder="Please specify other DevOps tools"
-                    [class.is-invalid]="isFieldInvalid('devOpsAutomationOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="devOpsAutomationOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of devOpsAutomationOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeDevOpsAutomationOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addDevOpsAutomationOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('devOpsAutomationOther')">
                     Please specify other DevOps tools
                   </div>
@@ -424,9 +448,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showContainerizationOrchestrationOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="containerizationOrchestrationOther"
-                    placeholder="Please specify other containerization tools"
-                    [class.is-invalid]="isFieldInvalid('containerizationOrchestrationOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="containerizationOrchestrationOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of containerizationOrchestrationOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeContainerizationOrchestrationOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addContainerizationOrchestrationOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('containerizationOrchestrationOther')">
                     Please specify other containerization tools
                   </div>
@@ -461,9 +493,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showNetworkingInfrastructureOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="networkingInfrastructureOther"
-                    placeholder="Please specify other networking tools"
-                    [class.is-invalid]="isFieldInvalid('networkingInfrastructureOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="networkingInfrastructureOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of networkingInfrastructureOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeNetworkingInfrastructureOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addNetworkingInfrastructureOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('networkingInfrastructureOther')">
                     Please specify other networking tools
                   </div>
@@ -488,9 +528,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showSecurityIAMOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="securityIAMOther"
-                    placeholder="Please specify other security tools"
-                    [class.is-invalid]="isFieldInvalid('securityIAMOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="securityIAMOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of securityIAMOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeSecurityIAMOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addSecurityIAMOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('securityIAMOther')">
                     Please specify other security tools
                   </div>
@@ -519,9 +567,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showMonitoringObservabilityOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="monitoringObservabilityOther"
-                    placeholder="Please specify other monitoring tools"
-                    [class.is-invalid]="isFieldInvalid('monitoringObservabilityOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="monitoringObservabilityOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of monitoringObservabilityOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeMonitoringObservabilityOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addMonitoringObservabilityOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('monitoringObservabilityOther')">
                     Please specify other monitoring tools
                   </div>
@@ -550,9 +606,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showIntegrationAPIManagementOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="integrationAPIManagementOther"
-                    placeholder="Please specify other API management tools"
-                    [class.is-invalid]="isFieldInvalid('integrationAPIManagementOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="integrationAPIManagementOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of integrationAPIManagementOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeIntegrationAPIManagementOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addIntegrationAPIManagementOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('integrationAPIManagementOther')">
                     Please specify other API management tools
                   </div>
@@ -581,9 +645,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showEventStreamingMessagingOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="eventStreamingMessagingOther"
-                    placeholder="Please specify other event streaming tools"
-                    [class.is-invalid]="isFieldInvalid('eventStreamingMessagingOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="eventStreamingMessagingOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of eventStreamingMessagingOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeEventStreamingMessagingOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addEventStreamingMessagingOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('eventStreamingMessagingOther')">
                     Please specify other event streaming tools
                   </div>
@@ -615,9 +687,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showDatabasePlatformsOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="databasePlatformsOther"
-                    placeholder="Please specify other database platforms"
-                    [class.is-invalid]="isFieldInvalid('databasePlatformsOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="databasePlatformsOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of databasePlatformsOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeDatabasePlatformsOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addDatabasePlatformsOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('databasePlatformsOther')">
                     Please specify other database platforms
                   </div>
@@ -639,9 +719,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showDataAnalyticsBIOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="dataAnalyticsBIOther"
-                    placeholder="Please specify other data analytics tools"
-                    [class.is-invalid]="isFieldInvalid('dataAnalyticsBIOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="dataAnalyticsBIOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of dataAnalyticsBIOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeDataAnalyticsBIOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addDataAnalyticsBIOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('dataAnalyticsBIOther')">
                     Please specify other data analytics tools
                   </div>
@@ -663,9 +751,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showAiMLPlatformsOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="aiMLPlatformsOther"
-                    placeholder="Please specify other AI/ML platforms"
-                    [class.is-invalid]="isFieldInvalid('aiMLPlatformsOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="aiMLPlatformsOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of aiMLPlatformsOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeAiMLPlatformsOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addAiMLPlatformsOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('aiMLPlatformsOther')">
                     Please specify other AI/ML platforms
                   </div>
@@ -697,9 +793,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showErpEnterpriseSystemsOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="erpEnterpriseSystemsOther"
-                    placeholder="Please specify other ERP systems"
-                    [class.is-invalid]="isFieldInvalid('erpEnterpriseSystemsOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="erpEnterpriseSystemsOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of erpEnterpriseSystemsOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeErpEnterpriseSystemsOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addErpEnterpriseSystemsOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('erpEnterpriseSystemsOther')">
                     Please specify other ERP systems
                   </div>
@@ -721,9 +825,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showCrmCustomerPlatformsOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="crmCustomerPlatformsOther"
-                    placeholder="Please specify other CRM platforms"
-                    [class.is-invalid]="isFieldInvalid('crmCustomerPlatformsOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="crmCustomerPlatformsOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of crmCustomerPlatformsOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeCrmCustomerPlatformsOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addCrmCustomerPlatformsOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('crmCustomerPlatformsOther')">
                     Please specify other CRM platforms
                   </div>
@@ -745,9 +857,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showItsmITOperationsOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="itsmITOperationsOther"
-                    placeholder="Please specify other ITSM tools"
-                    [class.is-invalid]="isFieldInvalid('itsmITOperationsOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="itsmITOperationsOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of itsmITOperationsOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeItsmITOperationsOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addItsmITOperationsOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('itsmITOperationsOther')">
                     Please specify other ITSM tools
                   </div>
@@ -771,9 +891,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showBusinessAppsProductivityOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="businessAppsProductivityOther"
-                    placeholder="Please specify other business apps"
-                    [class.is-invalid]="isFieldInvalid('businessAppsProductivityOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="businessAppsProductivityOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of businessAppsProductivityOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeBusinessAppsProductivityOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addBusinessAppsProductivityOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('businessAppsProductivityOther')">
                     Please specify other business apps
                   </div>
@@ -805,9 +933,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showECommerceCMSOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="eCommerceCMSOther"
-                    placeholder="Please specify other E-Commerce & CMS platforms"
-                    [class.is-invalid]="isFieldInvalid('eCommerceCMSOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="eCommerceCMSOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of eCommerceCMSOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeECommerceCMSOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addECommerceCMSOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('eCommerceCMSOther')">
                     Please specify other E-Commerce & CMS platforms
                   </div>
@@ -830,9 +966,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showLearningHRSystemsOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="learningHRSystemsOther"
-                    placeholder="Please specify other Learning & HR systems"
-                    [class.is-invalid]="isFieldInvalid('learningHRSystemsOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="learningHRSystemsOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of learningHRSystemsOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeLearningHRSystemsOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addLearningHRSystemsOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('learningHRSystemsOther')">
                     Please specify other Learning & HR systems
                   </div>
@@ -855,9 +999,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showLowCodeNoCodePlatformsOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="lowCodeNoCodePlatformsOther"
-                    placeholder="Please specify other Low-Code / No-Code platforms"
-                    [class.is-invalid]="isFieldInvalid('lowCodeNoCodePlatformsOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="lowCodeNoCodePlatformsOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of lowCodeNoCodePlatformsOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeLowCodeNoCodePlatformsOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addLowCodeNoCodePlatformsOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('lowCodeNoCodePlatformsOther')">
                     Please specify other Low-Code / No-Code platforms
                   </div>
@@ -880,9 +1032,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showTestingQAOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="testingQAOther"
-                    placeholder="Please specify other Testing & QA tools"
-                    [class.is-invalid]="isFieldInvalid('testingQAOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="testingQAOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of testingQAOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeTestingQAOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addTestingQAOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('testingQAOther')">
                     Please specify other Testing & QA tools
                   </div>
@@ -906,9 +1066,17 @@
               <div class="row mb-3 align-items-center" *ngIf="showWeb3DecentralizedTechOther">
                 <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" formControlName="web3DecentralizedTechOther"
-                    placeholder="Please specify other Web3 & Decentralized tech"
-                    [class.is-invalid]="isFieldInvalid('web3DecentralizedTechOther')">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="web3DecentralizedTechOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of web3DecentralizedTechOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeWeb3DecentralizedTechOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addWeb3DecentralizedTechOtherTag($event)">
+                  </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('web3DecentralizedTechOther')">
                     Please specify other Web3 & Decentralized tech
                   </div>
