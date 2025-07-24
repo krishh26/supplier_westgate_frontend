@@ -218,7 +218,7 @@
                         <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Enter the full name of the Point of Contact.'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
-                        <input [(ngModel)]="loginUser.poc_name" name="poc_name" type="text" class="form-control" readonly
+                        <input [ngModel]="pocDetails.name" name="poc_name" type="text" class="form-control" readonly
                           placeholder="Enter POC name" id="poc_name" required #pocNameInput="ngModel" />
                       </div>
                     </div>
@@ -230,7 +230,7 @@
                         <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Enter the contact number of the POC.'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
-                        <input [(ngModel)]="loginUser.poc_phone" name="poc_phone" type="text" class="form-control" readonly
+                        <input [ngModel]="pocDetails.phone" name="poc_phone" type="text" class="form-control" readonly
                           placeholder="Enter POC phone" id="poc_phone" required #pocPhoneInput="ngModel" />
                       </div>
                     </div>
@@ -242,7 +242,7 @@
                         <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Provide the email address of the POC, this email will be used for login.'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
-                        <input [(ngModel)]="loginUser.poc_email" name="poc_email" type="text" class="form-control" readonly
+                        <input [ngModel]="pocDetails.email" name="poc_email" type="text" class="form-control" readonly
                           placeholder="Enter POC email" id="poc_email" required #pocEmailInput="ngModel" />
                       </div>
                     </div>
@@ -254,7 +254,7 @@
                         <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Specify the role or designation of the POC in the company.'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
-                        <input [(ngModel)]="loginUser.poc_role" name="poc_role" type="text" class="form-control" readonly
+                        <input [ngModel]="pocDetails.role" name="poc_role" type="text" class="form-control" readonly
                           placeholder="Enter POC role" id="poc_role" />
                       </div>
                     </div>
