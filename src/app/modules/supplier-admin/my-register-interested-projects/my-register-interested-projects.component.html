@@ -1,0 +1,214 @@
+<main id="main">
+  <style>
+    .tooltip-inner {
+      max-width: 300px !important;
+      text-align: left !important;
+      padding: 8px 12px !important;
+      font-size: 0.875rem !important;
+      background-color: rgba(0, 0, 0, 0.8) !important;
+    }
+    .info-icon {
+      color: #6c757d;
+      font-size: 1.1rem;
+      cursor: help;
+      transition: color 0.2s ease;
+    }
+    .info-icon:hover {
+      color: #0d6efd;
+    }
+  </style>
+  <section>
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-lg-2 col-xl-2 col-md-12 col-sm-12 col-12 mob-mb2">
+          <div id="profile-menu-nav">
+
+            <!-- <div class="sort-widget mb-3">
+              <h6 class="p-600">Category</h6>
+              <ng-select style="padding: 0px !important;" placeholder="Select Category"
+                class="form-select custom-ng-select-option" [items]="categoryList" bindLabel="category"
+                [multiple]="true" bindValue="category" [(ngModel)]="selectedCategories" (change)="searchtext()">
+              </ng-select>
+            </div>
+
+            <div class="sort-widget mb-3">
+              <h6 class="p-600">Industry</h6>
+              <ng-select style="padding: 0px !important;" placeholder="Select Industry"
+                class="form-select custom-ng-select-option" [items]="industryList" bindLabel="industry"
+                [multiple]="true" bindValue="industry" [(ngModel)]="selectedIndustries" (change)="searchtext()">
+              </ng-select>
+            </div>
+
+            <div class="sort-widget mb-3">
+              <h6 class="p-600">Project Type</h6>
+              <ng-select style="padding: 0px !important;" placeholder="Select Project Type"
+                class="form-select custom-ng-select-option" [items]="projectTypeList" bindLabel="projectType"
+                [multiple]="true" bindValue="value" [(ngModel)]="selectedProjectTypes" (change)="searchtext()">
+              </ng-select>
+            </div>
+
+            <div class="sort-widget mb-3">
+              <h6 class="p-600">Client Type</h6>
+              <ng-select style="padding: 0px !important;" placeholder="Select Client Type"
+                class="form-select custom-ng-select-option" [items]="clientTypeList" bindLabel="clientType"
+                [multiple]="true" bindValue="value" [(ngModel)]="selectedClientTypes" (change)="searchtext()">
+              </ng-select>
+            </div>
+
+            <div class="sort-widget mb-3">
+              <h6 class="p-600">Status</h6>
+              <ng-select style="padding: 0px !important;" placeholder="Select Status"
+                class="form-select custom-ng-select-option" [items]="statusList" bindLabel="supplierStatus"
+                [multiple]="true" bindValue="value" [(ngModel)]="selectedStatuses" (change)="searchtext()">
+              </ng-select>
+            </div> -->
+
+            <!-- <div class="sort-widget mb-3">
+              <h6 class="p-600">Bid Status</h6>
+              <ng-select style="padding: 0px !important;" placeholder="Select Bid Status"
+                class="form-select custom-ng-select-option" [items]="bidstatusList" bindLabel="bidstatus"
+                [multiple]="true" bindValue="bidvalue" [(ngModel)]="selectedBidStatuses" (change)="searchtext()">
+              </ng-select>
+            </div> -->
+
+            <!-- <div class="sort-widget mb-3">
+              <h6 class="p-600">Expired Project</h6>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="expiredProject" [(ngModel)]="isExpired"
+                  (change)="searchtext()">
+                <label class="form-check-label" for="expiredProject">Expired</label>
+              </div>
+            </div> -->
+
+            <div class="sort-widget">
+              <h6 class="p-600">Publish Date Range</h6>
+              <form class="row row-cols-sm-auto">
+                <div class="col-6">
+                  <div class="input-group mb-2">
+                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [formControl]="publishStartDate"
+                      ngbDatepicker #d="ngbDatepicker" />
+                    <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()"
+                      type="button"></button>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [formControl]="publishEndDate"
+                      ngbDatepicker #d1="ngbDatepicker" />
+                    <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d1.toggle()"
+                      type="button"></button>
+                  </div>
+                </div>
+              </form>
+            </div><br>
+            <div class="sort-widget">
+              <h6 class="p-600">Submission Due Date Range</h6>
+              <form class="row row-cols-sm-auto">
+                <div class="col-6">
+                  <div class="input-group mb-2">
+                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [formControl]="submissionStartDate"
+                      ngbDatepicker #d2="ngbDatepicker" />
+                    <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d2.toggle()"
+                      type="button"></button>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [formControl]="submissionEndDate"
+                      ngbDatepicker #d3="ngbDatepicker" />
+                    <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d3.toggle()"
+                      type="button"></button>
+                  </div>
+                </div>
+              </form>
+            </div><br>
+            <!-- Slider for Value (GBP) -->
+            <!-- <div class="sort-widget">
+              <h6 class="p-600">Value (GBP)</h6>
+
+              <div class="input-fields">
+                <label for="min-value">Min Value (GBP): </label>
+                <input id="min-value" type="number" [(ngModel)]="minValue" (change)="changeRange()" />
+
+                <label for="max-value">Max Value (GBP): </label>
+                <input id="max-value" type="number" [(ngModel)]="maxValue" (change)="changeRange()" />
+              </div>
+
+              <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
+                (userChange)="changeRange()">
+              </ngx-slider>
+            </div> -->
+          </div>
+        </div>
+
+        <div class="col-lg-10 col-xl-10 col-md-12 col-sm-12 col-12">
+          <div class="row align-items-center justify-content-between">
+            <div class="col-lg-11 col-xl-11 col-sm-10 col-md-10 col-10 mob-mb1">
+              <div class="form-group mb-0">
+                <span class="input-icon"><i class="bi bi-search"></i></span>
+                <input class="form-control control-search"
+                  placeholder="Search by BOS ID, Project name, Client name, Website, Notice reference, Link to notice"
+                  type="text" [(ngModel)]="searchText" (input)="searchtext()">
+              </div>
+            </div>
+            <div class="col-lg-auto col-xl-auto col-sm-2 col-md-2 col-2 mob-mb1" style="cursor: pointer;">
+              <i class="bi bi-info-circle-fill info-icon" [ngbTooltip]="'View all published projects here. You can register your interest for any project listed.'" placement="left"></i>
+            </div>
+          </div>
+          <div class="Flatcard shadow-1 mt-4">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table align-middle">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Project Title</th>
+                      <th>BOS ID</th>
+                      <th>Created Date</th>
+                      <th>Interest Details</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <tr>
+                      <td *ngIf="!projectList?.length" colspan="13">
+                        <app-no-record-found></app-no-record-found>
+                      </td>
+                    </tr>
+
+                    <tr
+                      *ngFor="let item of projectList |  paginate: { itemsPerPage: pagesize , currentPage: page, totalItems: totalRecords } ; let i = index">
+                      <td><a (click)="projectDetails(item?._id)" href="javascript:;">{{item?.projectName}}</a></td>
+                      <td v-align="middle">{{item?.BOSID}}</td>
+                      <td>{{item?.createdAt | date:'dd/MM/yyyy'}}</td>
+                      <td>
+                        {{ item?.supplierInterestDetails?.interestedAt | date : "dd/MM/yyyy" }}
+                        <span *ngIf="item?.supplierInterestDetails?.comment">,
+                          Comment: {{ item?.supplierInterestDetails?.comment }}
+                        </span>
+                      </td>
+                      <!-- <td>
+                        <a *ngIf="isUserShortlisted(item?.sortListUserId)" style="background-color: darkgray;"
+                          class="btn btn-sm btn-dark m-1" title="Shortlist">Shortlisted</a>
+                        <a *ngIf="!isUserShortlisted(item?.sortListUserId)" (click)="sortListProject(item?._id)"
+                          class="btn btn-sm btn-dark m-1" title="Shortlist">Shortlist</a>
+                      </td> -->
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row align-items-center">
+                  <div class="pagination">
+                    <pagination-controls [idMaxSize]="100" (pageChange)="paginate($event)"></pagination-controls>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>

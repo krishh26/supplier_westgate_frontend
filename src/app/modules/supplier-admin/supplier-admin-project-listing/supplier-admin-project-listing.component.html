@@ -21,6 +21,10 @@
       <p *ngIf="activeComponent == 5" style="text-align: center; font-weight: bold;">Track the status of your
         submitted projects - from awaiting results to outcomes, all in one place.
       </p>
+
+      <p *ngIf="activeComponent == 6" style="text-align: center; font-weight: bold;">
+        Register your interest in projects and stay updated on new opportunities that match your expertise.
+      </p>
     </div>
     <div class="container-fluids">
       <div class="row align-items-center">
@@ -34,6 +38,8 @@
             <li (click)="changeComponent(4)"><a [ngClass]="{'active' : activeComponent == 4}">Work In Progress
               </a></li>
             <li (click)="changeComponent(5)"><a [ngClass]="{'active' : activeComponent == 5}">Submitted
+              </a></li>
+            <li (click)="changeComponent(6)"><a [ngClass]="{'active' : activeComponent == 6}">Register Interest
               </a></li>
           </ul>
         </nav>
@@ -50,6 +56,8 @@
   <app-supplier-project-work-in-progress *ngIf="activeComponent == 4"></app-supplier-project-work-in-progress>
 
   <app-supplier-project-submitted *ngIf="activeComponent == 5"></app-supplier-project-submitted>
+
+  <app-my-register-interested-projects *ngIf="activeComponent == 6"></app-my-register-interested-projects>
 </ng-container>
 <ng-container *ngIf="!loginUser?.subcontractingSupplier">
   <main id="main">

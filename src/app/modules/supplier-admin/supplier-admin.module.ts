@@ -52,6 +52,7 @@ import { ResourcesViewDetailsComponent } from './resources-view-details/resource
 import { ResourcesAddComponent } from './resources-add/resources-add.component';
 import { ViewUserDetailsComponent } from './view-user-details/view-user-details.component';
 import { ProfileSetupComponent } from './profile-setup/profile-setup.component';
+import { MyRegisterInterestedProjectsComponent } from './my-register-interested-projects/my-register-interested-projects.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { ProfileSetupComponent } from './profile-setup/profile-setup.component';
     ResourcesViewDetailsComponent,
     ResourcesAddComponent,
     ViewUserDetailsComponent,
-    ProfileSetupComponent
+    ProfileSetupComponent,
+    MyRegisterInterestedProjectsComponent
   ],
   imports: [
     CommonModule,

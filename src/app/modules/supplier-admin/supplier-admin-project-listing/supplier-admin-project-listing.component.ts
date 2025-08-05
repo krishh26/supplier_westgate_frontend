@@ -8,7 +8,7 @@ import { LocalStorageService } from 'src/app/services/local-storage/local-storag
   styleUrls: ['./supplier-admin-project-listing.component.scss']
 })
 export class SupplierAdminProjectListingComponent implements OnInit {
-  activeComponent: number = 2;  // 1 : Matched Project , 2 : All Project, 3: Shortlisted, 4: Applied Projects
+  activeComponent: number = 2;  // 1 : Matched Project , 2 : All Project, 3: Shortlisted, 4: Work In Progress, 5: Submitted, 6: Register Interest
   loginUser: any;
 
   constructor(
