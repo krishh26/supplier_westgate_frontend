@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { SupplierAdminService } from 'src/app/services/supplier-admin/supplier-admin.service';
 
@@ -15,6 +16,8 @@ export class SupplierDashboardComponent {
   showLoader: boolean = false;
   projectValue: any = [];
   projectCount: any = [];
+  isMobileNavOpen = false;
+  isDropdownOpen = false;
 
 
   constructor(
@@ -23,12 +26,25 @@ export class SupplierDashboardComponent {
     private router: Router,
     private route: ActivatedRoute,
     private spinner: NgxSpinnerService,
+    private authService: AuthService,
   ) {
   }
 
   ngOnInit(): void {
     this.getProjectDetails();
   }
+
+  logout(): void {
+    this.authService.logout();
+    this.closeMobileNav();
+  }
+
+    // Close Mobile Navigation when clicking a link
+    closeMobileNav() {
+      this.isMobileNavOpen = false;
+      this.isDropdownOpen = false;
+    }
+
 
   getProjectDetails() {
     this.spinner.show();
