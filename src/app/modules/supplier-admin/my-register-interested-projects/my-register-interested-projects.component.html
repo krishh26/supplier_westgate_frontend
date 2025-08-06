@@ -165,7 +165,7 @@
                       <th>Project Title</th>
                       <th>BOS ID</th>
                       <th>Created Date</th>
-                      <th>Interest Details</th>
+                      <th>Bid Manager Comment</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -182,9 +182,9 @@
                       <td v-align="middle">{{item?.BOSID}}</td>
                       <td>{{item?.createdAt | date:'dd/MM/yyyy'}}</td>
                       <td>
-                        {{ item?.supplierInterestDetails?.interestedAt | date : "dd/MM/yyyy" }}
-                        <span *ngIf="item?.supplierInterestDetails?.comment">,
-                          Comment: {{ item?.supplierInterestDetails?.comment }}
+                        <!-- {{ item?.supplierInterestDetails?.interestedAt | date : "dd/MM/yyyy" }} -->
+                        <span *ngIf="item?.supplierInterestDetails?.comment">
+                          {{ item?.supplierInterestDetails?.comment }}
                         </span>
                       </td>
                       <!-- <td>

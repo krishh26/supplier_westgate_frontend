@@ -33,14 +33,15 @@
             <li (click)="changeComponent(2)">
               <a [ngClass]="{'active' : activeComponent == 2}">All Projects</a>
             </li>
+            <li (click)="changeComponent(6)"><a [ngClass]="{'active' : activeComponent == 6}">Registered Interest
+            </a></li>
             <!-- <li (click)="changeComponent(1)"><a [ngClass]="{'active' : activeComponent == 1}">Matched</a></li> -->
             <li (click)="changeComponent(3)"><a [ngClass]="{'active' : activeComponent == 3}">Shortlisted</a></li>
             <li (click)="changeComponent(4)"><a [ngClass]="{'active' : activeComponent == 4}">Work In Progress
               </a></li>
             <li (click)="changeComponent(5)"><a [ngClass]="{'active' : activeComponent == 5}">Submitted
               </a></li>
-            <li (click)="changeComponent(6)"><a [ngClass]="{'active' : activeComponent == 6}">Register Interest
-              </a></li>
+
           </ul>
         </nav>
       </div>
