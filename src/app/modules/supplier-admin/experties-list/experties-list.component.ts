@@ -32,7 +32,7 @@ export class ExpertiesListComponent {
   constructor(
     private supplierService: SupplierAdminService,
     private notificationService: NotificationService,
-    private router: Router,
+    public router: Router,
     private sanitizer: DomSanitizer,
     private superService: SuperadminService,
     private modalService: NgbModal,
@@ -169,5 +169,20 @@ export class ExpertiesListComponent {
         this.notificationService.showError(error?.error?.message || 'Failed to add expertise');
       }
     );
+  }
+
+  closeMobileNav() {
+    // Close mobile navigation menu
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    if (navbarCollapse) {
+      navbarCollapse.classList.remove('show');
+    }
+  }
+
+  logout() {
+    // Clear local storage
+    localStorage.clear();
+    // Navigate to login page
+    this.router.navigate(['/login']);
   }
 }

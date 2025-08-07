@@ -33,7 +33,7 @@ export class CaseStudiesComponent {
   constructor(
     private supplierService: SupplierAdminService,
     private notificationService: NotificationService,
-    private router: Router,
+    public router: Router,
     private sanitizer: DomSanitizer,
     private superService: SuperadminService,private spinner: NgxSpinnerService
   ) { }
@@ -306,5 +306,20 @@ export class CaseStudiesComponent {
 
       return '';
     }
+
+  closeMobileNav() {
+    // Close mobile navigation menu
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    if (navbarCollapse) {
+      navbarCollapse.classList.remove('show');
+    }
+  }
+
+  logout() {
+    // Clear local storage
+    localStorage.clear();
+    // Navigate to login page
+    this.router.navigate(['/login']);
+  }
 
 }

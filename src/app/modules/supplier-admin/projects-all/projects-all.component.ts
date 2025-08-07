@@ -81,7 +81,7 @@ export class ProjectsAllComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private notificationService: NotificationService,
-    private router: Router,
+    public router: Router,
     private localStorageService: LocalStorageService,
     private superService: SuperadminService,
   ) {
@@ -257,6 +257,21 @@ export class ProjectsAllComponent implements OnInit {
     }, (error) => {
       return this.notificationService.showError(error?.error?.message || 'Something went wrong !');
     })
+  }
+
+  closeMobileNav() {
+    // Close mobile navigation menu
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    if (navbarCollapse) {
+      navbarCollapse.classList.remove('show');
+    }
+  }
+
+  logout() {
+    // Clear local storage
+    localStorage.clear();
+    // Navigate to login page
+    this.router.navigate(['/login']);
   }
 
 }

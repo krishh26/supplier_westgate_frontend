@@ -84,7 +84,7 @@ export class SupplierProjectSubmittedComponent {
   constructor(
     private projectService: ProjectService,
     private notificationService: NotificationService,
-    private router: Router,
+    public router: Router,
     private superService: SuperadminService,
     private localStorageService: LocalStorageService,
   ) {
@@ -273,5 +273,20 @@ export class SupplierProjectSubmittedComponent {
   isDropReasonLong(dropUsers: any[], length: number = 50): boolean {
     const reason = this.getDropReasonForCurrentUser(dropUsers);
     return reason ? reason.length > length : false;
+  }
+
+  closeMobileNav() {
+    // Close mobile navigation menu
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    if (navbarCollapse) {
+      navbarCollapse.classList.remove('show');
+    }
+  }
+
+  logout() {
+    // Clear local storage
+    localStorage.clear();
+    // Navigate to login page
+    this.router.navigate(['/login']);
   }
 }

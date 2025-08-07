@@ -23,7 +23,7 @@ export class SupplierDashboardComponent {
   constructor(
     private supplierService: SupplierAdminService,
     private notificationService: NotificationService,
-    private router: Router,
+    public router: Router,
     private route: ActivatedRoute,
     private spinner: NgxSpinnerService,
     private authService: AuthService,

@@ -38,7 +38,7 @@ export class SupplierProjectWorkInProgressComponent {
   selectedClientTypes: any[] = [];
   selectedStatuses: any[] = [];
   selectedBidStatuses: any[] = [];
-  
+
 
   projectTypeList = [
     { projectType: 'Development', value: 'Development' },
@@ -89,7 +89,7 @@ export class SupplierProjectWorkInProgressComponent {
     private projectService: ProjectService,
     private authService: AuthService,
     private notificationService: NotificationService,
-    private router: Router,
+    public router: Router,
     private superService: SuperadminService,
     private localStorageService: LocalStorageService,
   ) {
