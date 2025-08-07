@@ -27,7 +27,7 @@ export class RoleWiseResourcesListComponent {
   supplierData: any = [];
   loginUser: any;
   rolesList: any[] = [];
-  selectedRole: string = '';
+  selectedRole: string | null = null;
 
   constructor(
     private notificationService: NotificationService,
@@ -74,7 +74,7 @@ export class RoleWiseResourcesListComponent {
     };
 
     // Add role filter if selected
-    if (this.selectedRole) {
+    if (this.selectedRole && this.selectedRole.trim() !== '') {
       queryParams.role = this.selectedRole;
     }
 
@@ -99,9 +99,9 @@ export class RoleWiseResourcesListComponent {
   }
 
   getRolesList() {
-    this.superService.getRolesList().subscribe({
+    // Call the new API endpoint for getting all roles
+    this.superService.getAllRoles().subscribe({
       next: (response: any) => {
-
         if (response && response.status) {
           console.log('API Response:', response.data); // Log the API response
           this.rolesList = response?.data?.roles || [];
@@ -111,7 +111,6 @@ export class RoleWiseResourcesListComponent {
         }
       },
       error: (error: any) => {
-
         this.notificationService.showError(error?.error?.message || 'An error occurred while fetching roles');
       }
     });
@@ -136,6 +135,7 @@ export class RoleWiseResourcesListComponent {
       currentRoleData: candidate.currentRoleData || [],
       roleId: candidate.roleId || [],
       details: {
+        uniqueId: candidate.uniqueId,
         jobTitle: candidate.jobTitle,
         experience: candidate.totalExperience,
         qualification: candidate.highestQualification,
@@ -199,6 +199,13 @@ export class RoleWiseResourcesListComponent {
 
   onRoleChange() {
     this.page = 1; // Reset to first page when filter changes
+    this.getCandidatesList();
+  }
+
+  // Method to clear role filter
+  clearRoleFilter() {
+    this.selectedRole = null;
+    this.page = 1;
     this.getCandidatesList();
   }
 

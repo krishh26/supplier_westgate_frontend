@@ -39,6 +39,9 @@ import { AddRolesComponent } from './add-roles/add-roles.component';
 import { EditRolesComponent } from './edit-roles/edit-roles.component';
 import { ResourcesViewDetailsComponent } from './resources-view-details/resources-view-details.component';
 import { ResourcesAddComponent } from './resources-add/resources-add.component';
+import { ViewUserDetailsComponent } from './view-user-details/view-user-details.component';
+import { ProfileSetupComponent } from './profile-setup/profile-setup.component';
+import { MyRegisterInterestedProjectsComponent } from './my-register-interested-projects/my-register-interested-projects.component';
 const routes: Routes = [
   {
     path: '',
@@ -199,6 +202,18 @@ const routes: Routes = [
       {
         path: "add-resource",
         component: ResourcesAddComponent
+      },
+      {
+        path: "view-user-details",
+        component: ViewUserDetailsComponent
+      },
+      {
+        path: "profile-setup",
+        component: ProfileSetupComponent
+      },
+      {
+        path: "my-register-interested-projects",
+        component: MyRegisterInterestedProjectsComponent
       }
     ]
   },

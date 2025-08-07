@@ -1,0 +1,1123 @@
+<section class="gray-body">
+  <div class="container">
+    <div class="row mb-3 align-items-center">
+      <div class="col-12">
+        <ul class="wizard">
+          <li *ngFor="let step of steps"
+              [class.active]="step.active"
+              [class.completed]="step.completed"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              [title]="step.title">
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row mb-3 align-items-center" *ngIf="currentStep < totalSteps">
+      <div class="col-12">
+        <h4>{{ isEditMode ? 'Edit Profile - ' + steps[currentStep - 1].title : steps[currentStep - 1].title }}</h4>
+      </div>
+    </div>
+
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <!-- Step 1: Company Details -->
+      <div class="custom-card" *ngIf="currentStep === 1">
+        <div class="card-header"><strong>Company Details</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Company Name <span class="astric">*</span>
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Enter the full legal name of the company"></i></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" formControlName="companyName" placeholder="Enter company name"
+                    [class.is-invalid]="isFieldInvalid('companyName')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Company Website
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Enter the official website URL"></i></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" formControlName="website" placeholder="Enter website URL">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Company Address
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Enter company address"></i></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" formControlName="companyAddress"
+                    placeholder="Enter company address">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Country
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Enter country"></i></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" formControlName="country" placeholder="Enter country">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Contact Email
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Enter the official email"></i></label>
+                <div class="col-sm-8">
+                  <input type="email" class="form-control" formControlName="email" placeholder="Enter email">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Contact Number
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Enter the official contact number"></i></label>
+                <div class="col-sm-8">
+                  <input type="tel" class="form-control" formControlName="companyContactNumber"
+                    placeholder="Enter contact number" (keypress)="NumberOnly($event)" minlength="10" maxlength="10">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-6 col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label col-form-label-sm">Established Year
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Select establishment date"></i></label>
+                <div class="col-sm-8">
+                  <input type="date" class="form-control" formControlName="yearOfEstablishment" [max]="currentDate"
+                    [min]="'1900-01-01'">
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Executive Summary
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Write a brief summary"></i></label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" formControlName="executiveSummary" rows="3"
+                    placeholder="Write a brief summary of your company"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-header"><strong>POC Details</strong></div>
+        <div class="card-body">
+          <div formArrayName="pocDetails">
+            <div *ngFor="let poc of getPocDetails(); let i = index" [formGroupName]="i" class="row mb-3">
+              <div class="col-lg-6 col-xl-6 col-12">
+                <div class="row mb-3 align-items-center">
+                  <label class="col-sm-4 col-form-label col-form-label-sm">POC Name <span
+                      class="astric">*</span></label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" formControlName="name" placeholder="Enter POC name">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-xl-6 col-12">
+                <div class="row mb-3 align-items-center">
+                  <label class="col-sm-4 col-form-label col-form-label-sm">POC Phone <span
+                      class="astric">*</span></label>
+                  <div class="col-sm-8">
+                    <input type="tel" class="form-control" formControlName="phone" placeholder="Enter POC phone"
+                      (keypress)="NumberOnly($event)" minlength="10" maxlength="10">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-xl-6 col-12">
+                <div class="row mb-3 align-items-center">
+                  <label class="col-sm-4 col-form-label col-form-label-sm">POC Email <span
+                      class="astric">*</span></label>
+                  <div class="col-sm-8">
+                    <input type="email" class="form-control" formControlName="email" placeholder="Enter POC email">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-xl-6 col-12">
+                <div class="row mb-3 align-items-center">
+                  <label class="col-sm-4 col-form-label col-form-label-sm">POC Role <span
+                      class="astric">*</span></label>
+                  <div class="col-sm-8 d-flex">
+                    <input type="text" class="form-control" formControlName="role" placeholder="Enter POC role">
+                    <button type="button" class="btn btn-danger ms-2" *ngIf="i > 0" (click)="removePocDetail(i)">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 text-end">
+              <button type="button" class="btn btn-primary" (click)="addPocDetail()">Add Another POC</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-header"><strong>Business Details</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <div class="row mb-3">
+                <div class="col-lg-6 col-xl-6">
+                  <div class="form-group">
+                    <label class="form-label">Business Type
+                      <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Select business type"></i>
+                    </label>
+                    <ng-select [items]="businessTypesList" [multiple]="false" [closeOnSelect]="false" [searchable]="true"
+                      [clearable]="true" bindLabel="name" bindValue="value" placeholder="Select business type"
+                      formControlName="typeOfCompany" (change)="onBusinessTypeChange($event)">
+                    </ng-select>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-xl-6">
+                  <div class="form-group">
+                    <label class="form-label">Employee Count
+                      <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Enter total number of employees"></i>
+                    </label>
+                    <input type="text" class="form-control" formControlName="employeeCount"
+                      placeholder="Enter employee count" (keypress)="NumberOnly($event)">
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-6 col-xl-6">
+                  <div class="form-group">
+                    <label class="form-label">Turnover
+                      <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Enter annual turnover"></i>
+                    </label>
+                    <input type="text" class="form-control" formControlName="turnover" placeholder="Enter turnover"
+                      (keypress)="NumberOnly($event)">
+                  </div>
+                </div>
+                <div class="col-lg-6 col-xl-6">
+                  <div class="form-group">
+                    <div class="form-group">
+                      <label class="form-label">Total Projects
+                        <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                          title="Enter total projects executed"></i>
+                      </label>
+                      <input type="text" class="form-control" formControlName="totalProjectsExecuted"
+                        placeholder="Enter total projects" (keypress)="NumberOnly($event)">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-6 col-xl-6">
+                  <div class="form-group">
+                    <label class="form-label">Certifications
+                      <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Enter certifications"></i>
+                    </label>
+                    <div class="tag-input-container">
+                      <div class="tag-list" *ngIf="certificationTags.length > 0">
+                        <span class="tag" *ngFor="let tag of certificationTags; let i = index">
+                          {{tag}}
+                          <i class="bi bi-x" (click)="removeTag(i)"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control" [formControlName]="'certificationInput'"
+                        placeholder="Type certification and press Enter" (keyup.enter)="addTag($event)">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-6 col-xl-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" formControlName="resourceSharingSupplier"
+                      id="resourceSharing">
+                    <label class="form-check-label" for="resourceSharing">
+                      Resource Sharing Supplier <span class="astric">*</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-xl-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" formControlName="subcontractingSupplier"
+                      id="subcontracting">
+                    <label class="form-check-label" for="subcontracting">
+                      Subcontracting Supplier <span class="astric">*</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3" *ngIf="!validateSupplierType() && submitted">
+                <div class="col-12">
+                  <div class="alert alert-danger">
+                    Please select at least one supplier type (Resource Sharing Supplier or Subcontracting Supplier).
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Technology Stack & Services -->
+      <div class="custom-card" *ngIf="currentStep === 2">
+        <div class="card-header"><strong>Technology Stack & Services</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <!-- Services -->
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Services
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Select services you can provide"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="services" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    [clearable]="true" bindLabel="name" bindValue="name" placeholder="Select services you can provide"
+                    formControlName="services">
+                  </ng-select>
+                </div>
+              </div>
+
+              <!-- Services Other -->
+              <div class="row mb-3 align-items-center" *ngIf="showServicesOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" formControlName="servicesOther"
+                    placeholder="Please specify other services" [class.is-invalid]="isFieldInvalid('servicesOther')">
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('servicesOther')">
+                    Please specify other services
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Product dropdown -->
+              <div class="row mb-3 align-items-center" *ngIf="showProductDropdown">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Pre-Built Products
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Select products"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="products" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    [clearable]="true" bindLabel="name" bindValue="name" placeholder="Select products"
+                    formControlName="product">
+                  </ng-select>
+                </div>
+              </div>
+
+              <!-- Technology Stack -->
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Technology Stack
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Select your technology stack"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="technologies" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    [clearable]="true" bindLabel="name" bindValue="name" placeholder="Select your technology stack"
+                    formControlName="technologyStack">
+                  </ng-select>
+                </div>
+              </div>
+
+              <!-- Technology Stack Other -->
+              <div class="row mb-3 align-items-center" *ngIf="showTechnologyStackOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="technologyStackOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of technologyStackOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeTechnologyStackOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addTechnologyStackOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('technologyStackOther')">
+                    Please specify other technologies
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Core Services & Capabilities -->
+      <div class="custom-card" *ngIf="currentStep === 3">
+        <div class="card-header"><strong>Services and Capabilities</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Cloud Platforms
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your cloud platforms"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="cloudPlatformsList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    [clearable]="true" [loading]="isLoadingCloudPlatforms" bindLabel="name" bindValue="name"
+                    placeholder="Choose your cloud platforms" formControlName="cloudPlatforms">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{ item.name }}
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center" *ngIf="showCloudPlatformsOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="cloudPlatformsOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of cloudPlatformsOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeCloudPlatformsOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addCloudPlatformsOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('cloudPlatformsOther')">
+                    Please specify other cloud platforms
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">DevOps & Automation
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your DevOps tools"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="devOpsList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    [clearable]="true" [loading]="isLoadingDropdownData" bindLabel="name" bindValue="name"
+                    placeholder="Choose your DevOps tools" formControlName="devOpsAutomation">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{ item.name }}
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center" *ngIf="showDevOpsAutomationOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="devOpsAutomationOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of devOpsAutomationOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeDevOpsAutomationOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addDevOpsAutomationOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('devOpsAutomationOther')">
+                    Please specify other DevOps tools
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Containerization & Orchestration
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your containerization tools"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="containerizationList" [multiple]="true" [closeOnSelect]="false"
+                    [searchable]="true" [clearable]="true" [loading]="isLoadingDropdownData" bindLabel="name"
+                    bindValue="name" placeholder="Choose your containerization tools"
+                    formControlName="containerizationOrchestration">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{ item.name }}
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center" *ngIf="showContainerizationOrchestrationOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="containerizationOrchestrationOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of containerizationOrchestrationOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeContainerizationOrchestrationOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addContainerizationOrchestrationOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('containerizationOrchestrationOther')">
+                    Please specify other containerization tools
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: Infrastructure, Integration & Security -->
+      <div class="custom-card" *ngIf="currentStep === 4">
+        <div class="card-header"><strong>Infrastructure, Integration and Security Details</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <!-- Networking and Infrastructure -->
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Networking and Infrastructure
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your networking & infrastructure tools"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="networkingList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    [clearable]="true" [loading]="isLoadingStep4Data" bindLabel="name" bindValue="name"
+                    placeholder="Choose your networking tools" formControlName="networkingInfrastructure">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{ item.name }}
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center" *ngIf="showNetworkingInfrastructureOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="networkingInfrastructureOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of networkingInfrastructureOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeNetworkingInfrastructureOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addNetworkingInfrastructureOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('networkingInfrastructureOther')">
+                    Please specify other networking tools
+                  </div>
+                </div>
+              </div>
+
+              <!-- Security and IAM -->
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Security and IAM
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your security & IAM tools"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="securityList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    [clearable]="true" [loading]="isLoadingStep4Data" bindLabel="name" bindValue="name"
+                    placeholder="Choose your security tools" formControlName="securityIAM">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{ item.name }}
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center" *ngIf="showSecurityIAMOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="securityIAMOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of securityIAMOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeSecurityIAMOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addSecurityIAMOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('securityIAMOther')">
+                    Please specify other security tools
+                  </div>
+                </div>
+              </div>
+
+              <!-- Monitoring and Observability -->
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Monitoring and Observability
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your monitoring & observability tools"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="monitoringList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    [clearable]="true" [loading]="isLoadingStep4Data" bindLabel="name" bindValue="name"
+                    placeholder="Choose your monitoring tools" formControlName="monitoringObservability"
+                    [class.is-invalid]="isFieldInvalid('monitoringObservability')">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{ item.name }}
+                    </ng-template>
+                  </ng-select>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('monitoringObservability')">
+                    Please select at least one monitoring tool
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center" *ngIf="showMonitoringObservabilityOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="monitoringObservabilityOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of monitoringObservabilityOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeMonitoringObservabilityOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addMonitoringObservabilityOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('monitoringObservabilityOther')">
+                    Please specify other monitoring tools
+                  </div>
+                </div>
+              </div>
+
+              <!-- Integration and API Management -->
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Integration and API Management
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your integration & API management tools"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="apiManagementList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    [clearable]="true" [loading]="isLoadingStep4Data" bindLabel="name" bindValue="name"
+                    placeholder="Choose your API management tools" formControlName="integrationAPIManagement"
+                    [class.is-invalid]="isFieldInvalid('integrationAPIManagement')">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{ item.name }}
+                    </ng-template>
+                  </ng-select>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('integrationAPIManagement')">
+                    Please select at least one API management tool
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center" *ngIf="showIntegrationAPIManagementOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="integrationAPIManagementOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of integrationAPIManagementOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeIntegrationAPIManagementOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addIntegrationAPIManagementOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('integrationAPIManagementOther')">
+                    Please specify other API management tools
+                  </div>
+                </div>
+              </div>
+
+              <!-- Event Streaming and Messaging -->
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Event Streaming and Messaging
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your event streaming & messaging tools"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="eventStreamingList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    [clearable]="true" [loading]="isLoadingStep4Data" bindLabel="name" bindValue="name"
+                    placeholder="Choose your event streaming tools" formControlName="eventStreamingMessaging"
+                    [class.is-invalid]="isFieldInvalid('eventStreamingMessaging')">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{ item.name }}
+                    </ng-template>
+                  </ng-select>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('eventStreamingMessaging')">
+                    Please select at least one event streaming tool
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center" *ngIf="showEventStreamingMessagingOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="eventStreamingMessagingOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of eventStreamingMessagingOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeEventStreamingMessagingOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addEventStreamingMessagingOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('eventStreamingMessagingOther')">
+                    Please specify other event streaming tools
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5: Data, Intelligence & Automation -->
+      <div class="custom-card" *ngIf="currentStep === 5">
+        <div class="card-header"><strong>Data, Intelligence and Automation Details</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Database Platforms
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your database platforms"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="databasePlatformsList" [multiple]="true" [closeOnSelect]="false"
+                    [searchable]="true" [clearable]="true" bindLabel="name" bindValue="name"
+                    placeholder="Choose database platforms" formControlName="databasePlatforms"
+                    [class.is-invalid]="isFieldInvalid('databasePlatforms')">
+                  </ng-select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center" *ngIf="showDatabasePlatformsOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="databasePlatformsOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of databasePlatformsOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeDatabasePlatformsOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addDatabasePlatformsOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('databasePlatformsOther')">
+                    Please specify other database platforms
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Data, Analytics & BI
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your data, analytics & BI tools"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="dataAnalyticsList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    [clearable]="true" bindLabel="name" bindValue="name" placeholder="Choose data analytics & BI tools"
+                    formControlName="dataAnalyticsBI" [class.is-invalid]="isFieldInvalid('dataAnalyticsBI')">
+                  </ng-select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center" *ngIf="showDataAnalyticsBIOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="dataAnalyticsBIOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of dataAnalyticsBIOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeDataAnalyticsBIOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addDataAnalyticsBIOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('dataAnalyticsBIOther')">
+                    Please specify other data analytics tools
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">AI / ML Platforms
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your AI / ML platforms"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="aiMlPlatformsList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    [clearable]="true" bindLabel="name" bindValue="name" placeholder="Choose AI / ML platforms"
+                    formControlName="aiMLPlatforms" [class.is-invalid]="isFieldInvalid('aiMLPlatforms')">
+                  </ng-select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center" *ngIf="showAiMLPlatformsOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="aiMLPlatformsOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of aiMLPlatformsOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeAiMLPlatformsOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addAiMLPlatformsOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('aiMLPlatformsOther')">
+                    Please specify other AI/ML platforms
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 6: Enterprise Systems & Business Apps -->
+      <div class="custom-card" *ngIf="currentStep === 6">
+        <div class="card-header"><strong>Enterprise Systems and Business Application</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">ERP / Enterprise<br> Systems
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your ERP / Enterprise Systems"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="erpSystemsList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    [clearable]="true" bindLabel="name" bindValue="name" placeholder="Choose ERP / Enterprise systems"
+                    formControlName="erpEnterpriseSystems" [class.is-invalid]="isFieldInvalid('erpEnterpriseSystems')">
+                  </ng-select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center" *ngIf="showErpEnterpriseSystemsOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="erpEnterpriseSystemsOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of erpEnterpriseSystemsOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeErpEnterpriseSystemsOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addErpEnterpriseSystemsOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('erpEnterpriseSystemsOther')">
+                    Please specify other ERP systems
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">CRM and Customer Platforms
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your CRM & Customer Platforms"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="crmPlatformsList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    [clearable]="true" bindLabel="name" bindValue="name" placeholder="Choose CRM & customer platforms"
+                    formControlName="crmCustomerPlatforms" [class.is-invalid]="isFieldInvalid('crmCustomerPlatforms')">
+                  </ng-select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center" *ngIf="showCrmCustomerPlatformsOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="crmCustomerPlatformsOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of crmCustomerPlatformsOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeCrmCustomerPlatformsOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addCrmCustomerPlatformsOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('crmCustomerPlatformsOther')">
+                    Please specify other CRM platforms
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">ITSM / IT Operations
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your ITSM / IT Operations"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="itsmList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    [clearable]="true" bindLabel="name" bindValue="name" placeholder="Choose ITSM / IT operations"
+                    formControlName="itsmITOperations" [class.is-invalid]="isFieldInvalid('itsmITOperations')">
+                  </ng-select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center" *ngIf="showItsmITOperationsOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="itsmITOperationsOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of itsmITOperationsOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeItsmITOperationsOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addItsmITOperationsOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('itsmITOperationsOther')">
+                    Please specify other ITSM tools
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Business Apps & Productivity
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your Business Apps & Productivity"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="businessAppsList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    [clearable]="true" bindLabel="name" bindValue="name"
+                    placeholder="Choose Business Apps and productivity" formControlName="businessAppsProductivity"
+                    [class.is-invalid]="isFieldInvalid('businessAppsProductivity')">
+                  </ng-select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center" *ngIf="showBusinessAppsProductivityOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="businessAppsProductivityOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of businessAppsProductivityOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeBusinessAppsProductivityOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addBusinessAppsProductivityOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('businessAppsProductivityOther')">
+                    Please specify other business apps
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 7: Front-End, Composable & Emerging Tech -->
+      <div class="custom-card" *ngIf="currentStep === 7">
+        <div class="card-header"><strong>Front-End, Composable and Emerging Technology</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">E-Commerce & CMS
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your E-Commerce & CMS"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="eCommerceCmsList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    [clearable]="true" bindLabel="name" bindValue="name" placeholder="Choose E-Commerce & CMS"
+                    formControlName="eCommerceCMS" [class.is-invalid]="isFieldInvalid('eCommerceCMS')">
+                  </ng-select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center" *ngIf="showECommerceCMSOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="eCommerceCMSOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of eCommerceCMSOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeECommerceCMSOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addECommerceCMSOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('eCommerceCMSOther')">
+                    Please specify other E-Commerce & CMS platforms
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Learning & HR Systems
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your Learning & HR Systems"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="learningHrSystemsList" [multiple]="true" [closeOnSelect]="false"
+                    [searchable]="true" [clearable]="true" bindLabel="name" bindValue="name"
+                    placeholder="Choose Learning & HR Systems" formControlName="learningHRSystems"
+                    [class.is-invalid]="isFieldInvalid('learningHRSystems')">
+                  </ng-select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center" *ngIf="showLearningHRSystemsOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="learningHRSystemsOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of learningHRSystemsOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeLearningHRSystemsOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addLearningHRSystemsOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('learningHRSystemsOther')">
+                    Please specify other Learning & HR systems
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Low-Code / No-Code Platforms
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your Low-Code / No-Code Platforms"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="lowCodeNoCodeList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    [clearable]="true" bindLabel="name" bindValue="name"
+                    placeholder="Choose Low-Code / No-Code Platforms" formControlName="lowCodeNoCodePlatforms"
+                    [class.is-invalid]="isFieldInvalid('lowCodeNoCodePlatforms')">
+                  </ng-select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center" *ngIf="showLowCodeNoCodePlatformsOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="lowCodeNoCodePlatformsOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of lowCodeNoCodePlatformsOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeLowCodeNoCodePlatformsOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addLowCodeNoCodePlatformsOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('lowCodeNoCodePlatformsOther')">
+                    Please specify other Low-Code / No-Code platforms
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Testing and QA
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your Testing & QA"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="testingQaList" [multiple]="true" [closeOnSelect]="false" [searchable]="true"
+                    [clearable]="true" bindLabel="name" bindValue="name" placeholder="Choose Testing & QA"
+                    formControlName="testingQA" [class.is-invalid]="isFieldInvalid('testingQA')">
+                  </ng-select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center" *ngIf="showTestingQAOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="testingQAOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of testingQAOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeTestingQAOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addTestingQAOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('testingQAOther')">
+                    Please specify other Testing & QA tools
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="row mb-3 align-items-center">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Web3 and Decentralized Tech
+                  <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Choose your Web3 & Decentralized Tech"></i></label>
+                <div class="col-sm-10">
+                  <ng-select [items]="web3DecentralizedList" [multiple]="true" [closeOnSelect]="false"
+                    [searchable]="true" [clearable]="true" bindLabel="name" bindValue="name"
+                    placeholder="Choose Web3 and decentralized tech" formControlName="web3DecentralizedTech"
+                    [class.is-invalid]="isFieldInvalid('web3DecentralizedTech')">
+                  </ng-select>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center" *ngIf="showWeb3DecentralizedTechOther">
+                <label class="col-sm-2 col-form-label col-form-label-sm mobile-hide">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div class="tag-input-container">
+                    <div class="tag-list" *ngIf="web3DecentralizedTechOtherTags.length > 0">
+                      <span class="tag" *ngFor="let tag of web3DecentralizedTechOtherTags; let i = index">
+                        {{tag}}
+                        <i class="bi bi-x" (click)="removeWeb3DecentralizedTechOtherTag(i)"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Type and press Enter"
+                           (keyup.enter)="addWeb3DecentralizedTechOtherTag($event)">
+                  </div>
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('web3DecentralizedTechOther')">
+                    Please specify other Web3 & Decentralized tech
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Success Message -->
+      <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+      <!-- Error Message -->
+      <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      <!-- Navigation Buttons -->
+      <div class="card-footer" *ngIf="currentStep < totalSteps">
+        <div class="row">
+          <div class="col-12 text-end">
+            <button type="button" class="btn btn-dark me-2" (click)="previousStep()"
+              *ngIf="currentStep > 1">Back</button>
+            <button type="button" class="btn btn-primary" (click)="nextStep()" *ngIf="currentStep < totalSteps - 1">Next
+              Step</button>
+            <button type="submit" class="btn btn-primary" *ngIf="currentStep === totalSteps - 1"
+              [disabled]="loading || !isCurrentStepValid()">
+              <span class="spinner-border spinner-border-sm" *ngIf="loading"></span>
+              {{ isEditMode ? 'Update Profile' : 'Submit Form' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- Step 8: Success Section -->
+    <div class="custom-card p-5 text-center" *ngIf="currentStep === 8">
+      <img src="assets/img/success-image.png" width="230" class="mb-3" />
+      <h3 class="text-success"><strong>{{ isEditMode ? 'Profile Updated Successfully' : 'Registration Successfully' }}</strong></h3>
+      <p class="mb-0" *ngIf="!isEditMode">You will get the registration details with registration id</p>
+      <p class="text-muted">{{ isEditMode ? 'Your profile has been updated successfully.' : 'Thank you for booking a registration.' }}</p>
+      <a routerLink="/supplier-admin/view-user-details" class="btn btn-primary">BACK</a>
+    </div>
+  </div>
+</section>

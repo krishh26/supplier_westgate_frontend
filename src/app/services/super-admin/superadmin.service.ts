@@ -59,6 +59,7 @@ export enum SuperAdminEndPoint {
   UPDATE_PUBLIC_USER = '/user/public/update/',
   REGISTER_INTEREST = '/project/register-interest',
   GET_TAGS = '/tags',
+  SUPPLIER_INTERESTED_PROJECTS = '/project/supplier-interested-projects',
 }
 
 @Injectable({
@@ -673,6 +674,40 @@ export class SuperadminService {
     return this.httpClient.get<any>(
       this.baseUrl + SuperAdminEndPoint.GET_TAGS,
       options
+    );
+  }
+
+  getSupplierInterestedProjects(params: any = {}): Observable<any> {
+    let queryParams = new HttpParams();
+
+    if (params?.page) {
+      queryParams = queryParams.set('page', params.page);
+    }
+    if (params?.limit) {
+      queryParams = queryParams.set('limit', params.limit);
+    }
+    if (params?.keyword) {
+      queryParams = queryParams.set('keyword', params.keyword);
+    }
+    if (params?.publishDateRange) {
+      queryParams = queryParams.set('publishDateRange', params.publishDateRange);
+    }
+    if (params?.SubmissionDueDateRange) {
+      queryParams = queryParams.set('SubmissionDueDateRange', params.SubmissionDueDateRange);
+    }
+    if (params?.valueRange) {
+      queryParams = queryParams.set('valueRange', params.valueRange);
+    }
+    if (params?.expired !== undefined) {
+      queryParams = queryParams.set('expired', params.expired);
+    }
+    if (params?.supplierId) {
+      queryParams = queryParams.set('supplierId', params.supplierId);
+    }
+
+    return this.httpClient.get<any>(
+      this.baseUrl + SuperAdminEndPoint.SUPPLIER_INTERESTED_PROJECTS,
+      { params: queryParams }
     );
   }
 }

@@ -32,6 +32,27 @@
           </ul>
         </nav>
       </div>
+    <div class="offcanvas-body">
+      <nav>
+        <ul class="offcanvas-nav">
+          <li><a routerLink="/supplier-admin/supplier-dashboard-header" class="active">Dashboard</a></li>
+          <li><a routerLink="/supplier-admin/project-list" >Projects</a></li>
+          <li><a routerLink="/supplier-admin/case-studies-list" >Case Studies</a></li>
+          <li><a routerLink="/supplier-admin/role-wise-resources-list" >Resources</a></li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a href="dashoard">Notification</a></li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a routerLink="/supplier-admin/view-user-details" (click)="closeMobileNav()">Profile Setting</a></li>
+          <li><a routerLink="/supplier-admin/manage-user" (click)="closeMobileNav()">Manage Users</a></li>
+          <li><a routerLink="/supplier-admin/change-password" (click)="closeMobileNav()">Security</a></li>
+          <li><a style="cursor: pointer;" (click)="logout() ; closeMobileNav()">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
   </div>
   <!--Mobile Menu Code close-->
 

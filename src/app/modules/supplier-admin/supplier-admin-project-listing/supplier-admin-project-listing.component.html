@@ -21,6 +21,10 @@
       <p *ngIf="activeComponent == 5" style="text-align: center; font-weight: bold;">Track the status of your
         submitted projects - from awaiting results to outcomes, all in one place.
       </p>
+
+      <p *ngIf="activeComponent == 6" style="text-align: center; font-weight: bold;">
+        Register your interest in projects and stay updated on new opportunities that match your expertise.
+      </p>
     </div>
     <div class="container-fluids">
       <div class="row align-items-center">
@@ -29,12 +33,15 @@
             <li (click)="changeComponent(2)">
               <a [ngClass]="{'active' : activeComponent == 2}">All Projects</a>
             </li>
+            <li (click)="changeComponent(6)"><a [ngClass]="{'active' : activeComponent == 6}">Registered Interest
+            </a></li>
             <!-- <li (click)="changeComponent(1)"><a [ngClass]="{'active' : activeComponent == 1}">Matched</a></li> -->
             <li (click)="changeComponent(3)"><a [ngClass]="{'active' : activeComponent == 3}">Shortlisted</a></li>
             <li (click)="changeComponent(4)"><a [ngClass]="{'active' : activeComponent == 4}">Work In Progress
               </a></li>
             <li (click)="changeComponent(5)"><a [ngClass]="{'active' : activeComponent == 5}">Submitted
               </a></li>
+
           </ul>
         </nav>
       </div>
@@ -50,40 +57,46 @@
   <app-supplier-project-work-in-progress *ngIf="activeComponent == 4"></app-supplier-project-work-in-progress>
 
   <app-supplier-project-submitted *ngIf="activeComponent == 5"></app-supplier-project-submitted>
+
+  <app-my-register-interested-projects *ngIf="activeComponent == 6"></app-my-register-interested-projects>
 </ng-container>
 <ng-container *ngIf="!loginUser?.subcontractingSupplier">
   <main id="main">
     <div class="container-fluid">
-      <div class="card">
-        <div class="card-body">
-          <div class="align-items-center">
-            <p>
-              <!-- <span>🇬🇧</span>  -->
-              🔧 Project Subcontracting Opportunities from UK Clients – Join Us Now!
-            </p>
+      <div class="alert alert-info border-0 shadow-sm p-4">
+        <div class="d-flex flex-column gap-3">
+          <h5 class="fw-bold text-primary mb-2">
+            🔧 Project Subcontracting Opportunities from UK Clients – Join Us Now!
+          </h5>
 
-            <p>Are you looking to expand your project pipeline and collaborate with international clients?
-            </p>
-            <p>
-              We are actively onboarding reliable partners for project-based subcontracting opportunities from our growing network of UK clients. These are full-fledged projects across domains like IT services, product development, infrastructure, and digital transformation.</p>
-            <p>🛠 Real, ongoing projects – not just talent requests
-            </p>
-            <p>📅 New subcontracting opportunities published daily
-            </p>
-            <p>🌍 Work with reputable UK companies
-            </p>
-            <p>💼 Ideal for agencies, consultancies, and boutique firms
-            </p>
-            <p>💷 Attractive commercial terms & GBP payouts
-            </p>
-            <p>If you have a capable delivery team and are ready to take on outsourced projects, we want to hear from you.
-            </p>
-            <p>👉 Join our network now and never miss a subcontracting opportunity again.
-            </p>
-          </div>
+          <p class="mb-0">
+            Are you looking to expand your project pipeline and collaborate with international clients?
+          </p>
+
+          <p class="mb-0">
+            We are actively onboarding reliable partners for project-based subcontracting opportunities from our growing network of UK clients. These are full-fledged projects across domains like IT services, product development, infrastructure, and digital transformation.
+          </p>
+
+          <ul class="list-unstyled ps-3">
+            <li class="mb-1">🛠 Real, ongoing projects – not just talent requests</li>
+            <li class="mb-1">📅 New subcontracting opportunities published daily</li>
+            <li class="mb-1">🌍 Work with reputable UK companies</li>
+            <li class="mb-1">💼 Ideal for agencies, consultancies, and boutique firms</li>
+            <li class="mb-1">💷 Attractive commercial terms & GBP payouts</li>
+          </ul>
+
+          <p class="mb-0">
+            If you have a capable delivery team and are ready to take on outsourced projects, we want to hear from you.
+          </p>
+
+          <p class="fw-semibold text-success mb-0">
+            👉 Join our network now and never miss a subcontracting opportunity again.
+          </p>
         </div>
       </div>
     </div>
+
+
   </main>
 </ng-container>
 

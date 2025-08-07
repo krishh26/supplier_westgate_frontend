@@ -9,6 +9,7 @@ import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { SuperadminService } from 'src/app/services/super-admin/superadmin.service';
 
+
 interface ExpertiseItem {
   name: string;
   itemId: string;
@@ -35,12 +36,15 @@ interface DynamicArrays {
 }
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss']
+  selector: 'app-view-user-details',
+  templateUrl: './view-user-details.component.html',
+  styleUrls: ['./view-user-details.component.scss']
 })
-export class UserProfileComponent implements OnInit, DynamicArrays {
+
+
+export class ViewUserDetailsComponent implements OnInit, DynamicArrays {
   userData!: any;
+  activeTab: string = 'profile';  // Add this line to initialize activeTab
   skills: any[] = [
     {
       id: 1,
@@ -185,6 +189,32 @@ export class UserProfileComponent implements OnInit, DynamicArrays {
   // Add new properties
   expertiseDropdownOptions: ExpertiseItem[] = [];
 
+  // --- Add these properties for tab navigation and dummy data ---
+  public services: string[] = [];
+  public technologyStack: string[] = [];
+  public product: string[] = [];
+  public testingTools: string[] = [];
+  public cloudPlatforms: string[] = [];
+  public devOpsAutomation: string[] = [];
+  public containerizationOrchestration: string[] = [];
+  public networkingInfrastructure: string[] = [];
+  public databasePlatforms: string[] = [];
+  public dataAnalyticsBI: string[] = [];
+  public aiMlPlatforms: string[] = [];
+  public securityIAM: string[] = [];
+  public monitoringObservability: string[] = [];
+  public integrationApiManagement: string[] = [];
+  public eventStreamingMessaging: string[] = [];
+  public erpEnterpriseSystems: string[] = [];
+  public crmCustomerPlatforms: string[] = [];
+  public itsmItOperations: string[] = [];
+  public businessAppsProductivity: string[] = [];
+  public ecommerceCMS: string[] = [];
+  public learningHRSystems: string[] = [];
+  public lowCodeNoCodePlatforms: string[] = [];
+  public testingQA: string[] = [];
+  public web3DecentralizedTech: string[] = [];
+
   constructor(
     private authService: AuthService,
     private notificationService: NotificationService,
@@ -218,54 +248,106 @@ export class UserProfileComponent implements OnInit, DynamicArrays {
   }
 
   ngOnInit(): void {
-    this.getUserDetails();
-    this.loadTags();
-    this.loadExpertiseOptions();
-    this.loadSubExpertiseOptions();
-    this.initializeBusinessTypes();
-    this.initializeTechnologiesList();
-    this.initializeCertifications();
-    this.initializeKeyClients();
-
-    // Initialize existing expertise
-    if (this.loginUser?.expertise) {
-      this.existingExpertise = this.loginUser.expertise.map((exp: any) => ({
-        name: exp.name,
-        itemId: exp.itemId || exp._id,
-        type: exp.type || 'technologies',
-        subExpertise: exp.subExpertise || []
-      }));
-      this.selectedExpertise = [...this.existingExpertise];
-
-      // Initialize sub-expertise map
-      this.existingExpertise.forEach((exp, index) => {
-        if (exp.subExpertise?.length) {
-          this.subExpertiseMap[index] = [...exp.subExpertise];
-        }
-      });
-    }
-
-    // Initialize existing tags
-    if (this.loginUser?.expertiseICanDo) {
-      this.existingTags = this.loginUser.expertiseICanDo;
-      this.selectedTags = [...this.existingTags];
+    // Get user id from local storage
+    const loginUser = this.localStorageService.getItem('loginUser');
+    const userId = loginUser?._id;
+    if (userId) {
+      this.getUserDetails(userId);
+    } else {
+      this.notificationService.showError('User ID not found in local storage');
     }
   }
 
-  getUserDetails(): void {
-    this.authService.getUserData().subscribe({
+  getUserDetails(userId: string): void {
+    this.supplierAdminService.getSupplierDetails(userId).subscribe({
       next: (response: any) => {
-        if (response?.status) {
+        if (response?.status && response?.data) {
           this.userData = response.data;
           this.loginUser = response.data;
-          if (this.loginUser?.expertiseICanDo) {
-            // Store existing tags in their original format
-            this.existingTags = [...this.loginUser.expertiseICanDo];
-            // Convert existing tags to match the format of new tags for ng-select
-            this.selectedTags = this.existingTags.map(tag => ({
-              _id: tag.itemId,
-              name: tag.name
+
+          // Set yearOfEstablishment from API or fallback to doj (format YYYY-MM-DD)
+          if (this.loginUser?.yearOfEstablishment) {
+            this.loginUser.yearOfEstablishment = this.loginUser.yearOfEstablishment.split('T')[0];
+          } else if (this.loginUser?.doj) {
+            this.loginUser.yearOfEstablishment = this.loginUser.doj.split('T')[0];
+          }
+
+          // Map all technology and platform fields
+          this.services = this.loginUser?.services || [];
+          this.technologyStack = this.loginUser?.technologyStack || [];
+          this.product = this.loginUser?.product || [];
+          this.testingTools = this.loginUser?.testingTools || [];
+          this.cloudPlatforms = this.loginUser?.cloudPlatforms || [];
+          this.devOpsAutomation = this.loginUser?.devOpsAutomation || [];
+          this.containerizationOrchestration = this.loginUser?.containerizationOrchestration || [];
+          this.networkingInfrastructure = this.loginUser?.networkingInfrastructure || [];
+          this.databasePlatforms = this.loginUser?.databasePlatforms || [];
+          this.dataAnalyticsBI = this.loginUser?.dataAnalyticsBI || [];
+          this.aiMlPlatforms = this.loginUser?.aiMLPlatforms || [];
+          this.securityIAM = this.loginUser?.securityIAM || [];
+          this.monitoringObservability = this.loginUser?.monitoringObservability || [];
+          this.integrationApiManagement = this.loginUser?.integrationAPIManagement || [];
+          this.eventStreamingMessaging = this.loginUser?.eventStreamingMessaging || [];
+          this.erpEnterpriseSystems = this.loginUser?.erpEnterpriseSystems || [];
+          this.crmCustomerPlatforms = this.loginUser?.crmCustomerPlatforms || [];
+          this.itsmItOperations = this.loginUser?.itsmITOperations || [];
+          this.businessAppsProductivity = this.loginUser?.businessAppsProductivity || [];
+          this.ecommerceCMS = this.loginUser?.eCommerceCMS || [];
+          this.learningHRSystems = this.loginUser?.learningHRSystems || [];
+          this.lowCodeNoCodePlatforms = this.loginUser?.lowCodeNoCodePlatforms || [];
+          this.testingQA = this.loginUser?.testingQA || [];
+          this.web3DecentralizedTech = this.loginUser?.web3DecentralizedTech || [];
+
+          // Initialize existing expertise
+          if (this.loginUser?.expertise) {
+            this.existingExpertise = this.loginUser.expertise.map((exp: any) => ({
+              name: exp.name,
+              itemId: exp.itemId || exp._id,
+              type: exp.type || 'technologies',
+              subExpertise: exp.subExpertise || []
             }));
+            this.selectedExpertise = [...this.existingExpertise];
+
+            // Initialize sub-expertise map
+            this.existingExpertise.forEach((exp, index) => {
+              if (exp.subExpertise?.length) {
+                this.subExpertiseMap[index] = [...exp.subExpertise];
+              }
+            });
+          }
+
+          // Initialize existing tags
+          if (this.loginUser?.expertiseICanDo) {
+            this.existingTags = this.loginUser.expertiseICanDo;
+            this.selectedTags = [...this.existingTags];
+          }
+
+          // Initialize certifications
+          if (this.loginUser?.certifications) {
+            this.certifications = Array.isArray(this.loginUser.certifications)
+              ? [...this.loginUser.certifications]
+              : [this.loginUser.certifications];
+          }
+
+          // Initialize business types list and set selectedBusinessTypes
+          this.initializeBusinessTypes();
+
+          // Initialize technologies list
+          if (this.loginUser?.technologyStack) {
+            this.selectedTechnologies = Array.isArray(this.loginUser.technologyStack)
+              ? [...this.loginUser.technologyStack]
+              : [this.loginUser.technologyStack];
+          } else {
+            this.selectedTechnologies = [];
+          }
+
+          // Initialize key clients
+          if (this.loginUser?.keyClients) {
+            this.keyClients = Array.isArray(this.loginUser.keyClients)
+              ? [...this.loginUser.keyClients]
+              : [this.loginUser.keyClients];
+          } else {
+            this.keyClients = [];
           }
         }
       },
@@ -761,5 +843,18 @@ export class UserProfileComponent implements OnInit, DynamicArrays {
     } else if (this[arrayName] && Array.isArray(this[arrayName])) {
       this[arrayName].splice(index, 1);
     }
+  }
+
+  // Add this getter method for POC details
+  get pocDetails() {
+    if (this.loginUser?.pocDetails && this.loginUser.pocDetails.length > 0) {
+      return this.loginUser.pocDetails[0]; // Get the first POC details
+    }
+    return {
+      name: '',
+      phone: '',
+      email: '',
+      role: ''
+    };
   }
 }

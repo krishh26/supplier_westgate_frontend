@@ -45,8 +45,32 @@
     ::ng-deep .expertise-select .ng-select.ng-select-focused .ng-select-container {
       background-color: #F1F2F3 !important;
     }
+    .tabs {
+      display: flex;
+      gap: 20px;
+      border-bottom: 2px solid #eee;
+      margin-bottom: 20px;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      color: #888;
+      font-weight: 500;
+    }
+    .tab-btn.active {
+      color: #1976d2;
+      border-bottom: 3px solid #1976d2;
+    }
   </style>
-  <section>
+  <div class="tabs mb-4">
+    <button class="tab-btn" [class.active]="activeTab === 'profile'" (click)="activeTab = 'profile'">Profile</button>
+    <button class="tab-btn" [class.active]="activeTab === 'tools'" (click)="activeTab = 'tools'">Tools, Technologies & Platforms</button>
+  </div>
+  <section *ngIf="activeTab === 'profile'">
     <div class="container-fluid">
       <div class="row align-items-center justify-content-between">
         <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-6">
@@ -55,7 +79,10 @@
           </div><br>
         </div>
         <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-6 text-end">
-          <button class="btn btn-primary" routerLink="/supplier-admin/view-user-details">
+          <button class="btn btn-primary me-2" routerLink="/supplier-admin/profile-setup">
+            Edit
+          </button>
+          <button class="btn btn-primary" routerLink="/supplier-admin/project-list">
             Back
           </button>
         </div>
@@ -191,7 +218,7 @@
                         <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Enter the full name of the Point of Contact.'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
-                        <input [(ngModel)]="loginUser.poc_name" name="poc_name" type="text" class="form-control" readonly
+                        <input [ngModel]="pocDetails.name" name="poc_name" type="text" class="form-control" readonly
                           placeholder="Enter POC name" id="poc_name" required #pocNameInput="ngModel" />
                       </div>
                     </div>
@@ -203,7 +230,7 @@
                         <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Enter the contact number of the POC.'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
-                        <input [(ngModel)]="loginUser.poc_phone" name="poc_phone" type="text" class="form-control" readonly
+                        <input [ngModel]="pocDetails.phone" name="poc_phone" type="text" class="form-control" readonly
                           placeholder="Enter POC phone" id="poc_phone" required #pocPhoneInput="ngModel" />
                       </div>
                     </div>
@@ -215,7 +242,7 @@
                         <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Provide the email address of the POC, this email will be used for login.'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
-                        <input [(ngModel)]="loginUser.poc_email" name="poc_email" type="text" class="form-control" readonly
+                        <input [ngModel]="pocDetails.email" name="poc_email" type="text" class="form-control" readonly
                           placeholder="Enter POC email" id="poc_email" required #pocEmailInput="ngModel" />
                       </div>
                     </div>
@@ -227,7 +254,7 @@
                         <i class="fas fa-info-circle ms-1" [ngbTooltip]="'Specify the role or designation of the POC in the company.'" placement="top"></i>
                       </label>
                       <div class="col-sm-8">
-                        <input [(ngModel)]="loginUser.poc_role" name="poc_role" type="text" class="form-control" readonly
+                        <input [ngModel]="pocDetails.role" name="poc_role" type="text" class="form-control" readonly
                           placeholder="Enter POC role" id="poc_role" />
                       </div>
                     </div>
@@ -250,13 +277,14 @@
                           [items]="businessTypesList"
                           [multiple]="true"
                           [closeOnSelect]="false"
-                          [searchable]="true"
+                          [searchable]="false"
+                          [clearable]="false"
+                          [disabled]="true"
                           [(ngModel)]="selectedBusinessTypes"
                           name="selectedBusinessTypes"
                           bindLabel="name"
                           bindValue="value"
-                          placeholder="Select business type"
-                          (change)="onBusinessTypeChange()">
+                          placeholder="Select business type">
                         </ng-select>
                       </div>
                     </div>
@@ -270,7 +298,7 @@
                       <div class="col-sm-8">
                         <input [(ngModel)]="loginUser.employeeCount" name="employeeCount" type="text"
                           class="form-control" placeholder="Enter company size" (keypress)="NumberOnly($event)"
-                          id="employeeCount">
+                          id="employeeCount" readonly>
                       </div>
                     </div>
                   </div>
@@ -283,7 +311,7 @@
                       <div class="col-sm-8">
                         <input [(ngModel)]="loginUser.turnover" name="turnover" type="text"
                           class="form-control" placeholder="Enter turnover" (keypress)="NumberOnly($event)"
-                          id="turnover">
+                          id="turnover" readonly>
                       </div>
                     </div>
                   </div>
@@ -296,7 +324,7 @@
                       <div class="col-sm-8">
                         <input [(ngModel)]="loginUser.totalProjectsExecuted" name="totalProjectsExecuted"
                           type="text" class="form-control" placeholder="Enter total projects"
-                          (keypress)="NumberOnly($event)" id="totalProjectsExecuted">
+                          (keypress)="NumberOnly($event)" id="totalProjectsExecuted" readonly>
                       </div>
                     </div>
                   </div>
@@ -310,112 +338,13 @@
                         <div class="d-flex gap-2 mb-2">
                           <input [(ngModel)]="newCertification" name="newCertification" type="text"
                             class="form-control" placeholder="Add certification and press Enter"
-                            (keydown)="onKeyDown($event, 'certifications')" id="certifications">
+                            (keydown)="onKeyDown($event, 'certifications')" id="certifications" readonly>
                         </div>
                         <div *ngIf="certifications.length > 0" class="mb-2">
                           <span *ngFor="let cert of certifications; let i = index" class="badge bg-primary me-2 mb-2">
                             {{cert}}
-                            <button class="btn btn-sm text-white p-0 ms-1" (click)="removeArrayItem('certifications', i)">×</button>
                           </span>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-12 mb-3">
-                    <!-- Expertise field -->
-                    <label for="expertise" class="col-form-label">Expertise
-                      <i class="fas fa-info-circle ms-1" [ngbTooltip]="'List all the products, platforms, or software solutions your company has built or developed over time (e.g., ERP systems, mobile apps, SaaS platforms).'" placement="top"></i>
-                    </label>
-                    <div class="form-control p-3">
-                      <div class="expertise-container">
-                        <!-- Existing expertise items -->
-                        <div *ngFor="let expertise of selectedExpertise; let i = index" class="expertise-item">
-                          <div class="expertise-header">
-                            <div class="tag">
-                              <span class="remove-tag">&times;</span>
-                              {{ expertise.name }}
-                            </div>
-                          </div>
-
-                          <!-- Sub-expertise section -->
-                          <div class="sub-expertise-container">
-                            <div class="sub-expertise-tags" *ngIf="subExpertiseMap[i]?.length">
-                              <div *ngFor="let sub of subExpertiseMap[i]; let j = index" class="tag">
-                                <span class="remove-tag" (click)="removeSubExpertise(i, j)">&times;</span>
-                                {{ sub }}
-                              </div>
-                            </div>
-
-                            <ng-select [(ngModel)]="selectedSubExpertiseMap[i]"
-                              name="subExpertise_{{i}}"
-                              [items]="subExpertiseOptions"
-                              [multiple]="true"
-                              [closeOnSelect]="false"
-                              [searchable]="true"
-                              [clearable]="true"
-                              [addTag]="onAddTagSubExpertise"
-                              [loading]="isLoadingSubExpertise"
-                              placeholder="Select sub-expertise (required) - Mention the industries or sectors your company has delivered this solution to (e.g., Education, Healthcare, FinTech, Retail)."
-                              (change)="onSubExpertiseChange(i, $event)">
-                            </ng-select>
-
-                            <button type="button" class="btn btn-primary mt-2"
-                              (click)="addSubExpertise(i)"
-                              [disabled]="!selectedSubExpertiseMap[i] || selectedSubExpertiseMap[i].length === 0">
-                              Add Sub-Expertise
-                            </button>
-
-                            <div *ngIf="!subExpertiseMap[i]?.length" class="validation-error">
-                              Sub-expertise is required
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- Add new expertise section -->
-                        <div class="expertise-select">
-                          <ng-select placeholder="Select expertise"
-                            [items]="expertiseGroupedOptions"
-                            bindLabel="name"
-                            [multiple]="true"
-                            [(ngModel)]="selectedExpertiseItems"
-                            name="selectedExpertiseItems"
-                            [closeOnSelect]="false"
-                            [searchable]="true"
-                            [clearable]="true"
-                            [addTag]="onAddTag"
-                            [groupBy]="'type'"
-                            [hideSelected]="false"
-                            [virtualScroll]="true">
-                          </ng-select>
-
-                          <button type="button" class="btn btn-primary add-expertise-btn"
-                            (click)="onExpertiseSelectionChange($event)"
-                            [disabled]="!selectedExpertiseItems || selectedExpertiseItems.length === 0">
-                            Add Expertise
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6 mb-3">
-                    <div class="row">
-                      <label class="col-sm-4 col-form-label">I Can Do</label>
-                      <div class="col-sm-8">
-                        <ng-select
-                          [items]="tags"
-                          [multiple]="true"
-                          [closeOnSelect]="false"
-                          [searchable]="true"
-                          [loading]="isLoadingTags"
-                          [(ngModel)]="selectedTags"
-                          name="selectedTags"
-                          bindLabel="name"
-                          [clearable]="true"
-                          placeholder="Select what you can do"
-                          (change)="onTagSelectionChange($event)">
-                        </ng-select>
                       </div>
                     </div>
                   </div>
@@ -428,11 +357,12 @@
                           [items]="technologiesList"
                           [multiple]="true"
                           [closeOnSelect]="false"
-                          [searchable]="true"
+                          [searchable]="false"
                           [(ngModel)]="selectedTechnologies"
                           name="selectedTechnologies"
-                          placeholder="Select technologies"
-                          (change)="onTechnologiesChange($event)">
+                          [clearable]="false"
+                          [disabled]="true"
+                          placeholder="Select technologies">
                         </ng-select>
                       </div>
                     </div>
@@ -440,7 +370,7 @@
                 </div>
 
                 <!-- Client Information -->
-                <div class="row mb-4">
+                <!-- <div class="row mb-4">
                   <div class="col-12">
                     <h5 class="text-primary mb-3">Client Information</h5>
                   </div>
@@ -452,18 +382,17 @@
                           <div class="tags">
                             <span *ngFor="let client of keyClients; let i = index" class="badge bg-primary me-2">
                               {{client}}
-                              <button class="btn btn-sm text-white p-0 ms-1" (click)="removeArrayItem('keyClients', i)">×</button>
                             </span>
                           </div>
                           <div class="mt-2">
                             <input type="text" class="form-control" placeholder="Enter key client and press Enter"
-                              (keydown)="onKeyDown($event, 'keyClients')">
+                              (keydown)="onKeyDown($event, 'keyClients')" readonly>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
                 <!-- Supplier Type -->
                 <div class="row mb-4">
@@ -495,9 +424,7 @@
                 <!-- Update Profile Button -->
                 <div class="row">
                   <div class="col-12 text-end">
-                    <button type="submit" class="btn btn-primary" [disabled]="isUpdating || !loginUser.companyName || !loginUser.poc_name || !loginUser.poc_phone || !loginUser.poc_email ||
-                      (!loginUser.resourceSharingSupplier && !loginUser.subcontractingSupplier) ||
-                      hasInvalidExpertise()">
+                    <button type="submit" class="btn btn-primary" style="display: none;">
                       <span *ngIf="isUpdating" class="spinner-border spinner-border-sm me-1"></span>
                       {{ isUpdating ? 'Updating...' : 'Update Profile' }}
                     </button>
@@ -509,6 +436,162 @@
           </div>
         </div>
       </form>
+    </div>
+  </section>
+
+  <section *ngIf="activeTab === 'tools'">
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="text-theme mb-4"><strong>Tools, Technologies & Platforms</strong></h4>
+          <form>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Services</label>
+                <input class="form-control" [value]="services.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Technology Stack</label>
+                <input class="form-control" [value]="technologyStack.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Product</label>
+                <input class="form-control" [value]="product.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Testing Tools</label>
+                <input class="form-control" [value]="testingTools.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Cloud Platforms</label>
+                <input class="form-control" [value]="cloudPlatforms.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">DevOps & Automation</label>
+                <input class="form-control" [value]="devOpsAutomation.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Containerization & Orchestration</label>
+                <input class="form-control" [value]="containerizationOrchestration.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Networking & Infrastructure</label>
+                <input class="form-control" [value]="networkingInfrastructure.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Database Platforms</label>
+                <input class="form-control" [value]="databasePlatforms.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Data, Analytics & BI</label>
+                <input class="form-control" [value]="dataAnalyticsBI.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">AI/ML Platforms</label>
+                <input class="form-control" [value]="aiMlPlatforms.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Security & IAM</label>
+                <input class="form-control" [value]="securityIAM.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Monitoring & Observability</label>
+                <input class="form-control" [value]="monitoringObservability.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Integration & API Management</label>
+                <input class="form-control" [value]="integrationApiManagement.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Event Streaming & Messaging</label>
+                <input class="form-control" [value]="eventStreamingMessaging.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">ERP/Enterprise Systems</label>
+                <input class="form-control" [value]="erpEnterpriseSystems.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">CRM & Customer Platforms</label>
+                <input class="form-control" [value]="crmCustomerPlatforms.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">ITSM/IT Operations</label>
+                <input class="form-control" [value]="itsmItOperations.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Business Apps & Productivity</label>
+                <input class="form-control" [value]="businessAppsProductivity.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">E-Commerce & CMS</label>
+                <input class="form-control" [value]="ecommerceCMS.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Learning & HR Systems</label>
+                <input class="form-control" [value]="learningHRSystems.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Low-Code/No-Code Platforms</label>
+                <input class="form-control" [value]="lowCodeNoCodePlatforms.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Testing & QA</label>
+                <input class="form-control" [value]="testingQA.join(', ')" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Web3 & Decentralized Tech</label>
+                <input class="form-control" [value]="web3DecentralizedTech.join(', ')" readonly>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </section>
 </main>

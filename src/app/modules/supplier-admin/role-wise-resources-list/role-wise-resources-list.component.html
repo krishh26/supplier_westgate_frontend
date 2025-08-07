@@ -140,20 +140,31 @@
         </div>
         <div class="spacer-1"></div>
 
-        <div class="row align-items-center justify-content-between">
-          <div class="col-lg-6 col-xl-5 col-md-5 col-sm-6 col-12 mob-mb1">
-            <h4 class="text-theme">Resources List</h4>
+        <div class="row align-items-center justify-content-between mb-4">
+          <div class="col-lg-6 col-xl-5 col-md-5 col-sm-6 col-12">
+            <h4 class="text-theme mb-0">Resources List</h4>
           </div>
-          <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12 mob-mb1">
-            <div class="form-group mb-0 mob-mb1">
-              <select class="form-select" [(ngModel)]="selectedRole" (change)="onRoleChange()">
-                <option value="">Roles FIlter</option>
-                <option *ngFor="let role of rolesList" [value]="role.name">{{ role.name }}</option>
-              </select>
+          <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-12">
+            <div class="form-group mb-0">
+                            <ng-select
+                [(ngModel)]="selectedRole"
+                (change)="onRoleChange()"
+                [items]="rolesList"
+                [clearable]="true"
+                [searchable]="true"
+                placeholder="Select Role"
+                bindLabel="name"
+                bindValue="name"
+                [clearableText]="'Clear'"
+                [loading]="false">
+                <ng-template ng-option-tmp let-item="item">
+                  {{ item.name }}
+                </ng-template>
+              </ng-select>
             </div>
           </div>
           <div class="col-lg-2 col-xl-2 col-md-3 col-sm-3 col-12 text-end">
-            <button class="btn btn-primary mob-w-100" routerLink="/supplier-admin/add-resource">
+            <button class="btn btn-primary w-100" routerLink="/supplier-admin/add-resource">
               Add Resource
             </button>
           </div>
@@ -169,12 +180,13 @@
         <!-- Roles table -->
 
         <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 col-12">
-          <div class="Flatcard shadow-1 mt-4 border">
+          <div class="Flatcard shadow-1 border">
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table  align-middle">
-                  <thead>
+                  <thead class="table-light">
                     <tr>
+                      <th>Role ID</th>
                       <th>Full Name</th>
                       <th>Roles</th>
                       <th>I Can Be</th>
@@ -195,30 +207,43 @@
                     </tr>
                     <tr
                       *ngFor="let candidate of candidatesList | paginate: { itemsPerPage: pagesize, currentPage: page, totalItems: totalRecords }; let i = index">
-                      <td><a href="javascript:void(0)" (click)="viewCandidateDetails(candidate)">{{candidate?.fullName}}</a>
+                      <td>{{candidate?.uniqueId || '-'}}</td>
+                      <td><a href="javascript:void(0)" (click)="viewCandidateDetails(candidate)">{{candidate?.fullName || '-'}}</a>
                       </td>
                       <td>
-                        <span *ngFor="let role of candidate?.currentRoleData" class="badge bg-primary me-1">
-                          {{role.name}}
+                        <span *ngIf="candidate?.currentRoleData && candidate?.currentRoleData.length > 0; else noRoles">
+                          <span *ngFor="let role of candidate?.currentRoleData" class="badge bg-primary me-1">
+                            {{role.name}}
+                          </span>
                         </span>
+                        <ng-template #noRoles>-</ng-template>
                       </td>
                       <td>
-                        <span *ngFor="let role of getICanBeRoles(candidate)" class="badge bg-secondary me-1">
-                          {{role.name}}
+                        <span *ngIf="getICanBeRoles(candidate) && getICanBeRoles(candidate).length > 0; else noICanBeRoles">
+                          <span *ngFor="let role of getICanBeRoles(candidate)" class="badge bg-secondary me-1">
+                            {{role.name}}
+                          </span>
                         </span>
+                        <ng-template #noICanBeRoles>-</ng-template>
                       </td>
-                      <td>{{candidate?.totalExperience}} years</td>
+                      <td>{{candidate?.totalExperience ? candidate?.totalExperience + ' years' : '-'}}</td>
                       <td>
-                        <span *ngFor="let skill of candidate?.technicalSkills; let last = last">
-                          {{skill}}{{!last ? ', ' : ''}}
+                        <span *ngIf="candidate?.technicalSkills && candidate?.technicalSkills.length > 0; else noSkills">
+                          <span *ngFor="let skill of candidate?.technicalSkills; let last = last">
+                            {{skill}}{{!last ? ', ' : ''}}
+                          </span>
                         </span>
+                        <ng-template #noSkills>-</ng-template>
                       </td>
                       <td>
-                        <span *ngFor="let language of candidate?.languagesKnown; let last = last">
-                          {{language}}{{!last ? ', ' : ''}}
+                        <span *ngIf="candidate?.languagesKnown && candidate?.languagesKnown.length > 0; else noLanguages">
+                          <span *ngFor="let language of candidate?.languagesKnown; let last = last">
+                            {{language}}{{!last ? ', ' : ''}}
+                          </span>
                         </span>
+                        <ng-template #noLanguages>-</ng-template>
                       </td>
-                      <td>£{{candidate?.ukDayRate}}</td>
+                      <td>{{candidate?.ukDayRate ? '£' + candidate?.ukDayRate : '-'}}</td>
                       <!-- <td>{{candidate?.availableFrom | date: 'dd/MM/yyyy'}}</td> -->
                       <!-- <td>
                         <button class="btn btn-sm btn-primary" (click)="viewCandidateDetails(candidate)"> <i
@@ -248,7 +273,12 @@
           </div>
         </div>
 
-
+        <!-- Pagination -->
+        <div class="row mt-3">
+          <div class="col-12 d-flex justify-content-left">
+            <pagination-controls [idMaxSize]="100" (pageChange)="paginate($event)"></pagination-controls>
+          </div>
+        </div>
 
       </div>
 
@@ -272,35 +302,44 @@
     </div>
 
     <div class="container-fluid" *ngIf="!loginUser?.resourceSharingSupplier">
-      <div class="card">
-        <div class="card-body">
-          <div class="align-items-center">
-            <p>
-              <!-- <span>🇬🇧</span>  -->
-              Got Bench Resources? Earn 3X Their CTC Working for UK Clients!
-            </p>
+      <div class="alert alert-warning border-0 shadow-sm p-4">
+        <div class="d-flex flex-column gap-3">
+          <h5 class="fw-bold text-primary mb-2">
+            Got Bench Resources? Earn 3X Their CTC Working for UK Clients!
+          </h5>
 
-            <p>Do you have skilled professionals sitting idle or on the bench? Don't let that potential go to waste
-              —
-              upload their profiles to our portal and unlock global opportunities.</p>
-            <p>
-              We are actively hiring bench or idle resources to work on projects for top-tier UK clients. This
-              means:
-            </p>
-            <p>💷 Resources will be billed in GBP (Pounds)</p>
-            <p>💼 You can earn up to 3x their current CTC</p>
-            <p>🚀 Immediate deployment opportunities</p>
-            <p>🔁 Flexible engagement models (contract-to-hire, short-term, long-term)</p>
-            <p>Whether you're managing software engineers, QA experts, DevOps, data analysts, or project managers —
-              if
-              they're ready to be deployed, we're ready to connect them to high-paying opportunities abroad.</p>
-            <p>Why keep your bench idle when they can be earning in pounds?</p>
-            <p>📤 Upload their profiles today and turn downtime into serious revenue.</p>
-            <p>👉 Contact us now</p>
-          </div>
+          <p class="mb-0">
+            Do you have skilled professionals sitting idle or on the bench? Don't let that potential go to waste —
+            upload their profiles to our portal and unlock global opportunities.
+          </p>
+
+          <p class="mb-0">
+            We are actively hiring bench or idle resources to work on projects for top-tier UK clients. This means:
+          </p>
+
+          <ul class="list-unstyled ps-3">
+            <li class="mb-1">💷 Resources will be billed in GBP (Pounds)</li>
+            <li class="mb-1">💼 You can earn up to 3x their current CTC</li>
+            <li class="mb-1">🚀 Immediate deployment opportunities</li>
+            <li class="mb-1">🔁 Flexible engagement models (contract-to-hire, short-term, long-term)</li>
+          </ul>
+
+          <p class="mb-0">
+            Whether you're managing software engineers, QA experts, DevOps, data analysts, or project managers —
+            if they're ready to be deployed, we're ready to connect them to high-paying opportunities abroad.
+          </p>
+
+          <p class="fw-semibold text-dark mb-0">
+            Why keep your bench idle when they can be earning in pounds?
+          </p>
+
+          <p class="mb-0">📤 Upload their profiles today and turn downtime into serious revenue.</p>
+          <p class="fw-bold text-success mb-0">👉 Contact us now</p>
         </div>
       </div>
     </div>
+
+
 
   </section>
 </main>

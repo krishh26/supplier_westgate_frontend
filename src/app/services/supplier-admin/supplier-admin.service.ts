@@ -23,7 +23,10 @@ export enum SupplierAdminEndPoint {
   TAGS = '/tags',
   UPDATE_USER = '/user/update',
   DROPDOWN_LIST = '/web-user/drop-down-list',
-  SUB_EXPERTISE_LIST = '/web-user/sub-expertise/list'
+  SUB_EXPERTISE_LIST = '/web-user/sub-expertise/list',
+  TECHNOLOGIES = '/tech-language/technologies',
+  REGISTER_SUPPLIER = '/web-user/register',
+  UPDATE_SUPPLIER_PROFILE = '/user/update'
 }
 
 @Injectable({
@@ -138,5 +141,33 @@ export class SupplierAdminService {
 
   getSubExpertiseList(): Observable<any> {
     return this.httpClient.get<any>(`${this.baseUrl}${SupplierAdminEndPoint.SUB_EXPERTISE_LIST}`);
+  }
+
+  submitProfileSetup(formData: any): Observable<any> {
+    // Ensure all array fields contain name values except expertiseICanDo
+    const processedData = {
+      ...formData,
+      // Convert any remaining ID-based arrays to name-based arrays, except expertiseICanDo
+      technologyStack: Array.isArray(formData.technologyStack) ? formData.technologyStack.map((item: any) => typeof item === 'object' ? item.name : item) : formData.technologyStack,
+      products: Array.isArray(formData.products) ? formData.products.map((item: any) => typeof item === 'object' ? item.name : item) : formData.products
+    };
+
+    return this.httpClient.post(`${this.baseUrl}${SupplierAdminEndPoint.REGISTER_SUPPLIER}`, processedData);
+  }
+
+  updateProfileSetup(supplierId: string, formData: any): Observable<any> {
+    // Ensure all array fields contain name values except expertiseICanDo
+    const processedData = {
+      ...formData,
+      // Convert any remaining ID-based arrays to name-based arrays, except expertiseICanDo
+      technologyStack: Array.isArray(formData.technologyStack) ? formData.technologyStack.map((item: any) => typeof item === 'object' ? item.name : item) : formData.technologyStack,
+      products: Array.isArray(formData.products) ? formData.products.map((item: any) => typeof item === 'object' ? item.name : item) : formData.products
+    };
+
+    return this.httpClient.patch(`${this.baseUrl}${SupplierAdminEndPoint.UPDATE_SUPPLIER_PROFILE}/${supplierId}`, processedData);
+  }
+
+  getTechnologies(): Observable<any> {
+    return this.httpClient.get<any>(`${this.baseUrl}${SupplierAdminEndPoint.TECHNOLOGIES}`);
   }
 }
