@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
@@ -22,12 +23,15 @@ export class BidProjectsAllComponent {
   totalRecords: number = pagination.totalRecords;
   searchText: FormControl = new FormControl('');
   loginUser: any;
+  isMobileNavOpen = false;
+  isDropdownOpen = false;
 
   constructor(
     private projectService: ProjectService,
     private notificationService: NotificationService,
     private router: Router,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private authService: AuthService,
   ) {
     this.loginUser = this.localStorageService.getLogger();
   }
@@ -38,6 +42,17 @@ export class BidProjectsAllComponent {
       this.getProjectList();
     });
     this.getProjectList();
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.closeMobileNav();
+  }
+
+  // Close Mobile Navigation when clicking a link
+  closeMobileNav() {
+    this.isMobileNavOpen = false;
+    this.isDropdownOpen = false;
   }
 
   getProjectList() {
@@ -53,7 +68,7 @@ export class BidProjectsAllComponent {
       if (response?.status == true) {
         this.showLoader = false;
         this.projectList = response?.data?.data;
-        
+
       } else {
         this.notificationService.showError(response?.message);
         this.showLoader = false;
@@ -66,7 +81,7 @@ export class BidProjectsAllComponent {
 
   supplierDetails(projectId: any) {
     this.router.navigate(['/uk-writer/uk-writer-supplier-list'], { queryParams: { id: projectId } });
-    localStorage.setItem('UKprojectID' ,projectId )
+    localStorage.setItem('UKprojectID', projectId)
   }
 
   projectDetails(projectId: any) {

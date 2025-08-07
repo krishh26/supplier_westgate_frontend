@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
@@ -37,6 +38,7 @@ export class SupplierProjectWorkInProgressComponent {
   selectedClientTypes: any[] = [];
   selectedStatuses: any[] = [];
   selectedBidStatuses: any[] = [];
+  
 
   projectTypeList = [
     { projectType: 'Development', value: 'Development' },
@@ -80,9 +82,12 @@ export class SupplierProjectWorkInProgressComponent {
   submissionEndDate: FormControl = new FormControl('');
   dateDifference: any;
   private payload: any = {};
+  isMobileNavOpen = false;
+  isDropdownOpen = false;
 
   constructor(
     private projectService: ProjectService,
+    private authService: AuthService,
     private notificationService: NotificationService,
     private router: Router,
     private superService: SuperadminService,
@@ -119,6 +124,18 @@ export class SupplierProjectWorkInProgressComponent {
         this.searchtext()
       }
     });
+  }
+
+
+  logout(): void {
+    this.authService.logout();
+    this.closeMobileNav();
+  }
+
+  // Close Mobile Navigation when clicking a link
+  closeMobileNav() {
+    this.isMobileNavOpen = false;
+    this.isDropdownOpen = false;
   }
 
   showComments(data: any) {

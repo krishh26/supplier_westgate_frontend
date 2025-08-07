@@ -1,4 +1,37 @@
 <main id="main">
+  <!--Mobile Menu Code start-->
+  <a class="mobile-menunav-toggle" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+    aria-controls="offcanvasExample"><i class="bi bi-list"></i></a>
+
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+      <img src="assets/img/westgate.svg" width="200" alt="" class="img-fluid">
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+   <div class="offcanvas-body">
+        <nav>
+          <ul class="offcanvas-nav">
+            <li><a routerLink="/supplier-admin/supplier-dashboard-header" [class.active]="router.url.includes('/supplier-admin/supplier-dashboard-header')">Dashboard</a></li>
+            <li><a routerLink="/supplier-admin/project-list" [class.active]="router.url.includes('/supplier-admin/project-list')">Projects</a></li>
+            <li><a routerLink="/supplier-admin/case-studies-list" [class.active]="router.url.includes('/supplier-admin/case-studies-list')">Case Studies</a></li>
+            <li><a routerLink="/supplier-admin/role-wise-resources-list" [class.active]="router.url.includes('/supplier-admin/role-wise-resources-list')">Resources</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a routerLink="/supplier-admin/notification" [class.active]="router.url.includes('/supplier-admin/notification')">Notification</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a routerLink="/supplier-admin/view-user-details" (click)="closeMobileNav()">Profile Setting</a></li>
+            <li><a routerLink="/supplier-admin/manage-user" (click)="closeMobileNav()">Manage Users</a></li>
+            <li><a routerLink="/supplier-admin/change-password" (click)="closeMobileNav()">Security</a></li>
+            <li><a style="cursor: pointer;" (click)="logout() ; closeMobileNav()">Logout</a></li>
+          </ul>
+        </nav>
+      </div>
+  </div>
+  <!--Mobile Menu Code close-->
+
   <section class="pb-0" style="padding-top: 10px !important;">
     <div class="container-fluid text-center">
       <p style="text-align: center; font-weight: bold;">"adfsdf We expect our suppliers to upload their case studies,
