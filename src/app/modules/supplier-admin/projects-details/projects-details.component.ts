@@ -26,6 +26,9 @@ export class ProjectsDetailsComponent {
   summaryquestionList: any;
   uploadedDocument: any;
   pageType: number = 2;
+  selectViewImage: any;
+  projectStrips: any = [];
+  imageFields = [{ text: '', file: null }];
 
   constructor(
     private projectService: ProjectService,
@@ -47,6 +50,35 @@ export class ProjectsDetailsComponent {
   ngOnInit(): void {
     this.getProjectDetails();
     this.getSummaryQuestion()
+    this.getProjectStrips();
+  }
+
+
+
+    // Handle file input change
+    onFileChange(event: any, index: number) {
+      const file = event.target.files[0];
+      this.imageFields[index].file = file;
+    }
+
+
+  getProjectStrips() {
+    this.projectService.getprojectStrips(this.projectId).subscribe(
+      (response) => {
+        if (response?.status == true) {
+
+          this.projectStrips = response?.data?.data;
+
+        } else {
+          this.notificationService.showError(response?.message);
+
+        }
+      },
+      (error) => {
+        this.notificationService.showError(error?.error?.message || error?.message);
+        this.showLoader = false;
+      }
+    );
   }
 
   formatMilliseconds(milliseconds: number): string {
@@ -56,6 +88,31 @@ export class ProjectsDetailsComponent {
 
   backPage() {
     this.router.navigate(['/supplier-admin/project-list'], { queryParams: { type: Number(this.pageType) } });
+  }
+
+  openViewImage(image: any) {
+    console.log('Image data full structure:', JSON.stringify(image, null, 2));
+    this.selectViewImage = image;
+
+    // Check all possible locations where the URL might be stored
+    if (this.selectViewImage) {
+      // First check direct URL
+      if (!this.selectViewImage.url) {
+        // Check if URL is in file.url
+        if (this.selectViewImage.file?.url) {
+          this.selectViewImage.url = this.selectViewImage.file.url;
+          console.log('URL found in file.url:', this.selectViewImage.url);
+        }
+        // Check if URL is in key
+        else if (this.selectViewImage.key) {
+          this.selectViewImage.url = this.selectViewImage.key;
+          console.log('URL set from key:', this.selectViewImage.url);
+        }
+      } else {
+        console.log('URL found directly:', this.selectViewImage.url);
+      }
+    }
+    console.log('Final selectViewImage:', this.selectViewImage);
   }
 
   getProjectDetails() {

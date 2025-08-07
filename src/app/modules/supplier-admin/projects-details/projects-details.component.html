@@ -240,6 +240,61 @@
     </div>
   </section>
 
+  <section *ngFor="let item of projectStrips">
+    <div class="container-fluid">
+      <div class="bg-dark py-3">
+        <div class="container">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="container d-flex justify-content-between align-items-center">
+              <p class="mb-1 text-white fw-bold">{{ item?.text }}</p>
+            </div>
+            <br />
+            <div *ngIf="item.type === 'Image'">
+              <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                [attr.data-bs-target]="'#imageModal_' + item._id">
+                Add
+              </button>
+            </div>
+            <div>
+              <!-- <button class="btn btn-danger btn-sm" (click)="deleteStrips(item?._id)">
+                Delete Strip
+              </button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+
+      <div class="bg-white py-3" *ngIf="item?.type != 'Image'">
+        <p class="text-secondary mb-0 fw-bold"></p>
+        <p class="text-dark mb-0" [innerHTML]="item?.description"></p>
+      </div>
+
+      <div class="row align-items-center">
+        <div class="col-lg-12 col-xl-12 col-12">
+          <div class="d-flex flex-row flex-wrap">
+            <div class="col-lg-auto col-xl-auto col-md-auto col-sm-auto col-auto me-3"
+              *ngFor="let image of item?.images">
+              <div class="form-group">
+                <label class="display-block">{{ image?.imageText }}</label> <br />
+                <div class="upload-btn-wrapper">
+                  <div class="d-flex justify-content-between">
+                    <a (click)="openViewImage(image)" class="btn btn-small me-2" data-bs-toggle="modal"
+                      data-bs-target="#viewstripimage">
+                      <i class="bi bi-eye-fill"></i> View
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+
   <!-- <div class="container text-center mb-3">
         <h4 class="text-theme"><strong>Summary Note Question Section : For Your Action</strong></h4>
     </div> -->
@@ -370,6 +425,58 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- View Strip image Modal -->
+<div class="modal fade" id="viewstripimage" tabindex="-1" aria-labelledby="viewstripimageLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" style="display: flex; justify-content: space-between">
+        <h5 class="modal-title" id="ViewDocumentModalLabel">
+          Strip Image ({{ selectViewImage?.imageText }})
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-danger" role="alert" *ngIf="!selectViewImage?.url">
+          Could not load image. URL is missing or invalid. Please check console for details.
+        </div>
+
+        <!-- PDF Viewer -->
+        <div *ngIf="selectViewImage?.url && isPdf(selectViewImage?.url)" class="alert alert-info">
+          PDF files cannot be displayed directly. <a [href]="selectViewImage?.url" target="_blank">Open PDF in new
+            tab</a>
+        </div>
+
+        <!-- Office Documents -->
+        <iframe *ngIf="selectViewImage?.url && isWordOrExcel(selectViewImage?.url)"
+          [src]="getDocumentViewerUrl(selectViewImage?.url)" style="width: 100%; height: 600px"></iframe>
+
+        <!-- Images - try both with and without sanitization -->
+        <div *ngIf="selectViewImage?.url && isImage(selectViewImage?.url)" class="text-center">
+          <img [src]="getDocumentViewerUrl(selectViewImage?.url)" class="img-fluid mb-3" alt="Sanitized Image" />
+        </div>
+
+        <!-- Fallback for non-recognized formats -->
+        <div
+          *ngIf="selectViewImage?.url && !isPdf(selectViewImage?.url) && !isWordOrExcel(selectViewImage?.url) && !isImage(selectViewImage?.url)"
+          class="text-center">
+          <div class="alert alert-warning">
+            File format not recognized as PDF, Office document, or standard image. Attempting to display directly:
+          </div>
+          <img [src]="getDocumentViewerUrl(selectViewImage?.url)" class="img-fluid" alt="Direct Image" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a *ngIf="selectViewImage?.url" [href]="selectViewImage?.url" target="_blank" class="btn btn-primary me-2">
+          Open in New Tab
+        </a>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
       </div>
     </div>
   </div>

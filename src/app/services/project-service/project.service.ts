@@ -15,7 +15,8 @@ export enum ProjectEndPoint {
   QUESTION_DETAILS = '/summary-question/list/',
   UPDATE_MANAGER = '/project/update/project-manager/',
   UPDATE_PROJECTMANAGER_SUPPLIER_STATUS = '/project/add-status',
-  CONTACT_MAIL_SEND = '/project/mail-send'
+  CONTACT_MAIL_SEND = '/project/mail-send',
+  PROJECT_STRIP_LIST = '/project-detail-title/list',
 }
 
 @Injectable({
@@ -111,6 +112,11 @@ export class ProjectService {
       queryParams = queryParams.set('expired', params?.expired);
     }
     return this.httpClient.get<any>(url, { params: queryParams });
+  }
+
+  getprojectStrips(projectId: string): Observable<any> {
+    return this.httpClient
+      .get<any>(this.baseUrl + ProjectEndPoint.PROJECT_STRIP_LIST + '?projectId=' + projectId);
   }
 
   deleteProject(payload: any): Observable<any> {
