@@ -1611,6 +1611,10 @@ Media Query CSS
   .mb-0 {
     margin-bottom: 0px;
   }
+
+  .mobvisiblity-hidden {
+    visibility: hidden !important;
+  }
 }
 
 @media (max-width: 768px) {
@@ -2067,5 +2071,9 @@ Media Query CSS
 
   .mob-w-100 {
     width: 100%;
+  }
+
+  .mobvisiblity-hidden {
+    visibility: hidden !important;
   }
 }
