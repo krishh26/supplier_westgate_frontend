@@ -111,6 +111,22 @@ ul.ProjectdetailsListview li p.text-muted {
   color: #333333;
   font-weight: 500;
 }
+
+.badge-success {
+  background-color: #28a745;
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 100px;
+  font-weight: 500;
+}
+
+.badge-danger {
+  background-color: #dc3545;
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 100px;
+  font-weight: 500;
+}
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .sticky-footer {
@@ -133,5 +149,26 @@ ul.ProjectdetailsListview li p.text-muted {
 
   :host {
     padding-bottom: 90px;
+  }
+}
+
+/* Project Strip Card Styles */
+/* Card styles are now using default Bootstrap card styles */
+
+/* Responsive adjustments for project strips */
+@media (max-width: 768px) {
+  .project-strip-header {
+    padding: 1rem;
+
+    .d-flex {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start !important;
+    }
+  }
+
+  .image-item .image-card {
+    min-width: 100%;
+    margin-bottom: 1rem;
   }
 }

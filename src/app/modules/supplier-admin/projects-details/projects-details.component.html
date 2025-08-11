@@ -3,13 +3,13 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12 text-end">
-            <a (click)="backPage()" class="btn btn-primary">Back</a>
+          <a (click)="backPage()" class="btn btn-primary">Back</a>
         </div>
       </div>
 
       <div class="project-details-card mt-3 mb-4">
         <div class="card-body">
-           <h3 class="project-title">{{ projectDetails?.projectName }}</h3>
+          <h3 class="project-title">{{ projectDetails?.projectName }}</h3>
           <ul class="ProjectdetailsListview">
             <li>
               <div class="row">
@@ -21,14 +21,14 @@
                   <p class="text-muted mb-0">Publish Date:</p>
                   <p>{{projectDetails?.publishDate ? (projectDetails?.publishDate | date : "dd/MM/yyyy"): "-"}}</p>
                 </div>
-                 <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 col-12">
+                <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 col-12">
                   <p class="text-muted mb-0">Created Date:</p>
                   <p> {{projectDetails?.createdAt? (projectDetails?.createdAt | date : "dd/MM/yyyy"): "-"}}</p>
                 </div>
-                 <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 col-12">
+                <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 col-12">
                   <p class="text-muted mb-0">Due Date & Time:</p>
                   <p>{{ projectDetails?.dueDate | date : "dd/MM/yyyy" }} ,
-                     {{ projectDetails?.bidsubmissiontime }}</p>
+                    {{ projectDetails?.bidsubmissiontime }}</p>
                 </div>
               </div>
             </li>
@@ -42,11 +42,11 @@
                   <p class="text-muted mb-0">Notice Reference:</p>
                   <p>{{ projectDetails?.noticeReference || "-" }}</p>
                 </div>
-                 <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 col-12">
+                <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 col-12">
                   <p class="text-muted mb-0">Project Type:</p>
                   <p>{{ projectDetails?.projectType || "-" }}</p>
                 </div>
-                 <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 col-12">
+                <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 col-12">
                   <p class="text-muted mb-0">Status</p>
                   <p><span class="badge badge-status">{{ projectDetails?.status || "-" }}</span> </p>
                 </div>
@@ -68,14 +68,91 @@
         </div>
       </div>
 
-      <div class="card mb-4">
+             <div class="card mb-4">
         <div class="card-header">
-         <h6>Project Description</h6>
+          <h6>Project Description</h6>
         </div>
         <div class="card-body">
           <p>{{ projectDetails?.description }}</p>
         </div>
       </div>
+
+      <div class="card mb-4">
+        <div class="card-header">
+          <h6>Bid Manager Details</h6>
+        </div>
+        <div class="card-body">
+          <div *ngIf="projectDetails?.assignBidmanager && projectDetails?.assignBidmanager.length > 0">
+            <div *ngFor="let bidManager of projectDetails?.assignBidmanager" class="mb-3">
+              <div class="row">
+                <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 col-12">
+                  <p class="text-muted mb-0">Bid Manager Name:</p>
+                  <p class="mb-2">{{ bidManager?.name || '-' }}</p>
+                </div>
+                <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 col-12">
+                  <p class="text-muted mb-0">Email:</p>
+                  <p class="mb-2">{{ bidManager?.email || '-' }}</p>
+                </div>
+                <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 col-12">
+                  <p class="text-muted mb-0">Bid Manager Comment:</p>
+                  <p class="mb-2">{{ projectDetails?.interestedSuppliers?.[0]?.comment || 'No comment available' }}</p>
+                </div>
+                <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 col-12">
+                  <p class="text-muted mb-0">Attended:</p>
+                  <p class="mb-2">
+                    <span class="badge"
+                      [ngClass]="projectDetails?.interestedSuppliers?.[0]?.attendee ? 'badge-success' : 'badge-danger'">
+                      {{ projectDetails?.interestedSuppliers?.[0]?.attendee ? 'Yes' : 'No' }}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            *ngIf="(!projectDetails?.assignBidmanager || projectDetails?.assignBidmanager.length === 0) && (!projectDetails?.interestedSuppliers || projectDetails?.interestedSuppliers.length === 0)">
+            <p class="text-muted">No bid manager details available.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-4" *ngFor="let item of projectStrips">
+        <div class="card-header">
+          <h6>{{ item?.text }}</h6>
+        </div>
+        <div class="card-body">
+          <div *ngIf="item?.type != 'Image'">
+            <p [innerHTML]="item?.description"></p>
+          </div>
+
+          <div *ngIf="item?.images && item?.images.length > 0" class="mt-4">
+            <h6 class="mb-3">Related Images</h6>
+            <div class="row">
+              <div class="col-lg-3 col-xl-3 col-md-4 col-sm-6 col-12 mb-3" *ngFor="let image of item?.images">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h6 class="card-title mb-3">{{ image?.imageText }}</h6>
+                    <a (click)="openViewImage(image)" class="btn btn-primary btn-sm w-100" data-bs-toggle="modal"
+                      data-bs-target="#viewstripimage">
+                      <i class="bi bi-eye-fill me-1"></i>View
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div *ngIf="item.type === 'Image'" class="text-end">
+            <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+              [attr.data-bs-target]="'#imageModal_' + item._id">
+              <i class="bi bi-plus-circle me-1"></i>Add
+            </button>
+          </div> -->
+        </div>
+      </div>
+
+
       <!-- <div class="card mb-4">
         <div class="card-header">
          <h6>Documents</h6>
@@ -127,7 +204,8 @@
 
             </ul>
             <ng-container *ngIf="projectDetails?.clientDocument?.length == 0">
-              <div style="display: flex; justify-content: center; align-items: center; min-height: 100px; text-align: center;">
+              <div
+                style="display: flex; justify-content: center; align-items: center; min-height: 100px; text-align: center;">
                 <p style="margin: 0;">No Record Found.</p>
               </div>
             </ng-container>
@@ -169,7 +247,8 @@
               </ng-container>
             </ul>
             <ng-container *ngIf="projectDetails?.westGetDocument?.length == 0">
-              <div style="display: flex; justify-content: center; align-items: center; min-height: 100px; text-align: center;">
+              <div
+                style="display: flex; justify-content: center; align-items: center; min-height: 100px; text-align: center;">
                 <p style="margin: 0;">No Record Found.</p>
               </div>
             </ng-container>
@@ -237,10 +316,10 @@
                 </div> -->
       </div>
 
-    </div>
-  </section>
+         </div>
+   </section>
 
-  <section *ngFor="let item of projectStrips">
+  <!-- <section *ngFor="let item of projectStrips">
     <div class="container-fluid">
       <div class="bg-dark py-3">
         <div class="container">
@@ -256,9 +335,6 @@
               </button>
             </div>
             <div>
-              <!-- <button class="btn btn-danger btn-sm" (click)="deleteStrips(item?._id)">
-                Delete Strip
-              </button> -->
             </div>
           </div>
         </div>
@@ -290,57 +366,9 @@
           </div>
         </div>
       </div>
-
-
     </div>
-  </section>
+  </section> -->
 
-  <!-- <div class="container text-center mb-3">
-        <h4 class="text-theme"><strong>Summary Note Question Section : For Your Action</strong></h4>
-    </div> -->
-  <!-- <section class="bg-dark">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h5 class="text-white mb-4"><strong>Summary Note Questions</strong></h5>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 mb-4">
-                    <table class="table table-dark table-borderless" style="background-color: #252525;">
-                        <thead>
-                            <tr>
-                                <th>Question Name</th>
-                                <th>Question Description</th>
-                                <th>Weightage</th>
-                                <th>Status</th>
-                                <th></th>
-                            </tr>
-
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of summaryquestionList">
-                                <td width="250">{{item?.questionName}}</td>
-                                <td width="350">{{item?.question}}</td>
-                                <td>{{item?.weightage}}%</td>
-                                <td>{{item?.verify}}</td>
-                                <td><a (click)="questionDetails(item)" class="btn-sm btn-primary"><i
-                                            class="bi bi-eye-fill"></i> View Question</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="row">
-                        <p *ngIf="summaryquestionList?.length == 0" style="text-align: center;"> No Record Found !</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
-  <!-- <section>
-        <div class="container text-center">
-            <button class="btn btn-primary w-25" (click)="applyProject()">Apply</button>
-        </div>
-    </section> -->
 </main>
 
 <!-- Sticky Footer -->
@@ -352,15 +380,11 @@
         <small class="text-muted">Due Date: {{ projectDetails?.dueDate | date : "dd/MM/yyyy" }}</small>
       </div>
       <div class="col-md-4 text-end">
-                                <button
-          class="btn btn-sm px-3 py-2 register-btn"
-          [class.btn-success]="!projectDetails?.register_interest"
-          [class.btn-secondary]="projectDetails?.register_interest"
-          (click)="registerInterest()"
+        <button class="btn btn-sm px-3 py-2 register-btn" [class.btn-success]="!projectDetails?.register_interest"
+          [class.btn-secondary]="projectDetails?.register_interest" (click)="registerInterest()"
           [disabled]="projectDetails?.status === 'Closed' || projectDetails?.register_interest">
-          <i class="bi me-2"
-             [class.bi-bookmark-heart-fill]="!projectDetails?.register_interest"
-             [class.bi-check-circle-fill]="projectDetails?.register_interest"></i>
+          <i class="bi me-2" [class.bi-bookmark-heart-fill]="!projectDetails?.register_interest"
+            [class.bi-check-circle-fill]="projectDetails?.register_interest"></i>
           <strong>{{ projectDetails?.register_interest ? 'Interest Registered' : 'Register Interest' }}</strong>
         </button>
       </div>
