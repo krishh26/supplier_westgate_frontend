@@ -77,46 +77,6 @@
         </div>
       </div>
 
-      <div class="card mb-4">
-        <div class="card-header">
-          <h6>Bid Manager Details</h6>
-        </div>
-        <div class="card-body">
-          <div *ngIf="projectDetails?.assignBidmanager && projectDetails?.assignBidmanager.length > 0">
-            <div *ngFor="let bidManager of projectDetails?.assignBidmanager" class="mb-3">
-              <div class="row">
-                <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 col-12">
-                  <p class="text-muted mb-0">Bid Manager Name:</p>
-                  <p class="mb-2">{{ bidManager?.name || '-' }}</p>
-                </div>
-                <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 col-12">
-                  <p class="text-muted mb-0">Email:</p>
-                  <p class="mb-2">{{ bidManager?.email || '-' }}</p>
-                </div>
-                <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 col-12">
-                  <p class="text-muted mb-0">Bid Manager Comment:</p>
-                  <p class="mb-2">{{ projectDetails?.interestedSuppliers?.[0]?.comment || 'No comment available' }}</p>
-                </div>
-                <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 col-12">
-                  <p class="text-muted mb-0">Attended:</p>
-                  <p class="mb-2">
-                    <span class="badge"
-                      [ngClass]="projectDetails?.interestedSuppliers?.[0]?.attendee ? 'badge-success' : 'badge-danger'">
-                      {{ projectDetails?.interestedSuppliers?.[0]?.attendee ? 'Yes' : 'No' }}
-                    </span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div
-            *ngIf="(!projectDetails?.assignBidmanager || projectDetails?.assignBidmanager.length === 0) && (!projectDetails?.interestedSuppliers || projectDetails?.interestedSuppliers.length === 0)">
-            <p class="text-muted">No bid manager details available.</p>
-          </div>
-        </div>
-      </div>
-
       <div class="card mb-4" *ngFor="let item of projectStrips">
         <div class="card-header">
           <h6>{{ item?.text }}</h6>
@@ -252,6 +212,46 @@
                 <p style="margin: 0;">No Record Found.</p>
               </div>
             </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header">
+          <h6>Bid Manager Details</h6>
+        </div>
+        <div class="card-body">
+          <div *ngIf="projectDetails?.assignBidmanager && projectDetails?.assignBidmanager.length > 0">
+            <div *ngFor="let bidManager of projectDetails?.assignBidmanager" class="mb-3">
+              <div class="row">
+                <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 col-12">
+                  <p class="text-muted mb-0">Bid Manager Name:</p>
+                  <p class="mb-2">{{ bidManager?.name || '-' }}</p>
+                </div>
+                <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 col-12">
+                  <p class="text-muted mb-0">Email:</p>
+                  <p class="mb-2">{{ bidManager?.email || '-' }}</p>
+                </div>
+                <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 col-12">
+                  <p class="text-muted mb-0">Bid Manager Comment:</p>
+                  <p class="mb-2">{{ projectDetails?.interestedSuppliers?.[0]?.comment || 'No comment available' }}</p>
+                </div>
+                <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 col-12">
+                  <p class="text-muted mb-0">Attended:</p>
+                  <p class="mb-2">
+                    <span class="badge"
+                      [ngClass]="projectDetails?.interestedSuppliers?.[0]?.attendee ? 'badge-success' : 'badge-danger'">
+                      {{ projectDetails?.interestedSuppliers?.[0]?.attendee ? 'Yes' : 'No' }}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            *ngIf="(!projectDetails?.assignBidmanager || projectDetails?.assignBidmanager.length === 0) && (!projectDetails?.interestedSuppliers || projectDetails?.interestedSuppliers.length === 0)">
+            <p class="text-muted">No bid manager details available.</p>
           </div>
         </div>
       </div>
