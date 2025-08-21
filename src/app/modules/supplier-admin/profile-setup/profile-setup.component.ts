@@ -1347,8 +1347,89 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     const input = event.target;
     const value = input.value.trim();
     if (value && !tagArray.includes(value)) {
-      tagArray.push(value);
-      this.profileForm.get(formControlName)?.setValue([...tagArray]);
+      // Get the type based on formControlName
+      let type = '';
+      switch (formControlName) {
+        case 'cloudPlatformsOther':
+          type = 'Cloud Platforms';
+          break;
+        case 'devOpsAutomationOther':
+          type = 'DevOps & Automation';
+          break;
+        case 'containerizationOrchestrationOther':
+          type = 'Containerization & Orchestration';
+          break;
+        case 'networkingInfrastructureOther':
+          type = 'Networking & Infrastructure';
+          break;
+        case 'securityIAMOther':
+          type = 'Security & IAM';
+          break;
+        case 'monitoringObservabilityOther':
+          type = 'Monitoring & Observability';
+          break;
+        case 'integrationAPIManagementOther':
+          type = 'Integration & API Management';
+          break;
+        case 'eventStreamingMessagingOther':
+          type = 'Event Streaming & Messaging';
+          break;
+        case 'databasePlatformsOther':
+          type = 'Database Platforms';
+          break;
+        case 'dataAnalyticsBIOther':
+          type = 'Data Analytics & BI';
+          break;
+        case 'aiMLPlatformsOther':
+          type = 'AI ML Platforms';
+          break;
+        case 'erpEnterpriseSystemsOther':
+          type = 'ERP Enterprise Systems';
+          break;
+        case 'crmCustomerPlatformsOther':
+          type = 'CRM Customer Platforms';
+          break;
+        case 'itsmITOperationsOther':
+          type = 'ITSM IT Operations';
+          break;
+        case 'businessAppsProductivityOther':
+          type = 'Business Apps Productivity';
+          break;
+        case 'eCommerceCMSOther':
+          type = 'ECommerce CMS';
+          break;
+        case 'learningHRSystemsOther':
+          type = 'Learning HR Systems';
+          break;
+        case 'lowCodeNoCodePlatformsOther':
+          type = 'Low Code No Code Platforms';
+          break;
+        case 'testingQAOther':
+          type = 'Testing QA';
+          break;
+        case 'web3DecentralizedTechOther':
+          type = 'Web3 Decentralized Tech';
+          break;
+      }
+
+      // Call the API to add the custom value
+      if (type) {
+        this.supplierAdminService.addCustomMasterlist(value, type).subscribe({
+          next: (response) => {
+            if (response.status) {
+              tagArray.push(value);
+              this.profileForm.get(formControlName)?.setValue([...tagArray]);
+            }
+          },
+          error: (error) => {
+            console.error('Error adding custom value:', error);
+          }
+        });
+      } else {
+        // For other form controls that don't need API call
+        tagArray.push(value);
+        this.profileForm.get(formControlName)?.setValue([...tagArray]);
+      }
     }
     input.value = '';
   }

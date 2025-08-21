@@ -26,7 +26,8 @@ export enum SupplierAdminEndPoint {
   SUB_EXPERTISE_LIST = '/web-user/sub-expertise/list',
   TECHNOLOGIES = '/tech-language/technologies',
   REGISTER_SUPPLIER = '/web-user/register',
-  UPDATE_SUPPLIER_PROFILE = '/user/update'
+  UPDATE_SUPPLIER_PROFILE = '/user/update',
+  ADD_CUSTOM_MASTERLIST = '/web-user/masterlist/custom'
 }
 
 @Injectable({
@@ -169,5 +170,12 @@ export class SupplierAdminService {
 
   getTechnologies(): Observable<any> {
     return this.httpClient.get<any>(`${this.baseUrl}${SupplierAdminEndPoint.TECHNOLOGIES}`);
+  }
+
+  addCustomMasterlist(name: string, type: string): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrl}${SupplierAdminEndPoint.ADD_CUSTOM_MASTERLIST}`, {
+      name,
+      type
+    });
   }
 }
