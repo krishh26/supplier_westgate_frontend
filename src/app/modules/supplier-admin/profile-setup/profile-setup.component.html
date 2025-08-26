@@ -3,12 +3,8 @@
     <div class="row mb-3 align-items-center">
       <div class="col-12">
         <ul class="wizard">
-          <li *ngFor="let step of steps"
-              [class.active]="step.active"
-              [class.completed]="step.completed"
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              [title]="step.title">
+          <li *ngFor="let step of steps" [class.active]="step.active" [class.completed]="step.completed"
+            data-bs-toggle="tooltip" data-bs-placement="top" [title]="step.title">
           </li>
         </ul>
       </div>
@@ -177,9 +173,10 @@
                       <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="top"
                         title="Select business type"></i>
                     </label>
-                    <ng-select [items]="businessTypesList" [multiple]="false" [closeOnSelect]="false" [searchable]="true"
-                      [clearable]="true" bindLabel="name" bindValue="value" placeholder="Select business type"
-                      formControlName="typeOfCompany" (change)="onBusinessTypeChange($event)">
+                    <ng-select [items]="businessTypesList" [multiple]="false" [closeOnSelect]="false"
+                      [searchable]="true" [clearable]="true" bindLabel="name" bindValue="value"
+                      placeholder="Select business type" formControlName="typeOfCompany"
+                      (change)="onBusinessTypeChange($event)">
                     </ng-select>
                   </div>
                 </div>
@@ -339,9 +336,8 @@
                         <i class="bi bi-x" (click)="removeTechnologyStackOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addTechnologyStackOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addTechnologyStackOtherTag($event)">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('technologyStackOther')">
                     Please specify other technologies
@@ -384,9 +380,8 @@
                         <i class="bi bi-x" (click)="removeCloudPlatformsOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addCloudPlatformsOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addCloudPlatformsOtherTag($event)">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('cloudPlatformsOther')">
                     Please specify other cloud platforms
@@ -419,9 +414,8 @@
                         <i class="bi bi-x" (click)="removeDevOpsAutomationOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addDevOpsAutomationOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addDevOpsAutomationOtherTag($event)">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('devOpsAutomationOther')">
                     Please specify other DevOps tools
@@ -455,9 +449,8 @@
                         <i class="bi bi-x" (click)="removeContainerizationOrchestrationOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addContainerizationOrchestrationOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addContainerizationOrchestrationOtherTag($event)">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('containerizationOrchestrationOther')">
                     Please specify other containerization tools
@@ -500,9 +493,8 @@
                         <i class="bi bi-x" (click)="removeNetworkingInfrastructureOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addNetworkingInfrastructureOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addNetworkingInfrastructureOtherTag($event)">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('networkingInfrastructureOther')">
                     Please specify other networking tools
@@ -535,9 +527,8 @@
                         <i class="bi bi-x" (click)="removeSecurityIAMOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addSecurityIAMOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addSecurityIAMOtherTag($event)">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('securityIAMOther')">
                     Please specify other security tools
@@ -574,9 +565,8 @@
                         <i class="bi bi-x" (click)="removeMonitoringObservabilityOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addMonitoringObservabilityOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addMonitoringObservabilityOtherTag($event)">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('monitoringObservabilityOther')">
                     Please specify other monitoring tools
@@ -613,9 +603,8 @@
                         <i class="bi bi-x" (click)="removeIntegrationAPIManagementOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addIntegrationAPIManagementOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addIntegrationAPIManagementOtherTag($event)">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('integrationAPIManagementOther')">
                     Please specify other API management tools
@@ -652,9 +641,8 @@
                         <i class="bi bi-x" (click)="removeEventStreamingMessagingOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addEventStreamingMessagingOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addEventStreamingMessagingOtherTag($event)">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('eventStreamingMessagingOther')">
                     Please specify other event streaming tools
@@ -694,9 +682,8 @@
                         <i class="bi bi-x" (click)="removeDatabasePlatformsOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addDatabasePlatformsOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addDatabasePlatformsOtherTag($event)">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('databasePlatformsOther')">
                     Please specify other database platforms
@@ -726,9 +713,8 @@
                         <i class="bi bi-x" (click)="removeDataAnalyticsBIOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addDataAnalyticsBIOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addDataAnalyticsBIOtherTag($event)">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('dataAnalyticsBIOther')">
                     Please specify other data analytics tools
@@ -758,9 +744,8 @@
                         <i class="bi bi-x" (click)="removeAiMLPlatformsOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addAiMLPlatformsOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addAiMLPlatformsOtherTag($event)">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('aiMLPlatformsOther')">
                     Please specify other AI/ML platforms
@@ -800,9 +785,8 @@
                         <i class="bi bi-x" (click)="removeErpEnterpriseSystemsOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addErpEnterpriseSystemsOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addErpEnterpriseSystemsOtherTag($event)">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('erpEnterpriseSystemsOther')">
                     Please specify other ERP systems
@@ -832,9 +816,8 @@
                         <i class="bi bi-x" (click)="removeCrmCustomerPlatformsOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addCrmCustomerPlatformsOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addCrmCustomerPlatformsOtherTag($event)">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('crmCustomerPlatformsOther')">
                     Please specify other CRM platforms
@@ -864,9 +847,8 @@
                         <i class="bi bi-x" (click)="removeItsmITOperationsOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addItsmITOperationsOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addItsmITOperationsOtherTag($event)">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('itsmITOperationsOther')">
                     Please specify other ITSM tools
@@ -898,9 +880,8 @@
                         <i class="bi bi-x" (click)="removeBusinessAppsProductivityOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addBusinessAppsProductivityOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addBusinessAppsProductivityOtherTag($event)">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('businessAppsProductivityOther')">
                     Please specify other business apps
@@ -940,9 +921,8 @@
                         <i class="bi bi-x" (click)="removeECommerceCMSOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addECommerceCMSOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addECommerceCMSOtherTag($event)" (keydown.enter)="$event.preventDefault()">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('eCommerceCMSOther')">
                     Please specify other E-Commerce & CMS platforms
@@ -973,9 +953,8 @@
                         <i class="bi bi-x" (click)="removeLearningHRSystemsOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addLearningHRSystemsOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addLearningHRSystemsOtherTag($event)" (keydown.enter)="$event.preventDefault()">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('learningHRSystemsOther')">
                     Please specify other Learning & HR systems
@@ -1006,9 +985,8 @@
                         <i class="bi bi-x" (click)="removeLowCodeNoCodePlatformsOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addLowCodeNoCodePlatformsOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addLowCodeNoCodePlatformsOtherTag($event)" (keydown.enter)="$event.preventDefault()">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('lowCodeNoCodePlatformsOther')">
                     Please specify other Low-Code / No-Code platforms
@@ -1039,9 +1017,8 @@
                         <i class="bi bi-x" (click)="removeTestingQAOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addTestingQAOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addTestingQAOtherTag($event)" (keydown.enter)="$event.preventDefault()">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('testingQAOther')">
                     Please specify other Testing & QA tools
@@ -1073,9 +1050,8 @@
                         <i class="bi bi-x" (click)="removeWeb3DecentralizedTechOtherTag(i)"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Type and press Enter"
-                           (keyup.enter)="addWeb3DecentralizedTechOtherTag($event)">
+                    <input type="text" class="form-control" placeholder="Type and press Enter"
+                      (keyup.enter)="addWeb3DecentralizedTechOtherTag($event)" (keydown.enter)="$event.preventDefault()">
                   </div>
                   <div class="invalid-feedback" *ngIf="isFieldInvalid('web3DecentralizedTechOther')">
                     Please specify other Web3 & Decentralized tech
@@ -1114,9 +1090,11 @@
     <!-- Step 8: Success Section -->
     <div class="custom-card p-5 text-center" *ngIf="currentStep === 8">
       <img src="assets/img/success-image.png" width="230" class="mb-3" />
-      <h3 class="text-success"><strong>{{ isEditMode ? 'Profile Updated Successfully' : 'Registration Successfully' }}</strong></h3>
+      <h3 class="text-success"><strong>{{ isEditMode ? 'Profile Updated Successfully' : 'Registration Successfully'
+          }}</strong></h3>
       <p class="mb-0" *ngIf="!isEditMode">You will get the registration details with registration id</p>
-      <p class="text-muted">{{ isEditMode ? 'Your profile has been updated successfully.' : 'Thank you for booking a registration.' }}</p>
+      <p class="text-muted">{{ isEditMode ? 'Your profile has been updated successfully.' : 'Thank you for booking a
+        registration.' }}</p>
       <a routerLink="/supplier-admin/view-user-details" class="btn btn-primary">BACK</a>
     </div>
   </div>

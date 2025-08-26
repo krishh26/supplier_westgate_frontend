@@ -758,8 +758,8 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
         aimlResponse
       ] = await Promise.all([
         this.loadDropdownData('Database Platforms'),
-        this.loadDropdownData('Data Analytics & BI'),
-        this.loadDropdownData('AI ML Platforms')
+        this.loadDropdownData('Data, Analytics & BI'),
+        this.loadDropdownData('AI/ML Platforms')
       ]);
 
       this.databasePlatformsList = [...databaseResponse, this.OTHER_OPTION];
@@ -783,10 +783,10 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
         itsmResponse,
         businessAppsResponse
       ] = await Promise.all([
-        this.loadDropdownData('ERP Enterprise Systems'),
-        this.loadDropdownData('CRM Customer Platforms'),
-        this.loadDropdownData('ITSM IT Operations'),
-        this.loadDropdownData('Business Apps Productivity')
+        this.loadDropdownData('ERP/Enterprise Systems'),
+        this.loadDropdownData('CRM & Customer Platforms'),
+        this.loadDropdownData('ITSM/IT Operations'),
+        this.loadDropdownData('Business Apps & Productivity')
       ]);
 
       this.erpSystemsList = [...erpResponse, this.OTHER_OPTION];
@@ -812,11 +812,11 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
         testingResponse,
         web3Response
       ] = await Promise.all([
-        this.loadDropdownData('ECommerce CMS'),
-        this.loadDropdownData('Learning HR Systems'),
-        this.loadDropdownData('Low Code No Code Platforms'),
-        this.loadDropdownData('Testing QA'),
-        this.loadDropdownData('Web3 Decentralized Tech')
+        this.loadDropdownData('E-Commerce & CMS'),
+        this.loadDropdownData('Learning & HR Systems'),
+        this.loadDropdownData('Low-Code/No-Code Platforms'),
+        this.loadDropdownData('Testing & QA'),
+        this.loadDropdownData('Web3 & Decentralized Tech')
       ]);
 
       this.eCommerceCmsList = [...ecommerceResponse, this.OTHER_OPTION];
@@ -1041,41 +1041,81 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
 
       // Call the appropriate API based on edit mode
       if (this.isEditMode && this.supplierId) {
-        // Update existing profile
-        this.supplierAdminService.updateProfileSetup(this.supplierId, registrationData).subscribe(
-          (response: any) => {
-            this.loading = false;
-            this.successMessage = 'Profile updated successfully!';
-            // Clear form data from localStorage
-            this.localStorageService.removeItem('profileSetupFormData');
-            this.localStorageService.removeItem('profileSetupCurrentStep');
-            // Navigate to success step
-            this.moveToSuccessStep();
-          },
-          (error: Error) => {
-            this.loading = false;
-            this.errorMessage = 'An error occurred while updating. Please try again.';
-            console.error('Error during update:', error);
-          }
-        );
+        // First send all custom values to masterlist API, then update profile
+        this.sendCustomValuesToMasterlist().then(() => {
+          // After successful masterlist API calls, update the profile
+          this.supplierAdminService.updateProfileSetup(this.supplierId, registrationData).subscribe(
+            (response: any) => {
+              this.loading = false;
+              this.successMessage = 'Profile updated successfully!';
+              // Clear form data from localStorage
+              this.localStorageService.removeItem('profileSetupFormData');
+              this.localStorageService.removeItem('profileSetupCurrentStep');
+              // Navigate to success step
+              this.moveToSuccessStep();
+            },
+            (error: Error) => {
+              this.loading = false;
+              this.errorMessage = 'An error occurred while updating. Please try again.';
+              console.error('Error during update:', error);
+            }
+          );
+        }).catch((error: any) => {
+          console.error('Error sending custom values to masterlist:', error);
+          // Even if masterlist API fails, still try to update profile
+          this.supplierAdminService.updateProfileSetup(this.supplierId, registrationData).subscribe(
+            (response: any) => {
+              this.loading = false;
+              this.successMessage = 'Profile updated successfully! (Some custom values may not have been saved)';
+              this.localStorageService.removeItem('profileSetupFormData');
+              this.localStorageService.removeItem('profileSetupCurrentStep');
+              this.moveToSuccessStep();
+            },
+            (error: Error) => {
+              this.loading = false;
+              this.errorMessage = 'An error occurred while updating. Please try again.';
+              console.error('Error during update:', error);
+            }
+          );
+        });
       } else {
-        // Register new profile
-        this.supplierAdminService.submitProfileSetup(registrationData).subscribe(
-          (response: any) => {
-            this.loading = false;
-            this.successMessage = 'Registration completed successfully!';
-            // Clear form data from localStorage
-            this.localStorageService.removeItem('profileSetupFormData');
-            this.localStorageService.removeItem('profileSetupCurrentStep');
-            // Navigate to success step
-            this.moveToSuccessStep();
-          },
-          (error: Error) => {
-            this.loading = false;
-            this.errorMessage = 'An error occurred while registering. Please try again.';
-            console.error('Error during registration:', error);
-          }
-        );
+        // First send all custom values to masterlist API, then submit profile
+        this.sendCustomValuesToMasterlist().then(() => {
+          // After successful masterlist API calls, submit the profile
+          this.supplierAdminService.submitProfileSetup(registrationData).subscribe(
+            (response: any) => {
+              this.loading = false;
+              this.successMessage = 'Registration completed successfully!';
+              // Clear form data from localStorage
+              this.localStorageService.removeItem('profileSetupFormData');
+              this.localStorageService.removeItem('profileSetupCurrentStep');
+              // Navigate to success step
+              this.moveToSuccessStep();
+            },
+            (error: Error) => {
+              this.loading = false;
+              this.errorMessage = 'An error occurred while registering. Please try again.';
+              console.error('Error during registration:', error);
+            }
+          );
+        }).catch((error: any) => {
+          console.error('Error sending custom values to masterlist:', error);
+          // Even if masterlist API fails, still try to submit profile
+          this.supplierAdminService.submitProfileSetup(registrationData).subscribe(
+            (response: any) => {
+              this.loading = false;
+              this.successMessage = 'Registration completed successfully! (Some custom values may not have been saved)';
+              this.localStorageService.removeItem('profileSetupFormData');
+              this.localStorageService.removeItem('profileSetupCurrentStep');
+              this.moveToSuccessStep();
+            },
+            (error: Error) => {
+              this.loading = false;
+              this.errorMessage = 'An error occurred while registering. Please try again.';
+              console.error('Error during registration:', error);
+            }
+          );
+        });
       }
     } else {
       console.log('Form validation failed');
@@ -1347,91 +1387,159 @@ export class ProfileSetupComponent implements OnInit, AfterViewInit {
     const input = event.target;
     const value = input.value.trim();
     if (value && !tagArray.includes(value)) {
-      // Get the type based on formControlName
-      let type = '';
-      switch (formControlName) {
-        case 'cloudPlatformsOther':
-          type = 'Cloud Platforms';
-          break;
-        case 'devOpsAutomationOther':
-          type = 'DevOps & Automation';
-          break;
-        case 'containerizationOrchestrationOther':
-          type = 'Containerization & Orchestration';
-          break;
-        case 'networkingInfrastructureOther':
-          type = 'Networking & Infrastructure';
-          break;
-        case 'securityIAMOther':
-          type = 'Security & IAM';
-          break;
-        case 'monitoringObservabilityOther':
-          type = 'Monitoring & Observability';
-          break;
-        case 'integrationAPIManagementOther':
-          type = 'Integration & API Management';
-          break;
-        case 'eventStreamingMessagingOther':
-          type = 'Event Streaming & Messaging';
-          break;
-        case 'databasePlatformsOther':
-          type = 'Database Platforms';
-          break;
-        case 'dataAnalyticsBIOther':
-          type = 'Data Analytics & BI';
-          break;
-        case 'aiMLPlatformsOther':
-          type = 'AI ML Platforms';
-          break;
-        case 'erpEnterpriseSystemsOther':
-          type = 'ERP Enterprise Systems';
-          break;
-        case 'crmCustomerPlatformsOther':
-          type = 'CRM Customer Platforms';
-          break;
-        case 'itsmITOperationsOther':
-          type = 'ITSM IT Operations';
-          break;
-        case 'businessAppsProductivityOther':
-          type = 'Business Apps Productivity';
-          break;
-        case 'eCommerceCMSOther':
-          type = 'ECommerce CMS';
-          break;
-        case 'learningHRSystemsOther':
-          type = 'Learning HR Systems';
-          break;
-        case 'lowCodeNoCodePlatformsOther':
-          type = 'Low Code No Code Platforms';
-          break;
-        case 'testingQAOther':
-          type = 'Testing QA';
-          break;
-        case 'web3DecentralizedTechOther':
-          type = 'Web3 Decentralized Tech';
-          break;
-      }
-
-      // Call the API to add the custom value
-      if (type) {
-        this.supplierAdminService.addCustomMasterlist(value, type).subscribe({
-          next: (response) => {
-            if (response.status) {
-              tagArray.push(value);
-              this.profileForm.get(formControlName)?.setValue([...tagArray]);
-            }
-          },
-          error: (error) => {
-            console.error('Error adding custom value:', error);
-          }
-        });
-      } else {
-        // For other form controls that don't need API call
-        tagArray.push(value);
-        this.profileForm.get(formControlName)?.setValue([...tagArray]);
-      }
+      // Just add the value to the local array and form control
+      // Don't call API immediately - save for later
+      tagArray.push(value);
+      this.profileForm.get(formControlName)?.setValue([...tagArray]);
     }
     input.value = '';
+  }
+
+  // Method to send all custom values to masterlist API
+  private async sendCustomValuesToMasterlist(): Promise<void> {
+    const customValues: { value: string; type: string }[] = [];
+
+    // Collect all custom values from different sections
+    if (this.technologyStackOtherTags.length > 0) {
+      this.technologyStackOtherTags.forEach(value => {
+        customValues.push({ value, type: 'Technology Stack' });
+      });
+    }
+
+    if (this.cloudPlatformsOtherTags.length > 0) {
+      this.cloudPlatformsOtherTags.forEach(value => {
+        customValues.push({ value, type: 'Cloud Platforms' });
+      });
+    }
+
+    if (this.devOpsAutomationOtherTags.length > 0) {
+      this.devOpsAutomationOtherTags.forEach(value => {
+        customValues.push({ value, type: 'DevOps & Automation' });
+      });
+    }
+
+    if (this.containerizationOrchestrationOtherTags.length > 0) {
+      this.containerizationOrchestrationOtherTags.forEach(value => {
+        customValues.push({ value, type: 'Containerization & Orchestration' });
+      });
+    }
+
+    if (this.networkingInfrastructureOtherTags.length > 0) {
+      this.networkingInfrastructureOtherTags.forEach(value => {
+        customValues.push({ value, type: 'Networking & Infrastructure' });
+      });
+    }
+
+    if (this.securityIAMOtherTags.length > 0) {
+      this.securityIAMOtherTags.forEach(value => {
+        customValues.push({ value, type: 'Security & IAM' });
+      });
+    }
+
+    if (this.monitoringObservabilityOtherTags.length > 0) {
+      this.monitoringObservabilityOtherTags.forEach(value => {
+        customValues.push({ value, type: 'Monitoring & Observability' });
+      });
+    }
+
+    if (this.integrationAPIManagementOtherTags.length > 0) {
+      this.integrationAPIManagementOtherTags.forEach(value => {
+        customValues.push({ value, type: 'Integration & API Management' });
+      });
+    }
+
+    if (this.eventStreamingMessagingOtherTags.length > 0) {
+      this.eventStreamingMessagingOtherTags.forEach(value => {
+        customValues.push({ value, type: 'Event Streaming & Messaging' });
+      });
+    }
+
+    if (this.databasePlatformsOtherTags.length > 0) {
+      this.databasePlatformsOtherTags.forEach(value => {
+        customValues.push({ value, type: 'Database Platforms' });
+      });
+    }
+
+    if (this.dataAnalyticsBIOtherTags.length > 0) {
+      this.dataAnalyticsBIOtherTags.forEach(value => {
+        customValues.push({ value, type: 'Data, Analytics & BI' });
+      });
+    }
+
+    if (this.aiMLPlatformsOtherTags.length > 0) {
+      this.aiMLPlatformsOtherTags.forEach(value => {
+        customValues.push({ value, type: 'AI/ML Platforms' });
+      });
+    }
+
+    if (this.erpEnterpriseSystemsOtherTags.length > 0) {
+      this.erpEnterpriseSystemsOtherTags.forEach(value => {
+        customValues.push({ value, type: 'ERP/Enterprise Systems' });
+      });
+    }
+
+    if (this.crmCustomerPlatformsOtherTags.length > 0) {
+      this.crmCustomerPlatformsOtherTags.forEach(value => {
+        customValues.push({ value, type: 'CRM & Customer Platforms' });
+      });
+    }
+
+    if (this.itsmITOperationsOtherTags.length > 0) {
+      this.itsmITOperationsOtherTags.forEach(value => {
+        customValues.push({ value, type: 'ITSM/IT Operations' });
+      });
+    }
+
+    if (this.businessAppsProductivityOtherTags.length > 0) {
+      this.businessAppsProductivityOtherTags.forEach(value => {
+        customValues.push({ value, type: 'Business Apps & Productivity' });
+      });
+    }
+
+    if (this.eCommerceCMSOtherTags.length > 0) {
+      this.eCommerceCMSOtherTags.forEach(value => {
+        customValues.push({ value, type: 'E-Commerce & CMS' });
+      });
+    }
+
+    if (this.learningHRSystemsOtherTags.length > 0) {
+      this.learningHRSystemsOtherTags.forEach(value => {
+        customValues.push({ value, type: 'Learning & HR Systems' });
+      });
+    }
+
+    if (this.lowCodeNoCodePlatformsOtherTags.length > 0) {
+      this.lowCodeNoCodePlatformsOtherTags.forEach(value => {
+        customValues.push({ value, type: 'Low-Code/No-Code Platforms' });
+      });
+    }
+
+    if (this.testingQAOtherTags.length > 0) {
+      this.testingQAOtherTags.forEach(value => {
+        customValues.push({ value, type: 'Testing & QA' });
+      });
+    }
+
+    if (this.web3DecentralizedTechOtherTags.length > 0) {
+      this.web3DecentralizedTechOtherTags.forEach(value => {
+        customValues.push({ value, type: 'Web3 & Decentralized Tech' });
+      });
+    }
+
+    // Send all custom values to masterlist API
+    if (customValues.length > 0) {
+      try {
+        const promises = customValues.map(customValue =>
+          this.supplierAdminService.addCustomMasterlist(customValue.value, customValue.type).toPromise()
+        );
+
+        await Promise.all(promises);
+        console.log('All custom values sent to masterlist API successfully');
+      } catch (error) {
+        console.error('Error sending custom values to masterlist API:', error);
+        throw error;
+      }
+    }
   }
   private _removeTag(i: number, tagArray: string[], formControlName: string) {
     tagArray.splice(i, 1);
