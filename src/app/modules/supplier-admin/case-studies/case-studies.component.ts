@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { SuperadminService } from 'src/app/services/super-admin/superadmin.service';
 import { SupplierAdminService } from 'src/app/services/supplier-admin/supplier-admin.service';
@@ -35,7 +36,9 @@ export class CaseStudiesComponent {
     private notificationService: NotificationService,
     public router: Router,
     private sanitizer: DomSanitizer,
-    private superService: SuperadminService,private spinner: NgxSpinnerService
+    private superService: SuperadminService,
+    private spinner: NgxSpinnerService,
+    private localStorageService: LocalStorageService
   ) { }
 
   casestudyForm = {
@@ -48,6 +51,10 @@ export class CaseStudiesComponent {
   caseForm = new FormGroup(this.casestudyForm, []);
 
   ngOnInit(): void {
+    // Get user ID from localStorage
+    const loginUser = this.localStorageService.getLogger();
+    this.currentUserId = loginUser?._id || '';
+
     this.getCaseStudiesList();
     this.getCategoryList();
     // this.selectedCasestudy = 'https://f005.backblazeb2.com/file/west-get-it-hub-1/files/1732522549232_Case Study Template.docx';
@@ -86,7 +93,7 @@ export class CaseStudiesComponent {
 
   getCaseStudiesList() {
     this.showLoader = true;
-    this.supplierService.getCaseStudyList().subscribe((response) => {
+    this.supplierService.getCaseStudyList(this.currentUserId).subscribe((response) => {
       this.caseStudyList = [];
       this.totalRecords = response?.data?.meta_data?.items;
       if (response?.status == true) {

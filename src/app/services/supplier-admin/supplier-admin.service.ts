@@ -70,9 +70,13 @@ export class SupplierAdminService {
   }
 
 
-  getCaseStudyList(): Observable<any> {
+  getCaseStudyList(userId?: string): Observable<any> {
+    let params = new HttpParams();
+    if (userId) {
+      params = params.set('userId', userId);
+    }
     return this.httpClient
-      .get<any>(this.baseUrl + SupplierAdminEndPoint.CASE_STUDY_LIST);
+      .get<any>(this.baseUrl + SupplierAdminEndPoint.CASE_STUDY_LIST, { params });
   }
 
   getManageUserList(): Observable<any> {
