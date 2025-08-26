@@ -17,6 +17,7 @@ export enum ProjectEndPoint {
   UPDATE_PROJECTMANAGER_SUPPLIER_STATUS = '/project/add-status',
   CONTACT_MAIL_SEND = '/project/mail-send',
   PROJECT_STRIP_LIST = '/project-detail-title/list',
+  UPDATE_PROJECT_DETAIL_TITLE = '/project-detail-title/update/',
 }
 
 @Injectable({
@@ -179,5 +180,10 @@ export class ProjectService {
     return this.httpClient
       .patch<any>(this.baseUrl + `${ProjectEndPoint.UPDATE_MANAGER}${supplierId}`, payload, {
       });
+  }
+
+  updateProjectDetailTitle(stripId: string, payload: any): Observable<any> {
+    return this.httpClient
+      .patch<any>(this.baseUrl + ProjectEndPoint.UPDATE_PROJECT_DETAIL_TITLE + stripId, payload);
   }
 }

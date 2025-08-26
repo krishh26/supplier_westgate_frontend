@@ -220,12 +220,36 @@ export class ProjectsDetailsComponent {
     this.superadminService.registerInterest(payload).subscribe((response) => {
       if (response?.status) {
         this.notificationService.showSuccess('Interest registered successfully!');
+        // Reload the page after successful API call
+        window.location.reload();
       } else {
         return this.notificationService.showError(response?.message);
       }
     }, (error) => {
       return this.notificationService.showError(error?.error?.message || 'Something went wrong !');
     })
+  }
+
+  updateStripStatus(stripId: string, status: 'approved' | 'rejected') {
+    const payload = {
+      projectId: this.projectId,
+      status: status
+    };
+
+    this.projectService.updateProjectDetailTitle(stripId, payload).subscribe(
+      (response) => {
+        if (response?.status) {
+          this.notificationService.showSuccess(`Strip status ${status} successfully!`);
+          // Reload the page to reflect changes
+          window.location.reload();
+        } else {
+          this.notificationService.showError(response?.message || 'Failed to update strip status');
+        }
+      },
+      (error) => {
+        this.notificationService.showError(error?.error?.message || 'Something went wrong!');
+      }
+    );
   }
 
   isPdf(url: string): boolean {
