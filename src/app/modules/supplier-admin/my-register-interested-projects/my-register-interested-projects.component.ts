@@ -226,7 +226,7 @@ export class MyRegisterInterestedProjectsComponent implements OnInit {
 
 
   projectDetails(projectId: any) {
-    this.router.navigate(['/supplier-admin/projects-details'], { queryParams: { id: projectId, type: 2 } });
+    this.router.navigate(['/supplier-admin/projects-details'], { queryParams: { id: projectId, type: 2, source: 'my-register-interested' } });
   }
 
   paginate(page: number) {

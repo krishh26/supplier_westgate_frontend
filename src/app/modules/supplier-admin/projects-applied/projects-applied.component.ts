@@ -48,7 +48,7 @@ export class ProjectsAppliedComponent implements OnInit {
       if (response?.status == true) {
         this.showLoader = false;
         this.projectList = response?.data?.data;
-       
+
       } else {
         this.notificationService.showError(response?.message);
         this.showLoader = false;
@@ -60,7 +60,7 @@ export class ProjectsAppliedComponent implements OnInit {
   }
 
   projectDetails(projectId: any) {
-    this.router.navigate(['/supplier-admin/projects-details'], { queryParams: { id: projectId } });
+    this.router.navigate(['/supplier-admin/projects-details'], { queryParams: { id: projectId, type: 2, source: 'applied' } });
   }
 
   paginate(page: number) {

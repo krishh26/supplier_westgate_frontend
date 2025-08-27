@@ -26,6 +26,7 @@ export class ProjectsDetailsComponent {
   summaryquestionList: any;
   uploadedDocument: any;
   pageType: number = 2;
+  source: string = '';
   selectViewImage: any;
   projectStrips: any = [];
   imageFields = [{ text: '', file: null }];
@@ -42,6 +43,7 @@ export class ProjectsDetailsComponent {
     this.route.queryParams.subscribe((params) => {
       this.projectId = params['id'];
       this.pageType = Number(params['type']) || 2;
+      this.source = params['source'] || '';
     });
 
     this.loginUser = this.localStorageService.getLogger();
@@ -87,7 +89,7 @@ export class ProjectsDetailsComponent {
   }
 
   backPage() {
-    this.router.navigate(['/supplier-admin/project-list'], { queryParams: { type: Number(this.pageType) } });
+    this.router.navigate(['/supplier-admin/project-list'], { queryParams: { type: Number(this.pageType), source: this.source } });
   }
 
   openViewImage(image: any) {
