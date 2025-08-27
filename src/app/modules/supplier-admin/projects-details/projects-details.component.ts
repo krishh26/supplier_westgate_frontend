@@ -49,7 +49,7 @@ export class ProjectsDetailsComponent {
 
   ngOnInit(): void {
     this.getProjectDetails();
-    this.getSummaryQuestion()
+    // this.getSummaryQuestion()
     this.getProjectStrips();
   }
 
