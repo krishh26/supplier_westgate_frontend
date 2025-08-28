@@ -154,12 +154,18 @@ export class MyRegisterInterestedProjectsComponent implements OnInit {
   }
 
   getProjectList() {
+    if (!this.loginUser?._id) {
+      this.notificationService.showError('User not logged in');
+      return;
+    }
+    console.log(this.loginUser._id);
+
     this.showLoader = true;
     this.payload.keyword = this.searchText;
     this.payload.page = String(this.page);
     this.payload.limit = String(this.pagesize);
     this.payload.expired = true;
-    this.payload.supplierId = '686ba16079ce6ef14f43c599'; // Fixed supplier ID as requested
+    this.payload.supplierId = this.loginUser._id; // Using logged-in user's ID
     this.superService.getSupplierInterestedProjects(this.payload).subscribe((response) => {
       this.projectList = [];
       this.totalRecords = response?.meta_data?.items;
@@ -184,6 +190,10 @@ export class MyRegisterInterestedProjectsComponent implements OnInit {
   }
 
   searchtext() {
+    if (!this.loginUser?._id) {
+      this.notificationService.showError('User not logged in');
+      return;
+    }
     this.showLoader = true;
     this.payload.keyword = this.searchText;
     this.payload.page = String(this.page);
@@ -192,7 +202,7 @@ export class MyRegisterInterestedProjectsComponent implements OnInit {
     this.payload.SubmissionDueDateRange = (this.submissionStartDate.value && this.submissionEndDate.value) ? `${this.submissionStartDate.value.year}-${this.submissionStartDate.value.month}-${this.submissionStartDate.value.day} , ${this.submissionEndDate.value.year}-${this.submissionEndDate.value.month}-${this.submissionEndDate.value.day}` : '';
     this.payload.valueRange = this.minValue + '-' + this.maxValue;
     this.payload.expired = this.isExpired;
-    this.payload.supplierId = '686ba16079ce6ef14f43c599'; // Fixed supplier ID as requested
+    this.payload.supplierId = this.loginUser._id; // Using logged-in user's ID
     this.superService.getSupplierInterestedProjects(this.payload).subscribe((response) => {
       this.projectList = [];
       this.totalRecords = response?.meta_data?.items;
