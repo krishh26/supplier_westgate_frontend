@@ -102,30 +102,9 @@
               </div>
             </div>
           </div>
-
-          <!-- <div *ngIf="item.type === 'Image'" class="text-end">
-            <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
-              [attr.data-bs-target]="'#imageModal_' + item._id">
-              <i class="bi bi-plus-circle me-1"></i>Add
-            </button>
-          </div> -->
         </div>
       </div>
 
-
-      <!-- <div class="card mb-4">
-        <div class="card-header">
-         <h6>Documents</h6>
-        </div>
-        <div class="card-body">
-          <p>Document not available</p>
-        </div>
-      </div> -->
-      <!-- <section class="pageheader bg-dark">
-        <div class="container">
-          <p><strong>Project Description</strong></p>
-        </div>
-      </section><br> -->
       <div *ngIf="pageType === 2" class="alert alert-warning" role="alert">
         ⚠ Important Notice :
         Project documents will be visible only if your company is shortlisted.
@@ -139,9 +118,6 @@
         <div class="col-lg-6 col-xl-6 col-md-6 col-12 mob-mb1">
           <h5>Client Documents</h5>
           <div class="card">
-            <!-- Warning message when coming from projects-all page -->
-
-            <!-- Document list only shown when not coming from projects-all page -->
             <ul *ngIf="pageType !== 2" class="project-document">
               <ng-container *ngIf="projectDetails?.clientDocument?.length > 0">
                 <li *ngFor="let clientdocument of projectDetails?.clientDocument">
@@ -174,17 +150,6 @@
         <div class="col-lg-6 col-xl-6 col-md-6 col-12">
           <h5>WestGate Documents</h5>
           <div class="card">
-            <!-- Warning message when coming from projects-all page -->
-            <!-- <div *ngIf="pageType === 2" class="alert alert-warning" role="alert">
-              ⚠ Important Notice :
-              Project documents will be visible only if your company is shortlisted.
-
-              If you're interested in bidding and believe you meet the minimum eligibility — specifically, the ability to
-              provide two relevant case studies from similar past projects — please register your interest.
-
-              Our team will review your submission and respond within 24 hours (Monday to Friday).
-            </div> -->
-            <!-- Document list only shown when not coming from projects-all page -->
             <ul *ngIf="pageType !== 2" class="project-document">
               <ng-container *ngIf="projectDetails?.westGetDocument?.length > 0">
                 <li *ngFor="let westGetDocument of projectDetails?.westGetDocument">
@@ -216,6 +181,61 @@
         </div>
       </div>
 
+             <!-- Minimum Requirements Section - Only show when coming from shortlisted page -->
+       <div class="card mb-4" *ngIf="source !== 'all-projects' && projectDetails?.minimalRequirement">
+         <div class="card-header">
+           <h6>Mandatory requirements (Minimum eligibility criteria)</h6>
+         </div>
+         <div class="card-body">
+           <div class="row">
+             <div class="col-lg-8 col-xl-8 col-md-8 col-sm-12 col-12">
+               <div class="mb-3">
+                 <label class="form-label fw-bold">Title:</label>
+                 <p class="mb-3">{{ projectDetails?.minimalRequirement?.text || 'No title available' }}</p>
+               </div>
+
+               <div class="mb-3">
+                 <label class="form-label fw-bold">Description:</label>
+                 <div [innerHTML]="projectDetails?.minimalRequirement?.description || 'No description available'"></div>
+               </div>
+             </div>
+
+             <div class="col-lg-4 col-xl-4 col-md-4 col-sm-12 col-12">
+               <div class="mb-3">
+                 <label class="form-label fw-bold">Created Date:</label>
+                 <p class="mb-3">{{ projectDetails?.minimalRequirement?.createdAt | date: 'dd/MM/yyyy hh:mm a' }}</p>
+               </div>
+             </div>
+           </div>
+
+                       <!-- Action Buttons -->
+            <div class="row mt-4">
+              <div class="col-12">
+                <!-- Show action buttons only if user hasn't responded yet -->
+                <div class="d-flex gap-3" *ngIf="!hasUserResponded()">
+                  <button class="btn btn-success" (click)="approveMinimalRequirement()">
+                    <i class="bi bi-check-circle-fill me-2"></i>Approve
+                  </button>
+                  <button class="btn btn-danger" (click)="rejectMinimalRequirement()">
+                    <i class="bi bi-x-circle-fill me-2"></i>Reject
+                  </button>
+                </div>
+
+                <!-- Show status button if user has already responded -->
+                <div *ngIf="hasUserResponded()">
+                  <button class="btn btn-secondary" disabled>
+                    <i class="bi me-2" [class.bi-check-circle-fill]="getUserResponseStatus() === 'approved'" [class.bi-x-circle-fill]="getUserResponseStatus() === 'rejected'"></i>
+                    {{ getUserResponseStatus() === 'approved' ? 'Approved' : 'Rejected' }}
+                  </button>
+                  <small class="text-muted d-block mt-2">
+                    Responded on: {{ getUserResponseDate() | date: 'dd/MM/yyyy hh:mm a' }}
+                  </small>
+                </div>
+              </div>
+            </div>
+         </div>
+       </div>
+
       <div class="card mb-4" *ngIf="source !== 'all-projects'">
         <div class="card-header">
           <h6>Bid Manager Details</h6>
@@ -245,8 +265,7 @@
                   <p class="mb-2">
                     <span class="badge"
                       [ngClass]="projectDetails?.interestedSuppliers?.[0]?.attendee ? 'badge-success' : 'badge-danger'">
-                      {{ projectDetails?.interestedSuppliers?.[0]?.attendee ? 'Yes' : 'No' }}
-                    </span>
+                      {{ projectDetails?.interestedSuppliers?.[0]?.attendee ? 'Yes' : 'No' }}</span>
                   </p>
                 </div>
               </div>
@@ -260,70 +279,10 @@
         </div>
       </div>
       <div class="row mt-5">
-        <!-- <div class="col-lg-4 col-xl-4 col-12 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-lg-4 col-xl-4 col-12">
-                                    <h6 class="text-theme"><strong>Client Detils</strong></h6>
-                                </div>
-                                <div class="col-lg-7 col-xl-7 col-12">
-                                    <p class="p-13 mb-0">Mail ID : {{projectDetails?.mailID}}</p>
-                                    <p class="p-13 mb-0">Client Type : {{projectDetails?.clientType}}</p>
-                                    <p class="p-13 mb-0">Client Name : {{projectDetails?.clientName}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-        <!-- <div class="col-lg-4 col-xl-4 col-12 mb-4">
-                    <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
-                        <p class="mb-0">FOI Document</p>
-                    </div>
-                    <div class="row align-items-center" *ngIf="projectDetails?.fois?.length == 0">
-                        <div class="col-lg-12 col-xl-12 col-12 mob-mb1">
-                            <p class="mb-0">No Record Found.</p>
-                        </div>
-                    </div>
-                    <ng-container *ngIf="projectDetails?.fois?.length > 0">
-                        <div class="row align-items-center" *ngFor="let foiDocument of projectDetails?.fois">
-                            <div class="col-lg-4 col-xl-4 col-12 mob-mb1">
-                                <p class="mb-0">{{ foiDocument?.name }}</p>
-                            </div>
-                            <div class="col-lg-4 col-xl-4 col-6">
-                                <a (click)="openDocument(foiDocument)" class="btn btn-small w-100"
-                                    data-bs-toggle="modal" data-bs-target="#ViewDocumentModal"><i
-                                        class="bi bi-eye-fill"></i> View</a>
-                            </div>
-                            <div class="col-lg-4 col-xl-4 col-6">
-                                <a style="
-                              padding-left: 0 !important;
-                              padding-right: 0px !important;
-                            " (click)="
-                              download(foiDocument?.link?.url, foiDocument?.name)
-                            " target="_blank" class="btn btn-small w-100"><i
-                                        class="bi bi-file-earmark-arrow-down-fill"></i>
-                                    Download</a>
-                            </div>
-                        </div>
-                    </ng-container>
-                </div> -->
-        <!-- <div class="col-lg-4 col-xl-4 col-12 mb-4">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <p class="p-13"><strong>Period of Contract: {{projectDetails?.periodOfContractStart | date :
-                                    'dd/MM/yyyy'}} - {{projectDetails?.periodOfContractEnd | date :
-                                    'dd/MM/yyyy'}}</strong></p>
-                            <p class="p-13"><strong>Project Type: {{projectDetails?.projectType}}</strong></p>
-                        </div>
-                    </div>
-                </div> -->
       </div>
 
          </div>
    </section>
-
-
 
 </main>
 
@@ -337,8 +296,9 @@
       </div>
       <div class="col-md-4 text-end">
         <button class="btn btn-sm px-3 py-2 register-btn" [class.btn-success]="!projectDetails?.register_interest"
-          [class.btn-secondary]="projectDetails?.register_interest" (click)="registerInterest()"
-          [disabled]="projectDetails?.status === 'Closed' || projectDetails?.register_interest">
+          [class.btn-secondary]="projectDetails?.register_interest" (click)="showMinimalRequirements()"
+          [disabled]="projectDetails?.status === 'Closed' || projectDetails?.register_interest"
+          data-bs-toggle="modal" data-bs-target="#minimalRequirementsModal">
           <i class="bi me-2" [class.bi-bookmark-heart-fill]="!projectDetails?.register_interest"
             [class.bi-check-circle-fill]="projectDetails?.register_interest"></i>
           <strong>{{ projectDetails?.register_interest ? 'Interest Registered' : 'Register Interest' }}</strong>
@@ -378,7 +338,6 @@
     </div>
   </div>
 </div>
-
 
 <!-- Document -->
 <div class="modal fade" id="ViewDocuments" tabindex="-1" aria-labelledby="viewDocument" aria-hidden="true">
@@ -462,32 +421,23 @@
   </div>
 </div>
 
-
-<!-- Document -->
-<div class="modal fade" id="ViewDocuments" tabindex="-1" aria-labelledby="viewDocument" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+<!-- Minimal Requirements Modal -->
+<div class="modal fade" id="minimalRequirementsModal" tabindex="-1" aria-labelledby="minimalRequirementsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header" style="display: flex; justify-content: space-between;">
-        <h5 class="modal-title" id="viewDocument">Document</h5>
+      <div class="modal-header">
+        <h5 class="modal-title" id="minimalRequirementsModalLabel">Minimal Requirements</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="alert alert-danger" role="alert">
-        ⚠ Important Notice : If you are unable to view any documents, please note that the files may
-        have been uploaded as a ZIP file. Kindly download the ZIP file to access the documents.
-      </div>
       <div class="modal-body">
-        <ng-container *ngIf="isPdf(uploadedDocument?.url); else noDocument">
-          <ngx-extended-pdf-viewer [src]="uploadedDocument?.url" useBrowserLocale="true"
-            height="600px"></ngx-extended-pdf-viewer>
-        </ng-container>
-        <ng-template #noDocument>
-          <iframe *ngIf="isWordOrExcel(uploadedDocument?.url)" [src]="getDocumentViewerUrl(uploadedDocument?.url)"
-            style="width: 100%; height: 600px;"></iframe>
-          <img *ngIf="isImage(uploadedDocument?.url)" [src]="uploadedDocument?.url" class="img-fluid" />
-        </ng-template>
+        <div class="mb-3">
+          <h6>{{ projectDetails?.minimalRequirement?.text }}</h6>
+          <div [innerHTML]="projectDetails?.minimalRequirement?.description"></div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="confirmRegisterInterest()" data-bs-dismiss="modal">Confirm Interest</button>
       </div>
     </div>
   </div>

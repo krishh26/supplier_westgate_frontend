@@ -18,6 +18,7 @@ export enum ProjectEndPoint {
   CONTACT_MAIL_SEND = '/project/mail-send',
   PROJECT_STRIP_LIST = '/project-detail-title/list',
   UPDATE_PROJECT_DETAIL_TITLE = '/project-detail-title/update/',
+  RESPOND_MINIMAL_REQUIREMENT = '/project/minimal-requirement/respond',
 }
 
 @Injectable({
@@ -185,5 +186,10 @@ export class ProjectService {
   updateProjectDetailTitle(stripId: string, payload: any): Observable<any> {
     return this.httpClient
       .patch<any>(this.baseUrl + ProjectEndPoint.UPDATE_PROJECT_DETAIL_TITLE + stripId, payload);
+  }
+
+  respondToMinimalRequirement(projectId: string, payload: any): Observable<any> {
+    return this.httpClient
+      .post<any>(this.baseUrl + ProjectEndPoint.RESPOND_MINIMAL_REQUIREMENT.replace('/project/', `/project/${projectId}/`), payload);
   }
 }

@@ -214,7 +214,12 @@ export class ProjectsDetailsComponent {
     })
   }
 
-  registerInterest() {
+  showMinimalRequirements() {
+    // This method is called when the Register Interest button is clicked
+    // The modal will be shown automatically due to data-bs-toggle="modal"
+  }
+
+  confirmRegisterInterest() {
     const payload = {
       userId: this.loginUser.id,
       projectId: this.projectId
@@ -230,6 +235,77 @@ export class ProjectsDetailsComponent {
     }, (error) => {
       return this.notificationService.showError(error?.error?.message || 'Something went wrong !');
     })
+  }
+
+  approveMinimalRequirement() {
+    const payload = {
+      status: "approved"
+    };
+
+    this.projectService.respondToMinimalRequirement(this.projectId, payload).subscribe((response) => {
+      if (response?.status) {
+        this.notificationService.showSuccess('Minimal requirement approved successfully!');
+        // Reload the page to reflect changes
+        this.getProjectDetails();
+      } else {
+        this.notificationService.showError(response?.message || 'Failed to approve minimal requirement');
+      }
+    }, (error) => {
+      this.notificationService.showError(error?.error?.message || 'Something went wrong!');
+    });
+  }
+
+    rejectMinimalRequirement() {
+    const payload = {
+      status: "rejected"
+    };
+
+    this.projectService.respondToMinimalRequirement(this.projectId, payload).subscribe((response) => {
+      if (response?.status) {
+        this.notificationService.showSuccess('Minimal requirement rejected successfully!');
+        // Reload the page to reflect changes
+        this.getProjectDetails();
+      } else {
+        this.notificationService.showError(response?.message || 'Failed to reject minimal requirement');
+      }
+    }, (error) => {
+      this.notificationService.showError(error?.error?.message || 'Something went wrong!');
+    });
+  }
+
+  // Helper methods for button conditional display
+  hasUserResponded(): boolean {
+    if (!this.projectDetails?.supplierResponses || !this.loginUser?.id) {
+      return false;
+    }
+
+    return this.projectDetails.supplierResponses.some((response: any) =>
+      response.supplierId === this.loginUser.id
+    );
+  }
+
+  getUserResponseStatus(): string | null {
+    if (!this.projectDetails?.supplierResponses || !this.loginUser?.id) {
+      return null;
+    }
+
+    const userResponse = this.projectDetails.supplierResponses.find((response: any) =>
+      response.supplierId === this.loginUser.id
+    );
+
+    return userResponse ? userResponse.status : null;
+  }
+
+  getUserResponseDate(): string | null {
+    if (!this.projectDetails?.supplierResponses || !this.loginUser?.id) {
+      return null;
+    }
+
+    const userResponse = this.projectDetails.supplierResponses.find((response: any) =>
+      response.supplierId === this.loginUser.id
+    );
+
+    return userResponse ? userResponse.respondedAt : null;
   }
 
   updateStripStatus(stripId: string, status: 'approved' | 'rejected') {
