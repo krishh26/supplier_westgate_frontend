@@ -166,6 +166,7 @@ export class MyRegisterInterestedProjectsComponent implements OnInit {
     this.payload.limit = String(this.pagesize);
     this.payload.expired = true;
     this.payload.supplierId = this.loginUser._id; // Using logged-in user's ID
+    this.payload.queryRaised = false;
     this.superService.getSupplierInterestedProjects(this.payload).subscribe((response) => {
       this.projectList = [];
       this.totalRecords = response?.meta_data?.items;
@@ -203,6 +204,7 @@ export class MyRegisterInterestedProjectsComponent implements OnInit {
     this.payload.valueRange = this.minValue + '-' + this.maxValue;
     this.payload.expired = this.isExpired;
     this.payload.supplierId = this.loginUser._id; // Using logged-in user's ID
+    this.payload.queryRaised = false;
     this.superService.getSupplierInterestedProjects(this.payload).subscribe((response) => {
       this.projectList = [];
       this.totalRecords = response?.meta_data?.items;

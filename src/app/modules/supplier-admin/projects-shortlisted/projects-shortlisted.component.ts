@@ -129,6 +129,7 @@ export class ProjectsShortlistedComponent implements OnInit {
     this.payload.sortlist = true;
     this.payload.status = 'Passed';
     this.payload.expired = true;
+    this.payload.queryRaised = false;
     //  // this.payload.match = 'partial';
     // this.payload.bidManagerStatus = 'Awaiting'
     this.projectService.getProjectList(this.payload).subscribe((response) => {
@@ -183,6 +184,7 @@ export class ProjectsShortlistedComponent implements OnInit {
     this.payload.SubmissionDueDateRange = (this.submissionStartDate.value && this.submissionEndDate.value) ? `${this.submissionStartDate.value.year}-${this.submissionStartDate.value.month}-${this.submissionStartDate.value.day} , ${this.submissionEndDate.value.year}-${this.submissionEndDate.value.month}-${this.submissionEndDate.value.day}` : '';
     this.payload.valueRange = this.minValue + '-' + this.maxValue;
     this.payload.expired = this.isExpired;
+    this.payload.queryRaised = false;
     this.projectService.getProjectList(this.payload).subscribe((response) => {
       this.projectList = [];
       this.totalRecords = response?.data?.meta_data?.items;

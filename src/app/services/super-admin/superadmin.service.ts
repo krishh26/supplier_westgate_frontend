@@ -704,6 +704,9 @@ export class SuperadminService {
     if (params?.supplierId) {
       queryParams = queryParams.set('supplierId', params.supplierId);
     }
+    if (params?.queryRaised !== undefined) {
+      queryParams = queryParams.set('queryRaised', params.queryRaised);
+    }
 
     return this.httpClient.get<any>(
       this.baseUrl + SuperAdminEndPoint.SUPPLIER_INTERESTED_PROJECTS,

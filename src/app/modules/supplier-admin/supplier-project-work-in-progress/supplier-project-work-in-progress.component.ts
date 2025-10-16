@@ -166,6 +166,7 @@ export class SupplierProjectWorkInProgressComponent {
     this.payload.SubmissionDueDateRange = (this.submissionStartDate.value && this.submissionEndDate.value) ? `${this.submissionStartDate.value.year}-${this.submissionStartDate.value.month}-${this.submissionStartDate.value.day} , ${this.submissionEndDate.value.year}-${this.submissionEndDate.value.month}-${this.submissionEndDate.value.day}` : '';
     this.payload.valueRange = this.minValue + '-' + this.maxValue;
     this.payload.expired = this.isExpired;
+    this.payload.queryRaised = false;
     this.projectService.getProjectList(this.payload).subscribe((response) => {
       this.projectList = [];
       this.totalRecords = response?.data?.meta_data?.items;
@@ -244,6 +245,7 @@ export class SupplierProjectWorkInProgressComponent {
     // this.payload.match = "partial";
     this.payload.supplierId = this.loginUser?._id
     this.payload.bidManagerStatus = "InSolution,WaitingForResult";
+    this.payload.queryRaised = false;
     this.projectService.getProjectList(this.payload).subscribe((response) => {
       this.projectList = [];
       this.totalRecords = response?.data?.meta_data?.items;

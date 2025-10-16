@@ -55,7 +55,8 @@ export class ProjectService {
     expired?: boolean,
     supplierStatus?: string,
     workInProgress?: string,
-    bidManagerStatus?: string
+    bidManagerStatus?: string,
+    queryRaised?: boolean
 
   }): Observable<any> {
     const url = `${this.baseUrl}${ProjectEndPoint.PROJECT_LIST}`;
@@ -112,6 +113,9 @@ export class ProjectService {
       queryParams = queryParams.set('selectedSupplier', params?.selectedSupplier);
     } if (params?.expired) { // Add this condition
       queryParams = queryParams.set('expired', params?.expired);
+    }
+    if (params?.queryRaised !== undefined) {
+      queryParams = queryParams.set('queryRaised', params?.queryRaised);
     }
     return this.httpClient.get<any>(url, { params: queryParams });
   }
