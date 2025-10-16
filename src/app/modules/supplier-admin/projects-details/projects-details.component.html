@@ -196,7 +196,18 @@
 
                <div class="mb-3">
                  <label class="form-label fw-bold">Description:</label>
-                 <div [innerHTML]="projectDetails?.minimalRequirement?.description || 'No description available'"></div>
+                 <div class="description-container">
+                   <div class="description-text"
+                        [class.truncated]="!isDescriptionExpanded"
+                        [class.expanded]="isDescriptionExpanded"
+                        [innerHTML]="projectDetails?.minimalRequirement?.description || 'No description available'">
+                   </div>
+                   <button class="view-more-btn"
+                           (click)="toggleDescriptionView()"
+                           *ngIf="projectDetails?.minimalRequirement?.description">
+                     {{ isDescriptionExpanded ? 'View Less' : 'View More' }}
+                   </button>
+                 </div>
                </div>
              </div>
 

@@ -172,3 +172,48 @@ ul.ProjectdetailsListview li p.text-muted {
     margin-bottom: 1rem;
   }
 }
+
+/* View More/Less functionality for mandatory requirements description */
+.description-container {
+  position: relative;
+}
+
+.description-text {
+  line-height: 1.5;
+  transition: all 0.3s ease;
+
+  &.truncated {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &.expanded {
+    display: block;
+  }
+}
+
+.view-more-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0;
+  margin-top: 0.5rem;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #0056b3;
+    text-decoration: none;
+  }
+
+  &:focus {
+    outline: none;
+    text-decoration: underline;
+  }
+}

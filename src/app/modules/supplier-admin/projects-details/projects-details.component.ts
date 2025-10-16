@@ -31,6 +31,9 @@ export class ProjectsDetailsComponent {
   projectStrips: any = [];
   imageFields = [{ text: '', file: null }];
 
+  // View more/less functionality for mandatory requirements description
+  isDescriptionExpanded: boolean = false;
+
   constructor(
     private projectService: ProjectService,
     private notificationService: NotificationService,
@@ -348,6 +351,11 @@ export class ProjectsDetailsComponent {
       return this.sanitizer.bypassSecurityTrustResourceUrl(officeUrl);
     }
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  // Toggle description view for mandatory requirements
+  toggleDescriptionView() {
+    this.isDescriptionExpanded = !this.isDescriptionExpanded;
   }
 
 }
