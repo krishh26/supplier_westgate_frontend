@@ -358,4 +358,15 @@ export class ProjectsDetailsComponent {
     this.isDescriptionExpanded = !this.isDescriptionExpanded;
   }
 
+  // Check if current user has registered interest
+  hasUserRegisteredInterest(): boolean {
+    if (!this.projectDetails?.interestedSuppliers || !this.loginUser?.id) {
+      return false;
+    }
+
+    return this.projectDetails.interestedSuppliers.some((supplier: any) =>
+      supplier.supplierId === this.loginUser.id
+    );
+  }
+
 }

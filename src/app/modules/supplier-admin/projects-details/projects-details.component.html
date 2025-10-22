@@ -310,13 +310,13 @@
         <small class="text-muted">Due Date: {{ projectDetails?.dueDate | date : "dd/MM/yyyy" }}</small>
       </div>
       <div class="col-md-4 text-end">
-        <button class="btn btn-sm px-3 py-2 register-btn" [class.btn-success]="!projectDetails?.register_interest"
-          [class.btn-secondary]="projectDetails?.register_interest" (click)="showMinimalRequirements()"
-          [disabled]="projectDetails?.status === 'Closed' || projectDetails?.register_interest"
+        <button class="btn btn-sm px-3 py-2 register-btn" [class.btn-success]="!hasUserRegisteredInterest()"
+          [class.btn-secondary]="hasUserRegisteredInterest()" (click)="showMinimalRequirements()"
+          [disabled]="projectDetails?.status === 'Closed' || hasUserRegisteredInterest()"
           data-bs-toggle="modal" data-bs-target="#minimalRequirementsModal">
-          <i class="bi me-2" [class.bi-bookmark-heart-fill]="!projectDetails?.register_interest"
-            [class.bi-check-circle-fill]="projectDetails?.register_interest"></i>
-          <strong>{{ projectDetails?.register_interest ? 'Interest Registered' : 'Register Interest' }}</strong>
+          <i class="bi me-2" [class.bi-bookmark-heart-fill]="!hasUserRegisteredInterest()"
+            [class.bi-check-circle-fill]="hasUserRegisteredInterest()"></i>
+          <strong>{{ hasUserRegisteredInterest() ? 'Interest Registered' : 'Register Interest' }}</strong>
         </button>
       </div>
     </div>
