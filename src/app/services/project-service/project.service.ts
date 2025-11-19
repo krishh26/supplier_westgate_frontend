@@ -111,7 +111,8 @@ export class ProjectService {
     }
     if (params?.selectedSupplier) { // Add this condition
       queryParams = queryParams.set('selectedSupplier', params?.selectedSupplier);
-    } if (params?.expired) { // Add this condition
+    }
+    if (params?.expired !== undefined && params?.expired !== null) {
       queryParams = queryParams.set('expired', params?.expired);
     }
     if (params?.queryRaised !== undefined) {
