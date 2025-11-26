@@ -1,6 +1,13 @@
 
   .gray-body {
     background-color: #f5f5f5;
+    min-height: 100vh;
+    padding: 1.5rem 0 2.5rem;
+    display: flex;
+  }
+
+  .gray-body .container {
+    flex: 1;
   }
 
   .custom-card {
@@ -11,6 +18,7 @@
     position: relative;
     margin-block-end: 1.5rem;
     width: 100%;
+    overflow: visible;
   }
 
   .custom-card .card-header {
